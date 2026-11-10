@@ -1,7 +1,8 @@
 ZAINO HERO - come pubblicarla
-1. Carica TUTTA la cartella su un hosting https (GitHub Pages, Netlify, Vercel...). Serve https per fotocamera e installazione.
-2. Apri il link dal telefono: Android -> "Installa"; iPhone -> Condividi -> "Aggiungi alla schermata Home".
-3. Dopo ogni modifica ai file cambia VERSION in sw.js: i telefoni mostreranno "Nuova versione pronta".
+1. Estrai lo ZIP mantenendo index.html, app.js, manifest.json, sw.js e le cartelle img/ e icons/ allo stesso livello.
+2. Carica TUTTA la cartella su un hosting HTTPS (GitHub Pages, Netlify, Vercel...). Non aprire index.html direttamente dallo ZIP o come file locale.
+3. Apri il link dal telefono e premi «Installa app»; su iPhone: Safari -> Condividi -> «Aggiungi alla schermata Home». Il browser chiede sempre conferma.
+4. Dopo ogni modifica ai file cambia VERSION in sw.js: i telefoni mostreranno "Nuova versione pronta".
 I dati del vecchio Zaino Hero (orario, materie, foto) vengono ripresi in automatico se si apre dallo stesso indirizzo.
 Fai ogni tanto "Salva copia dei dati" nelle impostazioni.
 

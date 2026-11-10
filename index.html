@@ -5,32 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zaino Hero</title>
 <meta name="description" content="La checklist giornaliera dello zaino di scuola">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
 <meta name="theme-color" content="#0f172a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <div class="brand">
-      <img class="logo" src="img/zaino.webp" alt="" width="46" height="46">
+      <img class="logo" src="./img/zaino.webp" alt="" width="46" height="46">
       <div>
         <h1>Zaino Hero</h1>
         <p id="profile-line" class="muted small"></p>
       </div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-accent" id="btn-scan" type="button"><img class="ico" src="img/scanner.webp" alt="" width="26" height="26"> Scansiona</button>
+      <button class="btn btn-accent" id="btn-scan" type="button"><img class="ico" src="./img/scanner.webp" alt="" width="26" height="26"> Scansiona</button>
       <button class="btn btn-icon" id="btn-mute" type="button" aria-label="Audio attivo" aria-pressed="false">🔊</button>
       <span id="net" class="pill pill-ok" role="status">Online</span>
-      <button class="btn btn-primary hidden" id="btn-install" type="button">⬇ Installa</button>
+      <button class="btn btn-primary" id="btn-install" type="button">📲 Installa app</button>
     </div>
   </div>
 </header>
@@ -45,7 +45,7 @@
         <p id="hero-sub" class="muted small"></p>
       </div>
       <div id="hero-pct" class="pct" aria-live="polite">0%</div>
-      <img id="hero-trophy" class="trophy hidden" src="img/trophy.webp" alt="Coppa: zaino pronto!" width="84" height="84">
+      <img id="hero-trophy" class="trophy hidden" src="./img/trophy.webp" alt="Coppa: zaino pronto!" width="84" height="84">
     </div>
     <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar">
       <div id="bar-fill"></div>
@@ -56,7 +56,7 @@
     </div>
     <div class="row gap">
       <button class="btn btn-soft grow" id="btn-read" type="button">🔊 Leggi cosa manca</button>
-      <button class="btn btn-soft grow" id="btn-ai" type="button"><img class="ico" src="img/robot.webp" alt="" width="26" height="26"> Assistente</button>
+      <button class="btn btn-soft grow" id="btn-ai" type="button"><img class="ico" src="./img/robot.webp" alt="" width="26" height="26"> Assistente</button>
     </div>
   </section>
 
@@ -158,10 +158,24 @@
   </div>
 </dialog>
 
+<!-- Installazione PWA -->
+<dialog id="dlg-install" aria-labelledby="install-title">
+  <div class="dlg-in stack">
+    <div class="row between">
+      <h3 id="install-title">📲 Installa Zaino Hero</h3>
+      <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
+    </div>
+    <p id="install-status" class="status" role="status" aria-live="polite"></p>
+    <ol id="install-steps" class="install-steps"></ol>
+    <p class="muted small">Il browser chiederà sempre una conferma: le app web non possono installarsi da sole. Estrai e carica tutto lo ZIP, incluse le cartelle <strong>img</strong> e <strong>icons</strong>.</p>
+    <button class="btn btn-soft" data-close type="button">Chiudi</button>
+  </div>
+</dialog>
+
 <!-- Scanner -->
 <dialog id="dlg-scan" aria-labelledby="scan-title">
   <div class="dlg-in stack">
-    <div class="row between"><div class="row gap"><img class="ico-lg" src="img/scanner.webp" alt="" width="40" height="40"><h3 id="scan-title">Scansiona un libro</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
+    <div class="row between"><div class="row gap"><img class="ico-lg" src="./img/scanner.webp" alt="" width="40" height="40"><h3 id="scan-title">Scansiona un libro</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
     <p class="muted small">Inquadra il <strong>codice a barre</strong> sul retro del libro (ISBN). Se il libro è nuovo lo cerco su Internet e lo aggiungo; se lo conosco lo spunto da solo.</p>
     <div class="video-box"><video id="scan-video" autoplay playsinline muted></video><div class="laser"></div></div>
     <div id="scan-status" class="status" role="status" aria-live="polite">Avvio fotocamera…</div>
@@ -212,7 +226,7 @@
 <!-- Assistente -->
 <dialog id="dlg-ai" aria-labelledby="ai-title">
   <div class="dlg-in chat">
-    <div class="row between"><div class="row gap"><img class="ico-lg" src="img/robot.webp" alt="" width="40" height="40"><h3 id="ai-title">Assistente dello zaino</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
+    <div class="row between"><div class="row gap"><img class="ico-lg" src="./img/robot.webp" alt="" width="40" height="40"><h3 id="ai-title">Assistente dello zaino</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
     <div id="chat" class="scroll grow small" aria-live="polite"></div>
     <div class="row gap">
       <input id="ai-input" type="text" placeholder="Es. Cosa porto domani?" autocomplete="off" aria-label="Domanda">
@@ -224,6 +238,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>

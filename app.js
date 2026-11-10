@@ -1081,15 +1081,73 @@ function netStatus() {
   n.textContent = on ? 'Online' : 'Offline'; n.className = 'pill ' + (on ? 'pill-ok' : 'pill-off');
 }
 addEventListener('online', netStatus); addEventListener('offline', netStatus);
+function checkBundledImages() {
+  const images = Array.from(document.querySelectorAll('img[src]'))
+    .filter((img) => /^(?:\.\/)?img\//.test(img.getAttribute('src') || ''));
+  let warned = false;
+  const report = (img) => {
+    img.hidden = true;
+    if (warned) return;
+    warned = true;
+    toast('Alcune immagini non si caricano: estrai e pubblica anche la cartella img accanto a index.html.');
+  };
+  images.forEach((img) => {
+    img.addEventListener('error', () => report(img), { once: true });
+    if (img.complete && img.naturalWidth === 0) report(img);
+  });
+}
 
 let installEvt = null;
-addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvt = e; $('btn-install').classList.remove('hidden'); });
-$('btn-install').onclick = async () => { if (!installEvt) return; installEvt.prompt(); await installEvt.userChoice; installEvt = null; $('btn-install').classList.add('hidden'); };
-addEventListener('appinstalled', () => $('btn-install').classList.add('hidden'));
+const isStandalone = () => (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+function showInstallHelp() {
+  const secure = window.isSecureContext || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const isMacSafari = /Macintosh|Mac OS X/i.test(navigator.userAgent)
+    && /Safari/i.test(navigator.userAgent) && !/Chrome|Chromium/i.test(navigator.userAgent);
+  const steps = isIos
+    ? ['Apri questa pagina in Safari.', 'Tocca Condividi.', 'Scegli «Aggiungi alla schermata Home» e conferma.']
+    : isAndroid
+      ? ['Apri questa pagina in Chrome.', 'Tocca il menu ⋮.', 'Scegli «Installa app» oppure «Aggiungi a schermata Home».']
+      : isMacSafari
+        ? ['Apri la pagina in Safari.', 'Dal menu File scegli «Aggiungi al Dock».', 'Conferma.']
+        : ['Apri la pagina in Chrome o Edge.', 'Usa l’icona Installa nella barra degli indirizzi oppure il menu del browser.', 'Conferma l’installazione.'];
+  $('install-status').className = 'status ' + (secure ? 'ok' : 'warn');
+  $('install-status').textContent = secure
+    ? (installEvt ? 'Installazione disponibile: premi «Installa app» nella barra in alto.' : 'Il browser richiede una conferma manuale per installare l’app.')
+    : 'Per installazione, fotocamera e uso offline serve HTTPS. Non aprire index.html direttamente dallo ZIP.';
+  $('install-steps').innerHTML = steps.map((step) => `<li>${esc(step)}</li>`).join('');
+}
+if (isStandalone()) $('btn-install').classList.add('hidden');
+addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); installEvt = e;
+  $('btn-install').textContent = '⬇ Installa ora';
+  $('btn-install').classList.remove('hidden');
+});
+$('btn-install').onclick = async () => {
+  if (isStandalone()) { $('btn-install').classList.add('hidden'); return; }
+  if (!installEvt) { showInstallHelp(); openDialog($('dlg-install')); return; }
+  const promptEvent = installEvt; installEvt = null;
+  try {
+    await promptEvent.prompt();
+    const choice = await promptEvent.userChoice;
+    $('btn-install').textContent = choice && choice.outcome === 'accepted' ? '✅ Installazione avviata' : '📲 Come installarla';
+  } catch (err) {
+    $('btn-install').textContent = '📲 Come installarla';
+    showInstallHelp(); openDialog($('dlg-install'));
+  }
+};
+addEventListener('appinstalled', () => {
+  $('btn-install').classList.add('hidden');
+  toast('Zaino Hero installata ✅');
+});
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   const had = !!navigator.serviceWorker.controller;
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  navigator.serviceWorker.register('./sw.js').catch(() => {
+    toast('PWA non attiva: verifica HTTPS e che lo ZIP sia stato estratto con tutte le cartelle.');
+  });
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (had) toast('Nuova versione pronta.', { label: 'Aggiorna', fn: () => location.reload() });
   });
@@ -1101,4 +1159,4 @@ setInterval(() => { const d = defaultDay(); if (d !== lastDefault) { lastDefault
 document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
 
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
-renderWheelLabels(); setMuted(muted); netStatus(); render();
+renderWheelLabels(); setMuted(muted); netStatus(); render(); checkBundledImages();
