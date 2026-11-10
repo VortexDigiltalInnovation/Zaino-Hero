@@ -102,6 +102,7 @@
     <div class="row gap wrapflex">
       <button class="btn btn-soft" id="btn-export" type="button">⬆ Salva copia dei dati</button>
       <button class="btn btn-soft" id="btn-import" type="button">⬇ Ripristina copia</button>
+      <button class="btn btn-soft" id="btn-manage-prizes" type="button">🎁 Gestione premi adulti</button>
       <input type="file" id="file-import" accept="application/json,.json" class="hidden">
     </div>
     <p class="muted small">Foto e orario sono salvati solo su questo dispositivo. Fai una copia ogni tanto: se cancelli i dati del browser li perdi.
@@ -136,6 +137,24 @@
     <button class="btn btn-primary" id="btn-spin" type="button">Fai girare la ruota</button>
     <button class="btn btn-soft hidden" id="btn-close-wheel" data-close type="button">Chiudi</button>
     <p id="ticket-count" class="muted small center"></p>
+  </div>
+</dialog>
+
+<!-- Catalogo premi per l'adulto -->
+<dialog id="dlg-prizes" aria-labelledby="prizes-title">
+  <div class="dlg-in stack">
+    <div class="row between">
+      <h3 id="prizes-title">🎁 Gestione premi</h3>
+      <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
+    </div>
+    <p class="muted small">Modifica i premi prima di giocare. Le probabilità restano fisse: 6 premi simbolici (60%), 3 privilegi (30%) e 1 premio fisico (10%). I coupon già vinti non cambiano. Questo pannello è una comodità, non un blocco protetto: chiunque abbia accesso al dispositivo può modificarlo.</p>
+    <form id="prize-form" class="stack">
+      <div id="prize-fields" class="stack"></div>
+      <div class="row gap wrapflex">
+        <button class="btn btn-soft" id="btn-reset-prizes" type="button">Ripristina premi iniziali</button>
+        <button class="btn btn-primary grow" type="submit">Salva catalogo</button>
+      </div>
+    </form>
   </div>
 </dialog>
 

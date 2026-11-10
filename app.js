@@ -5,7 +5,8 @@ const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
 const KEYS = {
   schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2',
-  mute: 'zaino_mute', profile: 'zaino_profile', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1'
+  mute: 'zaino_mute', profile: 'zaino_profile', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1',
+  catalog: 'zaino_prize_catalog_v1'
 };
 const PALETTE = ['#2563eb', '#dc2626', '#eab308', '#ea580c', '#16a34a', '#854d0e', '#9333ea', '#db2777', '#0891b2', '#64748b'];
 /* 10 spicchi equivalenti: 6 simbolici, 3 privilegi, 1 fisico (60/30/10). */
@@ -81,6 +82,15 @@ function cleanChecks(raw) {
   });
   return out;
 }
+function cleanCatalog(raw) {
+  const source = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  const out = {};
+  WHEEL_PRIZES.forEach((prize) => {
+    const value = typeof source[prize.id] === 'string' ? source[prize.id].trim().slice(0, 80) : '';
+    out[prize.id] = value || prize.title;
+  });
+  return out;
+}
 function cleanRewards(raw) {
   const draws = {};
   const source = raw && typeof raw === 'object' && !Array.isArray(raw) && raw.draws && typeof raw.draws === 'object'
@@ -91,7 +101,9 @@ function cleanRewards(raw) {
     if (!dateIsValid || !prize) return;
     const timestamp = typeof entry.awardedAt === 'string' && !Number.isNaN(Date.parse(entry.awardedAt))
       ? new Date(entry.awardedAt).toISOString() : `${date}T00:00:00.000Z`;
-    draws[date] = { prizeId: prize.id, awardedAt: timestamp };
+    const prizeTitle = typeof entry.prizeTitle === 'string' && entry.prizeTitle.trim()
+      ? entry.prizeTitle.trim().slice(0, 80) : prize.title;
+    draws[date] = { prizeId: prize.id, prizeTitle, awardedAt: timestamp };
   });
   const count = raw && Number.isSafeInteger(raw.tickets) ? Math.max(0, Math.min(1000000, raw.tickets)) : 0;
   return { draws, tickets: count };
@@ -119,11 +131,22 @@ let schedule = loadSchedule();
 let checks = cleanChecks(store.get(KEYS.checks, {}));
 let rewards = cleanRewards(store.get(KEYS.rewards, {}));
 let progressLog = cleanHistory(store.get(KEYS.history, {}));
+let prizeCatalog = cleanCatalog(store.get(KEYS.catalog, {}));
 let profile = Object.assign({ name: 'Gabriele', cls: '5ª A' }, store.get(KEYS.profile, {}));
 let muted = store.get(KEYS.mute, false) === true;
 let state = { day: defaultDay(), edit: false };
 let draft = null;        // copia di lavoro nella finestra "materiali"
 let draftKey = null;
+function prizesForWheel() {
+  return WHEEL_PRIZES.map((prize) => ({
+    ...prize, title: prizeCatalog[prize.id] || prize.title,
+    short: (prizeCatalog[prize.id] || prize.title).slice(0, 10)
+  }));
+}
+function prizeFromDraw(draw) {
+  const prize = draw && WHEEL_PRIZES.find((item) => item.id === draw.prizeId);
+  return prize ? { ...prize, title: draw.prizeTitle || prizeCatalog[prize.id] || prize.title } : null;
+}
 
 function loadSubjects() {
   const raw = store.get(KEYS.subjects, null);
@@ -254,7 +277,7 @@ function renderHistory() {
   $('history-list').innerHTML = dates.length ? dates.slice(0, 5).map((date) => {
     const entry = completed[date];
     const prizeDraw = rewards.draws[date];
-    const prize = prizeDraw && WHEEL_PRIZES.find((item) => item.id === prizeDraw.prizeId);
+    const prize = prizeDraw && prizeFromDraw(prizeDraw);
     const dateLabel = new Date(`${date}T12:00:00`).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
     return `<div class="history-row"><span><strong>${esc(entry.day)}</strong><span class="muted"> · ${esc(dateLabel)}</span></span>
       <span class="history-count">${entry.done}/${entry.total}</span><span class="history-prize">${prize ? `🎟️ ${esc(prize.title)}` : '✅ Completato'}</span></div>`;
@@ -338,7 +361,7 @@ function renderProgress(celebrate) {
   $('hero-title').textContent = p.pct === 100 && p.total ? 'Zaino pronto al 100%! Super! 🎉' : p.pct > 50 ? 'Sei a buon punto! Continua così 💪' : 'Iniziamo a preparare! 🚀';
   const date = targetDate(state.day).iso;
   const draw = rewards.draws[date];
-  const prize = draw && WHEEL_PRIZES.find((item) => item.id === draw.prizeId);
+  const prize = draw && prizeFromDraw(draw);
   const rewardButton = $('btn-open-wheel');
   rewardButton.classList.toggle('hidden', !full && !draw);
   rewardButton.textContent = draw ? '🎟️ Rivedi il coupon' : '🎡 Gira la ruota';
@@ -379,7 +402,7 @@ const wheelDateLabel = (date) => new Date(`${date}T12:00:00`).toLocaleDateString
   weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
 });
 function renderWheelLabels() {
-  $('wheel-labels').innerHTML = WHEEL_PRIZES.map((prize, i) =>
+  $('wheel-labels').innerHTML = prizesForWheel().map((prize, i) =>
     `<span class="wheel-label" style="--angle:${i * 36}deg;--counter:${-i * 36}deg">${esc(prize.short)}</span>`).join('');
 }
 function showWheelCoupon(date, prize) {
@@ -394,6 +417,48 @@ function showWheelCoupon(date, prize) {
   $('btn-close-wheel').classList.remove('hidden');
   $('ticket-count').textContent = `Ticket accumulati: ${rewards.tickets}.`;
 }
+function renderPrizeEditor() {
+  const groups = [
+    { type: 'symbolic', label: 'Premi simbolici · 6 settori · 60%' },
+    { type: 'privilege', label: 'Privilegi · 3 settori · 30%' },
+    { type: 'physical', label: 'Premio fisico · 1 settore · 10%' }
+  ];
+  $('prize-fields').innerHTML = groups.map((group) => {
+    const fields = WHEEL_PRIZES.filter((prize) => prize.type === group.type).map((prize) =>
+      `<label class="field"><span class="small muted">${esc(prize.short)}</span>
+        <input type="text" data-prize-id="${esc(prize.id)}" maxlength="80" value="${esc(prizeCatalog[prize.id])}" autocomplete="off"></label>`
+    ).join('');
+    return `<fieldset class="prize-group"><legend>${esc(group.label)}</legend><div class="grid">${fields}</div></fieldset>`;
+  }).join('');
+}
+$('btn-manage-prizes').onclick = () => {
+  renderPrizeEditor();
+  openDialog($('dlg-prizes'));
+};
+$('prize-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const next = {};
+  let invalid = false;
+  $('prize-fields').querySelectorAll('[data-prize-id]').forEach((input) => {
+    const value = input.value.trim();
+    if (!value) { invalid = true; input.focus(); }
+    next[input.dataset.prizeId] = value.slice(0, 80);
+  });
+  if (invalid) { toast('Inserisci un nome per tutti i premi.'); return; }
+  if (!store.set(KEYS.catalog, next)) return;
+  prizeCatalog = cleanCatalog(next);
+  renderWheelLabels(); render();
+  $('dlg-prizes').close();
+  toast('Catalogo premi salvato ✅');
+});
+$('btn-reset-prizes').onclick = () => {
+  if (!confirm('Ripristinare i nomi iniziali dei premi? I coupon già vinti resteranno invariati.')) return;
+  const defaults = cleanCatalog(null);
+  if (!store.set(KEYS.catalog, defaults)) return;
+  prizeCatalog = defaults;
+  renderPrizeEditor(); renderWheelLabels(); render();
+  toast('Premi iniziali ripristinati ✅');
+};
 function openWheel() {
   if (wheelBusy) return;
   const date = targetDate(state.day).iso;
@@ -408,7 +473,7 @@ function openWheel() {
   $('btn-close-wheel').classList.add('hidden');
   $('ticket-count').textContent = `Ticket accumulati: ${rewards.tickets}.`;
   if (draw) {
-    const prize = WHEEL_PRIZES.find((item) => item.id === draw.prizeId);
+    const prize = prizeFromDraw(draw);
     const index = WHEEL_PRIZES.findIndex((item) => item.id === draw.prizeId);
     if (prize) {
       wheel.style.transform = `rotate(${(360 - index * 36) % 360}deg)`;
@@ -428,7 +493,7 @@ $('btn-spin').onclick = () => {
   const date = activeWheelDate;
   const existing = rewards.draws[date];
   if (existing) {
-    const prize = WHEEL_PRIZES.find((item) => item.id === existing.prizeId);
+    const prize = prizeFromDraw(existing);
     if (prize) showWheelCoupon(date, prize);
     return;
   }
@@ -438,9 +503,9 @@ $('btn-spin').onclick = () => {
     return;
   }
   const index = Math.floor(Math.random() * WHEEL_PRIZES.length);
-  const prize = WHEEL_PRIZES[index];
+  const prize = prizesForWheel()[index];
   const next = {
-    draws: Object.assign({}, rewards.draws, { [date]: { prizeId: prize.id, awardedAt: new Date().toISOString() } }),
+    draws: Object.assign({}, rewards.draws, { [date]: { prizeId: prize.id, prizeTitle: prize.title, awardedAt: new Date().toISOString() } }),
     tickets: Math.min(1000000, rewards.tickets + (prize.ticket ? 1 : 0))
   };
   if (!store.set(KEYS.rewards, next)) return;
@@ -965,7 +1030,7 @@ $('set-name').value = profile.name; $('set-class').value = profile.cls;
   store.set(KEYS.profile, profile); render();
 }));
 $('btn-export').onclick = () => {
-  const data = { app: 'zaino-hero', version: 4, exported: new Date().toISOString(), profile, schedule, subjects, checks, rewards, history: progressLog };
+  const data = { app: 'zaino-hero', version: 5, exported: new Date().toISOString(), profile, schedule, subjects, checks, rewards, history: progressLog, catalog: prizeCatalog };
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
   a.download = `zaino-hero-backup-${isoDate(new Date())}.json`; a.click();
@@ -983,27 +1048,30 @@ $('file-import').onchange = async (e) => {
   const nextChecks = cleanChecks(d.checks);
   const nextRewards = cleanRewards(d.rewards);
   const nextHistory = cleanHistory(d.history);
+  const nextCatalog = cleanCatalog(d.catalog);
   const old = {
     s: localStorage.getItem(KEYS.schedule), m: localStorage.getItem(KEYS.subjects),
     p: localStorage.getItem(KEYS.profile), c: localStorage.getItem(KEYS.checks),
-    r: localStorage.getItem(KEYS.rewards), h: localStorage.getItem(KEYS.history)
+    r: localStorage.getItem(KEYS.rewards), h: localStorage.getItem(KEYS.history),
+    q: localStorage.getItem(KEYS.catalog)
   };
   const restore = () => {
     try {
-      [['schedule', 's'], ['subjects', 'm'], ['profile', 'p'], ['checks', 'c'], ['rewards', 'r'], ['history', 'h']]
+      [['schedule', 's'], ['subjects', 'm'], ['profile', 'p'], ['checks', 'c'], ['rewards', 'r'], ['history', 'h'], ['catalog', 'q']]
         .forEach(([k, o]) => (old[o] == null ? localStorage.removeItem(KEYS[k]) : localStorage.setItem(KEYS[k], old[o])));
     } catch (x) { /* niente */ }
   };
   if (!store.set(KEYS.schedule, d.schedule, true) || !store.set(KEYS.subjects, d.subjects, true)
       || !store.set(KEYS.checks, nextChecks, true) || !store.set(KEYS.rewards, nextRewards, true)
-      || !store.set(KEYS.history, nextHistory, true)) {
+      || !store.set(KEYS.history, nextHistory, true) || !store.set(KEYS.catalog, nextCatalog, true)) {
     restore(); toast('La copia è troppo grande per questo dispositivo: non è stato cambiato nulla.'); return;
   }
   if (d.profile && typeof d.profile === 'object') store.set(KEYS.profile, { name: String(d.profile.name || '').slice(0, 30), cls: String(d.profile.cls || '').slice(0, 10) }, true);
-  checks = nextChecks; rewards = nextRewards; progressLog = nextHistory;
+  checks = nextChecks; rewards = nextRewards; progressLog = nextHistory; prizeCatalog = nextCatalog;
   subjects = loadSubjects(); schedule = loadSchedule(); saveSchedule();
   profile = Object.assign({ name: 'Gabriele', cls: '5ª A' }, store.get(KEYS.profile, {}));
   $('set-name').value = profile.name; $('set-class').value = profile.cls;
+  renderWheelLabels();
   render(); toast('Copia ripristinata ✅');
 };
 

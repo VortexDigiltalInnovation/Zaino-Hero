@@ -20,3 +20,5 @@ NUOVE FUNZIONI
 - «I tuoi progressi» mostra le giornate completate, la serie (esclusi sabato e domenica), i premi e le ultime giornate nello storico.
 - «Condividi lista» invia gli oggetti mancanti con il menu di condivisione del telefono; se non disponibile, prova a copiarli negli appunti.
 - I backup includono anche premi e cronologia.
+- «Gestione premi adulti» permette di modificare i nomi dei premi. I coupon già vinti conservano il testo originale e le probabilità restano fisse al 60/30/10.
+- La gestione premi non è protetta da PIN o account: chi ha accesso al dispositivo può modificarla.

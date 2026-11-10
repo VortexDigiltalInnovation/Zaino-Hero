@@ -175,3 +175,7 @@ dialog h3{color:var(--ind2);font-size:1rem}
 .history-prize{grid-column:1/-1;color:#c7d2fe;font-size:.76rem;overflow-wrap:anywhere}
 #stats-summary{text-align:right}
 @media (max-width:480px){#stats-summary{text-align:left;width:100%}}
+.prize-group{min-width:0;margin:0;padding:12px;border:1px solid var(--line);border-radius:14px}
+.prize-group legend{padding:0 6px;color:var(--ind2);font-size:.82rem;font-weight:800}
+#prize-form{max-height:70vh;overflow:auto}
+#prize-fields{gap:10px}
