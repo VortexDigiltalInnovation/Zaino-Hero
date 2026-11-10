@@ -50,6 +50,10 @@
     <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar">
       <div id="bar-fill"></div>
     </div>
+    <div id="reward-area" class="reward-area" aria-live="polite">
+      <p id="reward-status" class="muted small"></p>
+      <button class="btn btn-primary hidden" id="btn-open-wheel" type="button">🎡 Gira la ruota</button>
+    </div>
     <div class="row gap">
       <button class="btn btn-soft grow" id="btn-read" type="button">🔊 Leggi cosa manca</button>
       <button class="btn btn-soft grow" id="btn-ai" type="button"><img class="ico" src="img/robot.webp" alt="" width="26" height="26"> Assistente</button>
@@ -96,6 +100,34 @@
 </main>
 
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<!-- Ruota dei premi -->
+<dialog id="dlg-wheel" aria-labelledby="wheel-title">
+  <div class="dlg-in stack wheel-dialog">
+    <div class="row between">
+      <h3 id="wheel-title">🎡 Ruota dello zaino</h3>
+      <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
+    </div>
+    <p class="muted small">Probabilità: 60% premio simbolico, 30% privilegio, 10% premio fisico. Ogni data di scuola dà un solo giro. Concordate prima i premi con un adulto: la checklist non verifica da sola cosa c’è davvero nello zaino.</p>
+    <div class="wheel-frame" aria-label="Ruota dei premi">
+      <span class="wheel-pointer" aria-hidden="true">▼</span>
+      <div id="prize-wheel" class="prize-wheel" aria-hidden="true">
+        <div id="wheel-labels" class="wheel-labels"></div>
+        <span class="wheel-center" aria-hidden="true">🎒</span>
+      </div>
+    </div>
+    <p id="wheel-message" class="small center" role="status" aria-live="polite">Pronto? Premi per girare la ruota!</p>
+    <section id="reward-coupon" class="reward-coupon hidden" aria-live="polite">
+      <span class="eyebrow">Coupon Zaino Hero</span>
+      <strong id="coupon-prize"></strong>
+      <span id="coupon-detail" class="muted small"></span>
+      <span id="coupon-date" class="code"></span>
+    </section>
+    <button class="btn btn-primary" id="btn-spin" type="button">Fai girare la ruota</button>
+    <button class="btn btn-soft hidden" id="btn-close-wheel" data-close type="button">Chiudi</button>
+    <p id="ticket-count" class="muted small center"></p>
+  </div>
+</dialog>
 
 <!-- Scanner -->
 <dialog id="dlg-scan" aria-labelledby="scan-title">

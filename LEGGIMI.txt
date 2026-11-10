@@ -9,3 +9,9 @@ SCANSIONE LIBRI
 - Inquadra il codice a barre (ISBN) sul retro del libro: se e' nuovo viene cercato su Internet (Google Libri / Open Library) con titolo e copertina; controlli nome e materia e lo aggiungi.
 - Se la ricerca non trova nulla o sei offline, scrivi il nome a mano. Puoi anche digitare l'ISBN o usare "Da foto".
 - Alla scansione successiva lo stesso libro si spunta da solo.
+
+RUOTA DEI PREMI
+- Si sblocca quando tutte le cose previste per la giornata sono spuntate: un solo giro per data, anche se le spunte vengono azzerate.
+- Probabilità: 60% premio simbolico, 30% privilegio, 10% premio fisico. I ticket simbolici si accumulano.
+- Il risultato mostra un coupon da confermare con un adulto; concordate prima quali premi sono disponibili.
+- L'app salva i dati sul dispositivo: spunte e scansioni non sono una verifica antifrode e non provano da sole che gli oggetti siano nello zaino.
