@@ -5,7 +5,7 @@ const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
 const KEYS = {
   schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2',
-  mute: 'zaino_mute', profile: 'zaino_profile', rewards: 'zaino_rewards_v1'
+  mute: 'zaino_mute', profile: 'zaino_profile', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1'
 };
 const PALETTE = ['#2563eb', '#dc2626', '#eab308', '#ea580c', '#16a34a', '#854d0e', '#9333ea', '#db2777', '#0891b2', '#64748b'];
 /* 10 spicchi equivalenti: 6 simbolici, 3 privilegi, 1 fisico (60/30/10). */
@@ -96,12 +96,29 @@ function cleanRewards(raw) {
   const count = raw && Number.isSafeInteger(raw.tickets) ? Math.max(0, Math.min(1000000, raw.tickets)) : 0;
   return { draws, tickets: count };
 }
+function cleanHistory(raw) {
+  const completed = {};
+  const source = raw && typeof raw === 'object' && !Array.isArray(raw) && raw.completed && typeof raw.completed === 'object'
+    ? raw.completed : {};
+  Object.entries(source).slice(-1000).forEach(([date, entry]) => {
+    const dateIsValid = /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T00:00:00Z`));
+    if (!dateIsValid || !entry || !DAYS.includes(entry.day)) return;
+    const total = Number.isSafeInteger(entry.total) ? Math.max(0, Math.min(10000, entry.total)) : 0;
+    const done = Number.isSafeInteger(entry.done) ? Math.max(0, Math.min(10000, entry.done)) : 0;
+    if (!total || done < total) return;
+    const completedAt = typeof entry.completedAt === 'string' && !Number.isNaN(Date.parse(entry.completedAt))
+      ? new Date(entry.completedAt).toISOString() : `${date}T00:00:00.000Z`;
+    completed[date] = { day: entry.day, completedAt, done, total };
+  });
+  return { completed };
+}
 
 /* ---------- stato ---------- */
 let subjects = loadSubjects();
 let schedule = loadSchedule();
 let checks = cleanChecks(store.get(KEYS.checks, {}));
 let rewards = cleanRewards(store.get(KEYS.rewards, {}));
+let progressLog = cleanHistory(store.get(KEYS.history, {}));
 let profile = Object.assign({ name: 'Gabriele', cls: '5ª A' }, store.get(KEYS.profile, {}));
 let muted = store.get(KEYS.mute, false) === true;
 let state = { day: defaultDay(), edit: false };
@@ -206,9 +223,47 @@ function findMaterial(id) {
   for (const k of Object.keys(subjects)) { const m = subjects[k].materials.find((x) => x.id === id); if (m) return { key: k, mat: m }; }
   return null;
 }
+function recordCompletion(day) {
+  const p = progress(day);
+  const date = targetDate(day).iso;
+  if (!p.total || p.done !== p.total || progressLog.completed[date]) return;
+  const next = {
+    completed: Object.assign({}, progressLog.completed, {
+      [date]: { day, completedAt: new Date().toISOString(), done: p.done, total: p.total }
+    })
+  };
+  if (store.set(KEYS.history, next, true)) progressLog = next;
+}
+function previousSchoolDate(dateIso) {
+  const date = new Date(`${dateIso}T12:00:00`);
+  do { date.setDate(date.getDate() - 1); } while (date.getDay() === 0 || date.getDay() === 6);
+  return isoDate(date);
+}
+function renderHistory() {
+  const completed = progressLog.completed;
+  const dates = Object.keys(completed).sort().reverse();
+  const dateSet = new Set(dates);
+  let streak = 0;
+  let cursor = dates[dates.length - 1];
+  while (cursor && dateSet.has(cursor)) {
+    streak += 1;
+    cursor = previousSchoolDate(cursor);
+  }
+  const prizeCount = Object.keys(rewards.draws).length;
+  $('stats-summary').textContent = `${dates.length} giornate · serie ${streak} · ${prizeCount} premi · ${rewards.tickets} ticket`;
+  $('history-list').innerHTML = dates.length ? dates.slice(0, 5).map((date) => {
+    const entry = completed[date];
+    const prizeDraw = rewards.draws[date];
+    const prize = prizeDraw && WHEEL_PRIZES.find((item) => item.id === prizeDraw.prizeId);
+    const dateLabel = new Date(`${date}T12:00:00`).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
+    return `<div class="history-row"><span><strong>${esc(entry.day)}</strong><span class="muted"> · ${esc(dateLabel)}</span></span>
+      <span class="history-count">${entry.done}/${entry.total}</span><span class="history-prize">${prize ? `🎟️ ${esc(prize.title)}` : '✅ Completato'}</span></div>`;
+  }).join('') : '<p class="muted small">Completa uno zaino per iniziare lo storico.</p>';
+}
 
 /* ---------- rendering ---------- */
 function render() {
+  recordCompletion(state.day);
   $('profile-line').textContent = `${profile.name} — Classe ${profile.cls}`;
   $('day-label').textContent = state.day;
   $('day-when').textContent = whenLabel(state.day);
@@ -221,6 +276,7 @@ function render() {
   renderStrip();
   state.edit ? renderEdit() : renderList();
   renderProgress();
+  renderHistory();
   renderSubjects();
   $('subject-list').innerHTML = Object.keys(subjects).map((k) => `<option value="${esc(k)}">`).join('');
 }
@@ -435,6 +491,34 @@ $('btn-reset').onclick = () => {
 $('btn-read').onclick = () => {
   const miss = missingNames(state.day);
   speak(miss.length ? `Per ${state.day} ti manca ancora: ${miss.join(', ')}.` : `Per ${state.day} lo zaino è pronto!`);
+};
+$('btn-share-missing').onclick = async () => {
+  const miss = missingNames(state.day);
+  const p = progress(state.day);
+  const text = !p.total
+    ? `Per ${state.day} non ci sono materiali configurati.`
+    : miss.length
+    ? `Per ${state.day} da mettere nello zaino:\n${miss.map((name) => `• ${name}`).join('\n')}`
+    : `Per ${state.day} lo zaino è pronto! 🎒`;
+  if (navigator.share) {
+    try { await navigator.share({ title: 'Lista dello zaino', text }); return; }
+    catch (err) { if (err.name === 'AbortError') return; }
+  }
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      toast('Lista copiata negli appunti ✅');
+      return;
+    }
+  } catch (err) { /* prova il metodo compatibile più sotto */ }
+  const area = document.createElement('textarea');
+  area.value = text; area.setAttribute('readonly', ''); area.style.position = 'fixed'; area.style.opacity = '0';
+  document.body.appendChild(area); area.select();
+  let copied = false;
+  try { copied = document.execCommand('copy'); } catch (err) { /* copia non disponibile */ }
+  area.remove();
+  if (copied) toast('Lista copiata negli appunti ✅');
+  else window.prompt('Copia la lista dello zaino:', text);
 };
 
 /* ---------- finestre (dialog) ---------- */
@@ -881,7 +965,7 @@ $('set-name').value = profile.name; $('set-class').value = profile.cls;
   store.set(KEYS.profile, profile); render();
 }));
 $('btn-export').onclick = () => {
-  const data = { app: 'zaino-hero', version: 3, exported: new Date().toISOString(), profile, schedule, subjects, checks, rewards };
+  const data = { app: 'zaino-hero', version: 4, exported: new Date().toISOString(), profile, schedule, subjects, checks, rewards, history: progressLog };
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
   a.download = `zaino-hero-backup-${isoDate(new Date())}.json`; a.click();
@@ -895,26 +979,28 @@ $('file-import').onchange = async (e) => {
     d = JSON.parse(await f.text());
     if (!d || d.app !== 'zaino-hero' || !d.schedule || typeof d.schedule !== 'object' || !d.subjects || typeof d.subjects !== 'object') throw new Error('formato');
   } catch (err) { toast('File non valido: non è una copia di Zaino Hero.'); return; }
-  if (!confirm('Sostituire orario, materie, spunte e premi con quelli della copia?')) return;
+  if (!confirm('Sostituire orario, materie, spunte, premi e cronologia con quelli della copia?')) return;
   const nextChecks = cleanChecks(d.checks);
   const nextRewards = cleanRewards(d.rewards);
+  const nextHistory = cleanHistory(d.history);
   const old = {
     s: localStorage.getItem(KEYS.schedule), m: localStorage.getItem(KEYS.subjects),
     p: localStorage.getItem(KEYS.profile), c: localStorage.getItem(KEYS.checks),
-    r: localStorage.getItem(KEYS.rewards)
+    r: localStorage.getItem(KEYS.rewards), h: localStorage.getItem(KEYS.history)
   };
   const restore = () => {
     try {
-      [['schedule', 's'], ['subjects', 'm'], ['profile', 'p'], ['checks', 'c'], ['rewards', 'r']]
+      [['schedule', 's'], ['subjects', 'm'], ['profile', 'p'], ['checks', 'c'], ['rewards', 'r'], ['history', 'h']]
         .forEach(([k, o]) => (old[o] == null ? localStorage.removeItem(KEYS[k]) : localStorage.setItem(KEYS[k], old[o])));
     } catch (x) { /* niente */ }
   };
   if (!store.set(KEYS.schedule, d.schedule, true) || !store.set(KEYS.subjects, d.subjects, true)
-      || !store.set(KEYS.checks, nextChecks, true) || !store.set(KEYS.rewards, nextRewards, true)) {
+      || !store.set(KEYS.checks, nextChecks, true) || !store.set(KEYS.rewards, nextRewards, true)
+      || !store.set(KEYS.history, nextHistory, true)) {
     restore(); toast('La copia è troppo grande per questo dispositivo: non è stato cambiato nulla.'); return;
   }
   if (d.profile && typeof d.profile === 'object') store.set(KEYS.profile, { name: String(d.profile.name || '').slice(0, 30), cls: String(d.profile.cls || '').slice(0, 10) }, true);
-  checks = nextChecks; rewards = nextRewards;
+  checks = nextChecks; rewards = nextRewards; progressLog = nextHistory;
   subjects = loadSubjects(); schedule = loadSchedule(); saveSchedule();
   profile = Object.assign({ name: 'Gabriele', cls: '5ª A' }, store.get(KEYS.profile, {}));
   $('set-name').value = profile.name; $('set-class').value = profile.cls;

@@ -168,3 +168,10 @@ dialog h3{color:var(--ind2);font-size:1rem}
   .reward-area{align-items:stretch}
   .reward-area .btn{width:100%}
 }
+.history-list{display:flex;flex-direction:column;gap:8px}
+.history-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;
+  background:#0f172a99;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.82rem}
+.history-count{color:var(--ok);font-weight:800;white-space:nowrap}
+.history-prize{grid-column:1/-1;color:#c7d2fe;font-size:.76rem;overflow-wrap:anywhere}
+#stats-summary{text-align:right}
+@media (max-width:480px){#stats-summary{text-align:left;width:100%}}

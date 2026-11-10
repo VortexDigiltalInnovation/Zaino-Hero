@@ -64,8 +64,9 @@
 
   <div class="row between small controls">
     <div><span class="muted">Giorno: </span><strong id="day-label" class="accent"></strong> <span id="day-when" class="tag"></span></div>
-    <div class="row gap">
+    <div class="row gap wrapflex">
       <button class="link" id="btn-reset" type="button">↺ Azzera spunte</button>
+      <button class="link strong" id="btn-share-missing" type="button">📤 Condividi lista</button>
       <span class="muted">|</span>
       <button class="link strong" id="btn-edit" type="button">✏️ Modifica orario</button>
     </div>
@@ -74,6 +75,15 @@
   <div id="strip" class="strip" aria-label="Orario del giorno"></div>
 
   <section id="list" class="stack" aria-label="Cosa mettere nello zaino"></section>
+
+  <section class="card stack" aria-labelledby="history-title">
+    <div class="row between wrapflex">
+      <h3 id="history-title">🏅 I tuoi progressi</h3>
+      <span id="stats-summary" class="muted small" aria-live="polite"></span>
+    </div>
+    <div id="history-list" class="history-list"></div>
+    <p class="muted small">La serie considera i giorni scolastici e salta sabato e domenica. La cronologia è salvata su questo dispositivo.</p>
+  </section>
 
   <section class="card stack">
     <div class="row between wrapflex">

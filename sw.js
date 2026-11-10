@@ -1,6 +1,6 @@
 /* Zaino Hero — service worker. Cache dell'app per l'uso offline.
    Cambia VERSION a ogni rilascio: i telefoni vedranno «Nuova versione pronta». */
-const VERSION = 'zaino-hero-v7';
+const VERSION = 'zaino-hero-v8';
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png',
   './img/zaino.webp', './img/robot.webp', './img/scanner.webp', './img/trophy.webp'];

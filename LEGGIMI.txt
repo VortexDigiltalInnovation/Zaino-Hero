@@ -15,3 +15,8 @@ RUOTA DEI PREMI
 - Probabilità: 60% premio simbolico, 30% privilegio, 10% premio fisico. I ticket simbolici si accumulano.
 - Il risultato mostra un coupon da confermare con un adulto; concordate prima quali premi sono disponibili.
 - L'app salva i dati sul dispositivo: spunte e scansioni non sono una verifica antifrode e non provano da sole che gli oggetti siano nello zaino.
+
+NUOVE FUNZIONI
+- «I tuoi progressi» mostra le giornate completate, la serie (esclusi sabato e domenica), i premi e le ultime giornate nello storico.
+- «Condividi lista» invia gli oggetti mancanti con il menu di condivisione del telefono; se non disponibile, prova a copiarli negli appunti.
+- I backup includono anche premi e cronologia.
