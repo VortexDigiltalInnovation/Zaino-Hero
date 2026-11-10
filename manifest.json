@@ -1,9 +1,8 @@
 {
   "name": "Zaino Hero",
-  "short_name": "Zaino Hero",
+  "short_name": "ZainoHero",
   "description": "La checklist giornaliera dello zaino di scuola",
   "lang": "it",
-  "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -12,19 +11,19 @@
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icons/icon-maskable-512.png",
+      "src": "icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

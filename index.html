@@ -5,61 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zaino Hero</title>
 <meta name="description" content="La checklist giornaliera dello zaino di scuola">
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icons/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="./icons/icon-192.png">
-<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="theme-color" content="#0f172a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <div class="brand">
-      <img class="logo" src="./img/hero-mantello.webp" alt="" width="46" height="46">
+      <img class="logo" data-img="zaino" alt="" width="46" height="46">
       <div>
-        <h1>Zaino Hero</h1>
+        <h1>Zaino Hero <span class="ver app-ver" aria-label="Versione dell'app"></span></h1>
         <p id="profile-line" class="muted small"></p>
       </div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-accent" id="btn-scan" type="button"><img class="ico" src="./img/hero-visore.webp" alt="" width="26" height="26"> Scansiona</button>
+      <button class="btn btn-accent" id="btn-scan" type="button"><img class="ico" data-img="scanner" alt="" width="26" height="26"> Scansiona</button>
       <button class="btn btn-icon" id="btn-mute" type="button" aria-label="Audio attivo" aria-pressed="false">🔊</button>
       <span id="net" class="pill pill-ok" role="status">Online</span>
-      <button class="btn btn-primary" id="btn-install" type="button">📲 Installa app</button>
+      <button class="btn btn-primary hidden" id="btn-install" type="button">⬇ Installa</button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <nav id="kids" class="kids" aria-label="Scegli il figlio"></nav>
-
   <section class="card hero" aria-labelledby="hero-title">
     <div class="hero-top">
       <div>
-        <span class="eyebrow" id="hero-eyebrow">Carica dello zaino</span>
+        <span class="eyebrow">Carica dello zaino</span>
         <h2 id="hero-title">Iniziamo a preparare! 🚀</h2>
         <p id="hero-sub" class="muted small"></p>
       </div>
       <div id="hero-pct" class="pct" aria-live="polite">0%</div>
-      <img id="hero-trophy" class="trophy hidden" src="./img/hero-trofeo.webp" alt="Coppa: zaino pronto!" width="84" height="84">
+      <img id="hero-trophy" class="trophy hidden" data-img="trophy" alt="Coppa: zaino pronto!" width="84" height="84">
     </div>
     <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar">
       <div id="bar-fill"></div>
     </div>
-    <div id="reward-area" class="reward-area" aria-live="polite">
-      <p id="reward-status" class="muted small"></p>
-      <button class="btn btn-primary hidden" id="btn-open-wheel" type="button">🎡 Gira la ruota</button>
-    </div>
     <div class="row gap">
       <button class="btn btn-soft grow" id="btn-read" type="button">🔊 Leggi cosa manca</button>
-      <button class="btn btn-soft grow" id="btn-ai" type="button"><img class="ico" src="./img/hero-orario.webp" alt="" width="26" height="26"> Assistente</button>
+      <button class="btn btn-soft grow" id="btn-ai" type="button"><img class="ico" data-img="robot" alt="" width="26" height="26"> Assistente</button>
     </div>
   </section>
 
@@ -67,9 +60,8 @@
 
   <div class="row between small controls">
     <div><span class="muted">Giorno: </span><strong id="day-label" class="accent"></strong> <span id="day-when" class="tag"></span></div>
-    <div class="row gap wrapflex">
+    <div class="row gap">
       <button class="link" id="btn-reset" type="button">↺ Azzera spunte</button>
-      <button class="link strong" id="btn-share-missing" type="button">📤 Condividi lista</button>
       <span class="muted">|</span>
       <button class="link strong" id="btn-edit" type="button">✏️ Modifica orario</button>
     </div>
@@ -78,15 +70,6 @@
   <div id="strip" class="strip" aria-label="Orario del giorno"></div>
 
   <section id="list" class="stack" aria-label="Cosa mettere nello zaino"></section>
-
-  <section class="card stack" aria-labelledby="history-title">
-    <div class="row between wrapflex">
-      <h3 id="history-title">🏅 I tuoi progressi</h3>
-      <span id="stats-summary" class="muted small" aria-live="polite"></span>
-    </div>
-    <div id="history-list" class="history-list"></div>
-    <p class="muted small">La serie considera i giorni scolastici e salta sabato e domenica. La cronologia è salvata su questo dispositivo.</p>
-  </section>
 
   <section class="card stack">
     <div class="row between wrapflex">
@@ -99,15 +82,19 @@
   <section class="card stack">
     <h3>⚙️ Impostazioni e copia di sicurezza</h3>
     <div class="grid">
-      <label class="field"><span class="small muted">Nome (figlio selezionato)</span><input id="set-name" type="text" maxlength="30" autocomplete="off"></label>
-      <label class="field"><span class="small muted">Classe (figlio selezionato)</span><input id="set-class" type="text" maxlength="10" autocomplete="off"></label>
+      <label class="field"><span class="small muted">Nome</span><input id="set-name" type="text" maxlength="30" autocomplete="off"></label>
+      <label class="field"><span class="small muted">Classe</span><input id="set-class" type="text" maxlength="10" autocomplete="off"></label>
     </div>
     <div class="row gap wrapflex">
       <button class="btn btn-soft" id="btn-export" type="button">⬆ Salva copia dei dati</button>
       <button class="btn btn-soft" id="btn-import" type="button">⬇ Ripristina copia</button>
-      <button class="btn btn-soft" id="btn-manage-prizes" type="button">🎁 Gestione premi adulti</button>
       <input type="file" id="file-import" accept="application/json,.json" class="hidden">
     </div>
+    <div class="row gap wrapflex">
+      <button class="btn btn-soft" id="btn-check-update" type="button">🔄 Controlla aggiornamenti</button>
+      <button class="btn btn-soft" id="btn-force-update" type="button">♻️ Forza aggiornamento</button>
+    </div>
+    <p class="muted small">Versione installata: <b class="app-ver"></b>. «Forza aggiornamento» ricarica l'app da zero e non cancella i tuoi dati.</p>
     <p class="muted small">Foto e orario sono salvati solo su questo dispositivo. Fai una copia ogni tanto: se cancelli i dati del browser li perdi.
       Su iPhone: Condividi → «Aggiungi alla schermata Home».</p>
   </section>
@@ -115,81 +102,13 @@
 
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
-<!-- Ruota dei premi -->
-<dialog id="dlg-wheel" aria-labelledby="wheel-title">
-  <div class="dlg-in stack wheel-dialog">
-    <div class="row between">
-      <h3 id="wheel-title">🎡 Ruota dello zaino</h3>
-      <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
-    </div>
-    <p class="muted small">Probabilità: 60% premio simbolico, 30% privilegio, 10% premio fisico. Ogni data di scuola dà un solo giro. Concordate prima i premi con un adulto: la checklist non verifica da sola cosa c’è davvero nello zaino.</p>
-    <div class="wheel-frame" aria-label="Ruota dei premi">
-      <span class="wheel-pointer" aria-hidden="true">▼</span>
-      <div id="prize-wheel" class="prize-wheel" aria-hidden="true">
-        <div id="wheel-labels" class="wheel-labels"></div>
-        <span class="wheel-center" aria-hidden="true">🎒</span>
-      </div>
-    </div>
-    <p id="wheel-message" class="small center" role="status" aria-live="polite">Pronto? Premi per girare la ruota!</p>
-    <section id="reward-coupon" class="reward-coupon hidden" aria-live="polite">
-      <span class="eyebrow">Coupon Zaino Hero</span>
-      <strong id="coupon-prize"></strong>
-      <span id="coupon-detail" class="muted small"></span>
-      <span id="coupon-date" class="code"></span>
-    </section>
-    <button class="btn btn-primary" id="btn-spin" type="button">Fai girare la ruota</button>
-    <button class="btn btn-soft hidden" id="btn-close-wheel" data-close type="button">Chiudi</button>
-    <p id="ticket-count" class="muted small center"></p>
-  </div>
-</dialog>
-
-<!-- Catalogo premi per l'adulto -->
-<dialog id="dlg-prizes" aria-labelledby="prizes-title">
-  <div class="dlg-in stack">
-    <div class="row between">
-      <h3 id="prizes-title">🎁 Gestione premi</h3>
-      <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
-    </div>
-    <p class="muted small">Modifica i premi prima di giocare. Le probabilità restano fisse: 6 premi simbolici (60%), 3 privilegi (30%) e 1 premio fisico (10%). I coupon già vinti non cambiano. Questo pannello è una comodità, non un blocco protetto: chiunque abbia accesso al dispositivo può modificarlo.</p>
-    <form id="prize-form" class="stack">
-      <div id="prize-fields" class="stack"></div>
-      <div class="row gap wrapflex">
-        <button class="btn btn-soft" id="btn-reset-prizes" type="button">Ripristina premi iniziali</button>
-        <button class="btn btn-primary grow" type="submit">Salva catalogo</button>
-      </div>
-    </form>
-  </div>
-</dialog>
-
-<!-- Installazione PWA -->
-<dialog id="dlg-install" aria-labelledby="install-title">
-  <div class="dlg-in stack">
-    <div class="row between">
-      <h3 id="install-title">📲 Installa Zaino Hero</h3>
-      <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
-    </div>
-    <p id="install-status" class="status" role="status" aria-live="polite"></p>
-    <ol id="install-steps" class="install-steps"></ol>
-    <p class="muted small">Il browser chiederà sempre una conferma: le app web non possono installarsi da sole. Estrai e carica tutto lo ZIP, incluse le cartelle <strong>img</strong> e <strong>icons</strong>.</p>
-    <button class="btn btn-soft" data-close type="button">Chiudi</button>
-  </div>
-</dialog>
-
 <!-- Scanner -->
 <dialog id="dlg-scan" aria-labelledby="scan-title">
   <div class="dlg-in stack">
-    <div class="row between"><div class="row gap"><img class="ico-lg" src="./img/hero-visore.webp" alt="" width="40" height="40"><h3 id="scan-title">Scansiona un libro</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
-    <div class="tabs" role="tablist" aria-label="Cosa vuoi scansionare">
-      <button class="tab" role="tab" id="tab-code" aria-selected="true" type="button">▮▯ Codice a barre</button>
-      <button class="tab" role="tab" id="tab-cover" aria-selected="false" type="button">📘 Copertina</button>
-    </div>
-    <p id="scan-help" class="muted small"></p>
-    <div class="video-box"><video id="scan-video" autoplay playsinline muted></video><div class="laser" id="scan-laser"></div><div class="cover-guide hidden" id="cover-guide" aria-hidden="true"></div><button id="btn-torch" class="torch hidden" type="button" aria-label="Accendi la torcia" aria-pressed="false">🔦</button></div>
+    <div class="row between"><div class="row gap"><img class="ico-lg" data-img="scanner" alt="" width="40" height="40"><h3 id="scan-title">Scansiona un libro</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
+    <p class="muted small">Inquadra il <strong>codice a barre</strong> sul retro del libro (ISBN). Se il libro è nuovo lo cerco su Internet e lo aggiungo; se lo conosco lo spunto da solo.</p>
+    <div class="video-box"><video id="scan-video" autoplay playsinline muted></video><div class="laser"></div></div>
     <div id="scan-status" class="status" role="status" aria-live="polite">Avvio fotocamera…</div>
-    <progress id="ocr-progress" class="hidden" max="100" value="0" aria-label="Avanzamento lettura"></progress>
-    <div id="cover-actions" class="row gap wrapflex hidden">
-      <button class="btn btn-primary grow" id="btn-cover-shot" type="button">📸 Scatta e leggi</button>
-    </div>
     <form id="isbn-form" class="row gap" autocomplete="off">
       <input id="isbn-input" type="text" inputmode="numeric" placeholder="Oppure scrivi l'ISBN (es. 9788808…)" aria-label="Codice ISBN" maxlength="20">
       <button class="btn btn-soft" type="submit">Cerca</button>
@@ -199,43 +118,17 @@
         <img id="res-cover" class="cover hidden" alt="Copertina">
         <div class="grow"><strong id="res-title"></strong><p id="res-author" class="muted small"></p><p id="res-code" class="code"></p></div>
       </div>
-      <div id="res-sugg" class="stack hidden"><span class="small muted">Forse è uno di questi (tocca per usarlo):</span><div id="res-sugg-list" class="stack"></div></div>
-      <div id="res-lines-box" class="stack hidden"><span class="small muted">Testo letto sulla copertina: tocca le parole giuste per comporre il titolo.</span><div id="res-lines" class="chips"></div></div>
-      <label class="field"><span class="small muted">Titolo / nome del libro (puoi correggerlo)</span><input id="res-name" type="text" maxlength="60"></label>
-      <div class="row gap">
-        <label class="field"><span class="small muted">Materia</span><select id="res-subj"></select></label>
-        <label class="field"><span class="small muted">Classe</span><select id="res-cls"><option value="">—</option><option value="1">1ª</option><option value="2">2ª</option><option value="3">3ª</option><option value="4">4ª</option><option value="5">5ª</option></select></label>
-      </div>
-      <p id="res-hint" class="small warn-text hidden"></p>
+      <label class="field"><span class="small muted">Nome del libro (puoi correggerlo)</span><input id="res-name" type="text" maxlength="60"></label>
+      <label class="field"><span class="small muted">Materia</span><select id="res-subj"></select></label>
       <button class="btn btn-primary" id="btn-add-book" type="button">➕ Aggiungi questo libro</button>
-      <div id="link-box" class="stack">
-        <label class="field"><span class="small muted">…oppure collega il codice a un libro già presente</span><select id="scan-select"></select></label>
-        <button class="btn btn-soft" id="btn-link" type="button">🔗 Collega</button>
-      </div>
-      <button class="link strong" id="btn-rescan" type="button">↺ Non è giusto? Scansiona di nuovo</button>
+      <label class="field"><span class="small muted">…oppure collega il codice a un libro già presente</span><select id="scan-select"></select></label>
+      <button class="btn btn-soft" id="btn-link" type="button">🔗 Collega</button>
     </div>
-    <div class="row gap wrapflex">
-      <button class="btn btn-soft grow" id="btn-scan-photo" type="button">📷 Foto con la fotocamera</button>
-      <button class="btn btn-soft grow" id="btn-scan-file" type="button">🖼 Dalla galleria</button>
-      <input type="file" id="scan-photo" accept="image/*" capture="environment" class="hidden">
+    <div class="row gap">
+      <button class="btn btn-soft grow" id="btn-scan-file" type="button">🖼 Da foto</button>
       <input type="file" id="scan-file" accept="image/*" class="hidden">
     </div>
   </div>
-</dialog>
-
-<!-- Figli -->
-<dialog id="dlg-kid" aria-labelledby="kid-title">
-  <form id="kid-form" class="dlg-in stack" autocomplete="off">
-    <div class="row between"><h3 id="kid-title">Aggiungi un figlio</h3><button class="btn btn-icon" type="button" data-close aria-label="Chiudi">✕</button></div>
-    <label class="field"><span class="small muted">Nome</span><input id="kid-name" type="text" maxlength="30" required></label>
-    <label class="field"><span class="small muted">Classe (es. 3ª B)</span><input id="kid-cls" type="text" maxlength="10"></label>
-    <fieldset class="avatar-pick"><legend class="small muted">Icona</legend><div id="kid-avatars" class="row gap wrapflex"></div></fieldset>
-    <label class="field" id="kid-from-box"><span class="small muted">Come iniziare</span><select id="kid-from"></select></label>
-    <div class="row gap wrapflex">
-      <button class="btn btn-soft" type="button" id="btn-kid-del">🗑 Elimina</button>
-      <button class="btn btn-primary grow" type="submit">Salva</button>
-    </div>
-  </form>
 </dialog>
 
 <!-- Materiali -->
@@ -263,7 +156,7 @@
 <!-- Assistente -->
 <dialog id="dlg-ai" aria-labelledby="ai-title">
   <div class="dlg-in chat">
-    <div class="row between"><div class="row gap"><img class="ico-lg" src="./img/hero-orario.webp" alt="" width="40" height="40"><h3 id="ai-title">Assistente dello zaino</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
+    <div class="row between"><div class="row gap"><img class="ico-lg" data-img="robot" alt="" width="40" height="40"><h3 id="ai-title">Assistente dello zaino</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
     <div id="chat" class="scroll grow small" aria-live="polite"></div>
     <div class="row gap">
       <input id="ai-input" type="text" placeholder="Es. Cosa porto domani?" autocomplete="off" aria-label="Domanda">
@@ -275,6 +168,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="./app.js"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
