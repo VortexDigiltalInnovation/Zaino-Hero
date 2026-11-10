@@ -1,0 +1,11 @@
+ZAINO HERO - come pubblicarla
+1. Carica TUTTA la cartella su un hosting https (GitHub Pages, Netlify, Vercel...). Serve https per fotocamera e installazione.
+2. Apri il link dal telefono: Android -> "Installa"; iPhone -> Condividi -> "Aggiungi alla schermata Home".
+3. Dopo ogni modifica ai file cambia VERSION in sw.js: i telefoni mostreranno "Nuova versione pronta".
+I dati del vecchio Zaino Hero (orario, materie, foto) vengono ripresi in automatico se si apre dallo stesso indirizzo.
+Fai ogni tanto "Salva copia dei dati" nelle impostazioni.
+
+SCANSIONE LIBRI
+- Inquadra il codice a barre (ISBN) sul retro del libro: se e' nuovo viene cercato su Internet (Google Libri / Open Library) con titolo e copertina; controlli nome e materia e lo aggiungi.
+- Se la ricerca non trova nulla o sei offline, scrivi il nome a mano. Puoi anche digitare l'ISBN o usare "Da foto".
+- Alla scansione successiva lo stesso libro si spunta da solo.
