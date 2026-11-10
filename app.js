@@ -3,11 +3,17 @@
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
-const KEYS = {
-  schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2',
-  mute: 'zaino_mute', profile: 'zaino_profile', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1',
-  catalog: 'zaino_prize_catalog_v1'
-};
+const GLOBAL_KEYS = { mute: 'zaino_mute', catalog: 'zaino_prize_catalog_v1', kids: 'zaino_kids_v1', profile: 'zaino_profile' };
+/* Dati di ogni figlio: il primo figlio (k1) mantiene le chiavi storiche, così i dati esistenti restano al loro posto. */
+const KID_BASE = { schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1' };
+const LEGACY_KID = 'k1';
+const AVATARS = ['mantello', 'visore', 'orario', 'trofeo'];
+const AVATAR_NAMES = { mantello: 'Eroe col mantello', visore: 'Eroe con visore', orario: 'Eroe dell\'orario', trofeo: 'Eroe del trofeo' };
+const MAX_KIDS = 8;
+const kidKey = (base, id) => (id === LEGACY_KID ? base : `${base}__${id}`);
+let activeKidId = LEGACY_KID;
+const KEYS = Object.assign({}, GLOBAL_KEYS);
+Object.keys(KID_BASE).forEach((k) => Object.defineProperty(KEYS, k, { get: () => kidKey(KID_BASE[k], activeKidId), enumerable: true }));
 const PALETTE = ['#2563eb', '#dc2626', '#eab308', '#ea580c', '#16a34a', '#854d0e', '#9333ea', '#db2777', '#0891b2', '#64748b'];
 /* 10 spicchi equivalenti: 6 simbolici, 3 privilegi, 1 fisico (60/30/10). */
 const WHEEL_PRIZES = [
@@ -35,6 +41,8 @@ const DEFAULT_SUBJECTS = {
   'Musica': { color: '#db2777', emoji: '🎵', materials: ['Quaderno pentagrammato', 'Flauto e Spartiti'] },
   'Ed. Fisica': { color: '#64748b', emoji: '⚽', materials: ['Sacca Ginnastica (Tuta & Scarpe)'] }
 };
+const GENERIC_SUBJECTS = Object.fromEntries(Object.entries(DEFAULT_SUBJECTS).map(([k, v]) =>
+  [k, { color: v.color, emoji: v.emoji, materials: k === 'Italiano' ? ['Quaderno di Italiano'] : [v.materials[0]] }]));
 const DEFAULT_SCHEDULE = {
   'Lunedì': ['Matematica', 'Matematica', 'Tecnologia', 'Italiano / Matematica', 'Italiano', 'Arte e Immagine'],
   'Martedì': ['Inglese', 'Inglese', 'Musica', 'Matematica', 'Storia', 'Storia'],
@@ -65,8 +73,8 @@ const safePhoto = (p) => (typeof p === 'string' && /^data:image\/(jpeg|png|webp|
 function cleanMaterials(list, fallback) {
   const arr = Array.isArray(list) ? list : fallback;
   return arr.filter((m) => m != null).map((m) => (typeof m === 'string'
-    ? { id: uid(), name: m.slice(0, 60), photo: '', barcode: '' }
-    : { id: typeof m.id === 'string' && /^[\w-]{1,24}$/.test(m.id) ? m.id : uid(), name: String(m.name || 'Libro').slice(0, 60), photo: safePhoto(m.photo), barcode: String(m.barcode || '').slice(0, 64) }));
+    ? { id: uid(), name: m.slice(0, 60), photo: '', barcode: '', cls: '' }
+    : { id: typeof m.id === 'string' && /^[\w-]{1,24}$/.test(m.id) ? m.id : uid(), name: String(m.name || 'Libro').slice(0, 60), photo: safePhoto(m.photo), barcode: String(m.barcode || '').slice(0, 64), cls: /^[1-5]$/.test(String(m.cls)) ? String(m.cls) : '' }));
 }
 function cleanChecks(raw) {
   const out = {};
@@ -125,6 +133,34 @@ function cleanHistory(raw) {
   return { completed };
 }
 
+/* ---------- figli ---------- */
+function cleanKids(raw) {
+  const list = [];
+  (raw && Array.isArray(raw.list) ? raw.list : []).slice(0, MAX_KIDS).forEach((k) => {
+    if (!k || typeof k.id !== 'string' || !/^[\w-]{1,16}$/.test(k.id) || list.some((x) => x.id === k.id)) return;
+    list.push({
+      id: k.id, name: String(k.name || '').trim().slice(0, 30) || 'Studente', cls: String(k.cls || '').trim().slice(0, 10) || '-',
+      avatar: AVATARS.includes(k.avatar) ? k.avatar : AVATARS[list.length % AVATARS.length]
+    });
+  });
+  if (!list.length) return null;
+  return { list, active: list.some((x) => x.id === raw.active) ? raw.active : list[0].id };
+}
+function loadKids() {
+  let k = cleanKids(store.get(GLOBAL_KEYS.kids, null));
+  if (!k) {
+    const old = store.get(GLOBAL_KEYS.profile, {}) || {};
+    k = { list: [{ id: LEGACY_KID, name: String(old.name || 'Gabriele').slice(0, 30), cls: String(old.cls || '5ª A').slice(0, 10), avatar: 'mantello' }], active: LEGACY_KID };
+    store.set(GLOBAL_KEYS.kids, k, true);
+  }
+  return k;
+}
+let kids = loadKids();
+activeKidId = kids.active;
+const activeKid = () => kids.list.find((k) => k.id === activeKidId) || kids.list[0];
+const saveKids = () => store.set(GLOBAL_KEYS.kids, kids);
+const isLegacyKid = () => activeKidId === LEGACY_KID;
+
 /* ---------- stato ---------- */
 let subjects = loadSubjects();
 let schedule = loadSchedule();
@@ -132,7 +168,7 @@ let checks = cleanChecks(store.get(KEYS.checks, {}));
 let rewards = cleanRewards(store.get(KEYS.rewards, {}));
 let progressLog = cleanHistory(store.get(KEYS.history, {}));
 let prizeCatalog = cleanCatalog(store.get(KEYS.catalog, {}));
-let profile = Object.assign({ name: 'Gabriele', cls: '5ª A' }, store.get(KEYS.profile, {}));
+let profile = activeKid();
 let muted = store.get(KEYS.mute, false) === true;
 let state = { day: defaultDay(), edit: false };
 let draft = null;        // copia di lavoro nella finestra "materiali"
@@ -152,9 +188,10 @@ function loadSubjects() {
   const raw = store.get(KEYS.subjects, null);
   const src = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : null;
   const out = {};
-  Object.keys(src || DEFAULT_SUBJECTS).forEach((name, i) => {
-    const s = (src ? src[name] : DEFAULT_SUBJECTS[name]);
-    const def = DEFAULT_SUBJECTS[name] || {};
+  const defs = isLegacyKid() ? DEFAULT_SUBJECTS : GENERIC_SUBJECTS;
+  Object.keys(src || defs).forEach((name, i) => {
+    const s = (src ? src[name] : defs[name]);
+    const def = defs[name] || {};
     const o = s && typeof s === 'object' ? s : {};
     out[name] = {
       color: safeColor(o.color, safeColor(def.color, PALETTE[i % PALETTE.length])),
@@ -170,7 +207,7 @@ function loadSchedule() {
   const raw = store.get(KEYS.schedule, null);
   const out = {};
   DAYS.forEach((d) => {
-    const v = raw && Array.isArray(raw[d]) ? raw[d] : DEFAULT_SCHEDULE[d];
+    const v = raw && Array.isArray(raw[d]) ? raw[d] : (isLegacyKid() ? DEFAULT_SCHEDULE[d] : []);
     out[d] = v.map((x) => String(x).slice(0, 60));
   });
   return out;
@@ -288,6 +325,8 @@ function renderHistory() {
 function render() {
   recordCompletion(state.day);
   $('profile-line').textContent = `${profile.name} — Classe ${profile.cls}`;
+  $('hero-eyebrow').textContent = `Carica dello zaino · ${profile.name}`;
+  renderKids();
   $('day-label').textContent = state.day;
   $('day-when').textContent = whenLabel(state.day);
   $('btn-edit').textContent = state.edit ? '✅ Fatto' : '✏️ Modifica orario';
@@ -330,7 +369,7 @@ function renderList() {
     } else {
       body = '<div class="mats">' + g.mats.map((m) => `
         <div class="mat${c[m.id] ? ' on' : ''}">
-          <label><input type="checkbox" data-mid="${m.id}" ${c[m.id] ? 'checked' : ''}><span class="mname">${esc(m.name)}</span></label>
+          <label><input type="checkbox" data-mid="${m.id}" ${c[m.id] ? 'checked' : ''}><span class="mname">${esc(m.name)}</span>${m.cls ? `<span class="mtag">${m.cls}ª</span>` : ''}</label>
           ${m.photo ? `<button class="thumb" data-zoom="${m.id}" aria-label="Ingrandisci foto di ${esc(m.name)}"><img src="${m.photo}" alt=""></button>` : ''}
         </div>`).join('') + '</div>';
     }
@@ -697,7 +736,7 @@ function matchDigit(runs, sets) {
 function decodeRuns(runs, i) { // runs[i] = prima barra della guardia iniziale
   const seg = runs.slice(i, i + 59); if (seg.length < 59) return null;
   const u = seg.reduce((a, b) => a + b, 0) / 95;
-  for (const k of [0, 1, 2, 28, 29, 30, 31, 32, 56, 57, 58]) if (Math.abs(seg[k] - u) > u * 0.75) return null;
+  for (const k of [0, 1, 2, 27, 28, 29, 30, 31, 56, 57, 58]) if (Math.abs(seg[k] - u) > u * 0.75) return null;
   const left = [], right = []; let par = '';
   for (let g = 0; g < 6; g++) { const m = matchDigit(seg.slice(3 + g * 4, 7 + g * 4), ['L', 'G']); if (!m) return null; left.push(m.d); par += m.set; }
   for (let g = 0; g < 6; g++) { const m = matchDigit(seg.slice(32 + g * 4, 36 + g * 4), ['R']); if (!m) return null; right.push(m.d); }
@@ -735,17 +774,53 @@ function decodeEan13(canvas) {
   return null;
 }
 const scanCanvas = document.createElement('canvas');
-function frameToCanvas(src, sw, sh) {
-  const s = Math.min(1, 1100 / Math.max(sw, sh));
-  scanCanvas.width = Math.round(sw * s); scanCanvas.height = Math.round(sh * s);
-  scanCanvas.getContext('2d', { willReadFrequently: true }).drawImage(src, 0, 0, scanCanvas.width, scanCanvas.height);
-  return scanCanvas;
+function frameToCanvas(src, sw, sh, maxSide = 1280, fresh = false) {
+  const s = Math.min(1, maxSide / Math.max(sw, sh));
+  const cv = fresh ? document.createElement('canvas') : scanCanvas;
+  cv.width = Math.max(1, Math.round(sw * s)); cv.height = Math.max(1, Math.round(sh * s));
+  cv.getContext('2d', { willReadFrequently: true }).drawImage(src, 0, 0, cv.width, cv.height);
+  return cv;
 }
-/* Legge un codice da un video o da un'immagine: BarcodeDetector se c'è, altrimenti il lettore interno. */
-async function readCode(src, sw, sh) {
+const loadedScripts = {};
+function loadScript(src) {
+  if (!loadedScripts[src]) {
+    loadedScripts[src] = new Promise((res, rej) => {
+      const s = document.createElement('script'); s.src = src; s.async = true;
+      s.onload = () => res();
+      s.onerror = () => { delete loadedScripts[src]; rej(new Error('script')); };
+      document.head.appendChild(s);
+    });
+  }
+  return loadedScripts[src];
+}
+/* Lettore ZXing (WebAssembly, ospitato nella cartella vendor/): funziona su tutti i browser, anche offline. */
+let zxPromise = null;
+function loadZX() {
+  if (!zxPromise) {
+    zxPromise = loadScript('./vendor/zxing/zxing-reader.iife.js').then(() => {
+      const base = new URL('./vendor/zxing/', location.href).href;
+      window.ZXingWASM.setZXingModuleOverrides({ locateFile: (p, prefix) => (/\.wasm$/.test(p) ? base + p : prefix + p) });
+      return window.ZXingWASM;
+    }).catch((e) => { zxPromise = null; throw e; });
+  }
+  return zxPromise;
+}
+async function zxRead(cv) {
+  const Z = await loadZX();
+  const img = cv.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, cv.width, cv.height);
+  const res = await Z.readBarcodes(img, {
+    formats: ['EAN-13', 'EAN-8', 'UPC-A'], tryHarder: true, tryRotate: true, tryInvert: true, tryDownscale: true, maxNumberOfSymbols: 1
+  });
+  const hit = res.find((r) => r.text && r.isValid !== false);
+  return hit ? hit.text : null;
+}
+/* Legge un codice da un video o da un'immagine: BarcodeDetector (se c'è), poi ZXing, poi il lettore interno. */
+async function readCode(src, sw, sh, maxSide) {
   const det = getDetector();
-  if (det) { try { const r = await det.detect(src); if (r.length) return r[0].rawValue; } catch (e) { /* prosegue col lettore interno */ } }
-  return decodeEan13(frameToCanvas(src, sw, sh));
+  if (det) { try { const r = await det.detect(src); if (r.length) return r[0].rawValue; } catch (e) { /* prosegue */ } }
+  const cv = frameToCanvas(src, sw, sh, maxSide || 1280);
+  try { const c = await zxRead(cv); if (c) return c; } catch (e) { console.warn('ZXing:', e); }
+  return decodeEan13(cv);
 }
 
 /* ---------- ricerca libro su Internet (Google Libri, poi Open Library) ---------- */
@@ -781,53 +856,315 @@ async function lookupIsbn(isbn) {
   found.cover = await fetchCover(found.coverUrl) || await fetchCover(`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`);
   return found;
 }
-const SUBJECT_HINTS = [[/matemat|aritmet|geometr|numer/, 'Matematica'], [/ital|grammat|lettura|antologia|racconti/, 'Italiano'], [/english|inglese|workbook|student/, 'Inglese'], [/stori/, 'Storia'], [/scienz|natura/, 'Scienze'], [/geograf/, 'Geografia'], [/tecnolog|informatic/, 'Tecnologia'], [/arte|immagine|disegn/, 'Arte e Immagine'], [/music|flauto/, 'Musica'], [/fisic|motori|sport/, 'Ed. Fisica']];
+/* ---------- materia e classe dal testo ---------- */
+const SUBJECT_HINTS = [
+  [/matemat|aritmet|geometri|numer[io]\b|problem[ai]\b|calcol|operazion|frazion|logica/, 'Matematica'],
+  [/ital[iy]ano|grammatic|lettur|antologi|raccont|scrittur|ortograf|linguagg|favol|poesi/, 'Italiano'],
+  [/english|inglese|workbook|student'?s|grammar|oxford|cambridge|macmillan|black cat|pearson english/, 'Inglese'],
+  [/stori[ac]|antichit|medioev|civilt|romani|egizi|preistoria/, 'Storia'],
+  [/geograf|paesagg|atlante|territori/, 'Geografia'],
+  [/scienz|natura\b|ambient|corpo umano|biolog|esperiment/, 'Scienze'],
+  [/tecnolog|informatic|coding|computer|digital/, 'Tecnologia'],
+  [/\barte\b|immagin|disegn|pittur|artistic/, 'Arte e Immagine'],
+  [/music|flauto|canto\b|pentagramm/, 'Musica'],
+  [/ed\.? ?fisica|educazione fisica|motori|sport|ginnastic/, 'Ed. Fisica'],
+  [/religion|cattolic|bibbia|vangel/, 'Religione']
+];
+function resolveSubject(name) {
+  const n = norm(name);
+  const keys = Object.keys(subjects);
+  return keys.find((k) => norm(k) === n) || keys.find((k) => norm(k).includes(n) || n.includes(norm(k))) || null;
+}
 function guessSubject(text) {
   const n = norm(text);
-  for (const [re, name] of SUBJECT_HINTS) { const k = Object.keys(subjects).find((x) => norm(x) === norm(name)); if (k && re.test(n)) return k; }
+  for (const [re, name] of SUBJECT_HINTS) { const k = resolveSubject(name); if (k && re.test(n)) return k; }
   return Object.keys(subjects).find((k) => n.includes(norm(k))) || null;
 }
+/* Sceglie la materia con più indizi: le parole del titolo pesano il triplo. */
+function detectSubject(titleText, allText) {
+  const nt = norm(titleText), na = norm(allText);
+  let best = null, bestScore = 0;
+  const count = (re, text) => (text.match(new RegExp(re.source, 'g')) || []).length;
+  SUBJECT_HINTS.forEach(([re, name]) => {
+    const k = resolveSubject(name); if (!k) return;
+    const score = count(re, nt) * 3 + count(re, na);
+    if (score > bestScore) { bestScore = score; best = k; }
+  });
+  Object.keys(subjects).forEach((k) => {
+    const nk = norm(k); if (nk.length < 4) return;
+    const score = (nt.includes(nk) ? 4 : 0) + (na.includes(nk) ? 2 : 0);
+    if (score > bestScore) { bestScore = score; best = k; }
+  });
+  return best;
+}
+const ORD_CLS = { prima: 1, primo: 1, seconda: 2, secondo: 2, terza: 3, terzo: 3, quarta: 4, quarto: 4, quinta: 5, quinto: 5 };
+const toCls = (v) => ORD_CLS[v] || (/^[1-5]$/.test(v) ? +v : 0) || null;
+function detectClass(textRaw) {
+  const t = norm(String(textRaw).replace(/[°º^ª]/g, ' '));
+  const ord = '(prim[ao]|second[ao]|terz[ao]|quart[ao]|quint[ao]|[1-5])';
+  let m;
+  if ((m = t.match(new RegExp('\\bclass[ei]\\s*' + ord + '\\b')))) return toCls(m[1]);
+  if ((m = t.match(new RegExp('\\b' + ord + '\\s*a?\\s*(?:class[ei]|elementare|primaria)\\b')))) return toCls(m[1]);
+  if ((m = t.match(/\b(?:volume|vol|per la|per il|anno)\s*([1-5])\b/))) return +m[1];
+  return null;
+}
+function detectYear(textRaw) {
+  const max = new Date().getFullYear() + 1;
+  const years = (String(textRaw).match(/\b20[0-3]\d\b/g) || []).map(Number).filter((y) => y <= max);
+  return years.length ? Math.max(...years) : null;
+}
+
+/* ---------- lettura del testo di una copertina ---------- */
+const PUBLISHERS = /\b(giunti|mondadori|pearson|de agostini|deagostini|dea scuola|raffaello|zanichelli|fabbri|lisciani|mursia|capitello|la spiga|loescher|oxford|cambridge|macmillan|black cat|cideb|hoepli|lattes|principato|elmedi|erickson|helbling|hachette|editrice|edizioni|editore|tredieci|il castoro|la scuola)\b/;
+const META_LINE = /^(per la|per le|per il|classe|classi|volume|vol\b|ed\b|edizione|isbn|www|http|copia|prezzo|\d+$)|\bisbn\b|www\.|\.it\b|\.com\b|scuola primaria|per la scuola|scuola elementare|nuova edizione|con (cd|dvd|contenuti)|libro di testo/;
+const SMALL_WORDS = new Set(['di', 'e', 'la', 'il', 'lo', 'le', 'dei', 'delle', 'del', 'della', 'a', 'in', 'per', 'con', 'da', 'al', 'ai', 'alle', 'un', 'una', 'i', 'gli']);
+function tidyTitle(str) {
+  let t = String(str).replace(/[|_~=<>{}[\]\\^*#@]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/^[-–—.,:;\s]+|[-–—.,:;\s]+$/g, '');
+  const letters = t.replace(/[^A-Za-zÀ-ÿ]/g, '');
+  if (letters.length > 3 && letters === letters.toUpperCase()) {
+    t = t.toLowerCase().split(' ').map((w, i) => (i > 0 && SMALL_WORDS.has(w) ? w : w.charAt(0).toUpperCase() + w.slice(1))).join(' ');
+  }
+  return t.slice(0, 60);
+}
+/* Raggruppa le parole in righe, sceglie come titolo le righe con le lettere più grandi
+   e ricava classe ed edizione. Funzione pura: prende le parole di Tesseract (testo + riquadro + affidabilità). */
+function parseCover(words) {
+  const ws = [];
+  (words || []).forEach((w) => {
+    const t = String(w.text || '').trim(), b = w.bbox || {};
+    if (!t || !(w.confidence >= 30) || !/[A-Za-zÀ-ÿ0-9]/.test(t) || !Number.isFinite(b.y1) || !Number.isFinite(b.y0)) return;
+    const h = b.y1 - b.y0; if (h < 6) return;
+    ws.push({ t, x0: b.x0, x1: b.x1, h, cy: (b.y0 + b.y1) / 2, conf: w.confidence });
+  });
+  ws.sort((a, b) => a.cy - b.cy);
+  const raw = [];
+  ws.forEach((w) => {
+    const ln = raw.find((l) => Math.abs(l.cy - w.cy) < 0.55 * Math.max(l.h, w.h) && w.x0 < l.x1 + 2.5 * l.h && w.x1 > l.x0 - 2.5 * l.h);
+    if (ln) { ln.ws.push(w); ln.x0 = Math.min(ln.x0, w.x0); ln.x1 = Math.max(ln.x1, w.x1); ln.cy = ln.ws.reduce((a, x) => a + x.cy, 0) / ln.ws.length; }
+    else raw.push({ ws: [w], x0: w.x0, x1: w.x1, cy: w.cy, h: w.h });
+  });
+  const lines = raw.map((l) => {
+    l.ws.sort((a, b) => a.x0 - b.x0);
+    const hs = l.ws.map((x) => x.h).sort((a, b) => a - b);
+    const text = l.ws.map((x) => x.t).join(' ').replace(/\s+/g, ' ').trim();
+    const letters = (text.match(/[A-Za-zÀ-ÿ]/g) || []).length;
+    const n = norm(text);
+    return {
+      text, cy: l.cy, h: hs[Math.floor(hs.length / 2)], letters,
+      conf: l.ws.reduce((a, x) => a + x.conf, 0) / l.ws.length,
+      meta: META_LINE.test(n) || PUBLISHERS.test(n)
+    };
+  }).filter((l) => l.letters >= 3 && l.conf >= 45 && l.letters / l.text.length >= 0.6).sort((a, b) => a.cy - b.cy);
+
+  const cand = lines.filter((l) => !l.meta && l.letters >= 4);
+  let titleIdx = [];
+  if (cand.length) {
+    const anchor = cand.reduce((best, l) => (l.h * Math.min(1, l.conf / 75) > best.h * Math.min(1, best.conf / 75) ? l : best), cand[0]);
+    const ai = lines.indexOf(anchor);
+    const ok = (l) => !l.meta && l.h >= 0.5 * anchor.h;
+    titleIdx = [ai];
+    for (let i = ai - 1; i >= 0 && ok(lines[i]) && Math.abs(lines[i + 1].cy - lines[i].cy) <= 2.4 * anchor.h; i--) titleIdx.unshift(i);
+    for (let i = ai + 1; i < lines.length && ok(lines[i]) && Math.abs(lines[i].cy - lines[i - 1].cy) <= 2.4 * anchor.h; i++) titleIdx.push(i);
+  }
+  const title = tidyTitle(titleIdx.map((i) => lines[i].text).join(' '));
+  const allText = lines.map((l) => l.text).join(' \n ');
+  const wordsText = ws.map((w) => w.t).join(' ');
+  let cls = detectClass(allText) || detectClass(wordsText), clsGuess = false;
+  if (!cls) { // un numero grande da solo (1–5) sulla copertina: probabile classe, ma incerta
+    const maxH = Math.max(0, ...ws.map((w) => w.h));
+    const big = ws.find((w) => /^[1-5][ªa°º^]?$/.test(w.t) && w.h >= 0.9 * maxH && w.conf >= 60);
+    if (big) { cls = +big.t[0]; clsGuess = true; }
+  }
+  const quality = titleIdx.length ? titleIdx.reduce((a, i) => a + lines[i].conf, 0) / titleIdx.length : 0;
+  return { title, lines, titleIdx, allText, titleText: titleIdx.map((i) => lines[i].text).join(' '), cls, clsGuess, year: detectYear(wordsText), quality };
+}
+
+/* ---------- OCR (Tesseract.js ospitato in vendor/: nessun download esterno) ---------- */
+let ocrWorker = null, ocrLoading = null;
+const OCR_STEPS = {
+  'loading tesseract core': 'Preparo il lettore…', 'initializing tesseract': 'Preparo il lettore…', 'initialized tesseract': 'Preparo il lettore…',
+  'loading language traineddata': 'Carico la lingua italiana…', 'loaded language traineddata': 'Carico la lingua italiana…',
+  'initializing api': 'Preparo il lettore…', 'initialized api': 'Preparo il lettore…', 'recognizing text': 'Leggo il testo'
+};
+function ocrProgress(m) {
+  if (!m || !m.status || !$('dlg-scan').open) return;
+  const pct = Math.round((m.progress || 0) * 100);
+  const el = $('ocr-progress'); el.classList.remove('hidden'); el.value = pct;
+  setStatus('📖 ' + (OCR_STEPS[m.status] || 'Lavoro…') + (m.status === 'recognizing text' ? ` ${pct}%` : ''));
+}
+async function getOcr() {
+  if (ocrWorker) return ocrWorker;
+  if (!ocrLoading) {
+    ocrLoading = (async () => {
+      await loadScript('./vendor/tesseract/tesseract.min.js');
+      const abs = (p) => new URL(p, location.href).href;
+      const w = await window.Tesseract.createWorker('ita', 1, {
+        workerPath: abs('./vendor/tesseract/worker.min.js'), corePath: abs('./vendor/tesseract/core'), langPath: abs('./vendor/tesseract/lang'),
+        logger: ocrProgress
+      });
+      await w.setParameters({ tessedit_pageseg_mode: window.Tesseract.PSM.SPARSE_TEXT, preserve_interword_spaces: '1' });
+      ocrWorker = w; return w;
+    })().catch((e) => { ocrLoading = null; throw e; });
+  }
+  return ocrLoading;
+}
+/* Scala di grigi + contrasto automatico (e, al secondo tentativo, colori invertiti per il testo chiaro su fondo scuro). */
+function prepForOcr(cv, invert) {
+  const side = Math.max(cv.width, cv.height);
+  const s = side > 2200 ? 2200 / side : side < 1200 ? Math.min(2, 1400 / side) : 1;
+  const out = document.createElement('canvas');
+  out.width = Math.round(cv.width * s); out.height = Math.round(cv.height * s);
+  const ctx = out.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(cv, 0, 0, out.width, out.height);
+  const img = ctx.getImageData(0, 0, out.width, out.height), d = img.data, hist = new Uint32Array(256);
+  for (let i = 0; i < d.length; i += 4) { const g = (d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000 | 0; d[i] = g; hist[g]++; }
+  const total = d.length / 4; let acc = 0, lo = 0, hi = 255;
+  for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= total * 0.01) { lo = v; break; } }
+  acc = 0; for (let v = 255; v >= 0; v--) { acc += hist[v]; if (acc >= total * 0.01) { hi = v; break; } }
+  const span = Math.max(30, hi - lo);
+  for (let i = 0; i < d.length; i += 4) {
+    let g = Math.max(0, Math.min(255, (d[i] - lo) * 255 / span)); if (invert) g = 255 - g;
+    d[i] = d[i + 1] = d[i + 2] = g;
+  }
+  ctx.putImageData(img, 0, 0);
+  return out;
+}
+async function ocrCover(cv) {
+  const w = await getOcr();
+  let best = null;
+  for (const invert of [false, true]) {
+    const { data } = await w.recognize(prepForOcr(cv, invert));
+    const p = parseCover(data.words || []);
+    if (!best || p.quality > best.quality || (!best.title && p.title)) best = p;
+    if (best.title.length >= 4 && best.quality >= 70) break;
+  }
+  return best;
+}
+const canvasToJpeg = (cv, max) => {
+  const s = Math.min(1, max / Math.max(cv.width, cv.height));
+  const o = document.createElement('canvas'); o.width = Math.round(cv.width * s); o.height = Math.round(cv.height * s);
+  o.getContext('2d').drawImage(cv, 0, 0, o.width, o.height);
+  return o.toDataURL('image/jpeg', 0.72);
+};
 
 /* ---------- scanner ---------- */
 let stream = null, scanTimer = null, scanBusy = false, detector = null, lastCode = '', lastAt = 0, pendingCode = '', pendingCover = '', lookupToken = 0;
+let scanMode = 'code', torchOn = false, chipLines = [], chipSel = [], suggestions = [];
 function setStatus(html, cls) { const s = $('scan-status'); s.className = 'status' + (cls ? ' ' + cls : ''); s.innerHTML = html; }
 function getDetector() {
   if (detector) return detector;
-  try { if ('BarcodeDetector' in window) detector = new window.BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_a', 'qr_code'] }); } catch (e) { detector = null; }
+  try { if ('BarcodeDetector' in window) detector = new window.BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_a'] }); } catch (e) { detector = null; }
   return detector;
 }
-function resetScanPanel() { $('scan-result').classList.add('hidden'); pendingCode = ''; pendingCover = ''; lookupToken++; }
+function resetScanPanel() {
+  $('scan-result').classList.add('hidden'); pendingCode = ''; pendingCover = ''; lookupToken++;
+  chipLines = []; chipSel = []; suggestions = [];
+  ['res-sugg', 'res-lines-box', 'res-hint'].forEach((id) => $(id).classList.add('hidden'));
+  $('link-box').classList.remove('hidden');
+}
+const SCAN_HELP = {
+  code: 'Inquadra il <strong>codice a barre</strong> sul retro del libro (ISBN): fermo, ben illuminato, a circa 15–20 cm.',
+  cover: 'Inquadra la <strong>copertina davanti</strong>, intera e dritta, con buona luce e senza riflessi; poi tocca «Scatta e leggi». Cerco titolo, materia e classe.'
+};
+function setScanMode(mode) {
+  scanMode = mode;
+  $('tab-code').setAttribute('aria-selected', String(mode === 'code'));
+  $('tab-cover').setAttribute('aria-selected', String(mode === 'cover'));
+  $('scan-help').innerHTML = SCAN_HELP[mode];
+  $('scan-laser').classList.toggle('hidden', mode !== 'code');
+  $('cover-guide').classList.toggle('hidden', mode !== 'cover');
+  $('cover-actions').classList.toggle('hidden', mode !== 'cover');
+  $('isbn-form').classList.toggle('hidden', mode !== 'code');
+  if (stream && !scanBusy) setStatus(mode === 'code' ? 'Inquadra il codice a barre…' : 'Inquadra la copertina e tocca «Scatta e leggi».');
+  scheduleScan();
+}
+$('tab-code').onclick = () => setScanMode('code');
+$('tab-cover').onclick = () => setScanMode('cover');
+async function startCamera() {
+  stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false
+  });
+  const v = $('scan-video'); v.srcObject = stream;
+  try { await v.play(); } catch (e) { /* autoplay già attivo */ }
+  const track = stream.getVideoTracks()[0];
+  const caps = track && track.getCapabilities ? track.getCapabilities() : {};
+  if (caps.focusMode && caps.focusMode.includes('continuous')) track.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(() => {});
+  torchOn = false;
+  $('btn-torch').classList.toggle('hidden', !caps.torch);
+  $('btn-torch').setAttribute('aria-pressed', 'false');
+}
+$('btn-torch').onclick = () => {
+  const track = stream && stream.getVideoTracks()[0]; if (!track) return;
+  torchOn = !torchOn;
+  track.applyConstraints({ advanced: [{ torch: torchOn }] }).then(() => $('btn-torch').setAttribute('aria-pressed', String(torchOn))).catch(() => { torchOn = false; });
+};
 $('btn-scan').onclick = async () => {
-  resetScanPanel(); lastCode = '';
+  resetScanPanel(); lastCode = ''; scanBusy = false; $('ocr-progress').classList.add('hidden');
+  setScanMode('code'); setStatus('Avvio fotocamera…');
   openDialog($('dlg-scan'));
-  if (!navigator.mediaDevices?.getUserMedia) { setStatus('Fotocamera non disponibile (serve https). Scrivi l\'ISBN qui sotto o scegli «Da foto».', 'warn'); return; }
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-    $('scan-video').srcObject = stream;
-    setStatus('Inquadra il codice a barre…');
-    scanTimer = setInterval(scanFrame, 400);
-  } catch (e) { setStatus('Non posso usare la fotocamera. Scrivi l\'ISBN qui sotto o scegli «Da foto».', 'warn'); }
+  if (!navigator.mediaDevices?.getUserMedia) { setStatus('Fotocamera non disponibile qui (serve https). Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); return; }
+  try { await startCamera(); setStatus('Inquadra il codice a barre…'); scheduleScan(); }
+  catch (e) { setStatus('Non posso usare la fotocamera. Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); }
 };
 function stopScanner() {
-  clearInterval(scanTimer); scanTimer = null;
+  clearTimeout(scanTimer); scanTimer = null;
   if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
-  $('scan-video').srcObject = null;
+  $('scan-video').srcObject = null; torchOn = false;
 }
-$('dlg-scan').addEventListener('close', () => { stopScanner(); resetScanPanel(); });
+$('dlg-scan').addEventListener('close', () => { stopScanner(); resetScanPanel(); scanBusy = false; $('ocr-progress').classList.add('hidden'); });
+function scheduleScan() {
+  clearTimeout(scanTimer); scanTimer = null;
+  if (!stream || scanMode !== 'code') return;
+  scanTimer = setTimeout(async () => { await scanFrame(); scheduleScan(); }, 300);
+}
 async function scanFrame() {
   const v = $('scan-video'); if (scanBusy || v.readyState < 2 || !v.videoWidth) return;
   scanBusy = true;
-  try { const c = await readCode(v, v.videoWidth, v.videoHeight); if (c) handleCode(c); } catch (e) { /* frame non leggibile */ } finally { scanBusy = false; }
+  try { const c = await readCode(v, v.videoWidth, v.videoHeight, 1280); if (c && scanMode === 'code') handleCode(c); } catch (e) { /* frame non leggibile */ } finally { scanBusy = false; }
+}
+function setBusyUi(b) { ['btn-cover-shot', 'btn-scan-photo', 'btn-scan-file'].forEach((id) => { $(id).disabled = b; }); if (!b) $('ocr-progress').classList.add('hidden'); }
+
+/* Foto (fotocamera o galleria): prima cerco un codice a barre, poi leggo la copertina. */
+async function handlePhotoFile(f) {
+  if (!f || scanBusy) return;
+  setStatus('🔎 Analizzo la foto…');
+  let bmp;
+  try { bmp = await createImageBitmap(f, { imageOrientation: 'from-image' }); }
+  catch (e) { try { bmp = await createImageBitmap(f); } catch (e2) { setStatus('Non riesco a leggere questa foto.', 'warn'); return; } }
+  const cv = frameToCanvas(bmp, bmp.width, bmp.height, 2200, true);
+  if (bmp.close) bmp.close();
+  await analyzeCover(cv, scanMode === 'code');
 }
 $('btn-scan-file').onclick = () => $('scan-file').click();
-$('scan-file').onchange = async (e) => {
-  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
-  try {
-    const bmp = await createImageBitmap(f);
-    const c = await readCode(bmp, bmp.width, bmp.height);
-    c ? handleCode(c, true) : setStatus('Non trovo un codice a barre in questa foto. Prova più da vicino e ben illuminata, oppure scrivi l\'ISBN.', 'warn');
-  } catch (err) { setStatus('Non riesco a leggere questa foto.', 'warn'); }
+$('btn-scan-photo').onclick = () => $('scan-photo').click();
+['scan-file', 'scan-photo'].forEach((id) => { $(id).onchange = (e) => { const f = e.target.files[0]; e.target.value = ''; handlePhotoFile(f); }; });
+$('btn-cover-shot').onclick = async () => {
+  const v = $('scan-video');
+  if (!stream || !v.videoWidth || scanBusy) { setStatus(scanBusy ? 'Sto ancora leggendo…' : 'La fotocamera non è pronta: usa «Foto con la fotocamera».', 'warn'); return; }
+  const cv = frameToCanvas(v, v.videoWidth, v.videoHeight, 2200, true);
+  v.pause();
+  try { await analyzeCover(cv, false); } finally { if (stream) v.play().catch(() => {}); }
 };
+async function analyzeCover(cv, codeFirst) {
+  if (scanBusy) return;
+  scanBusy = true; resetScanPanel(); setBusyUi(true);
+  const token = lookupToken;
+  try {
+    setStatus(codeFirst ? '🔎 Cerco il codice a barre…' : '📖 Leggo la copertina…');
+    let code = null;
+    try { code = await readCode(cv, cv.width, cv.height, 2200); } catch (e) { /* nessun codice */ }
+    if (token !== lookupToken) return;
+    if (code && normIsbn(code)) { scanBusy = false; handleCode(code, true); return; }
+    setStatus('📖 Leggo la copertina… (la prima volta ci vuole qualche secondo in più)');
+    const photo = canvasToJpeg(cv, 480);
+    const parsed = await ocrCover(cv);
+    if (token !== lookupToken) return;
+    showCoverResult(parsed, photo);
+  } catch (e) {
+    console.warn('Copertina:', e);
+    if (token === lookupToken) setStatus('Non riesco a leggere la copertina (modulo di lettura non disponibile: aprilo almeno una volta online). Scrivi tu il titolo e scegli la materia.', 'warn');
+  } finally { scanBusy = false; setBusyUi(false); }
+}
 $('isbn-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const raw = $('isbn-input').value.trim(); if (!raw) return;
@@ -867,8 +1204,11 @@ function fillSelects(preferred) {
 async function showNewCode(code) {
   const token = ++lookupToken, isbn = normIsbn(code);
   pendingCode = code; pendingCover = '';
+  chipLines = []; chipSel = []; suggestions = [];
+  ['res-sugg', 'res-lines-box', 'res-hint'].forEach((id) => $(id).classList.add('hidden'));
+  $('link-box').classList.remove('hidden');
   $('res-code').textContent = (isbn ? 'ISBN ' : 'Codice ') + code;
-  $('res-title').textContent = ''; $('res-author').textContent = ''; $('res-name').value = '';
+  $('res-title').textContent = ''; $('res-author').textContent = ''; $('res-name').value = ''; $('res-cls').value = '';
   $('res-cover').classList.add('hidden'); $('res-cover').removeAttribute('src');
   fillSelects(); $('scan-result').classList.remove('hidden');
   if (!isbn) { setStatus('Codice nuovo (non è un ISBN). Scrivi il nome del libro e scegli la materia, oppure collegalo a un libro che hai già.', 'warn'); return; }
@@ -876,21 +1216,93 @@ async function showNewCode(code) {
   const info = await lookupIsbn(isbn);
   if (token !== lookupToken) return; // nel frattempo è cambiato codice o la finestra è stata chiusa
   if (!info) {
-    setStatus(navigator.onLine ? 'Non ho trovato questo libro su Internet. Scrivi tu il nome e scegli la materia.' : 'Sei offline: non posso cercare il libro. Scrivi tu il nome e scegli la materia.', 'warn');
+    setStatus(navigator.onLine ? 'Non ho trovato questo libro su Internet. Scrivi tu il nome e scegli la materia (oppure prova con la scheda «Copertina»).' : 'Sei offline: non posso cercare il libro. Scrivi tu il nome e scegli la materia.', 'warn');
     return;
   }
   $('res-title').textContent = info.title; $('res-author').textContent = info.authors;
   $('res-name').value = info.title.slice(0, 60);
+  const cls = detectClass(info.title + ' ' + info.hint); if (cls) $('res-cls').value = String(cls);
   if (info.cover) { pendingCover = info.cover; $('res-cover').src = info.cover; $('res-cover').classList.remove('hidden'); }
   fillSelects(guessSubject(info.hint));
-  setStatus('✅ Trovato! Controlla il nome e la materia, poi aggiungilo.' + (info.cover ? '' : ' (Senza copertina: potrai aggiungere una foto dopo.)'), 'ok');
+  setStatus('✅ Trovato! Controlla nome, materia e classe, poi aggiungilo.' + (info.cover ? '' : ' (Senza copertina: potrai aggiungere una foto dopo.)'), 'ok');
 }
+
+/* ---------- risultato dalla copertina ---------- */
+async function searchBooks(title) {
+  const d = await fetchJson(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent('intitle:' + title)}&maxResults=4&printType=books&langRestrict=it`);
+  return (d.items || []).map((it) => {
+    const v = it.volumeInfo || {}, ids = v.industryIdentifiers || [];
+    const i13 = ids.find((x) => x.type === 'ISBN_13'), i10 = ids.find((x) => x.type === 'ISBN_10');
+    return {
+      title: (v.title || '') + (v.subtitle ? ': ' + v.subtitle : ''), authors: (v.authors || []).join(', '),
+      isbn: normIsbn(i13 && i13.identifier) || normIsbn(i10 && i10.identifier) || '',
+      hint: (v.categories || []).join(' ') + ' ' + (v.title || ''), coverUrl: (v.imageLinks && (v.imageLinks.thumbnail || v.imageLinks.smallThumbnail)) || ''
+    };
+  }).filter((x) => x.title);
+}
+function chipName() { return tidyTitle(chipSel.slice().sort((a, b) => a - b).map((i) => chipLines[i].text).join(' ')); }
+function renderChips() {
+  $('res-lines').innerHTML = chipLines.map((l, i) =>
+    `<button type="button" class="chip-sel" data-i="${i}" aria-pressed="${chipSel.includes(i)}">${esc(l.text)}</button>`).join('');
+  $('res-lines-box').classList.toggle('hidden', !chipLines.length);
+}
+$('res-lines').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-i]'); if (!b) return;
+  const i = +b.dataset.i;
+  chipSel = chipSel.includes(i) ? chipSel.filter((x) => x !== i) : chipSel.concat(i);
+  const name = chipName(); $('res-name').value = name; $('res-title').textContent = name || 'Titolo non riconosciuto';
+  renderChips();
+});
+function showCoverResult(p, photo) {
+  const token = lookupToken;
+  pendingCode = ''; pendingCover = photo || '';
+  chipLines = p.lines.slice(0, 14); chipSel = p.titleIdx.filter((i) => i < 14);
+  $('res-code').textContent = 'Da copertina' + (p.year ? ` · edizione ${p.year}` : '');
+  $('res-title').textContent = p.title || 'Titolo non riconosciuto'; $('res-author').textContent = '';
+  $('res-name').value = p.title || '';
+  if (pendingCover) { $('res-cover').src = pendingCover; $('res-cover').classList.remove('hidden'); }
+  const subj = detectSubject(p.titleText, p.allText);
+  fillSelects(subj);
+  $('res-cls').value = p.cls ? String(p.cls) : '';
+  renderChips();
+  $('link-box').classList.add('hidden');
+  const hints = [];
+  if (!subj) hints.push('Materia non riconosciuta: scegli quella giusta.');
+  if (!p.cls) hints.push('Classe non trovata: scegli tu la classe (se serve).');
+  else if (p.clsGuess) hints.push('Classe incerta: controlla.');
+  const kidCls = (String(profile.cls).match(/[1-5]/) || [])[0];
+  if (p.cls && kidCls && String(p.cls) !== kidCls) hints.push(`Attenzione: sembra un libro di ${p.cls}ª, ${profile.name} è in ${profile.cls}.`);
+  $('res-hint').textContent = hints.join(' '); $('res-hint').classList.toggle('hidden', !hints.length);
+  $('scan-result').classList.remove('hidden');
+  if (p.title) setStatus('✅ Letto! Controlla titolo, materia e classe, poi aggiungilo.' + (chipLines.length ? ' Se il titolo è sbagliato, tocca le parole giuste.' : ''), 'ok');
+  else setStatus(chipLines.length ? 'Non sono sicuro del titolo: tocca le parole giuste qui sotto, oppure scrivilo tu.' : 'Non riesco a leggere il testo. Riprova con più luce e la copertina dritta e intera, oppure scrivi il titolo.', 'warn');
+  if (navigator.onLine && p.title && p.title.length >= 4) {
+    searchBooks(p.title).then((list) => {
+      if (token !== lookupToken || !list.length) return;
+      suggestions = list;
+      $('res-sugg-list').innerHTML = list.map((s, i) => `<button type="button" class="sugg" data-sg="${i}"><span><strong>${esc(s.title.slice(0, 70))}</strong><br><span class="muted small">${esc(s.authors)}${s.isbn ? ' · ISBN ' + esc(s.isbn) : ''}</span></span></button>`).join('');
+      $('res-sugg').classList.remove('hidden');
+    }).catch(() => { /* suggerimenti non disponibili */ });
+  }
+}
+$('res-sugg-list').addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-sg]'); if (!b) return;
+  const s = suggestions[+b.dataset.sg]; if (!s) return;
+  const token = lookupToken;
+  $('res-name').value = s.title.slice(0, 60); $('res-title').textContent = s.title; $('res-author').textContent = s.authors;
+  if (s.isbn) { pendingCode = s.isbn; $('res-code').textContent = 'ISBN ' + s.isbn; $('link-box').classList.remove('hidden'); }
+  const sub = guessSubject(s.hint); if (sub) $('res-subj').value = sub;
+  const cls = detectClass(s.title); if (cls) $('res-cls').value = String(cls);
+  const cover = await fetchCover(s.coverUrl);
+  if (cover && token === lookupToken) { pendingCover = cover; $('res-cover').src = cover; $('res-cover').classList.remove('hidden'); }
+});
 $('btn-add-book').onclick = () => {
   const name = $('res-name').value.trim(), key = $('res-subj').value;
-  if (!pendingCode || !subjects[key]) return;
+  if (!subjects[key]) return;
   if (!name) { toast('Scrivi il nome del libro.'); $('res-name').focus(); return; }
-  Object.keys(subjects).forEach((k) => subjects[k].materials.forEach((m) => { if (sameCode(m.barcode, pendingCode)) m.barcode = ''; }));
-  const mat = { id: uid(), name: name.slice(0, 60), photo: pendingCover, barcode: pendingCode };
+  if (pendingCode) Object.keys(subjects).forEach((k) => subjects[k].materials.forEach((m) => { if (sameCode(m.barcode, pendingCode)) m.barcode = ''; }));
+  const cls = /^[1-5]$/.test($('res-cls').value) ? $('res-cls').value : '';
+  const mat = { id: uid(), name: name.slice(0, 60), photo: pendingCover, barcode: pendingCode, cls };
   subjects[key].materials.push(mat);
   if (!saveSubjects()) { subjects[key].materials.pop(); return; }
   const needed = dayItems(state.day).includes(mat.id);
@@ -898,12 +1310,17 @@ $('btn-add-book').onclick = () => {
   if (needed) toggleItem(mat.id, true); else render();
   setStatus(`✅ <b>${esc(mat.name)}</b> aggiunto a ${esc(key)}.` + (needed ? ' È nello zaino!' : ` Non serve per ${esc(state.day)}, ma da ora lo trovi nelle ore di ${esc(key)}.`), 'ok');
 };
+$('btn-rescan').onclick = () => {
+  resetScanPanel(); lastCode = '';
+  setScanMode(scanMode);
+  setStatus(scanMode === 'code' ? 'Inquadra il codice a barre…' : 'Inquadra la copertina e tocca «Scatta e leggi».');
+};
 $('btn-link').onclick = () => {
   const f = findMaterial($('scan-select').value); if (!f || !pendingCode) return;
   Object.keys(subjects).forEach((k) => subjects[k].materials.forEach((m) => { if (sameCode(m.barcode, pendingCode)) m.barcode = ''; }));
   f.mat.barcode = pendingCode;
   if (saveSubjects()) {
-    const code = pendingCode; resetScanPanel(); lastCode = '';
+    resetScanPanel(); lastCode = '';
     setStatus(`🔗 Collegato a <b>${esc(f.mat.name)}</b>. Alla prossima scansione si spunta da solo.`, 'ok'); render();
   }
 };
@@ -947,7 +1364,7 @@ function answer(q) {
 }
 function chatAdd(who, text) {
   const d = document.createElement('div'); d.className = 'msg ' + who;
-  if (who === 'ai') { const a = document.createElement('img'); a.className = 'ava'; a.src = 'img/robot.webp'; a.alt = ''; d.appendChild(a); }
+  if (who === 'ai') { const a = document.createElement('img'); a.className = 'ava'; a.src = 'img/hero-orario.webp'; a.alt = ''; d.appendChild(a); }
   d.appendChild(document.createTextNode(text));
   $('chat').appendChild(d); $('chat').scrollTop = $('chat').scrollHeight;
 }
@@ -1023,14 +1440,121 @@ function toast(msg, action) {
   clearTimeout(toastTimer); if (!action) toastTimer = setTimeout(() => t.classList.add('hidden'), 4000);
 }
 
+/* ---------- figli: scelta, aggiunta, modifica, eliminazione ---------- */
+function renderKids() {
+  $('kids').innerHTML = kids.list.map((k) =>
+    `<button class="kid${k.id === activeKidId ? ' on' : ''}" type="button" data-kid="${esc(k.id)}" aria-pressed="${k.id === activeKidId}"><img src="./img/avatar-${esc(k.avatar)}.webp" alt="" width="34" height="34"><span>${esc(k.name)}</span></button>`).join('')
+    + `<button class="kid-act" id="btn-kid-edit" type="button" aria-label="Modifica ${esc(activeKid().name)}">✏️</button>`
+    + (kids.list.length < MAX_KIDS ? '<button class="kid-act" id="btn-kid-add" type="button">＋ Figlio</button>' : '');
+}
+function readKidData(id) {
+  const prev = activeKidId; activeKidId = id;
+  try {
+    return {
+      schedule: loadSchedule(), subjects: loadSubjects(), checks: cleanChecks(store.get(KEYS.checks, {})),
+      rewards: cleanRewards(store.get(KEYS.rewards, {})), history: cleanHistory(store.get(KEYS.history, {}))
+    };
+  } finally { activeKidId = prev; }
+}
+function loadKidData() {
+  activeKidId = kids.active;
+  subjects = loadSubjects(); schedule = loadSchedule();
+  checks = cleanChecks(store.get(KEYS.checks, {})); rewards = cleanRewards(store.get(KEYS.rewards, {}));
+  progressLog = cleanHistory(store.get(KEYS.history, {}));
+  profile = activeKid();
+  $('set-name').value = profile.name; $('set-class').value = profile.cls;
+}
+function switchKid(id) {
+  if (id === activeKidId || !kids.list.some((k) => k.id === id)) return;
+  document.querySelectorAll('dialog[open]').forEach((d) => d.close());
+  kids.active = id; saveKids(); loadKidData();
+  state.edit = false; state.day = defaultDay();
+  render(); toast(`Zaino di ${profile.name} 🎒`);
+}
+$('kids').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-kid]');
+  if (b) { switchKid(b.dataset.kid); return; }
+  if (e.target.closest('#btn-kid-add')) openKidDialog(null);
+  else if (e.target.closest('#btn-kid-edit')) openKidDialog(activeKidId);
+});
+let kidEditId = null;
+function openKidDialog(id) {
+  kidEditId = id;
+  const k = id ? kids.list.find((x) => x.id === id) : null;
+  $('kid-title').textContent = k ? `Modifica ${k.name}` : 'Aggiungi un figlio';
+  $('kid-name').value = k ? k.name : ''; $('kid-cls').value = k ? (k.cls === '-' ? '' : k.cls) : '';
+  const used = kids.list.map((x) => x.avatar);
+  const pick = k ? k.avatar : (AVATARS.find((a) => !used.includes(a)) || AVATARS[kids.list.length % AVATARS.length]);
+  $('kid-avatars').innerHTML = AVATARS.map((a) =>
+    `<label class="avatar-opt"><input type="radio" name="kid-avatar" value="${a}" ${a === pick ? 'checked' : ''} aria-label="${esc(AVATAR_NAMES[a])}"><img src="./img/avatar-${a}.webp" alt="" width="56" height="56"></label>`).join('');
+  $('kid-from-box').classList.toggle('hidden', !!k);
+  $('kid-from').innerHTML = '<option value="">Da zero (materie standard, orario vuoto)</option>'
+    + kids.list.map((x) => `<option value="${esc(x.id)}">Copia orario e materie di ${esc(x.name)}</option>`).join('');
+  $('btn-kid-del').classList.toggle('hidden', !k || kids.list.length < 2);
+  openDialog($('dlg-kid')); setTimeout(() => $('kid-name').focus(), 60);
+}
+$('kid-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = $('kid-name').value.trim().slice(0, 30);
+  if (!name) { $('kid-name').focus(); return; }
+  const cls = $('kid-cls').value.trim().slice(0, 10) || '-';
+  const sel = document.querySelector('input[name="kid-avatar"]:checked');
+  const avatar = sel && AVATARS.includes(sel.value) ? sel.value : AVATARS[0];
+  if (kidEditId) {
+    const k = kids.list.find((x) => x.id === kidEditId); if (!k) return;
+    Object.assign(k, { name, cls, avatar });
+    if (!saveKids()) return;
+    if (k.id === activeKidId) { $('set-name').value = name; $('set-class').value = cls; }
+    $('dlg-kid').close(); render(); toast('Salvato ✅'); return;
+  }
+  if (kids.list.length >= MAX_KIDS) { toast(`Puoi inserire al massimo ${MAX_KIDS} figli.`); return; }
+  const id = 'k' + Math.random().toString(36).slice(2, 8);
+  const from = $('kid-from').value;
+  if (from) {
+    const data = readKidData(from);
+    if (!store.set(kidKey(KID_BASE.subjects, id), data.subjects) || !store.set(kidKey(KID_BASE.schedule, id), data.schedule)) {
+      Object.values(KID_BASE).forEach((b) => localStorage.removeItem(kidKey(b, id))); return;
+    }
+  }
+  kids.list.push({ id, name, cls, avatar });
+  if (!saveKids()) { kids.list.pop(); return; }
+  $('dlg-kid').close();
+  switchKid(id);
+});
+$('btn-kid-del').onclick = () => {
+  const k = kids.list.find((x) => x.id === kidEditId); if (!k || kids.list.length < 2) return;
+  if (!confirm(`Eliminare ${k.name} con orario, materie, libri, premi e cronologia? L'operazione non si può annullare.`)) return;
+  Object.values(KID_BASE).forEach((b) => { try { localStorage.removeItem(kidKey(b, k.id)); } catch (e) { /* niente */ } });
+  kids.list = kids.list.filter((x) => x.id !== k.id);
+  if (kids.active === k.id) kids.active = kids.list[0].id;
+  saveKids(); loadKidData(); state.edit = false; state.day = defaultDay();
+  $('dlg-kid').close(); render(); toast(`${k.name} eliminato.`);
+};
+
 /* ---------- impostazioni e backup ---------- */
 $('set-name').value = profile.name; $('set-class').value = profile.cls;
 ['set-name', 'set-class'].forEach((id) => $(id).addEventListener('change', () => {
-  profile = { name: $('set-name').value.trim() || 'Studente', cls: $('set-class').value.trim() || '-' };
-  store.set(KEYS.profile, profile); render();
+  const k = activeKid();
+  k.name = $('set-name').value.trim().slice(0, 30) || 'Studente'; k.cls = $('set-class').value.trim().slice(0, 10) || '-';
+  saveKids(); render();
 }));
+const snapshotStore = () => {
+  const o = {};
+  for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('zaino_')) o[k] = localStorage.getItem(k); }
+  return o;
+};
+const restoreStore = (o) => {
+  try { Object.keys(snapshotStore()).forEach((k) => localStorage.removeItem(k)); Object.entries(o).forEach(([k, v]) => localStorage.setItem(k, v)); } catch (e) { /* niente */ }
+};
 $('btn-export').onclick = () => {
-  const data = { app: 'zaino-hero', version: 5, exported: new Date().toISOString(), profile, schedule, subjects, checks, rewards, history: progressLog, catalog: prizeCatalog };
+  const kidData = {};
+  kids.list.forEach((k) => { kidData[k.id] = readKidData(k.id); });
+  const cur = kidData[activeKidId];
+  /* versione 6: tutti i figli. Restano anche i campi del figlio attivo, così una versione più vecchia dell'app può ancora leggere la copia. */
+  const data = {
+    app: 'zaino-hero', version: 6, exported: new Date().toISOString(), kids, kidData, catalog: prizeCatalog,
+    profile: { name: profile.name, cls: profile.cls }, schedule: cur.schedule, subjects: cur.subjects, checks: cur.checks, rewards: cur.rewards, history: cur.history
+  };
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
   a.download = `zaino-hero-backup-${isoDate(new Date())}.json`; a.click();
@@ -1044,35 +1568,38 @@ $('file-import').onchange = async (e) => {
     d = JSON.parse(await f.text());
     if (!d || d.app !== 'zaino-hero' || !d.schedule || typeof d.schedule !== 'object' || !d.subjects || typeof d.subjects !== 'object') throw new Error('formato');
   } catch (err) { toast('File non valido: non è una copia di Zaino Hero.'); return; }
-  if (!confirm('Sostituire orario, materie, spunte, premi e cronologia con quelli della copia?')) return;
-  const nextChecks = cleanChecks(d.checks);
-  const nextRewards = cleanRewards(d.rewards);
-  const nextHistory = cleanHistory(d.history);
-  const nextCatalog = cleanCatalog(d.catalog);
-  const old = {
-    s: localStorage.getItem(KEYS.schedule), m: localStorage.getItem(KEYS.subjects),
-    p: localStorage.getItem(KEYS.profile), c: localStorage.getItem(KEYS.checks),
-    r: localStorage.getItem(KEYS.rewards), h: localStorage.getItem(KEYS.history),
-    q: localStorage.getItem(KEYS.catalog)
-  };
-  const restore = () => {
-    try {
-      [['schedule', 's'], ['subjects', 'm'], ['profile', 'p'], ['checks', 'c'], ['rewards', 'r'], ['history', 'h'], ['catalog', 'q']]
-        .forEach(([k, o]) => (old[o] == null ? localStorage.removeItem(KEYS[k]) : localStorage.setItem(KEYS[k], old[o])));
-    } catch (x) { /* niente */ }
-  };
-  if (!store.set(KEYS.schedule, d.schedule, true) || !store.set(KEYS.subjects, d.subjects, true)
-      || !store.set(KEYS.checks, nextChecks, true) || !store.set(KEYS.rewards, nextRewards, true)
-      || !store.set(KEYS.history, nextHistory, true) || !store.set(KEYS.catalog, nextCatalog, true)) {
-    restore(); toast('La copia è troppo grande per questo dispositivo: non è stato cambiato nulla.'); return;
+  const snap = snapshotStore();
+  const fail = () => { restoreStore(snap); toast('La copia è troppo grande per questo dispositivo: non è stato cambiato nulla.'); };
+  const newKids = d.version >= 6 && d.kidData && typeof d.kidData === 'object' ? cleanKids(d.kids) : null;
+  if (newKids) {
+    if (!confirm(`Sostituire tutti i figli (${newKids.list.length}) con orari, materie, spunte, premi e cronologia della copia?`)) return;
+    Object.keys(snap).forEach((k) => { if (k !== GLOBAL_KEYS.mute) localStorage.removeItem(k); });
+    let ok = store.set(GLOBAL_KEYS.kids, newKids, true) && store.set(GLOBAL_KEYS.catalog, cleanCatalog(d.catalog), true);
+    newKids.list.forEach((k) => {
+      const kd = d.kidData[k.id] || {};
+      ok = ok && store.set(kidKey(KID_BASE.schedule, k.id), kd.schedule && typeof kd.schedule === 'object' ? kd.schedule : {}, true)
+        && store.set(kidKey(KID_BASE.subjects, k.id), kd.subjects && typeof kd.subjects === 'object' ? kd.subjects : {}, true)
+        && store.set(kidKey(KID_BASE.checks, k.id), cleanChecks(kd.checks), true)
+        && store.set(kidKey(KID_BASE.rewards, k.id), cleanRewards(kd.rewards), true)
+        && store.set(kidKey(KID_BASE.history, k.id), cleanHistory(kd.history), true);
+    });
+    if (!ok) { fail(); return; }
+    kids = newKids;
+  } else {
+    /* copia di una versione precedente: riguarda un solo figlio, quello selezionato */
+    if (!confirm(`Questa copia riguarda un solo figlio. Sostituire orario, materie, spunte, premi e cronologia di ${profile.name}?`)) return;
+    if (!store.set(KEYS.schedule, d.schedule, true) || !store.set(KEYS.subjects, d.subjects, true)
+        || !store.set(KEYS.checks, cleanChecks(d.checks), true) || !store.set(KEYS.rewards, cleanRewards(d.rewards), true)
+        || !store.set(KEYS.history, cleanHistory(d.history), true) || !store.set(GLOBAL_KEYS.catalog, cleanCatalog(d.catalog), true)) { fail(); return; }
+    if (d.profile && typeof d.profile === 'object') {
+      const k = activeKid();
+      k.name = String(d.profile.name || '').trim().slice(0, 30) || k.name; k.cls = String(d.profile.cls || '').trim().slice(0, 10) || k.cls;
+      saveKids();
+    }
   }
-  if (d.profile && typeof d.profile === 'object') store.set(KEYS.profile, { name: String(d.profile.name || '').slice(0, 30), cls: String(d.profile.cls || '').slice(0, 10) }, true);
-  checks = nextChecks; rewards = nextRewards; progressLog = nextHistory; prizeCatalog = nextCatalog;
-  subjects = loadSubjects(); schedule = loadSchedule(); saveSchedule();
-  profile = Object.assign({ name: 'Gabriele', cls: '5ª A' }, store.get(KEYS.profile, {}));
-  $('set-name').value = profile.name; $('set-class').value = profile.cls;
-  renderWheelLabels();
-  render(); toast('Copia ripristinata ✅');
+  prizeCatalog = cleanCatalog(store.get(GLOBAL_KEYS.catalog, {}));
+  loadKidData(); state.edit = false;
+  renderWheelLabels(); render(); toast('Copia ripristinata ✅');
 };
 
 /* ---------- rete, installazione, service worker ---------- */
@@ -1159,4 +1686,10 @@ setInterval(() => { const d = defaultDay(); if (d !== lastDefault) { lastDefault
 document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
 
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+/* Dopo l'avvio, se la rete lo permette, scarica in background il lettore di copertine così funziona anche offline. */
+setTimeout(() => {
+  const c = navigator.connection;
+  if (!navigator.onLine || (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || '')))) return;
+  if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then((reg) => { if (reg.active) reg.active.postMessage('warm-vendor'); }).catch(() => {});
+}, 10000);
 renderWheelLabels(); setMuted(muted); netStatus(); render(); checkBundledImages();

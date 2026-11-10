@@ -1,15 +1,26 @@
 ZAINO HERO - come pubblicarla
-1. Estrai lo ZIP mantenendo index.html, app.js, manifest.json, sw.js e le cartelle img/ e icons/ allo stesso livello.
+1. Estrai lo ZIP mantenendo index.html, app.js, manifest.json, sw.js e le cartelle img/, icons/ e vendor/ allo stesso livello.
 2. Carica TUTTA la cartella su un hosting HTTPS (GitHub Pages, Netlify, Vercel...). Non aprire index.html direttamente dallo ZIP o come file locale.
 3. Apri il link dal telefono e premi «Installa app»; su iPhone: Safari -> Condividi -> «Aggiungi alla schermata Home». Il browser chiede sempre conferma.
 4. Dopo ogni modifica ai file cambia VERSION in sw.js: i telefoni mostreranno "Nuova versione pronta".
 I dati del vecchio Zaino Hero (orario, materie, foto) vengono ripresi in automatico se si apre dallo stesso indirizzo.
 Fai ogni tanto "Salva copia dei dati" nelle impostazioni.
 
+PIU' FIGLI
+- In alto trovi una chip per ogni figlio: toccala per passare al suo zaino. «＋ Figlio» ne aggiunge un altro (fino a 8), la matita modifica nome, classe e icona del figlio selezionato.
+- Ogni figlio ha orario, materie, libri, spunte, premi, ticket e cronologia propri. Il catalogo dei premi degli adulti è unico.
+- Nuovo figlio: puoi partire «da zero» (materie standard con un quaderno ciascuna, orario vuoto) oppure copiare orario e materie di un fratello.
+- I dati già presenti restano al primo figlio: nulla va perso aggiornando.
+- «Salva copia dei dati» salva TUTTI i figli in un solo file. Una copia fatta con la versione precedente (un solo figlio) viene applicata al figlio selezionato.
+
 SCANSIONE LIBRI
-- Inquadra il codice a barre (ISBN) sul retro del libro: se e' nuovo viene cercato su Internet (Google Libri / Open Library) con titolo e copertina; controlli nome e materia e lo aggiungi.
-- Se la ricerca non trova nulla o sei offline, scrivi il nome a mano. Puoi anche digitare l'ISBN o usare "Da foto".
-- Alla scansione successiva lo stesso libro si spunta da solo.
+- Scheda «Codice a barre»: inquadra l'ISBN sul retro; se il libro è nuovo viene cercato su Internet (Google Libri / Open Library) con titolo e copertina. Se lo conosci già, si spunta da solo.
+- Scheda «Copertina»: inquadra la copertina davanti, intera e dritta, con buona luce, e tocca «Scatta e leggi» (oppure usa «Foto con la fotocamera» / «Dalla galleria»). L'app legge titolo, materia e classe; controlla, correggi (puoi toccare le parole lette per comporre il titolo) e aggiungi. Se è online propone anche libri simili con il loro ISBN, così la prossima volta basta il codice a barre.
+- «Foto» e «Galleria» cercano prima un codice a barre e, se non lo trovano, leggono la copertina.
+- La lettura avviene sul telefono (cartella vendor/: ZXing per i codici, Tesseract per il testo), senza inviare foto a nessuno. Funziona offline dopo che i file sono stati scaricati (l'app li scarica da sola in background, circa 7 MB, a rete disponibile).
+- Torcia: se il telefono la supporta compare il pulsante 🔦 sulla fotocamera.
+- Se la ricerca non trova nulla o sei offline, scrivi il nome a mano. Puoi anche digitare l'ISBN.
+- La classe del libro (1ª–5ª) compare accanto al nome nella lista; se non coincide con quella del figlio ricevi un avviso.
 
 RUOTA DEI PREMI
 - Si sblocca quando tutte le cose previste per la giornata sono spuntate: un solo giro per data, anche se le spunte vengono azzerate.
@@ -23,3 +34,8 @@ NUOVE FUNZIONI
 - I backup includono anche premi e cronologia.
 - «Gestione premi adulti» permette di modificare i nomi dei premi. I coupon già vinti conservano il testo originale e le probabilità restano fisse al 60/30/10.
 - La gestione premi non è protetta da PIN o account: chi ha accesso al dispositivo può modificarla.
+
+NOVITA' v11
+- Più figli con dati separati. Nuove icone (eroe con mantello, con visore, dell'orario, del trofeo) usate come icona dell'app, logo, scanner, assistente, trofeo e avatar dei figli.
+- Corretto il lettore dei codici a barre: il lettore interno scartava per errore circa metà dei codici (in particolare su iPhone/Safari, dove non esiste il lettore del browser). Ora usa ZXing (anche codici ruotati, piccoli o storti) con fotocamera a risoluzione più alta, messa a fuoco continua e torcia.
+- Nuova lettura della copertina con riconoscimento di titolo, materia e classe/anno.
