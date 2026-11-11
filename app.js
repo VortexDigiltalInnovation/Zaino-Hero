@@ -12,7 +12,7 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,UklGRtwKAABXRUJQVlA4INAKAAAQLQCdASpgAGAAPj0UiUMiISEXHP+YIAPEtABe5u0r31fzT8MHtCLe6zco9T/6X9gDnT+YD9lPVU9EHoAf1D/jdZl6AHlwexn/Zf+/+4XwD/rn/9s0v7aP8v4c+LHzh7P8xvcB6F/xv7wff/zC5XfjPqEfhv8t/yP5e8PGAL8r/pH+W8Jf+w9H/EA/UP/bcdd9X9QD+Y/4D/mf2v3Yf6v/2+Wv8w/yn/W/zPwE/zP+qf8r1yPZ/6L/7dKk1u6MqkrWa4S2S2T2XQUdf3efdoa/dwSlKdHl0pvXhGxddTqqRO3qWvL1L+BDEwJn+bHR7tVXkre0GqBtVmhGv1tnWaDx3skBM3dxtVa87Z8oi+u3Gv95E25GOt9V0WVClFnl3fudx1QcRLbJLE5P+JXOLXrj00CgA7/bk89XN2aG2BwDB/Lmq9xTBE08F97SewJaASioBcsWm7pYxXzkETMA1y/yEhWdUWRnXh3M+cWF61MoYAAA/v/xNBPAYoO4YW0kiDpM+6Mq/GMrI16SI6f2ddv47JO38VPpgPMwIbuB/skgtlVq4oOaxH5Va379m60Lt20prilq3zaunlUBDmPhO6kjTWngOWVVBIqfXuFA6M2aHI9kwFjy4oUCh0sfsOLwE9bRxjrGBKSlarMAGLy8VX7GiPVuofgk2WIbbBS5ZZiGRlOfLlbBBhNjE0QphvK2U9LGPx15KTcTfmuFdAbtMZjjK0FzgT37PUM/ydml5lX8S9QQl+OPQp0pKSIIDtmYvZWheAzyKGWlWVjMy9Lzxsp9gnz8LMafeZxCgYq27l5aicTsPv9HH+lPriNj7hc9944IGkKZswQ6/IXF5w/r2G2RNgwaiP5W9AucSwvTVCISLHdbkIDagvWt9o5GEP6QPYt6iYahVTqYvu4yyNBnY7vlXULk4wUhof8Ca4cEsMj4UvYv1w4zDr9/H+b4Zi8fJqCqeU/d7/8BV/kVgb8z7aZIJZzGW3Q3xJ6GEWU22M6+c2NV2wVMcz6cMx0kmGNRzrdD7BTKbXberjE1JCA5nJb8S/jXPF6QaefFk9Ob8P7Wecg9KjyS0974hT2l1obT58fBFj6d10KELKyj1Q7XqJK/GB6d8RvJT8V/r6T9XEJPZ0X3OdRq+bknLX78uXAt70q/1Wp6mPmJ84iBlj/C/60ejOUSe9fj2JFc6tQuL0R6gsCgOaNpJBvzIVOg4ppUT+3gcQX6M4ZOTLSYR9MB7jzAlPPckV9oQdGoKmtVVcrfCVEwmiBBaMZE5P+houiagSSHfUMRX8eibuVWSbf4AJNkiElQiHZVAWU9r3pbhKaNUfzRw0o9NO5k5aLnZbUuIlHtr00iezUmON+fdjHKMWkeMUb7vuJl+9IYiwxjRrJB5caDxadkEMvTgl22Ov8UH+U61LR/4KfVWFzBfq2OoEVguC/ni4WYD5vv2E3tVuVP4F62lvk6ydyt0ZEI82jx1zv+J+YFplO4jPXD/a9ThFNaULsy6rcmRkKAbg2Hqvn6yrHvF8rQNTPLInp2OxIov2Q8vWVETehWMAnvbdkVSpnpWmCF1mVDglXDf1h8gxRjobg60eQW4Nc7RT+Rvpf7noIoU3OidcF6JOshPw7F1kbNkJAW5qcOQ37kmFEU/FqkSB14+aZVwgCIFGlmOi2T8b/sVVKzTrBGmE+0zjeYeXL0FvzASAgc36aJIFm4cAACiudbgtP78djDEqfI545jq0+tmFZdJzuf68lh4UblIttwaTdM9ezHrNuYeSt/ioWrlCQ6v7w76NNCDQAhDfbP2PH45r/W6Oro1teMY5duWVwekIAUl37ZqUefvrMA9XBv4zh9eyHitXxS3JbHDp+1DcAfqT0Jp+SqE5+td8oXJH3Zc0NxDJBd2oiZcMxUez7cpJkhxv7xUqCkVHNL/MZ83V+5EHKTksg2X4eTOT+5ZcxKghg77XIOSOgCduWBUXwiVKKbrpFgXPfY7j75uM6HPR91eah3d3yNB/Jg58BCTfioAHFe1RsZkK1SufN6fsLODEeNpTsPJZ8p1QN0gWoHGM2kSYTZw0eb+gYQDsmh30Yxs04duTHUN0QY/VAmS7r6f+zGMHTGFn/4sZC4KHib+GQ2SJM8M2WlNf2IwnrXPGWxM9jgqH5ILELvvU1RD9orMK14KxFrNm39PjnLc/EorYEr2SyZ5aUG2tfFsAEldGXFMJyC6NH2f5/ZFLqb0l54P/L0K/KzAYmKvNsIiuezuA6aOCMzgEfPlAn163mry6x5FNuybAaNUFEf2QtSOpe9OmIdbpoF77Ku9p45MIAGLEkrlPDwOKzlyCUQeFPbxMH5aFWiToMMRgYIYwnH/5AV/cyVCzChhsWWyN3Dkmqu7/5zsCEQvJ6DgS+lPrWlFZDaYLTbIwfFspVg/NzxthZ5iPvLIvSSe51LdYJS+4lpdqVGu2ZP2Klj4FadYtUv/ZZSFm7pjvzKGqxRTMvJr69xdrz5BN8VbhG7MbX87munxF3c1XTJB/+QR6JJJw25ru/C4jULWftHWea5F+AtBDF80C+Vra+rQx1guVVDvO1PU53s4G5bxh0wg0/mZN7L8FNEXm/wv1+F8jps92RAYm4TgFI8pLmIDmdx9nZa1iHeqQn+LGuMzPJXOPeKtjYT2ojDRGt83gAiITsYKwXKobHqNy/cIqaiBweKqQ+xsNN3mNRtcQsXGBNHeWlslSsFaJSIVvnlYzGIN3uAsxn20wUveCxqbau4EmaCVRaGjevgw85zkIVTF+j94Re1bOMZmJJnzHhi/mXDH5akn3kie+WY5O2mC3//fRafcQDcGUEjcch3IV8Dffs2HSvmoHhbGlyF6h4pZuEI/I2nbdEaPpyOUdIQCEG9TZqxWo19yN7/pU0ie8PPWioGRx7N3X0GGVSHY3BkY5/uBEIfQHJOIqKasjYWmAohm6k2IKjbwlinT+cxqOXzYUULwvzXXz8MGCf09vC8C7fDdwjZ+yNe6QmrhZS8Sy5iURB12DxOp6ncY1pcERtLqt2O8xKyKd5Ae7351xi7AYF1s/zu4SOyrIcgAOH9KvN5K6JLe0n4wGkwa6mw9Kx72hi3o1LbwA6is6YppGZkpj49TyfuIGWKLJHiltt8u8HT7lA05CrnH+4cqLnTj07+FipEf1iHKSW4+kuxOvO9LkB2QeiLXA1/Vf+a6M2pnPrzbD+6lX9rwpYXne828XvHKnLd/Rrtiei6WMiog+L3eB+LW4CgcK+byF8smzqvbOqHOyUnzUa5gmUtoGNm07Ap4IA9OVH5npkA5012sZDYBDb/5Zrjewp1krC/YW5GFqC8b0gZt/eQv8taBZi3XiIDRY6yHotASuvrGxJ5Hwx0NZdt0ZfNmwYFao0DMa2quJKp5uXJI4L3iEJGTBLyz6jwwfLrI24iy9f5NH0mZXzNewET4LXMSL9Ie/LUCtVCHt3Q6ojhbSieJCefwMZgFX/BgVo3GJzCP7YYlFnODO7X/81LUyAdf08hcNwa4i6XPbRoklT9fJJFuYyrQtjLkp4oT7kJA7y0TqohroTv16jQHIPIU3T8cT4qImepF9UroqAFoQvAWKXN0arABqVVBBQA73Lss+qs6TYG69xmHeZQQsKwq98H/ejv7B3K3ko/H4BF3sqLQ8zo7dXUQ74Jk2NYctIyDWWckLPZWozv3AnFDstSCAir3postYAAAA=='
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '13';
+const APP_VERSION = '14';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -1017,7 +1017,8 @@ function renderDraft() {
     <div class="mat-edit">
       <div class="row between"><strong class="small accent">Materiale ${i + 1}</strong><button class="btn btn-icon" data-del="${i}" aria-label="Elimina materiale ${i + 1}">🗑</button></div>
       <input type="text" value="${esc(m.name)}" data-name="${i}" aria-label="Nome materiale ${i + 1}" maxlength="60">
-      <div class="row gap">
+      <div class="row gap wrapflex">
+        <button class="btn btn-soft" data-scan-mat="${i}" type="button">🔎 Scansiona libro</button>
         <button class="btn btn-soft" data-photo="${i}" type="button">📷 ${m.photo ? 'Cambia foto' : 'Aggiungi foto'}</button>
         ${m.photo ? `<img src="${m.photo}" alt=""><button class="link" data-nophoto="${i}" type="button">Togli</button>` : '<span class="muted small">Nessuna foto</span>'}
       </div>
@@ -1030,9 +1031,17 @@ $('mat-list').addEventListener('click', (e) => {
   if (t.dataset.del !== undefined) { draft.materials.splice(+t.dataset.del, 1); renderDraft(); }
   else if (t.dataset.nophoto !== undefined) { draft.materials[+t.dataset.nophoto].photo = ''; renderDraft(); }
   else if (t.dataset.nocode !== undefined) { draft.materials[+t.dataset.nocode].barcode = ''; renderDraft(); }
+  else if (t.dataset.scanMat !== undefined) { scanDraftTarget = { key: draftKey, index: +t.dataset.scanMat }; launchScanner(); }
   else if (t.dataset.photo !== undefined) pickPhoto((url) => { draft.materials[+t.dataset.photo].photo = url; renderDraft(); });
 });
 $('btn-mat-add').onclick = () => { draft.materials.push({ id: uid(), name: 'Nuovo libro/quaderno', photo: '', barcode: '', cls: '' }); renderDraft(); $('mat-list').lastElementChild?.scrollIntoView(); };
+$('btn-mat-scan-add').onclick = () => {
+  const index = draft.materials.length;
+  draft.materials.push({ id: uid(), name: 'Nuovo libro', photo: '', barcode: '', cls: '' });
+  renderDraft();
+  scanDraftTarget = { key: draftKey, index };
+  launchScanner();
+};
 $('btn-mat-save').onclick = () => {
   draft.materials.forEach((m) => { m.name = m.name.trim() || 'Senza nome'; });
   subjects[draftKey] = draft;
@@ -1466,12 +1475,18 @@ async function getOcr() {
   if (!ocrLoading) {
     ocrLoading = (async () => {
       await loadScript('tesseract.min.js');
-      const abs = (p) => new URL(p, location.href).href;
-      const dir = abs('./').replace(/\/$/, '');
+      const appScript = Array.from(document.scripts).find((el) => /(?:^|\/)app\.js(?:\?|$)/.test(el.src));
+      const base = new URL('./', appScript?.src || location.href);
+      const asset = (p) => new URL(p, base).href;
       const w = await window.Tesseract.createWorker('ita', 1, {
-        workerPath: abs('tesseract-worker.min.js'), corePath: dir, langPath: dir, gzip: false, logger: ocrProgress
+        workerPath: asset('tesseract-worker.min.js'),
+        corePath: asset('tesseract-core-simd-lstm.wasm.js'),
+        langPath: base.href, gzip: false, logger: ocrProgress
       });
-      await w.setParameters({ tessedit_pageseg_mode: window.Tesseract.PSM.SPARSE_TEXT, preserve_interword_spaces: '1' });
+      await w.setParameters({
+        tessedit_pageseg_mode: window.Tesseract.PSM.AUTO,
+        preserve_interword_spaces: '1', user_defined_dpi: '300'
+      });
       ocrWorker = w; return w;
     })().catch((e) => { ocrLoading = null; throw e; });
   }
@@ -1508,18 +1523,18 @@ async function ocrCover(cv, quick) {
     if (p.isbn) return Object.assign({}, best, { isbn: p.isbn });
     return null;
   };
-  for (const invert of (quick ? [false] : [false, true])) {
-    const hit = await recognize(cv, invert);
+  const passes = quick ? [{ x: 0, y: 0, w: 1, h: 1, inv: false }] : [
+    { x: 0, y: 0, w: 1, h: 1, inv: false }, { x: 0, y: 0, w: 1, h: 1, inv: true },
+    { x: 0.04, y: 0.08, w: 0.92, h: 0.58, inv: false },
+    { x: 0.04, y: 0.30, w: 0.92, h: 0.62, inv: false },
+    { x: 0.08, y: 0.12, w: 0.84, h: 0.76, inv: true }
+  ];
+  for (const q of passes) {
+    const image = q.x === 0 && q.y === 0 && q.w === 1 && q.h === 1
+      ? cv : frameRegionToCanvas(cv, cv.width, cv.height, q, 2200);
+    const hit = await recognize(image, q.inv);
     if (hit) return hit;
-    if (best && best.title.length >= 4 && best.quality >= 70) break;
-  }
-  if (!quick && !best?.isbn) {
-    // Sui libri scolastici l'etichetta ISBN è spesso piccola e sul retro: ingrandisco la fascia centrale-bassa.
-    const label = frameRegionToCanvas(cv, cv.width, cv.height, { x: 0.06, y: 0.28, w: 0.88, h: 0.50 }, 1800);
-    for (const invert of [false, true]) {
-      const hit = await recognize(label, invert);
-      if (hit) return hit;
-    }
+    if (best && best.title.length >= 5 && best.quality >= 82) break;
   }
   return best;
 }
@@ -1532,7 +1547,7 @@ const canvasToJpeg = (cv, max) => {
 
 /* ---------- scanner ---------- */
 let stream = null, scanTimer = null, scanBusy = false, detector = null, scanMisses = 0, lastCode = '', lastAt = 0, pendingCode = '', pendingCover = '', lookupToken = 0;
-let scanMode = 'code', torchOn = false, chipLines = [], chipSel = [], suggestions = [], addedMode = false, lastAdded = null;
+let scanMode = 'code', torchOn = false, chipLines = [], chipSel = [], suggestions = [], addedMode = false, lastAdded = null, scanDraftTarget = null;
 function setStatus(html, cls) { const s = $('scan-status'); s.className = 'status' + (cls ? ' ' + cls : ''); s.innerHTML = html; }
 function getDetector() {
   if (detector) return detector;
@@ -1585,14 +1600,17 @@ $('btn-torch').onclick = () => {
   torchOn = !torchOn;
   track.applyConstraints({ advanced: [{ torch: torchOn }] }).then(() => $('btn-torch').setAttribute('aria-pressed', String(torchOn))).catch(() => { torchOn = false; });
 };
-$('btn-scan').onclick = async () => {
+async function launchScanner() {
   resetScanPanel(); lastCode = ''; scanMisses = 0; scanBusy = false; $('ocr-progress').classList.add('hidden');
   setScanMode('cover'); setStatus('Avvio fotocamera…'); updateEngine(); loadZX().then(updateEngine, updateEngine);
   openDialog($('dlg-scan'));
-  if (!navigator.mediaDevices?.getUserMedia) { setStatus('Fotocamera non disponibile qui (serve https). Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); return; }
+  if (!navigator.mediaDevices?.getUserMedia) {
+    setStatus('Fotocamera non disponibile qui (serve HTTPS). Usa «Fai una foto», «Scegli una foto» oppure inserisci l’ISBN.', 'warn'); return;
+  }
   try { await startCamera(); setStatus('Inquadra la copertina: la leggo da sola 📖'); scheduleScan(); }
-  catch (e) { setStatus('Non posso usare la fotocamera. Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); }
-};
+  catch (e) { console.warn('Fotocamera:', e); setStatus('Fotocamera non disponibile. Consenti l’accesso oppure usa «Fai una foto» o «Scegli una foto».', 'warn'); }
+}
+$('btn-scan').onclick = () => { scanDraftTarget = null; launchScanner(); };
 function stopScanner() {
   clearTimeout(scanTimer); scanTimer = null;
   if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
@@ -1707,6 +1725,17 @@ function handleCode(raw, force) {
   let hit = null;
   Object.keys(subjects).forEach((k) => subjects[k].materials.forEach((m) => { if (sameCode(m.barcode, code)) hit = { key: k, mat: m }; }));
   if (hit) {
+    if (scanDraftTarget) {
+      const target = scanDraftTarget;
+      const item = draft?.materials?.[target.index];
+      if (target.key === draftKey && item) {
+        item.name = hit.mat.name; item.barcode = code;
+        if (hit.mat.photo) item.photo = hit.mat.photo;
+        scanDraftTarget = null; $('dlg-scan').close(); renderDraft();
+        toast('Libro riconosciuto e associato. Premi «Salva» per confermare.');
+        return;
+      }
+    }
     resetScanPanel();
     if (dayItems(state.day).includes(hit.mat.id)) {
       if (!dayChecks(state.day)[hit.mat.id]) toggleItem(hit.mat.id, true);
@@ -1751,7 +1780,7 @@ async function showNewCode(code) {
   $('res-code').textContent = (isbn ? 'ISBN ' : 'Codice ') + code;
   $('res-title').textContent = ''; $('res-author').textContent = ''; $('res-name').value = ''; $('res-cls').value = '';
   $('res-cover').classList.add('hidden'); $('res-cover').removeAttribute('src');
-  fillSelects(); $('scan-result').classList.remove('hidden');
+  fillSelects(scanDraftTarget?.key); $('scan-result').classList.remove('hidden');
   if (!isbn) { setStatus('Codice nuovo (non è un ISBN). Scrivi il nome del libro e scegli la materia, oppure collegalo a un libro che hai già.', 'warn'); return; }
   setStatus('📚 Libro nuovo! Lo cerco su Internet…');
   const info = await lookupIsbn(isbn);
@@ -1765,7 +1794,7 @@ async function showNewCode(code) {
   const cls = detectClass(info.title + ' ' + info.hint); if (cls) $('res-cls').value = String(cls);
   if (info.cover) { pendingCover = info.cover; $('res-cover').src = info.cover; $('res-cover').classList.remove('hidden'); }
   fillSelects(guessSubject(info.hint + ' ' + info.title));
-  if (autoAddOn() && autoImport(info, code)) return;
+  if (!scanDraftTarget && autoAddOn() && autoImport(info, code)) return;
   setStatus(`✅ Trovato (${esc((info.sources || []).join(' + '))})! Controlla nome, materia e classe, poi aggiungilo.` + (info.cover ? '' : ' (Senza copertina: potrai aggiungere una foto dopo.)'), 'ok');
 }
 /* ---------- importazione automatica ---------- */
@@ -1860,7 +1889,7 @@ function showCoverResult(p, photo) {
   $('res-name').value = p.title || '';
   if (pendingCover) { $('res-cover').src = pendingCover; $('res-cover').classList.remove('hidden'); }
   const subj = detectSubject(p.titleText, p.allText);
-  fillSelects(subj);
+  fillSelects(scanDraftTarget?.key || subj);
   $('res-cls').value = p.cls ? String(p.cls) : kidClsDigit(); syncPickers();
   renderChips();
   $('link-box').classList.add('hidden');
@@ -1881,7 +1910,7 @@ function showCoverResult(p, photo) {
       $('res-sugg-list').innerHTML = list.map((s, i) => `<button type="button" class="sugg" data-sg="${i}"><span><strong>${esc(s.title.slice(0, 70))}</strong><br><span class="muted small">${esc(s.authors)}${s.isbn ? ' · ISBN ' + esc(s.isbn) : ''} · ${esc(s.src || '')}</span></span></button>`).join('');
       $('res-sugg').classList.remove('hidden');
       const best = list.find((x) => x.isbn && titleSim(p.title, x.title) >= 0.75);
-      if (best && autoAddOn() && !addedMode) useSuggestion(best, true);
+      if (best && autoAddOn() && !addedMode && !scanDraftTarget) useSuggestion(best, true);
     }).catch(() => { /* suggerimenti non disponibili */ });
   }
 }
@@ -1905,6 +1934,21 @@ $('btn-add-book').onclick = () => {
   const name = $('res-name').value.trim(), key = $('res-subj').value;
   if (!subjects[key]) return;
   if (!name) { toast('Scrivi il nome del libro.'); $('res-name').focus(); return; }
+  if (scanDraftTarget) {
+    const target = scanDraftTarget;
+    if (target.key !== draftKey || !draft?.materials?.[target.index]) {
+      scanDraftTarget = null; toast('La materia è cambiata: riapri la scansione.'); return;
+    }
+    const item = draft.materials[target.index];
+    item.name = name.slice(0, 60);
+    if (pendingCover) item.photo = pendingCover;
+    if (pendingCode) item.barcode = pendingCode;
+    item.cls = $('res-cls').value || item.cls || '';
+    scanDraftTarget = null;
+    $('dlg-scan').close(); renderDraft();
+    toast('Libro aggiornato nella materia. Premi «Salva» per confermare.');
+    return;
+  }
   const mat = commitBook(key, name, pendingCover, pendingCode, $('res-cls').value);
   if (!mat) return;
   const needed = dayItems(state.day).includes(mat.id);
