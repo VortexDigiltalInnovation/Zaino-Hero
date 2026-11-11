@@ -12,7 +12,7 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,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'
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '14';
+const APP_VERSION = '15';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -1211,8 +1211,10 @@ async function readCode(src, sw, sh, maxSide, deep = false) {
   const full = await readCodeCanvas(cv);
   if (full || !deep) return full;
   const regions = [
-    { x: 0.04, y: 0.22, w: 0.92, h: 0.58 },
-    { x: 0.16, y: 0.34, w: 0.68, h: 0.40 }
+    { x: 0.00, y: 0.12, w: 1.00, h: 0.82 },
+    { x: 0.00, y: 0.48, w: 1.00, h: 0.48 },
+    { x: 0.08, y: 0.22, w: 0.84, h: 0.68 },
+    { x: 0.00, y: 0.00, w: 1.00, h: 1.00 }
   ];
   for (const region of regions) {
     const crop = frameRegionToCanvas(src, sw, sh, region, 1800);
@@ -1410,7 +1412,7 @@ function parseCover(words) {
   const ws = [];
   (words || []).forEach((w) => {
     const t = String(w.text || '').trim(), b = w.bbox || {};
-    if (!t || !(w.confidence >= 30) || !/[A-Za-zÀ-ÿ0-9]/.test(t) || !Number.isFinite(b.y1) || !Number.isFinite(b.y0)) return;
+    if (!t || !(w.confidence >= 18) || !/[A-Za-zÀ-ÿ0-9]/.test(t) || !Number.isFinite(b.y1) || !Number.isFinite(b.y0)) return;
     const h = b.y1 - b.y0; if (h < 6) return;
     ws.push({ t, x0: b.x0, x1: b.x1, h, cy: (b.y0 + b.y1) / 2, conf: w.confidence });
   });
@@ -1432,7 +1434,7 @@ function parseCover(words) {
       conf: l.ws.reduce((a, x) => a + x.conf, 0) / l.ws.length,
       meta: META_LINE.test(n) || PUBLISHERS.test(n)
     };
-  }).filter((l) => l.letters >= 3 && l.conf >= 45 && l.letters / l.text.length >= 0.6).sort((a, b) => a.cy - b.cy);
+  }).filter((l) => l.letters >= 3 && l.conf >= 28 && l.letters / l.text.length >= 0.45).sort((a, b) => a.cy - b.cy);
 
   const cand = lines.filter((l) => !l.meta && l.letters >= 4);
   let titleIdx = [];
@@ -1516,25 +1518,39 @@ function prepForOcr(cv, invert) {
 async function ocrCover(cv, quick) {
   const w = await getOcr();
   let best = null;
-  const recognize = async (image, invert) => {
+  const recognize = async (image, invert, psm) => {
+    // Le copertine hanno impaginazioni molto diverse: testo sparso, righe singole o blocchi.
+    if (psm !== undefined) {
+      try { await w.setParameters({ tessedit_pageseg_mode: psm }); } catch (e) { /* versione OCR senza PSM configurabile */ }
+    }
     const { data } = await w.recognize(prepForOcr(image, invert));
     const p = parseCover(data.words || []);
+    // Se il parser geometrico non trova un titolo, conserva comunque una proposta testuale
+    // leggibile, evitando di scartare scansioni parziali ma utili.
+    if (!p.title && data.text) {
+      const candidates = String(data.text).split(/[\r\n]+/).map(tidyTitle).filter(t => t.length >= 4 && !META_LINE.test(norm(t)) && !PUBLISHERS.test(norm(t)));
+      if (candidates.length) p.title = candidates.sort((a,b) => b.length - a.length)[0];
+    }
     if (!best || p.quality > best.quality || (!best.title && p.title)) best = p;
     if (p.isbn) return Object.assign({}, best, { isbn: p.isbn });
     return null;
   };
-  const passes = quick ? [{ x: 0, y: 0, w: 1, h: 1, inv: false }] : [
-    { x: 0, y: 0, w: 1, h: 1, inv: false }, { x: 0, y: 0, w: 1, h: 1, inv: true },
-    { x: 0.04, y: 0.08, w: 0.92, h: 0.58, inv: false },
-    { x: 0.04, y: 0.30, w: 0.92, h: 0.62, inv: false },
-    { x: 0.08, y: 0.12, w: 0.84, h: 0.76, inv: true }
+  const P = window.Tesseract.PSM || {};
+  const passes = quick ? [{ x: 0, y: 0, w: 1, h: 1, inv: false, psm: P.AUTO }] : [
+    { x: 0, y: 0, w: 1, h: 1, inv: false, psm: P.AUTO },
+    { x: 0, y: 0, w: 1, h: 1, inv: true, psm: P.AUTO },
+    { x: 0.02, y: 0.04, w: 0.96, h: 0.90, inv: false, psm: P.SPARSE_TEXT },
+    { x: 0.02, y: 0.04, w: 0.96, h: 0.90, inv: true, psm: P.SPARSE_TEXT },
+    { x: 0.04, y: 0.08, w: 0.92, h: 0.58, inv: false, psm: P.SINGLE_BLOCK },
+    { x: 0.04, y: 0.30, w: 0.92, h: 0.62, inv: false, psm: P.AUTO },
+    { x: 0.08, y: 0.12, w: 0.84, h: 0.76, inv: true, psm: P.SPARSE_TEXT }
   ];
   for (const q of passes) {
     const image = q.x === 0 && q.y === 0 && q.w === 1 && q.h === 1
       ? cv : frameRegionToCanvas(cv, cv.width, cv.height, q, 2200);
-    const hit = await recognize(image, q.inv);
+    const hit = await recognize(image, q.inv, q.psm);
     if (hit) return hit;
-    if (best && best.title.length >= 5 && best.quality >= 82) break;
+    if (best && best.title.length >= 8 && best.quality >= 94) break;
   }
   return best;
 }
@@ -1583,14 +1599,20 @@ function setScanMode(mode) {
 $('tab-code').onclick = () => setScanMode('code');
 $('tab-cover').onclick = () => setScanMode('cover');
 async function startCamera() {
+  // Risoluzione moderata: molti telefoni scelgono così la camera principale grandangolare
+  // invece del teleobiettivo ad alto zoom. object-fit:contain mostra tutto il fotogramma.
   stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false
+    video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 }, aspectRatio: { ideal: 16 / 9 } }, audio: false
   });
   const v = $('scan-video'); v.srcObject = stream;
   try { await v.play(); } catch (e) { /* autoplay già attivo */ }
   const track = stream.getVideoTracks()[0];
   const caps = track && track.getCapabilities ? track.getCapabilities() : {};
-  if (caps.focusMode && caps.focusMode.includes('continuous')) track.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(() => {});
+  const advanced = [];
+  if (caps.focusMode && caps.focusMode.includes('continuous')) advanced.push({ focusMode: 'continuous' });
+  // Se il dispositivo espone lo zoom, forza il valore minimo (inquadratura più larga).
+  if (caps.zoom && Number.isFinite(caps.zoom.min)) advanced.push({ zoom: caps.zoom.min });
+  if (advanced.length) { try { await track.applyConstraints({ advanced }); } catch (e) { console.debug('Vincoli camera non supportati', e); } }
   torchOn = false;
   $('btn-torch').classList.toggle('hidden', !caps.torch);
   $('btn-torch').setAttribute('aria-pressed', 'false');
