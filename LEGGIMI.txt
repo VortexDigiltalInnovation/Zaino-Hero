@@ -1,22 +1,57 @@
-ZAINO HERO v7 - come pubblicarla
+ZAINO HERO v9 - come pubblicarla
 
 1. Carica TUTTI i file di questa cartella (sono tutti "piatti", nessuna sottocartella) nello stesso posto su un hosting https
-   (GitHub Pages, Netlify, Vercel...). Le immagini sono gia' dentro l'app: non serve nessuna cartella img.
-   File: index.html, app.js, styles.css, sw.js, manifest.json, icon-192.png, icon-512.png, icon-maskable-512.png
+   (GitHub Pages, Netlify, Vercel...). Le immagini sono gia' dentro l'app.
+   File: index.html, app.js, styles.css, sw.js, manifest.json, icon-192.png, icon-512.png, icon-maskable-512.png,
+   apple-touch-icon.png, favicon.ico e i file dei lettori: zxing-reader.iife.js, zxing_reader.wasm, tesseract.min.js,
+   tesseract-worker.min.js, tesseract-core-simd-lstm.wasm.js, tesseract-core-lstm.wasm.js, ita.traineddata.
 2. Apri il link dal telefono: Android -> "Installa"; iPhone -> Condividi -> "Aggiungi alla schermata Home".
 
 AGGIORNAMENTI
-- La versione si vede accanto al logo (es. v7) e in fondo, nelle impostazioni.
+- La versione si vede accanto al logo (es. v9) e in fondo, nelle impostazioni.
 - Impostazioni -> "Controlla aggiornamenti": dice se sul sito c'e' una versione piu' nuova e la installa.
 - Impostazioni -> "Forza aggiornamento": se l'app resta "bloccata" su una versione vecchia, la ricarica da zero.
-  Orario, libri, foto e spunte NON vengono cancellati.
+  Orari, libri, foto, spunte e premi NON vengono cancellati.
 - Per rilasciare una nuova versione: cambia lo stesso numero in sw.js (VERSION) e in app.js (APP_VERSION),
   e anche "?v=" in index.html e sw.js. Poi ricarica TUTTI i file sul sito.
 
-SCANSIONE LIBRI
-- Inquadra il codice a barre (ISBN) sul retro del libro: se e' nuovo viene cercato su Internet (Google Libri / Open Library)
-  con titolo e copertina; controlli nome e materia e lo aggiungi.
-- Se la ricerca non trova nulla o sei offline, scrivi il nome a mano. Puoi anche digitare l'ISBN o usare "Da foto".
-- Alla scansione successiva lo stesso libro si spunta da solo.
-
+I dati delle versioni precedenti (orario, materie, foto, premi) vengono ripresi in automatico se si apre dallo stesso indirizzo.
 Fai ogni tanto "Salva copia dei dati" nelle impostazioni.
+
+NOVITA' v9
+- Nuova grafica: barra in basso con 4 schede (Zaino, Materie, Premi, Altro) e il tasto centrale «Scansiona»; anello di avanzamento con coppa al 100%; riquadri grandi per «Leggi cosa manca» e «Assistente»; i figli restano sempre selezionabili in alto. Impostazioni riordinate in gruppi (Profilo, Voce e suoni, Copia di sicurezza, Aggiornamenti).
+- Pulsanti per fermare l'audio: «⏹ Ferma» in alto (compare mentre l'app parla), «Ferma la voce» nelle impostazioni, «⏹» nell'assistente; il riquadro «Leggi cosa manca» diventa «Ferma la voce» mentre parla. La voce si ferma anche chiudendo l'assistente, uscendo dall'app o mettendo il silenzio.
+- Scansione ottica automatica: nella scheda «Copertina» la lettura del testo parte da sola mentre inquadri (titolo, materia, classe, ISBN) e propone il risultato quando il titolo e' stabile; si puo' spegnere con «Lettura automatica» e usare «Scatta e leggi».
+- Scheda Premi: ticket, ruota e progressi insieme.
+
+PIU' FIGLI
+- In alto trovi una chip per ogni figlio: toccala per passare al suo zaino. «＋ Figlio» ne aggiunge un altro (fino a 8), la matita modifica nome, classe e icona del figlio selezionato.
+- Ogni figlio ha orario, materie, libri, spunte, premi, ticket e cronologia propri. Il catalogo dei premi degli adulti è unico.
+- Nuovo figlio: puoi partire «da zero» (materie standard con un quaderno ciascuna, orario vuoto) oppure copiare orario e materie di un fratello.
+- I dati già presenti restano al primo figlio: nulla va perso aggiornando.
+- «Salva copia dei dati» salva TUTTI i figli in un solo file. Una copia fatta con la versione precedente (un solo figlio) viene applicata al figlio selezionato.
+
+SCANSIONE LIBRI
+- Scheda «Codice a barre»: inquadra l'ISBN sul retro. Il libro viene cercato in piu' librerie online insieme (Google Libri, Open Library, anche con l'ISBN-10) e, se l'opzione «Aggiungi da solo i libri trovati» e' attiva, viene aggiunto subito con titolo, copertina e materia piu' probabile. Se la materia e' sbagliata la cambi dal menu, oppure tocchi «Annulla». La fotocamera resta accesa: puoi inquadrare subito il libro dopo.
+- I libri gia' cercati restano nella memoria del telefono (ultimi 80): si ritrovano anche offline.
+- Scheda «Copertina»: inquadra la copertina davanti (o il retro) e tocca «Scatta e leggi» (oppure «Foto con la fotocamera» / «Dalla galleria»). L'app legge titolo, materia e classe; se sul libro e' stampato un ISBN lo legge e importa il libro da solo. Con il solo titolo cerca nelle librerie online e importa il libro se il titolo coincide.
+- La lettura avviene sul telefono (ZXing per i codici, Tesseract per i testi), senza inviare foto a nessuno. I file di lettura (zxing-reader.iife.js, zxing_reader.wasm, tesseract.min.js, tesseract-worker.min.js, tesseract-core-*.wasm.js, ita.traineddata: circa 8 MB) devono stare accanto a index.html; l'app li scarica da sola in background per usarli anche offline.
+- In alto nella finestra di scansione una riga dice quale lettore e' attivo: se compare «ZXing NON caricato» vuol dire che manca qualche file sul sito.
+- Torcia: se il telefono la supporta compare il pulsante sulla fotocamera.
+
+MATERIE E ICONE
+- «＋ Nuova materia» apre un catalogo di materie con icone divertenti (Religione, Informatica, Francese, Latino, Robotica, Teatro, Nuoto... anche se non sono nell'orario), oppure scrivi un nome tuo e scegli l'icona.
+- In ogni materia, «😀 Cambia icona» permette di scegliere tra oltre 50 icone.
+
+RUOTA DEI PREMI
+- Si sblocca quando tutte le cose previste per la giornata sono spuntate: un solo giro per data, anche se le spunte vengono azzerate.
+- Probabilità: 60% premio simbolico, 30% privilegio, 10% premio fisico. I ticket simbolici si accumulano.
+- Il risultato mostra un coupon da confermare con un adulto; concordate prima quali premi sono disponibili.
+- L'app salva i dati sul dispositivo: spunte e scansioni non sono una verifica antifrode e non provano da sole che gli oggetti siano nello zaino.
+
+NUOVE FUNZIONI
+- «I tuoi progressi» mostra le giornate completate, la serie (esclusi sabato e domenica), i premi e le ultime giornate nello storico.
+- «Condividi lista» invia gli oggetti mancanti con il menu di condivisione del telefono; se non disponibile, prova a copiarli negli appunti.
+- I backup includono anche premi e cronologia.
+- «Gestione premi adulti» permette di modificare i nomi dei premi. I coupon già vinti conservano il testo originale e le probabilità restano fisse al 60/30/10.
+- La gestione premi non è protetta da PIN o account: chi ha accesso al dispositivo può modificarla.
