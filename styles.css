@@ -337,3 +337,62 @@ button.wk-cell:active{transform:scale(.97)}
 .edit-row .btn-icon:disabled{opacity:.35}
 .edit-row input{min-width:0}
 @media (max-width:400px){.wk-cell,.wk-day{min-height:56px}.wk-cell{font-size:.58rem}}
+
+/* ======== v13: gioco, missione, scelte grandi, zona genitori ======== */
+.btn-xl{min-height:64px;font-size:1.12rem;border-radius:20px;font-weight:800}
+.btn-ok{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;border-color:#86efac;box-shadow:0 6px 18px #16a34a55}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.gchip{display:inline-flex;align-items:center;gap:4px;background:#0f172a99;border:1px solid #475569;border-radius:99px;padding:5px 12px;font-size:.8rem;font-weight:800}
+.gchip.fire{border-color:#f97316;color:#fdba74}
+.xpbar{height:12px;border-radius:99px;background:#0f172a;border:1px solid #334155;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6366f1,#a855f7,#f59e0b);border-radius:99px;transition:width .6s ease}
+.xp-text{margin-top:4px}
+.mascot{display:flex;align-items:center;gap:10px;margin-top:12px}
+.mascot-img{width:56px;height:56px;border-radius:30%;flex:0 0 auto}
+.bubble{position:relative;background:#6366f126;border:1px solid #6366f155;border-radius:16px;padding:10px 14px;font-weight:700;font-size:.92rem;line-height:1.3;margin:0}
+.mascot .bubble{flex:1}
+#btn-mission{margin-top:12px;width:100%}
+.xp-pop{position:fixed;left:50%;top:38%;transform:translateX(-50%);z-index:200;pointer-events:none;font-size:1.8rem;font-weight:900;color:#fde68a;text-shadow:0 3px 12px #000c;animation:xppop 1.4s ease-out forwards}
+@keyframes xppop{0%{opacity:0;transform:translate(-50%,20px) scale(.6)}20%{opacity:1;transform:translate(-50%,0) scale(1.15)}100%{opacity:0;transform:translate(-50%,-70px) scale(1)}}
+.mat input[type=checkbox]:checked{animation:popin .25s ease-out}
+@keyframes popin{50%{transform:scale(1.25)}}
+.mat label{min-height:60px}
+.mat input[type=checkbox]{width:34px;height:34px}
+/* missione */
+.mission{text-align:center}
+.mission-dots{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.mission-dots i{width:14px;height:14px;border-radius:50%;background:#334155;border:2px solid #475569}
+.mission-dots i.on{background:var(--ok);border-color:var(--ok)}
+.mission-dots i.cur{background:#a855f7;border-color:#e9d5ff;transform:scale(1.3)}
+.mission-card{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0f172a99;border:1px solid var(--line);border-radius:22px;padding:16px}
+.mission-pic{--c:#6366f1;width:min(52vw,210px);aspect-ratio:3/4;border-radius:18px;background:color-mix(in srgb,var(--c) 28%,var(--card));border:3px solid var(--c);display:grid;place-items:center;overflow:hidden}
+.mission-pic img{width:100%;height:100%;object-fit:cover}
+.mission-emoji{font-size:5rem}
+.mission h2{font-size:1.4rem;line-height:1.2}
+#mission-time.warn{color:#fecaca;border-color:#f87171;animation:pulse 1s ease-in-out infinite}
+/* scanner: scelte grandi */
+.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.subj-btn{--c:#475569;min-height:68px;border-radius:16px;border:2px solid var(--line);background:#0f172a99;color:var(--txt);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px;font-size:.7rem;font-weight:800;line-height:1.1;text-align:center}
+.subj-btn .em{font-size:1.7rem;line-height:1}
+.subj-btn.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 30%,var(--card));box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 40%,transparent)}
+.cls-chips{display:flex;gap:8px}
+.cls-btn{flex:1;min-height:52px;border-radius:14px;border:2px solid var(--line);background:#0f172a99;color:var(--txt);font-size:1.1rem;font-weight:800}
+.cls-btn.on{border-color:var(--ind2);background:#6366f144}
+#dlg-scan .btn-xl{width:100%}
+/* livello e adesivi */
+.level-card{background:linear-gradient(160deg,#1e293b,#27214f)}
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.badge{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;border-radius:16px;border:1px dashed #475569;background:#0f172a66;padding:10px 6px;filter:grayscale(.7);opacity:.75}
+.badge .bi{font-size:2rem;line-height:1}
+.badge b{font-size:.74rem}
+.badge small{font-size:.62rem;color:var(--mut);line-height:1.15}
+.badge.on{border:1px solid #fbbf24;background:linear-gradient(160deg,#fbbf2422,#6366f122);filter:none;opacity:1;box-shadow:0 0 16px #fbbf2433}
+/* zona genitori */
+.center{text-align:center;align-items:center}
+.hold-btn{position:relative;overflow:hidden;width:100%;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+.hold-fill{position:absolute;inset:0;width:0;background:#22c55e66;transition:width 1.5s linear}
+.hold-btn.holding .hold-fill{width:100%}
+.hold-txt{position:relative}
+/* modalità calma */
+.calm *,.calm *::before,.calm *::after{animation:none!important;transition:none!important}
+.calm #btn-stop-audio{animation:none}

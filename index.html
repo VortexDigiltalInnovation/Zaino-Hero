@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body>
 
@@ -53,6 +53,11 @@
           <p id="hero-sub" class="muted small"></p>
         </div>
       </div>
+      <div id="hero-chips" class="hero-chips" aria-label="Livello, punti e serie"></div>
+      <div class="xpbar" aria-hidden="true"><i class="xp-fill"></i></div>
+      <p class="xp-text muted small"></p>
+      <div class="mascot"><img class="mascot-img" data-img="zaino" alt="" width="56" height="56"><p id="mascot-line" class="bubble" aria-live="polite"></p></div>
+      <button class="btn btn-primary btn-xl" id="btn-mission" type="button">▶ Inizia la missione</button>
       <div id="reward-area" class="reward-area" aria-live="polite">
         <p id="reward-status" class="muted small"></p>
         <button class="btn btn-gold hidden" id="btn-open-wheel" type="button">🎡 Gira la ruota</button>
@@ -101,7 +106,7 @@
 
   <!-- ===== Scheda: Materie ===== -->
   <div data-panel="materie" class="panel hidden">
-    <header class="panel-head"><h2>📚 Materie e libri</h2><p class="muted small">Tocca una materia per cambiarne libri, foto e icona. Con 📷 aggiungi un libro scansionandolo.</p></header>
+    <header class="panel-head"><h2>📚 Materie e libri</h2><p class="muted small">Tocca una materia per cambiarne libri, foto e icona. Con 📷 aggiungi un libro scansionando la copertina.</p><p id="lib-count" class="muted small"></p></header>
     <section class="card stack">
       <div id="subjects" class="grid"></div>
     </section>
@@ -110,6 +115,16 @@
   <!-- ===== Scheda: Premi ===== -->
   <div data-panel="premi" class="panel hidden">
     <header class="panel-head"><h2>🏅 Premi e progressi</h2></header>
+    <section class="card stack level-card">
+      <div class="row between wrapflex"><div><span class="eyebrow">Il tuo livello</span><h3 id="lvl-name"></h3></div><div class="tickets"><span class="tickets-n" id="lvl-xp"></span><span class="small muted" id="lvl-streak"></span></div></div>
+      <div class="xpbar" aria-hidden="true"><i class="xp-fill"></i></div>
+      <p class="xp-text muted small"></p>
+      <p class="muted small">Ogni cosa che metti nello zaino vale ⭐ 10, lo zaino pronto ⭐ 50, un libro nuovo ⭐ 30. I punti non si perdono mai!</p>
+    </section>
+    <section class="card stack">
+      <div class="row between wrapflex"><h3>🏅 I miei adesivi</h3><span id="badge-count" class="muted small"></span></div>
+      <div id="badge-grid" class="badge-grid"></div>
+    </section>
     <section class="card prize-card stack">
       <div class="row between wrapflex">
         <div><span class="eyebrow">Ruota dei premi</span><p id="reward-status-2" class="muted small"></p></div>
@@ -131,6 +146,12 @@
   <!-- ===== Scheda: Altro ===== -->
   <div data-panel="altro" class="panel hidden">
     <header class="panel-head"><h2>⚙️ Impostazioni</h2></header>
+    <section id="parent-gate" class="card stack center">
+      <h3>🔒 Zona genitori</h3>
+      <p class="muted small">Qui ci sono copie dei dati, aggiornamenti e impostazioni. Per entrare tieni premuto il pulsante per un secondo e mezzo.</p>
+      <button class="btn btn-primary btn-xl hold-btn" id="btn-hold" type="button"><span class="hold-fill"></span><span class="hold-txt">🔓 Tieni premuto</span></button>
+    </section>
+    <div id="parent-area" class="stack hidden">
     <section class="card stack">
       <h3>👦 Profilo</h3>
       <div class="grid">
@@ -144,6 +165,7 @@
         <button class="btn btn-soft" id="btn-mute-2" type="button" aria-pressed="false">🔊 Audio attivo</button>
         <button class="btn btn-stop" id="btn-stop-audio-2" type="button">⏹ Ferma la voce</button>
       </div>
+      <label class="row gap small auto-add"><input type="checkbox" id="calm-mode"> <span>🌿 Modalità calma: meno animazioni, niente vibrazioni</span></label>
       <p class="muted small">«Ferma la voce» interrompe subito la lettura. Il pulsante in alto compare mentre l'app sta parlando.</p>
     </section>
     <section class="card stack">
@@ -163,6 +185,7 @@
       </div>
       <p class="muted small">Versione installata: <b class="app-ver"></b>. «Forza aggiornamento» ricarica l'app da zero e non cancella i tuoi dati. Su iPhone: Condividi → «Aggiungi alla schermata Home».</p>
     </section>
+    </div>
   </div>
 </main>
 
@@ -241,12 +264,10 @@
 <dialog id="dlg-scan" aria-labelledby="scan-title">
   <div class="dlg-in stack">
     <div class="row between"><div class="row gap"><img class="ico-lg" data-img="scanner" alt="" width="40" height="40"><h3 id="scan-title">Missione libro 📚</h3></div><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
-    <div class="scan-steps" aria-label="Tre passi: gira il libro, inquadra, fatto">
-      <span>1 · Gira il libro</span><span>2 · Inquadra</span><span>3 · Fatto! 🎉</span>
-    </div>
+    <div class="scan-steps" id="scan-steps" aria-label="Tre passi"></div>
     <div class="tabs" role="tablist" aria-label="Cosa vuoi scansionare">
-      <button class="tab" role="tab" id="tab-code" aria-selected="true" type="button">▮▯ Codice a barre</button>
-      <button class="tab" role="tab" id="tab-cover" aria-selected="false" type="button">📘 Copertina</button>
+      <button class="tab" role="tab" id="tab-cover" aria-selected="true" type="button">📘 Copertina</button>
+      <button class="tab" role="tab" id="tab-code" aria-selected="false" type="button">▮▯ Codice a barre</button>
     </div>
     <p id="scan-help" class="scan-help"></p>
     <div class="video-box"><video id="scan-video" autoplay playsinline muted></video><div class="laser" id="scan-laser"></div><div class="cover-guide hidden" id="cover-guide" aria-hidden="true"></div><button id="btn-torch" class="torch hidden" type="button" aria-label="Accendi la torcia" aria-pressed="false">🔦</button></div>
@@ -270,12 +291,14 @@
       <div id="res-sugg" class="stack hidden"><span class="small muted">Forse è uno di questi (tocca per usarlo):</span><div id="res-sugg-list" class="stack"></div></div>
       <div id="res-lines-box" class="stack hidden"><span class="small muted">Testo letto sulla copertina: tocca le parole giuste per comporre il titolo.</span><div id="res-lines" class="chips"></div></div>
       <label class="field"><span class="small muted">Come si chiama il libro?</span><input id="res-name" type="text" maxlength="60"></label>
-      <div class="row gap">
-        <label class="field"><span class="small muted">Materia</span><select id="res-subj"></select></label>
-        <label class="field"><span class="small muted">Classe</span><select id="res-cls"><option value="">—</option><option value="1">1ª</option><option value="2">2ª</option><option value="3">3ª</option><option value="4">4ª</option><option value="5">5ª</option></select></label>
+      <div class="field"><span class="small muted">Che materia è?</span><div id="res-subj-grid" class="subj-grid"></div></div>
+      <div class="field"><span class="small muted">Di che classe?</span><div id="res-cls-chips" class="cls-chips"></div></div>
+      <div class="hidden">
+        <select id="res-subj" aria-hidden="true" tabindex="-1"></select>
+        <select id="res-cls" aria-hidden="true" tabindex="-1"><option value="">—</option><option value="1">1ª</option><option value="2">2ª</option><option value="3">3ª</option><option value="4">4ª</option><option value="5">5ª</option></select>
       </div>
       <p id="res-hint" class="small warn-text hidden"></p>
-      <button class="btn btn-primary" id="btn-add-book" type="button">📚 Aggiungi ai miei libri</button>
+      <button class="btn btn-primary btn-xl" id="btn-add-book" type="button">📚 Sì, aggiungilo ai miei libri!</button>
       <button class="btn btn-soft hidden" id="btn-undo-add" type="button">↩ Annulla, non aggiungerlo</button>
       <details class="scan-extra">
         <summary>Hai già aggiunto questo libro?</summary>
@@ -325,6 +348,27 @@
   </div>
 </dialog>
 
+<!-- Missione zaino -->
+<dialog id="dlg-mission" aria-labelledby="mission-title">
+  <div class="dlg-in stack mission">
+    <div class="row between"><h3 id="mission-title">🚀 Missione zaino</h3><button class="btn btn-icon" data-close aria-label="Chiudi: puoi riprendere quando vuoi">✕</button></div>
+    <div id="mission-dots" class="mission-dots" aria-hidden="true"></div>
+    <div class="row between wrapflex">
+      <span id="mission-time" class="tag">⏱ senza fretta</span>
+      <button class="link strong" id="btn-mission-timer" type="button">⏱ Sfida 3 minuti</button>
+    </div>
+    <div class="mission-card">
+      <div id="mission-pic" class="mission-pic"></div>
+      <h2 id="mission-name"></h2>
+      <p id="mission-subj" class="muted"></p>
+    </div>
+    <p id="mission-bubble" class="bubble" aria-live="polite"></p>
+    <button class="btn btn-ok btn-xl" id="btn-mission-ok" type="button">✅ Messo nello zaino!</button>
+    <button class="btn btn-soft" id="btn-mission-skip" type="button">⏭ Lo cerco dopo</button>
+    <details class="scan-extra"><summary>Scegli tu cosa cercare</summary><div id="mission-pick" class="chips"></div></details>
+  </div>
+</dialog>
+
 <!-- Nuova materia -->
 <dialog id="dlg-newsub" aria-labelledby="newsub-title">
   <div class="dlg-in stack">
@@ -364,6 +408,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=12"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>

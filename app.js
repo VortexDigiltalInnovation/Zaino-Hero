@@ -12,13 +12,13 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,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'
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '12';
+const APP_VERSION = '13';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
 const GLOBAL_KEYS = { mute: 'zaino_mute', catalog: 'zaino_prize_catalog_v1', kids: 'zaino_kids_v1', profile: 'zaino_profile' };
 /* Dati di ogni figlio: il primo figlio (k1) mantiene le chiavi storiche, così i dati esistenti restano al loro posto. */
-const KID_BASE = { schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1' };
+const KID_BASE = { schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1', game: 'zaino_game_v1' };
 const LEGACY_KID = 'k1';
 const AVATARS = ['mantello', 'visore', 'orario', 'trofeo'];
 const AVATAR_NAMES = { mantello: 'Eroe col mantello', visore: 'Eroe con visore', orario: 'Eroe dell\'orario', trofeo: 'Eroe del trofeo' };
@@ -129,6 +129,15 @@ function cleanRewards(raw) {
   const count = raw && Number.isSafeInteger(raw.tickets) ? Math.max(0, Math.min(1000000, raw.tickets)) : 0;
   return { draws, tickets: count };
 }
+function cleanGame(raw) {
+  const r = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  const num = (v, max) => (Number.isSafeInteger(v) ? Math.max(0, Math.min(max, v)) : 0);
+  const awarded = {};
+  if (r.awarded && typeof r.awarded === 'object') Object.keys(r.awarded).slice(-400).forEach((k) => { if (/^[\w:.-]{1,60}$/.test(k)) awarded[k] = 1; });
+  const badges = {};
+  if (r.badges && typeof r.badges === 'object') Object.keys(r.badges).forEach((k) => { if (/^[a-z0-9]{2,12}$/.test(k) && typeof r.badges[k] === 'string') badges[k] = r.badges[k].slice(0, 30); });
+  return { xp: num(r.xp, 1000000), books: num(r.books, 100000), awarded, badges };
+}
 function cleanHistory(raw) {
   const completed = {};
   const source = raw && typeof raw === 'object' && !Array.isArray(raw) && raw.completed && typeof raw.completed === 'object'
@@ -180,6 +189,7 @@ let schedule = loadSchedule();
 let checks = cleanChecks(store.get(KEYS.checks, {}));
 let rewards = cleanRewards(store.get(KEYS.rewards, {}));
 let progressLog = cleanHistory(store.get(KEYS.history, {}));
+let game = cleanGame(store.get(KEYS.game, {}));
 let prizeCatalog = cleanCatalog(store.get(KEYS.catalog, {}));
 let profile = activeKid();
 let muted = store.get(KEYS.mute, false) === true;
@@ -315,13 +325,7 @@ function previousSchoolDate(dateIso) {
 function renderHistory() {
   const completed = progressLog.completed;
   const dates = Object.keys(completed).sort().reverse();
-  const dateSet = new Set(dates);
-  let streak = 0;
-  let cursor = dates[dates.length - 1];
-  while (cursor && dateSet.has(cursor)) {
-    streak += 1;
-    cursor = previousSchoolDate(cursor);
-  }
+  const streak = streakInfo().cur;
   const prizeCount = Object.keys(rewards.draws).length;
   $('stats-summary').textContent = `${dates.length} giornate · serie ${streak} · ${prizeCount} premi · ${rewards.tickets} ticket`;
   $('history-list').innerHTML = dates.length ? dates.slice(0, 5).map((date) => {
@@ -333,6 +337,191 @@ function renderHistory() {
       <span class="history-count">${entry.done}/${entry.total}</span><span class="history-prize">${prize ? `🎟️ ${esc(prize.title)}` : '✅ Completato'}</span></div>`;
   }).join('') : '<p class="muted small">Completa uno zaino per iniziare lo storico.</p>';
 }
+
+/* ---------- gioco: punti, livelli, adesivi, missione ---------- */
+const LEVELS = [
+  { xp: 0, name: 'Recluta', emoji: '🐣' }, { xp: 100, name: 'Esploratore', emoji: '🧭' }, { xp: 250, name: 'Cavaliere', emoji: '🛡️' },
+  { xp: 450, name: 'Campione', emoji: '🏅' }, { xp: 700, name: 'Eroe', emoji: '🦸' }, { xp: 1000, name: 'Super Eroe', emoji: '⚡' }, { xp: 1500, name: 'Leggenda', emoji: '👑' }
+];
+function levelInfo(xp) {
+  let i = 0; LEVELS.forEach((l, k) => { if (xp >= l.xp) i = k; });
+  const cur = LEVELS[i], next = LEVELS[i + 1] || null;
+  return { i, cur, next, pct: next ? Math.round((xp - cur.xp) / (next.xp - cur.xp) * 100) : 100, toNext: next ? next.xp - xp : 0 };
+}
+const saveGame = () => store.set(KEYS.game, game);
+/* Modalità calma: niente animazioni né vibrazioni (utile se gli effetti distraggono o stancano). */
+let calm = store.get('zaino_calm', null);
+if (calm === null) calm = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function setCalm(v) {
+  calm = !!v; store.set('zaino_calm', calm, true);
+  document.documentElement.classList.toggle('calm', calm); $('calm-mode').checked = calm;
+}
+$('calm-mode').onchange = () => setCalm($('calm-mode').checked);
+const buzz = (pattern) => { if (!calm && navigator.vibrate) { try { navigator.vibrate(pattern); } catch (e) { /* niente */ } } };
+function xpPop(text) {
+  if (calm) { toast(text); return; }
+  const el = document.createElement('div'); el.className = 'xp-pop'; el.setAttribute('aria-hidden', 'true'); el.textContent = text;
+  document.body.appendChild(el); setTimeout(() => el.remove(), 1500);
+}
+function awardXp(key, amount, label) {
+  if (game.awarded[key]) return false;
+  const before = levelInfo(game.xp).i;
+  game.awarded[key] = 1; game.xp += amount;
+  const keys = Object.keys(game.awarded);
+  if (keys.length > 400) keys.slice(0, keys.length - 400).forEach((k) => { delete game.awarded[k]; });
+  saveGame();
+  xpPop(`+${amount} ⭐${label ? ' ' + label : ''}`);
+  const after = levelInfo(game.xp);
+  if (after.i > before) { toast(`🎉 Nuovo livello: ${after.cur.emoji} ${after.cur.name}!`); confetti(); buzz([60, 40, 60]); }
+  checkBadges(); renderGame();
+  return true;
+}
+function streakInfo() {
+  const dates = Object.keys(progressLog.completed).sort();
+  let best = 0, run = 0, prev = null;
+  dates.forEach((d) => { run = prev && previousSchoolDate(d) === prev ? run + 1 : 1; prev = d; best = Math.max(best, run); });
+  let cur = 0;
+  if (dates.length) {
+    const last = dates[dates.length - 1];
+    const gap = (new Date(isoDate(new Date()) + 'T12:00:00') - new Date(last + 'T12:00:00')) / 86400000;
+    if (gap <= 4) cur = run;
+  }
+  return { cur, best, total: dates.length };
+}
+function perfectWeek() {
+  const weeks = {};
+  Object.keys(progressLog.completed).forEach((d) => {
+    const dt = new Date(d + 'T12:00:00'), dow = (dt.getDay() + 6) % 7; if (dow > 4) return;
+    const mon = new Date(dt); mon.setDate(dt.getDate() - dow);
+    const k = isoDate(mon); (weeks[k] = weeks[k] || new Set()).add(dow);
+  });
+  return Object.values(weeks).some((x) => x.size >= 5);
+}
+const BADGES = [
+  { id: 'first', emoji: '🥇', name: 'Prima missione', hint: 'Prepara uno zaino al 100%', ok: () => streakInfo().total >= 1 },
+  { id: 'streak3', emoji: '🔥', name: 'Tre di fila', hint: 'Zaino pronto per 3 giorni di scuola di fila', ok: () => streakInfo().best >= 3 },
+  { id: 'streak5', emoji: '🌋', name: 'Settimana di fuoco', hint: 'Zaino pronto per 5 giorni di scuola di fila', ok: () => streakInfo().best >= 5 },
+  { id: 'week', emoji: '🏆', name: 'Settimana perfetta', hint: 'Da lunedì a venerdì tutti pronti', ok: perfectWeek },
+  { id: 'books3', emoji: '📖', name: 'Primi libri', hint: 'Aggiungi 3 libri con lo scanner', ok: () => game.books >= 3 },
+  { id: 'books10', emoji: '📚', name: 'Cacciatore di libri', hint: 'Aggiungi 10 libri con lo scanner', ok: () => game.books >= 10 },
+  { id: 'speed', emoji: '⚡', name: 'Lampo', hint: 'Finisci la missione prima che scada la sfida', ok: () => false },
+  { id: 'lvl3', emoji: '🛡️', name: 'Cavaliere', hint: 'Arriva al livello Cavaliere', ok: () => levelInfo(game.xp).i >= 2 },
+  { id: 'lvl5', emoji: '🦸', name: 'Eroe', hint: 'Arriva al livello Eroe', ok: () => levelInfo(game.xp).i >= 4 }
+];
+function earnBadge(id) {
+  const b = BADGES.find((x) => x.id === id); if (!b || game.badges[id]) return;
+  game.badges[id] = new Date().toISOString(); saveGame();
+  toast(`🏅 Nuovo adesivo: ${b.emoji} ${b.name}!`); confetti(); buzz([60, 40, 60]); renderGame();
+}
+function checkBadges() { BADGES.forEach((b) => { if (!game.badges[b.id] && b.ok()) earnBadge(b.id); }); }
+function mascotMessage() {
+  const p = progress(state.day), name = profile.name, left = missingNames(state.day);
+  const pick = (arr) => arr[(p.done * 7 + p.total + DAYS.indexOf(state.day)) % arr.length];
+  if (!p.total) return `Niente da preparare per ${state.day}: riposo da eroe! 😎`;
+  if (p.pct === 100) return pick([`Missione compiuta, ${name}! Che squadra! 🎉`, 'Zaino pronto! Puoi essere fiero di te 🌟', 'Tutto fatto! Ora ti aspetta la ruota 🎡']);
+  if (!p.done) return pick([`Ciao ${name}! Quale cosa vuoi trovare per prima? 🔍`, `Ci sono ${p.total} cose da trovare. Da dove partiamo? 🚀`, 'Pronto per una missione veloce? Scegli tu come iniziare 💪']);
+  if (left.length === 1) return `Ne manca solo una: ${left[0]}! Ci sei quasi 🏁`;
+  return pick([`Che bravo! Ne restano ${left.length}. Ti va di cercare ${left[0]}? 👀`, `Stai andando forte! Ancora ${left.length} cose ⚡`, `Ottimo ritmo, ${name}! Vai come preferisci 😎`]);
+}
+function renderGame() {
+  const L = levelInfo(game.xp), st = streakInfo();
+  $('hero-chips').innerHTML = `<span class="gchip">${L.cur.emoji} ${esc(L.cur.name)}</span><span class="gchip">⭐ ${game.xp} XP</span><span class="gchip${st.cur ? ' fire' : ''}" title="Giorni di scuola di fila con lo zaino pronto">🔥 ${st.cur}</span>`;
+  document.querySelectorAll('.xp-fill').forEach((el) => { el.style.width = L.pct + '%'; });
+  const nxt = L.next ? `Ancora ${L.toNext} XP per diventare ${L.next.emoji} ${L.next.name}` : 'Livello massimo: sei una leggenda! 👑';
+  document.querySelectorAll('.xp-text').forEach((el) => { el.textContent = nxt; });
+  $('mascot-line').textContent = mascotMessage();
+  $('lvl-name').textContent = `${L.cur.emoji} ${L.cur.name}`; $('lvl-xp').textContent = `${game.xp} XP`;
+  $('lvl-streak').textContent = `🔥 Serie ${st.cur} · record ${st.best}`;
+  const got = BADGES.filter((b) => game.badges[b.id]).length;
+  $('badge-count').textContent = `${got} di ${BADGES.length}`;
+  $('badge-grid').innerHTML = BADGES.map((b) => game.badges[b.id]
+    ? `<div class="badge on" title="${esc(b.name)}"><span class="bi">${b.emoji}</span><b>${esc(b.name)}</b></div>`
+    : `<div class="badge" title="${esc(b.hint)}"><span class="bi">❔</span><b>${esc(b.name)}</b><small>${esc(b.hint)}</small></div>`).join('');
+  let withCover = 0, total = 0;
+  Object.keys(subjects).forEach((k) => subjects[k].materials.forEach((m) => { total++; if (m.photo) withCover++; }));
+  $('lib-count').textContent = `Hai ${total} ${total === 1 ? 'libro o quaderno' : 'libri e quaderni'}, ${withCover} con la foto della copertina 📸`;
+}
+
+/* ---------- missione: una cosa alla volta, scegli tu ---------- */
+const mission = { cur: null, queue: [], endsAt: 0, tick: null, timerOn: false };
+const fmtTime = (ms) => { const t = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
+function missionLeft() { const c = dayChecks(state.day); return dayItems(state.day).filter((id) => !c[id]); }
+function openMission() {
+  const left = missionLeft();
+  if (!left.length) { toast('Lo zaino è già pronto! 🎉'); return; }
+  mission.queue = left.slice(); mission.cur = left[0]; stopMissionTimer();
+  renderMission(); openDialog($('dlg-mission'));
+}
+function stopMissionTimer() {
+  clearInterval(mission.tick); mission.tick = null; mission.timerOn = false;
+  $('mission-time').textContent = '⏱ senza fretta'; $('mission-time').classList.remove('warn');
+  $('btn-mission-timer').textContent = '⏱ Sfida 3 minuti';
+}
+function startMissionTimer() {
+  mission.timerOn = true; mission.endsAt = Date.now() + 180000;
+  $('btn-mission-timer').textContent = '⏹ Niente sfida';
+  const upd = () => {
+    const rest = mission.endsAt - Date.now();
+    if (rest <= 0) { clearInterval(mission.tick); mission.tick = null; mission.timerOn = false; $('mission-time').textContent = '⏱ Tempo finito: ogni cosa conta, continua! 💪'; $('mission-time').classList.remove('warn'); $('btn-mission-timer').textContent = '⏱ Sfida 3 minuti'; return; }
+    $('mission-time').textContent = `⏱ ${fmtTime(rest)}`; $('mission-time').classList.toggle('warn', rest < 30000);
+  };
+  upd(); mission.tick = setInterval(upd, 250);
+}
+function renderMission() {
+  const c = dayChecks(state.day), all = dayItems(state.day), left = all.filter((id) => !c[id]);
+  if (!left.length) { finishMission(); return; }
+  if (!left.includes(mission.cur)) mission.cur = left.find((id) => mission.queue.includes(id)) || left[0];
+  const f = findMaterial(mission.cur), m = f.mat, sj = subjects[f.key];
+  $('mission-pic').innerHTML = m.photo ? `<img src="${m.photo}" alt="Copertina di ${esc(m.name)}">` : `<span class="mission-emoji" aria-hidden="true">${esc(sj.emoji)}</span>`;
+  $('mission-pic').style.setProperty('--c', sj.color);
+  $('mission-name').textContent = m.name; $('mission-subj').textContent = `${sj.emoji} ${f.key}`;
+  $('mission-dots').innerHTML = all.map((id) => `<i class="${c[id] ? 'on' : id === mission.cur ? 'cur' : ''}"></i>`).join('');
+  $('mission-bubble').textContent = left.length === 1 ? 'È l\'ultima! Poi hai finito 🏁' : `Lo vedi? Quando ce l'hai in mano, toccami! (${left.length} da trovare)`;
+  $('mission-pick').innerHTML = left.filter((id) => id !== mission.cur).map((id) => { const x = findMaterial(id); return `<button type="button" class="chip-sel" data-mpick="${id}">${esc(subjects[x.key].emoji)} ${esc(x.mat.name)}</button>`; }).join('') || '<span class="muted small">Nessun\'altra cosa: sei all\'ultima!</span>';
+}
+function finishMission() {
+  const wasTimer = mission.timerOn && mission.endsAt - Date.now() > 0, rest = mission.endsAt - Date.now();
+  stopMissionTimer();
+  if ($('dlg-mission').open) $('dlg-mission').close();
+  if (wasTimer) {
+    const date = targetDate(state.day).iso;
+    toast(`⚡ Missione lampo! Ti avanzavano ${fmtTime(rest)}`);
+    awardXp(`${date}:speed`, 25, 'Lampo!'); earnBadge('speed');
+  }
+}
+$('btn-mission').onclick = openMission;
+$('btn-mission-timer').onclick = () => { if (mission.timerOn) stopMissionTimer(); else startMissionTimer(); };
+$('btn-mission-ok').onclick = () => {
+  const id = mission.cur; if (!id) return;
+  const idx = mission.queue.indexOf(id);
+  toggleItem(id, true);
+  const rest = missionLeft();
+  if (!rest.length) { finishMission(); return; }
+  mission.cur = mission.queue.slice(idx + 1).find((x) => rest.includes(x)) || rest[0];
+  renderMission();
+};
+$('btn-mission-skip').onclick = () => {
+  const rest = missionLeft();
+  if (rest.length < 2) { toast('È l\'ultima: ce la fai! 💪'); return; }
+  mission.queue = mission.queue.filter((x) => x !== mission.cur).concat(mission.cur);
+  mission.cur = mission.queue.find((x) => rest.includes(x) && x !== mission.cur) || rest[0];
+  renderMission();
+};
+$('mission-pick').addEventListener('click', (e) => { const b = e.target.closest('[data-mpick]'); if (!b) return; mission.cur = b.dataset.mpick; renderMission(); buzz(15); });
+$('dlg-mission').addEventListener('close', stopMissionTimer);
+
+/* ---------- zona genitori: si apre tenendo premuto 1,5 secondi ---------- */
+let holdTimer = null;
+function resetHold() { clearTimeout(holdTimer); holdTimer = null; $('btn-hold').classList.remove('holding'); }
+function lockParent() { $('parent-area').classList.add('hidden'); $('parent-gate').classList.remove('hidden'); resetHold(); }
+function unlockParent() { resetHold(); $('parent-area').classList.remove('hidden'); $('parent-gate').classList.add('hidden'); }
+$('btn-hold').addEventListener('pointerdown', (e) => {
+  if (e.pointerType === 'mouse' && e.button !== 0) return;
+  $('btn-hold').classList.add('holding'); clearTimeout(holdTimer); holdTimer = setTimeout(unlockParent, 1500);
+});
+['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => $('btn-hold').addEventListener(ev, resetHold));
+$('btn-hold').addEventListener('contextmenu', (e) => e.preventDefault());
+$('btn-hold').addEventListener('click', (e) => { if (e.detail === 0) unlockParent(); }); // con la tastiera
 
 /* ---------- rendering ---------- */
 function render() {
@@ -356,6 +545,7 @@ function render() {
   renderProgress();
   renderHistory();
   renderSubjects();
+  renderGame();
   $('subject-list').innerHTML = Object.keys(subjects).map((k) => `<option value="${esc(k)}">`).join('');
 }
 
@@ -425,6 +615,9 @@ function renderProgress(celebrate) {
   const prize = draw && prizeFromDraw(draw);
   const rewardButton = $('btn-open-wheel');
   rewardButton.classList.toggle('hidden', !full && !draw);
+  const left = p.total - p.done, mb = $('btn-mission');
+  mb.classList.toggle('hidden', !left);
+  mb.textContent = p.done ? `▶ Continua la missione (${left} da trovare)` : `▶ Inizia la missione (${left} cose)`;
   rewardButton.textContent = draw ? '🎟️ Rivedi il coupon' : '🎡 Gira la ruota';
   $('reward-status').textContent = prize
     ? `Premio già ottenuto per questa giornata: ${prize.title}. Coupon da mostrare a un adulto.`
@@ -456,8 +649,15 @@ function toggleItem(id, value) {
   const again = document.querySelector(`#list input[data-mid="${id}"]`);
   if (again && document.activeElement !== again && (document.activeElement === document.body || !document.activeElement)) again.focus({ preventScroll: true });
   beep();
+  const date = targetDate(state.day).iso;
+  if (value) { buzz(25); awardXp(`${date}:${id}`, 10); }
   const after = progress(state.day).pct;
-  if (after === 100 && before < 100) { confetti(); speak('Zaino pronto! Bravo!'); }
+  if (after === 100 && before < 100) {
+    recordCompletion(state.day);
+    awardXp(`${date}:full`, 50, 'Zaino pronto!');
+    confetti(); buzz([80, 40, 80]); speak('Zaino pronto! Bravo!');
+    checkBadges(); renderGame();
+  }
 }
 
 /* ---------- ruota dei premi ---------- */
@@ -688,7 +888,7 @@ $('btn-week-share').onclick = async () => {
   try { await navigator.clipboard.writeText(text); toast('Orario copiato negli appunti 📋'); } catch (err) { toast('Non riesco a condividere: copia a mano dalla vista settimana.'); }
 };
 $('btn-reset').onclick = () => {
-  if (!confirm(`Azzerare le spunte di ${state.day}?`)) return;
+  if (!confirm(`Ricominciare la missione di ${state.day}? Le spunte tornano vuote (i punti restano tuoi).`)) return;
   checks[state.day] = { date: targetDate(state.day).iso, items: {} }; saveChecks(); render();
 };
 $('btn-read').onclick = () => {
@@ -1117,8 +1317,8 @@ async function lookupIsbn(isbn) {
 }
 /* ---------- materia e classe dal testo ---------- */
 const SUBJECT_HINTS = [
-  [/matemat|aritmet|geometri|numer[io]\b|problem[ai]\b|calcol|operazion|frazion|logica/, 'Matematica'],
-  [/ital[iy]ano|grammatic|lettur|antologi|raccont|scrittur|ortograf|linguagg|favol|poesi/, 'Italiano'],
+  [/matemat|aritmet|geometri|numer[io]\b|problem[ai]\b|calcol|operazion|frazion|logica|tabelline|numeri/, 'Matematica'],
+  [/ital[iy]ano|grammatic|lettur|antologi|raccont|scrittur|ortograf|linguagg|favol|poesi|letture|parole e testi|leggere e scrivere/, 'Italiano'],
   [/english|inglese|workbook|student'?s|grammar|oxford|cambridge|macmillan|black cat|pearson english/, 'Inglese'],
   [/stori[ac]|antichit|medioev|civilt|romani|egizi|preistoria/, 'Storia'],
   [/geograf|paesagg|atlante|territori/, 'Geografia'],
@@ -1350,13 +1550,14 @@ function resetScanPanel() {
 }
 const SCAN_HELP = {
   code: 'Gira il libro e punta le <strong>righe nere del codice</strong> dentro il riquadro. Tienilo fermo: appena lo leggo, te lo dico! Se non va, prova «Foto».',
-  cover: 'Mostrami la <strong>copertina o il retro</strong>, dritti e con buona luce. Poi tocca «Scatta e leggi»: cerco titolo e codice. Se hai una foto, puoi sceglierla dalla galleria.'
+  cover: 'Metti il libro <strong>dritto</strong>, con la copertina bene in vista e senza riflessi. La leggo da sola: cerco titolo, materia e classe! Se non parte, tocca «Scatta e leggi».'
 };
 function setScanMode(mode) {
   scanMode = mode; autoTicks = 0; lastAutoTitle = '';
   $('tab-code').setAttribute('aria-selected', String(mode === 'code'));
   $('tab-cover').setAttribute('aria-selected', String(mode === 'cover'));
   $('scan-help').innerHTML = SCAN_HELP[mode];
+  $('scan-steps').innerHTML = mode === 'cover' ? '<span>1 · Libro dritto</span><span>2 · Inquadra la copertina</span><span>3 · Fatto! 🎉</span>' : '<span>1 · Gira il libro</span><span>2 · Punta il codice</span><span>3 · Fatto! 🎉</span>';
   $('scan-laser').classList.toggle('hidden', mode !== 'code');
   $('cover-guide').classList.toggle('hidden', mode !== 'cover');
   $('cover-actions').classList.toggle('hidden', mode !== 'cover');
@@ -1386,10 +1587,10 @@ $('btn-torch').onclick = () => {
 };
 $('btn-scan').onclick = async () => {
   resetScanPanel(); lastCode = ''; scanMisses = 0; scanBusy = false; $('ocr-progress').classList.add('hidden');
-  setScanMode('code'); setStatus('Avvio fotocamera…'); updateEngine(); loadZX().then(updateEngine, updateEngine);
+  setScanMode('cover'); setStatus('Avvio fotocamera…'); updateEngine(); loadZX().then(updateEngine, updateEngine);
   openDialog($('dlg-scan'));
   if (!navigator.mediaDevices?.getUserMedia) { setStatus('Fotocamera non disponibile qui (serve https). Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); return; }
-  try { await startCamera(); setStatus('Inquadra il codice a barre…'); scheduleScan(); }
+  try { await startCamera(); setStatus('Inquadra la copertina: la leggo da sola 📖'); scheduleScan(); }
   catch (e) { setStatus('Non posso usare la fotocamera. Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); }
 };
 function stopScanner() {
@@ -1517,6 +1718,21 @@ function handleCode(raw, force) {
   }
   showNewCode(code);
 }
+function syncPickers() {
+  const cur = $('res-subj').value, cc = $('res-cls').value;
+  $('res-subj-grid').innerHTML = Object.keys(subjects).map((k) =>
+    `<button type="button" class="subj-btn${k === cur ? ' on' : ''}" data-sp="${esc(k)}" style="--c:${subjects[k].color}" aria-pressed="${k === cur}"><span class="em" aria-hidden="true">${esc(subjects[k].emoji)}</span><span>${esc(k)}</span></button>`).join('');
+  $('res-cls-chips').innerHTML = ['1', '2', '3', '4', '5'].map((n) => `<button type="button" class="cls-btn${n === cc ? ' on' : ''}" data-cp="${n}" aria-pressed="${n === cc}">${n}ª</button>`).join('');
+}
+$('res-subj-grid').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-sp]'); if (!b) return;
+  $('res-subj').value = b.dataset.sp; $('res-subj').dispatchEvent(new Event('change')); syncPickers(); buzz(15);
+});
+$('res-cls-chips').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-cp]'); if (!b) return;
+  $('res-cls').value = $('res-cls').value === b.dataset.cp ? '' : b.dataset.cp; syncPickers(); buzz(15);
+});
+const kidClsDigit = () => (String(profile.cls).match(/[1-5]/) || [''])[0];
 function fillSelects(preferred) {
   $('scan-select').innerHTML = Object.keys(subjects).map((k) => `<optgroup label="${esc(k)}">` +
     subjects[k].materials.map((m) => `<option value="${esc(m.id)}">${esc(m.name)}</option>`).join('') + '</optgroup>').join('');
@@ -1524,6 +1740,7 @@ function fillSelects(preferred) {
   const dayFirst = packList(state.day).find((g) => g.key);
   const pick = preferred || (dayFirst && dayFirst.key) || Object.keys(subjects)[0];
   if (pick) $('res-subj').value = pick;
+  syncPickers();
 }
 async function showNewCode(code) {
   const token = ++lookupToken, isbn = normIsbn(code);
@@ -1562,6 +1779,7 @@ function commitBook(key, name, photo, barcode, cls) {
   const mat = { id: uid(), name: String(name).trim().slice(0, 60) || 'Libro', photo: photo || '', barcode: barcode || '', cls: /^[1-5]$/.test(cls) ? cls : '' };
   subjects[key].materials.push(mat);
   if (!saveSubjects()) { subjects[key].materials.pop(); return null; }
+  if (awardXp('book:' + mat.id, 30, 'Nuovo libro!')) { game.books += 1; saveGame(); checkBadges(); renderGame(); }
   return mat;
 }
 /* Aggiunge subito il libro trovato alla materia più probabile; resta il tempo di cambiare materia o annullare. */
@@ -1572,7 +1790,7 @@ function autoImport(info, code) {
   const mat = commitBook(key, tidyTitle(info.title) || info.title, photo, code, cls);
   if (!mat) return false;
   pendingCover = photo; lastAdded = { key, id: mat.id }; addedMode = true;
-  $('res-subj').value = key; $('res-name').value = mat.name; $('res-cls').value = cls;
+  $('res-subj').value = key; $('res-name').value = mat.name; $('res-cls').value = cls; syncPickers();
   $('btn-add-book').classList.add('hidden'); $('btn-undo-add').classList.remove('hidden'); $('link-box').classList.add('hidden'); $('dlg-scan').classList.add('added');
   if (dayItems(state.day).includes(mat.id)) toggleItem(mat.id, true); else render();
   setStatus(`✅ <b>${esc(mat.name)}</b> aggiunto a ${esc(key)} da ${esc((info.sources || ['copertina']).join(' + '))}. Materia sbagliata? Cambiala qui sotto. Puoi inquadrare subito il libro successivo.`, 'ok');
@@ -1643,12 +1861,12 @@ function showCoverResult(p, photo) {
   if (pendingCover) { $('res-cover').src = pendingCover; $('res-cover').classList.remove('hidden'); }
   const subj = detectSubject(p.titleText, p.allText);
   fillSelects(subj);
-  $('res-cls').value = p.cls ? String(p.cls) : '';
+  $('res-cls').value = p.cls ? String(p.cls) : kidClsDigit(); syncPickers();
   renderChips();
   $('link-box').classList.add('hidden');
   const hints = [];
   if (!subj) hints.push('Materia non riconosciuta: scegli quella giusta.');
-  if (!p.cls) hints.push('Classe non trovata: scegli tu la classe (se serve).');
+  if (!p.cls) hints.push(kidClsDigit() ? `Non ho trovato la classe: ho messo la ${kidClsDigit()}ª, come ${profile.name}. Cambiala se serve.` : 'Non ho trovato la classe: scegli tu la classe (se serve).');
   else if (p.clsGuess) hints.push('Classe incerta: controlla.');
   const kidCls = (String(profile.cls).match(/[1-5]/) || [])[0];
   if (p.cls && kidCls && String(p.cls) !== kidCls) hints.push(`Attenzione: sembra un libro di ${p.cls}ª, ${profile.name} è in ${profile.cls}.`);
@@ -1673,6 +1891,7 @@ async function useSuggestion(sg, auto) {
   if (sg.isbn) { pendingCode = sg.isbn; $('res-code').textContent = 'ISBN ' + sg.isbn; $('link-box').classList.remove('hidden'); }
   const sub = guessSubject(sg.hint + ' ' + sg.title); if (sub) $('res-subj').value = sub;
   const cls = detectClass(sg.title); if (cls) $('res-cls').value = String(cls);
+  syncPickers();
   const cover = await fetchCover(sg.coverUrl) || (sg.isbn ? await fetchCover(`https://covers.openlibrary.org/b/isbn/${sg.isbn}-M.jpg?default=false`) : '');
   if (token !== lookupToken) return;
   if (cover) { pendingCover = cover; $('res-cover').src = cover; $('res-cover').classList.remove('hidden'); }
@@ -1828,7 +2047,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) stopA
 addEventListener('pagehide', stopAudio);
 
 function confetti() {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (calm || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const cv = $('confetti'), ctx = cv.getContext('2d');
   cv.width = innerWidth; cv.height = innerHeight;
   const cols = ['#6366f1', '#a855f7', '#34d399', '#fbbf24', '#f472b6', '#38bdf8'];
@@ -1864,7 +2083,7 @@ function readKidData(id) {
   try {
     return {
       schedule: loadSchedule(), subjects: loadSubjects(), checks: cleanChecks(store.get(KEYS.checks, {})),
-      rewards: cleanRewards(store.get(KEYS.rewards, {})), history: cleanHistory(store.get(KEYS.history, {}))
+      rewards: cleanRewards(store.get(KEYS.rewards, {})), history: cleanHistory(store.get(KEYS.history, {})), game: cleanGame(store.get(KEYS.game, {}))
     };
   } finally { activeKidId = prev; }
 }
@@ -1872,7 +2091,7 @@ function loadKidData() {
   activeKidId = kids.active;
   subjects = loadSubjects(); schedule = loadSchedule();
   checks = cleanChecks(store.get(KEYS.checks, {})); rewards = cleanRewards(store.get(KEYS.rewards, {}));
-  progressLog = cleanHistory(store.get(KEYS.history, {}));
+  progressLog = cleanHistory(store.get(KEYS.history, {})); game = cleanGame(store.get(KEYS.game, {}));
   profile = activeKid();
   $('set-name').value = profile.name; $('set-class').value = profile.cls;
 }
@@ -1993,7 +2212,8 @@ $('file-import').onchange = async (e) => {
         && store.set(kidKey(KID_BASE.subjects, k.id), kd.subjects && typeof kd.subjects === 'object' ? kd.subjects : {}, true)
         && store.set(kidKey(KID_BASE.checks, k.id), cleanChecks(kd.checks), true)
         && store.set(kidKey(KID_BASE.rewards, k.id), cleanRewards(kd.rewards), true)
-        && store.set(kidKey(KID_BASE.history, k.id), cleanHistory(kd.history), true);
+        && store.set(kidKey(KID_BASE.history, k.id), cleanHistory(kd.history), true)
+        && store.set(kidKey(KID_BASE.game, k.id), cleanGame(kd.game), true);
     });
     if (!ok) { fail(); return; }
     kids = newKids;
@@ -2126,6 +2346,7 @@ setTimeout(() => {
 const TABS = ['zaino', 'materie', 'premi', 'altro'];
 function showTab(name) {
   if (!TABS.includes(name)) name = 'zaino';
+  if (name !== 'altro') lockParent();
   document.querySelectorAll('[data-panel]').forEach((el) => el.classList.toggle('hidden', el.dataset.panel !== name));
   document.querySelectorAll('.tabbtn[data-tab]').forEach((b) => { if (b.dataset.tab === name) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
   try { sessionStorage.setItem('zaino_tab', name); } catch (e) { /* niente */ }
@@ -2136,4 +2357,4 @@ let startTab = 'zaino'; try { startTab = sessionStorage.getItem('zaino_tab') || 
 showTab(startTab);
 $('day-view').classList.toggle('hidden', state.view === 'week'); $('week').classList.toggle('hidden', state.view !== 'week');
 $('view-day').setAttribute('aria-selected', String(state.view === 'day')); $('view-week').setAttribute('aria-selected', String(state.view === 'week'));
-renderWheelLabels(); setMuted(muted); netStatus(); render();
+lockParent(); setCalm(calm); renderWheelLabels(); setMuted(muted); netStatus(); render();
