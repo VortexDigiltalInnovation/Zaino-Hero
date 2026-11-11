@@ -1,4 +1,8 @@
-ZAINO HERO v11 - come pubblicarla
+ZAINO HERO v12 - come pubblicarla
+
+NOVITÀ v12 - Riconoscimento dei libri Giunti
+- L'ISBN 9788809938052 viene riconosciuto anche offline come «Nuovo Viva Imparare - cl 5 Scienze e Tecnologia».
+- La scheda verificata è nel catalogo Giunti Scuola; il libro viene assegnato alla materia Scienze e alla classe quinta.
 
 NOVITÀ v11 - Scansione più semplice e robusta
 - Sul codice a barre, la scansione prova anche ritagli più vicini e una seconda lettura ogni pochi fotogrammi.
