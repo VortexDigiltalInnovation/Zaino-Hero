@@ -12,7 +12,7 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,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'
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '10';
+const APP_VERSION = '11';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -867,7 +867,7 @@ function resizeImage(file, max, minSide = 0) {
 const ean13Check = (d12) => { let t = 0; for (let i = 0; i < 12; i++) t += +d12[i] * (i % 2 ? 3 : 1); return String((10 - (t % 10)) % 10); };
 /* Restituisce l'ISBN-13 (anche da un ISBN-10) se valido, altrimenti null. */
 function normIsbn(raw) {
-  const c = String(raw ?? '').replace(/[\s-]/g, '').toUpperCase();
+  const c = String(raw ?? '').replace(/[\s\-‐‑‒–—.·]/g, '').toUpperCase();
   if (/^\d{13}$/.test(c)) return ean13Check(c.slice(0, 12)) === c[12] && /^97[89]/.test(c) ? c : null;
   if (/^\d{9}[\dX]$/.test(c)) {
     let t = 0; for (let i = 0; i < 10; i++) t += (10 - i) * (c[i] === 'X' ? 10 : +c[i]);
@@ -943,6 +943,17 @@ function frameToCanvas(src, sw, sh, maxSide = 1280, fresh = false) {
   cv.getContext('2d', { willReadFrequently: true }).drawImage(src, 0, 0, cv.width, cv.height);
   return cv;
 }
+/* Isola una zona dell'immagine: i codici piccoli si leggono meglio senza tutta la copertina intorno. */
+function frameRegionToCanvas(src, sw, sh, region, maxSide = 1800) {
+  const sx = Math.max(0, Math.round(sw * region.x)), sy = Math.max(0, Math.round(sh * region.y));
+  const rw = Math.max(1, Math.min(sw - sx, Math.round(sw * region.w)));
+  const rh = Math.max(1, Math.min(sh - sy, Math.round(sh * region.h)));
+  const scale = Math.min(1, maxSide / Math.max(rw, rh));
+  const cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(rw * scale)); cv.height = Math.max(1, Math.round(rh * scale));
+  cv.getContext('2d', { willReadFrequently: true }).drawImage(src, sx, sy, rw, rh, 0, 0, cv.width, cv.height);
+  return cv;
+}
 const loadedScripts = {};
 function loadScript(src) {
   if (!loadedScripts[src]) {
@@ -976,13 +987,37 @@ async function zxRead(cv) {
   const hit = res.find((r) => r.text && r.isValid !== false);
   return hit ? hit.text : null;
 }
-/* Legge un codice da un video o da un'immagine: BarcodeDetector (se c'è), poi ZXing, poi il lettore interno. */
-async function readCode(src, sw, sh, maxSide) {
+/* Lettura standard: BarcodeDetector, ZXing e infine il lettore EAN interno. */
+async function readCodeCanvas(cv) {
+  const det = getDetector();
+  if (det) { try { const r = await det.detect(cv); if (r.length) return r[0].rawValue; } catch (e) { /* prosegue */ } }
+  try { const c = await zxRead(cv); if (c) return c; } catch (e) { console.warn('ZXing:', e); }
+  return decodeEan13(cv);
+}
+/* Sui ritagli fermo il codice più grande nell'immagine; aiuta con libri lucidi e codici piccoli. */
+async function readCode(src, sw, sh, maxSide, deep = false) {
   const det = getDetector();
   if (det) { try { const r = await det.detect(src); if (r.length) return r[0].rawValue; } catch (e) { /* prosegue */ } }
   const cv = frameToCanvas(src, sw, sh, maxSide || 1280);
-  try { const c = await zxRead(cv); if (c) return c; } catch (e) { console.warn('ZXing:', e); }
-  return decodeEan13(cv);
+  const full = await readCodeCanvas(cv);
+  if (full || !deep) return full;
+  const regions = [
+    { x: 0.04, y: 0.22, w: 0.92, h: 0.58 },
+    { x: 0.16, y: 0.34, w: 0.68, h: 0.40 }
+  ];
+  for (const region of regions) {
+    const crop = frameRegionToCanvas(src, sw, sh, region, 1800);
+    const code = await readCodeCanvas(crop);
+    if (code) return code;
+    // ZXing prova già a ruotare; questa rotazione aiuta anche il lettore EAN di riserva.
+    const rotated = document.createElement('canvas');
+    rotated.width = crop.height; rotated.height = crop.width;
+    const ctx = rotated.getContext('2d', { willReadFrequently: true });
+    ctx.translate(rotated.width, 0); ctx.rotate(Math.PI / 2); ctx.drawImage(crop, 0, 0);
+    const turned = decodeEan13(rotated);
+    if (turned) return turned;
+  }
+  return null;
 }
 
 /* ---------- ricerca libro su Internet: più librerie in parallelo ---------- */
@@ -1137,10 +1172,12 @@ function tidyTitle(str) {
    e ricava classe ed edizione. Funzione pura: prende le parole di Tesseract (testo + riquadro + affidabilità). */
 function findIsbn(text) {
   const t = String(text); let m;
-  const re13 = /97[89](?:[\s-]?\d){10}/g;
-  while ((m = re13.exec(t))) { const i = normIsbn(m[0]); if (i) return i; }
-  const re10 = /ISBN[\s:-]*([\dX](?:[\s-]?[\dX]){9})/gi;
-  while ((m = re10.exec(t))) { const i = normIsbn(m[1]); if (i) return i; }
+  const fixOcrDigits = (raw) => String(raw).toUpperCase()
+    .replace(/[OQD]/g, '0').replace(/[IL|]/g, '1').replace(/G/g, '9').replace(/T/g, '7').replace(/B/g, '8');
+  const re13 = /[9g][7t][89b](?:[\s\-‐‑‒–—.·]?[\dOQDIL|]){10}/gi;
+  while ((m = re13.exec(t))) { const i = normIsbn(fixOcrDigits(m[0])); if (i) return i; }
+  const re10 = /ISBN[\s:.-]*([\dXODQIL|](?:[\s\-‐‑‒–—.]?[\dXODQIL|]){9})/gi;
+  while ((m = re10.exec(t))) { const i = normIsbn(fixOcrDigits(m[1])); if (i) return i; }
   return null;
 }
 function parseCover(words) {
@@ -1247,12 +1284,25 @@ function prepForOcr(cv, invert) {
 async function ocrCover(cv, quick) {
   const w = await getOcr();
   let best = null;
-  for (const invert of (quick ? [false] : [false, true])) {
-    const { data } = await w.recognize(prepForOcr(cv, invert));
+  const recognize = async (image, invert) => {
+    const { data } = await w.recognize(prepForOcr(image, invert));
     const p = parseCover(data.words || []);
     if (!best || p.quality > best.quality || (!best.title && p.title)) best = p;
-    if (p.isbn) { best = p; break; }
-    if (best.title.length >= 4 && best.quality >= 70) break;
+    if (p.isbn) return Object.assign({}, best, { isbn: p.isbn });
+    return null;
+  };
+  for (const invert of (quick ? [false] : [false, true])) {
+    const hit = await recognize(cv, invert);
+    if (hit) return hit;
+    if (best && best.title.length >= 4 && best.quality >= 70) break;
+  }
+  if (!quick && !best?.isbn) {
+    // Sui libri scolastici l'etichetta ISBN è spesso piccola e sul retro: ingrandisco la fascia centrale-bassa.
+    const label = frameRegionToCanvas(cv, cv.width, cv.height, { x: 0.06, y: 0.28, w: 0.88, h: 0.50 }, 1800);
+    for (const invert of [false, true]) {
+      const hit = await recognize(label, invert);
+      if (hit) return hit;
+    }
   }
   return best;
 }
@@ -1264,7 +1314,7 @@ const canvasToJpeg = (cv, max) => {
 };
 
 /* ---------- scanner ---------- */
-let stream = null, scanTimer = null, scanBusy = false, detector = null, lastCode = '', lastAt = 0, pendingCode = '', pendingCover = '', lookupToken = 0;
+let stream = null, scanTimer = null, scanBusy = false, detector = null, scanMisses = 0, lastCode = '', lastAt = 0, pendingCode = '', pendingCover = '', lookupToken = 0;
 let scanMode = 'code', torchOn = false, chipLines = [], chipSel = [], suggestions = [], addedMode = false, lastAdded = null;
 function setStatus(html, cls) { const s = $('scan-status'); s.className = 'status' + (cls ? ' ' + cls : ''); s.innerHTML = html; }
 function getDetector() {
@@ -1276,13 +1326,14 @@ function resetScanPanel() {
   $('scan-result').classList.add('hidden'); pendingCode = ''; pendingCover = ''; lookupToken++;
   chipLines = []; chipSel = []; suggestions = [];
   ['res-sugg', 'res-lines-box', 'res-hint'].forEach((id) => $(id).classList.add('hidden'));
+  const extra = $('dlg-scan').querySelector('.scan-extra'); if (extra) extra.open = false;
   $('link-box').classList.remove('hidden');
   addedMode = false; lastAdded = null;
   $('btn-undo-add').classList.add('hidden'); $('btn-add-book').classList.remove('hidden'); $('dlg-scan').classList.remove('added');
 }
 const SCAN_HELP = {
-  code: 'Inquadra il <strong>codice a barre</strong> sul retro del libro (ISBN): fermo, ben illuminato, a circa 15–20 cm.',
-  cover: 'Inquadra la <strong>copertina davanti</strong>, intera e dritta, con buona luce e senza riflessi. Con la lettura automatica la riconosco da sola; altrimenti tocca «Scatta e leggi». Cerco titolo, materia, classe e ISBN.'
+  code: 'Gira il libro e punta le <strong>righe nere del codice</strong> dentro il riquadro. Tienilo fermo: appena lo leggo, te lo dico! Se non va, prova «Foto».',
+  cover: 'Mostrami la <strong>copertina o il retro</strong>, dritti e con buona luce. Poi tocca «Scatta e leggi»: cerco titolo e codice. Se hai una foto, puoi sceglierla dalla galleria.'
 };
 function setScanMode(mode) {
   scanMode = mode; autoTicks = 0; lastAutoTitle = '';
@@ -1317,7 +1368,7 @@ $('btn-torch').onclick = () => {
   track.applyConstraints({ advanced: [{ torch: torchOn }] }).then(() => $('btn-torch').setAttribute('aria-pressed', String(torchOn))).catch(() => { torchOn = false; });
 };
 $('btn-scan').onclick = async () => {
-  resetScanPanel(); lastCode = ''; scanBusy = false; $('ocr-progress').classList.add('hidden');
+  resetScanPanel(); lastCode = ''; scanMisses = 0; scanBusy = false; $('ocr-progress').classList.add('hidden');
   setScanMode('code'); setStatus('Avvio fotocamera…'); updateEngine(); loadZX().then(updateEngine, updateEngine);
   openDialog($('dlg-scan'));
   if (!navigator.mediaDevices?.getUserMedia) { setStatus('Fotocamera non disponibile qui (serve https). Usa «Foto con la fotocamera» o la galleria, oppure scrivi l\'ISBN.', 'warn'); return; }
@@ -1346,7 +1397,7 @@ async function autoCoverTick() {
   try {
     setStatus('🔎 Lettura automatica: tieni ferma la copertina…');
     const cv = frameToCanvas(v, v.videoWidth, v.videoHeight, 1400, true);
-    let code = null; try { code = await readCode(cv, cv.width, cv.height, 1400); } catch (e) { /* nessun codice */ }
+    let code = null; try { code = await readCode(cv, cv.width, cv.height, 1400, autoTicks % 4 === 0); } catch (e) { /* nessun codice */ }
     if (token !== lookupToken || scanMode !== 'cover') return;
     if (code && normIsbn(code)) { scanBusy = false; handleCode(code, true); return; }
     const p = await ocrCover(cv, true);
@@ -1364,7 +1415,12 @@ $('auto-cover').addEventListener('change', () => { autoTicks = 0; lastAutoTitle 
 async function scanFrame() {
   const v = $('scan-video'); if (scanBusy || v.readyState < 2 || !v.videoWidth) return;
   scanBusy = true;
-  try { const c = await readCode(v, v.videoWidth, v.videoHeight, 1280); if (c && scanMode === 'code') handleCode(c); } catch (e) { /* frame non leggibile */ } finally { scanBusy = false; updateEngine(); }
+  try {
+    scanMisses++;
+    const deep = scanMisses % 5 === 0;
+    const c = await readCode(v, v.videoWidth, v.videoHeight, deep ? 1700 : 1280, deep);
+    if (c && scanMode === 'code') { scanMisses = 0; handleCode(c); }
+  } catch (e) { /* frame non leggibile */ } finally { scanBusy = false; updateEngine(); }
 }
 function updateEngine() {
   const el = $('scan-engine'); el.classList.remove('hidden', 'warn-text');
@@ -1402,7 +1458,7 @@ async function analyzeCover(cv, codeFirst) {
   try {
     setStatus(codeFirst ? '🔎 Cerco il codice a barre…' : '📖 Leggo la copertina…');
     let code = null;
-    try { code = await readCode(cv, cv.width, cv.height, 2200); } catch (e) { /* nessun codice */ }
+    try { code = await readCode(cv, cv.width, cv.height, 2200, true); } catch (e) { /* nessun codice */ }
     if (token !== lookupToken) return;
     if (code && normIsbn(code)) { scanBusy = false; handleCode(code, true); return; }
     setStatus('📖 Leggo la copertina… (la prima volta ci vuole qualche secondo in più)');
@@ -1467,7 +1523,7 @@ async function showNewCode(code) {
   const info = await lookupIsbn(isbn);
   if (token !== lookupToken) return; // nel frattempo è cambiato codice o la finestra è stata chiusa
   if (!info) {
-    setStatus(navigator.onLine ? 'Nessuna libreria (Google Libri, Open Library) conosce questo ISBN. Scrivi tu il nome e scegli la materia, oppure prova la scheda «Copertina».' : 'Sei offline e questo libro non è ancora nella memoria del telefono. Scrivi tu il nome e scegli la materia.', 'warn');
+      setStatus(navigator.onLine ? 'Ho letto il codice, ma non trovo la scheda online. Niente paura: scrivi il nome del libro qui sotto e scegli la materia.' : 'Ho letto il codice! Sei offline: scrivi il nome del libro qui sotto e scegli la materia.', 'warn');
     return;
   }
   $('res-title').textContent = info.title; $('res-author').textContent = info.authors;

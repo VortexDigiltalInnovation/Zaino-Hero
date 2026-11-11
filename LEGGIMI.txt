@@ -1,4 +1,11 @@
-ZAINO HERO v10 - come pubblicarla
+ZAINO HERO v11 - come pubblicarla
+
+NOVITÀ v11 - Scansione più semplice e robusta
+- Sul codice a barre, la scansione prova anche ritagli più vicini e una seconda lettura ogni pochi fotogrammi.
+- Sulle foto, dopo il tentativo normale cerca il codice in zone ingrandite; se non lo trova, l'OCR controlla anche l'etichetta ISBN.
+- Il riconoscimento del testo gestisce meglio trattini e alcuni caratteri confusi dalla fotocamera.
+- La schermata Scansiona ora guida in tre passi, usa parole più semplici e mette in secondo piano le opzioni avanzate.
+- Se il codice viene letto ma le librerie online non hanno il libro, puoi scriverne il nome e aggiungerlo lo stesso.
 
 1. Carica TUTTI i file di questa cartella (sono tutti "piatti", nessuna sottocartella) nello stesso posto su un hosting https
    (GitHub Pages, Netlify, Vercel...). Le immagini sono gia' dentro l'app.
@@ -37,7 +44,7 @@ PIU' FIGLI
 - «Salva copia dei dati» salva TUTTI i figli in un solo file. Una copia fatta con la versione precedente (un solo figlio) viene applicata al figlio selezionato.
 
 SCANSIONE LIBRI
-- Scheda «Codice a barre»: inquadra l'ISBN sul retro. Il libro viene cercato in piu' librerie online insieme (Google Libri, Open Library, anche con l'ISBN-10) e, se l'opzione «Aggiungi da solo i libri trovati» e' attiva, viene aggiunto subito con titolo, copertina e materia piu' probabile. Se la materia e' sbagliata la cambi dal menu, oppure tocchi «Annulla». La fotocamera resta accesa: puoi inquadrare subito il libro dopo.
+- Scheda «Codice a barre»: inquadra l'ISBN sul retro. Il libro viene cercato in piu' librerie online insieme (Google Libri, Open Library, anche con l'ISBN-10) e, se l'opzione «Aggiungi al volo i libri trovati» e' attiva, viene aggiunto subito con titolo, copertina e materia piu' probabile. Se la materia e' sbagliata la cambi dal menu, oppure tocchi «Annulla». La fotocamera resta accesa: puoi inquadrare subito il libro dopo.
 - I libri gia' cercati restano nella memoria del telefono (ultimi 80): si ritrovano anche offline.
 - Scheda «Copertina»: inquadra la copertina davanti (o il retro) e tocca «Scatta e leggi» (oppure «Foto con la fotocamera» / «Dalla galleria»). L'app legge titolo, materia e classe; se sul libro e' stampato un ISBN lo legge e importa il libro da solo. Con il solo titolo cerca nelle librerie online e importa il libro se il titolo coincide.
 - La lettura avviene sul telefono (ZXing per i codici, Tesseract per i testi), senza inviare foto a nessuno. I file di lettura (zxing-reader.iife.js, zxing_reader.wasm, tesseract.min.js, tesseract-worker.min.js, tesseract-core-*.wasm.js, ita.traineddata: circa 8 MB) devono stare accanto a index.html; l'app li scarica da sola in background per usarli anche offline.

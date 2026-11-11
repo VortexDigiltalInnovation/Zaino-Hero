@@ -122,6 +122,14 @@ dialog h3{color:var(--ind2);font-size:1rem}
 @keyframes scan{0%,100%{top:5%}50%{top:92%}}
 .status{background:#0f172a;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:.82rem;text-align:center}
 .status.ok{border-color:var(--ok);color:var(--ok)} .status.warn{border-color:var(--warn);color:var(--warn)}
+.scan-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.scan-steps span{background:#312e8155;border:1px solid #6366f155;border-radius:12px;padding:7px 4px;text-align:center;font-size:.72rem;font-weight:800}
+.scan-help{background:#0f172a;border:1px solid var(--line);border-radius:14px;padding:12px;font-size:.9rem;line-height:1.45}
+#scan-status{min-height:52px;display:grid;place-items:center;font-size:.9rem}
+#cover-actions .btn,#dlg-scan .row.gap.wrapflex>.btn{min-height:50px}
+.scan-extra{border:1px solid var(--line);border-radius:12px;padding:0 12px}
+.scan-extra summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--ind2);font-size:.82rem;font-weight:700}
+.scan-extra #link-box{padding:0 0 12px}
 
 .msg{padding:10px 12px;border-radius:14px;max-width:88%;margin-bottom:8px;white-space:pre-wrap}
 .msg.ai{background:#33415080;border:1px solid #475569}
