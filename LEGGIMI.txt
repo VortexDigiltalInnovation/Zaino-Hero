@@ -1,4 +1,4 @@
-ZAINO HERO v9 - come pubblicarla
+ZAINO HERO v10 - come pubblicarla
 
 1. Carica TUTTI i file di questa cartella (sono tutti "piatti", nessuna sottocartella) nello stesso posto su un hosting https
    (GitHub Pages, Netlify, Vercel...). Le immagini sono gia' dentro l'app.
@@ -8,7 +8,7 @@ ZAINO HERO v9 - come pubblicarla
 2. Apri il link dal telefono: Android -> "Installa"; iPhone -> Condividi -> "Aggiungi alla schermata Home".
 
 AGGIORNAMENTI
-- La versione si vede accanto al logo (es. v9) e in fondo, nelle impostazioni.
+- La versione si vede accanto al logo (es. v10) e in fondo, nelle impostazioni.
 - Impostazioni -> "Controlla aggiornamenti": dice se sul sito c'e' una versione piu' nuova e la installa.
 - Impostazioni -> "Forza aggiornamento": se l'app resta "bloccata" su una versione vecchia, la ricarica da zero.
   Orari, libri, foto, spunte e premi NON vengono cancellati.
@@ -17,6 +17,11 @@ AGGIORNAMENTI
 
 I dati delle versioni precedenti (orario, materie, foto, premi) vengono ripresi in automatico se si apre dallo stesso indirizzo.
 Fai ogni tanto "Salva copia dei dati" nelle impostazioni.
+
+NOVITA' v10 - Orario
+- Nella scheda Zaino un selettore «Giorno / Settimana». La vista Settimana mostra tutto l'orario in una griglia (giorni in colonna, ore in riga) con icona e colore di ogni materia, lo stato dello zaino di ogni giorno (✓ oppure fatti/totali), «Oggi/Domani» e il giorno scelto evidenziato. Tocca un giorno per aprirlo, una materia per vederne i libri. Sotto, le ore settimanali per materia. «Condividi» manda l'orario come testo, «Modifica» apre l'editor. La vista scelta viene ricordata.
+- La barra dei giorni mostra per ognuno «✓ pronto» oppure quante cose sono state spuntate; la striscia delle ore ha le icone.
+- Editor dell'orario: frecce ▲▼ per spostare le ore e «Copia l'orario di…» per duplicare un altro giorno.
 
 NOVITA' v9
 - Nuova grafica: barra in basso con 4 schede (Zaino, Materie, Premi, Altro) e il tasto centrale «Scansiona»; anello di avanzamento con coppa al 100%; riquadri grandi per «Leggi cosa manca» e «Assistente»; i figli restano sempre selezionabili in alto. Impostazioni riordinate in gruppi (Profilo, Voce e suoni, Copia di sicurezza, Aggiornamenti).

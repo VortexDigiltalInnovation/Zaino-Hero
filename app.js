@@ -12,7 +12,7 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,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'
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '9';
+const APP_VERSION = '10';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -183,7 +183,7 @@ let progressLog = cleanHistory(store.get(KEYS.history, {}));
 let prizeCatalog = cleanCatalog(store.get(KEYS.catalog, {}));
 let profile = activeKid();
 let muted = store.get(KEYS.mute, false) === true;
-let state = { day: defaultDay(), edit: false };
+let state = { day: defaultDay(), edit: false, view: store.get('zaino_view', 'day') === 'week' ? 'week' : 'day' };
 let draft = null;        // copia di lavoro nella finestra "materiali"
 let draftKey = null;
 function prizesForWheel() {
@@ -345,10 +345,13 @@ function render() {
   $('btn-edit').textContent = state.edit ? '✅ Fatto' : '✏️ Modifica orario';
 
   const todayDow = new Date().getDay();
-  $('days').innerHTML = DAYS.map((d, i) =>
-    `<button class="day${todayDow === i + 1 ? ' today' : ''}" data-day="${d}" aria-pressed="${d === state.day}">${d}</button>`).join('');
+  $('days').innerHTML = DAYS.map((d, i) => {
+    const pr = progress(d), badge = !pr.total ? '' : pr.pct === 100 ? '✓ pronto' : `${pr.done}/${pr.total}`;
+    return `<button class="day${todayDow === i + 1 ? ' today' : ''}${pr.total && pr.pct === 100 ? ' done' : ''}" data-day="${d}" aria-pressed="${d === state.day}"><span>${d}</span><small>${badge}</small></button>`;
+  }).join('');
 
   renderStrip();
+  renderWeek();
   state.edit ? renderEdit() : renderList();
   renderProgress();
   renderHistory();
@@ -361,7 +364,7 @@ function renderStrip() {
   $('strip').innerHTML = hours.map((raw, i) => {
     const parts = parseHour(raw);
     const first = parts[0] && parts[0].key ? subjects[parts[0].key] : null;
-    return `<span class="chip" style="--c:${first ? first.color : '#475569'}"><i>${i + 1}ª</i> ${esc(raw)}</span>`;
+    return `<span class="chip" style="--c:${first ? first.color : '#475569'}"><i>${i + 1}ª</i> ${first ? esc(first.emoji) + ' ' : ''}${esc(raw)}</span>`;
   }).join('') || '<span class="muted small">Nessuna ora: nessuna scuola?</span>';
 }
 
@@ -393,11 +396,17 @@ function renderList() {
 
 function renderEdit() {
   const hours = schedule[state.day] || [];
-  $('list').innerHTML = hours.map((raw, i) => {
+  const others = DAYS.filter((d) => d !== state.day && (schedule[d] || []).length);
+  const copyRow = others.length ? `<div class="copy-row"><label class="small muted" for="copy-from">Copia l'orario di</label>
+    <select id="copy-from">${others.map((d) => `<option value="${d}">${d}</option>`).join('')}</select>
+    <button class="btn btn-soft btn-sm" id="btn-copy-day" type="button">Copia qui</button></div>` : '';
+  $('list').innerHTML = copyRow + hours.map((raw, i) => {
     const bad = parseHour(raw).some((p) => !p.key) || !String(raw).trim();
     return `<div class="edit-row${bad ? ' bad' : ''}">
       <span class="n">${i + 1}ª</span>
       <input type="text" list="subject-list" value="${esc(raw)}" data-hour="${i}" aria-label="Materia ${i + 1}ª ora" placeholder="Materia (più materie: A / B)">
+      <button class="btn btn-icon" data-mvhour="${i}" data-dir="-1" aria-label="Sposta in su la ${i + 1}ª ora" ${i === 0 ? 'disabled' : ''}>▲</button>
+      <button class="btn btn-icon" data-mvhour="${i}" data-dir="1" aria-label="Sposta in giù la ${i + 1}ª ora" ${i === hours.length - 1 ? 'disabled' : ''}>▼</button>
       <button class="btn btn-icon" data-rmhour="${i}" aria-label="Elimina ${i + 1}ª ora">🗑</button>
     </div>${bad ? '<p class="warn-box small">⚠️ Materia non riconosciuta nella legenda: scegline una dall\'elenco.</p>' : ''}`;
   }).join('') + '<button class="add-hour" id="btn-add-hour" type="button">＋ Aggiungi ora</button>';
@@ -597,6 +606,18 @@ $('list').addEventListener('change', (e) => {
 $('list').addEventListener('click', (e) => {
   const z = e.target.closest('[data-zoom]');
   if (z) { const f = findMaterial(z.dataset.zoom); if (f) openZoom(f.mat.photo, f.mat.name); return; }
+  const mv = e.target.closest('[data-mvhour]');
+  if (mv && !mv.disabled) {
+    const i = +mv.dataset.mvhour, j = i + +mv.dataset.dir, a = schedule[state.day];
+    if (j >= 0 && j < a.length) { [a[i], a[j]] = [a[j], a[i]]; saveSchedule(); render(); }
+    return;
+  }
+  if (e.target.closest('#btn-copy-day')) {
+    const from = $('copy-from').value, src = schedule[from] || [];
+    if (!src.length) return;
+    if ((schedule[state.day] || []).length && !confirm(`Sostituire l'orario di ${state.day} con quello di ${from}?`)) return;
+    schedule[state.day] = src.slice(); saveSchedule(); render(); toast(`Orario copiato da ${from} ✅`); return;
+  }
   const rm = e.target.closest('[data-rmhour]');
   if (rm) { schedule[state.day].splice(+rm.dataset.rmhour, 1); saveSchedule(); render(); return; }
   if (e.target.closest('#btn-add-hour')) { schedule[state.day].push(''); saveSchedule(); render(); const ins = $('list').querySelectorAll('input[data-hour]'); ins[ins.length - 1]?.focus(); }
@@ -606,6 +627,66 @@ $('days').addEventListener('click', (e) => {
   state.day = b.dataset.day; render();
 });
 $('btn-edit').onclick = () => { state.edit = !state.edit; render(); };
+
+/* ---------- orario della settimana ---------- */
+const SHORT_DAY = { 'Lunedì': 'Lun', 'Martedì': 'Mar', 'Mercoledì': 'Mer', 'Giovedì': 'Gio', 'Venerdì': 'Ven' };
+function renderWeek() {
+  const rows = Math.max(0, ...DAYS.map((d) => (schedule[d] || []).length));
+  const head = '<span class="wk-corner"></span>' + DAYS.map((d) => {
+    const pr = progress(d), t = targetDate(d), w = whenLabel(d);
+    const when = t.diff <= 1 ? w : t.iso.slice(8, 10) + '/' + t.iso.slice(5, 7);
+    const prog = !pr.total ? '—' : pr.pct === 100 ? '✓' : `${pr.done}/${pr.total}`;
+    return `<button type="button" class="wk-day${d === state.day ? ' sel' : ''}${t.diff === 0 ? ' today' : ''}" data-wday="${d}" aria-label="Apri ${d}, ${w}"><b>${SHORT_DAY[d]}</b><small>${esc(when)}</small><span class="wk-prog${pr.total && pr.pct === 100 ? ' full' : ''}">${prog}</span></button>`;
+  }).join('');
+  let body = '';
+  for (let i = 0; i < rows; i++) {
+    body += `<span class="wk-h">${i + 1}ª</span>` + DAYS.map((d) => {
+      const raw = (schedule[d] || [])[i];
+      const col = d === state.day ? ' selcol' : '';
+      if (raw === undefined || !String(raw).trim()) return `<span class="wk-cell empty${col}" aria-hidden="true">·</span>`;
+      const parts = parseHour(raw);
+      const first = parts[0] && parts[0].key ? subjects[parts[0].key] : null;
+      const bad = parts.some((x) => !x.key);
+      const inner = parts.map((x) => { const sj = x.key ? subjects[x.key] : null; return `<span class="wk-one"><span class="em">${sj ? esc(sj.emoji) : '❓'}</span><span class="nm">${esc(x.key || x.raw)}</span></span>`; }).join('');
+      const label = `${d} ${i + 1}ª ora: ${parts.map((x) => x.key || x.raw).join(' e ')}`;
+      const tag = parts.length === 1 && parts[0].key ? `button type="button" data-wsubj="${esc(parts[0].key)}"` : 'span';
+      const end = parts.length === 1 && parts[0].key ? 'button' : 'span';
+      return `<${tag} class="wk-cell${col}${bad ? ' bad' : ''}${parts.length > 1 ? ' multi' : ''}" style="--c:${first ? first.color : '#475569'}" aria-label="${esc(label)}">${inner}</${end}>`;
+    }).join('');
+  }
+  $('week-grid').innerHTML = rows
+    ? `<div class="week-grid">${head}${body}</div>`
+    : '<p class="muted small center">Nessuna ora inserita. Tocca «Modifica» per creare l\'orario di un giorno.</p>';
+  const counts = {}; let total = 0;
+  DAYS.forEach((d) => (schedule[d] || []).forEach((raw) => parseHour(raw).forEach((x) => { if (x.key) { counts[x.key] = (counts[x.key] || 0) + 1; total++; } })));
+  $('week-legend').innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a]).map((k) =>
+    `<button type="button" class="chip" data-wsubj="${esc(k)}" style="--c:${subjects[k].color}">${esc(subjects[k].emoji)} ${esc(k)} <i>${counts[k]}</i></button>`).join('');
+  $('week-total').textContent = total ? `${total} ore a settimana` : '';
+}
+function setView(v) {
+  state.view = v === 'week' ? 'week' : 'day';
+  if (state.view === 'week') state.edit = false;
+  store.set('zaino_view', state.view, true);
+  $('day-view').classList.toggle('hidden', state.view === 'week');
+  $('week').classList.toggle('hidden', state.view !== 'week');
+  $('view-day').setAttribute('aria-selected', String(state.view === 'day'));
+  $('view-week').setAttribute('aria-selected', String(state.view === 'week'));
+  render();
+}
+$('view-day').onclick = () => setView('day');
+$('view-week').onclick = () => setView('week');
+$('week').addEventListener('click', (e) => {
+  const d = e.target.closest('[data-wday]');
+  if (d) { state.day = d.dataset.wday; setView('day'); return; }
+  const sj = e.target.closest('[data-wsubj]');
+  if (sj && subjects[sj.dataset.wsubj]) openMaterials(sj.dataset.wsubj);
+});
+$('btn-week-edit').onclick = () => { setView('day'); state.edit = true; render(); };
+$('btn-week-share').onclick = async () => {
+  const text = `Orario di ${profile.name}\n` + DAYS.map((d) => `${d}: ` + ((schedule[d] || []).map((raw, i) => `${i + 1}ª ${raw}`).join(' · ') || '—')).join('\n');
+  if (navigator.share) { try { await navigator.share({ title: 'Orario settimanale', text }); return; } catch (err) { if (err.name === 'AbortError') return; } }
+  try { await navigator.clipboard.writeText(text); toast('Orario copiato negli appunti 📋'); } catch (err) { toast('Non riesco a condividere: copia a mano dalla vista settimana.'); }
+};
 $('btn-reset').onclick = () => {
   if (!confirm(`Azzerare le spunte di ${state.day}?`)) return;
   checks[state.day] = { date: targetDate(state.day).iso, items: {} }; saveChecks(); render();
@@ -1980,4 +2061,6 @@ function showTab(name) {
 $('tabbar').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) showTab(b.dataset.tab); });
 let startTab = 'zaino'; try { startTab = sessionStorage.getItem('zaino_tab') || 'zaino'; } catch (e) { /* niente */ }
 showTab(startTab);
+$('day-view').classList.toggle('hidden', state.view === 'week'); $('week').classList.toggle('hidden', state.view !== 'week');
+$('view-day').setAttribute('aria-selected', String(state.view === 'day')); $('view-week').setAttribute('aria-selected', String(state.view === 'week'));
 renderWheelLabels(); setMuted(muted); netStatus(); render();

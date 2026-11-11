@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
 
@@ -63,6 +63,25 @@
       </div>
     </section>
 
+    <div class="seg" role="tablist" aria-label="Vista dell'orario">
+      <button class="seg-btn" id="view-day" role="tab" aria-selected="true" type="button">📅 Giorno</button>
+      <button class="seg-btn" id="view-week" role="tab" aria-selected="false" type="button">🗓️ Settimana</button>
+    </div>
+
+    <section id="week" class="card week stack hidden" aria-label="Orario della settimana">
+      <div class="row between wrapflex">
+        <div><h3>🗓️ Orario della settimana</h3><span id="week-total" class="muted small"></span></div>
+        <div class="row gap wrapflex">
+          <button class="link strong" id="btn-week-share" type="button">📤 Condividi</button>
+          <button class="link strong" id="btn-week-edit" type="button">✏️ Modifica</button>
+        </div>
+      </div>
+      <div id="week-grid"></div>
+      <div id="week-legend" class="week-legend" aria-label="Ore per materia"></div>
+      <p class="muted small">Tocca un giorno per aprirlo e preparare lo zaino, una materia per vederne i libri.</p>
+    </section>
+
+    <div id="day-view" class="stack">
     <nav class="days" id="days" aria-label="Giorno della settimana"></nav>
 
     <div class="row between small controls">
@@ -77,6 +96,7 @@
     <div id="strip" class="strip" aria-label="Orario del giorno"></div>
 
     <section id="list" class="stack" aria-label="Cosa mettere nello zaino"></section>
+    </div>
   </div>
 
   <!-- ===== Scheda: Materie ===== -->
@@ -338,6 +358,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
