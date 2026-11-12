@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 
@@ -270,7 +270,8 @@
       <button class="tab" role="tab" id="tab-code" aria-selected="false" type="button">▮▯ Codice a barre</button>
     </div>
     <p id="scan-help" class="scan-help"></p>
-    <div class="video-box"><video id="scan-video" autoplay playsinline muted></video><div class="laser" id="scan-laser"></div><div class="cover-guide hidden" id="cover-guide" aria-hidden="true"></div><button id="btn-torch" class="torch hidden" type="button" aria-label="Accendi la torcia" aria-pressed="false">🔦</button></div>
+    <div class="video-box"><video id="scan-video" autoplay playsinline muted></video><div class="laser" id="scan-laser"></div><div class="cover-guide hidden" id="cover-guide" aria-hidden="true"></div><button id="btn-cam" class="torch cam hidden" type="button" aria-label="Cambia fotocamera">🔄</button><button id="btn-torch" class="torch hidden" type="button" aria-label="Accendi la torcia" aria-pressed="false">🔦</button></div>
+    <div id="zoom-row" class="row gap hidden"><span aria-hidden="true">🔍</span><input id="zoom-range" type="range" aria-label="Zoom" min="1" max="1" step="0.1" value="1"><span id="zoom-val" class="tag">1×</span></div>
     <div id="scan-status" class="status" role="status" aria-live="polite">Avvio fotocamera…</div>
     <p id="scan-engine" class="muted small hidden"></p>
     <label class="row gap small auto-add"><input type="checkbox" id="auto-add" checked> <span>Aggiungi al volo i libri trovati <span class="muted">(puoi annullare)</span></span></label>
@@ -409,6 +410,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=14"></script>
+<script src="app.js?v=15"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,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'
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '14';
+const APP_VERSION = '15';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -634,8 +634,9 @@ function renderProgress(celebrate) {
 function renderSubjects() {
   $('subjects').innerHTML = Object.keys(subjects).map((k) => {
     const s = subjects[k];
-    return `<button class="s-card" data-subj="${esc(k)}"><span class="row gap"><span class="dot" style="background:${s.color}"></span>
-      <span><h4>${esc(s.emoji)} ${esc(k)}</h4><span class="muted small">${s.materials.length} materiale/i</span></span></span><span aria-hidden="true">✏️</span></button>`;
+    return `<div class="s-wrap"><button class="s-card" data-subj="${esc(k)}"><span class="row gap"><span class="dot" style="background:${s.color}"></span>
+      <span><h4>${esc(s.emoji)} ${esc(k)}</h4><span class="muted small">${s.materials.length} materiale/i</span></span></span><span aria-hidden="true">✏️</span></button>
+      <button class="s-scan" type="button" data-scan-subj="${esc(k)}" aria-label="Scansiona un libro di ${esc(k)}">📷<small>Libro</small></button></div>`;
   }).join('') + '<button class="s-card add" id="btn-new-subj" type="button">＋ Nuova materia</button>';
 }
 
@@ -939,6 +940,11 @@ $('subjects').addEventListener('click', (e) => {
   const b = e.target.closest('[data-subj]'); if (b) openMaterials(b.dataset.subj);
 });
 $('subjects').addEventListener('click', (e) => { if (e.target.closest('#btn-new-subj')) newSubject(); });
+$('subjects').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-scan-subj]'); if (!b || !subjects[b.dataset.scanSubj]) return;
+  scanDraftTarget = null; scanForced = b.dataset.scanSubj; launchScanner();
+  toast(`📷 Il libro che scansioni va in ${subjects[scanForced].emoji} ${scanForced}`);
+});
 /* ---------- catalogo materie con icone divertenti (anche quelle non presenti nell'orario) ---------- */
 const SUBJECT_CATALOG = [
   { name: 'Matematica', emoji: '🧮', color: '#2563eb' }, { name: 'Italiano', emoji: '📖', color: '#dc2626' },
@@ -1187,20 +1193,50 @@ function loadZX() {
   }
   return zxPromise;
 }
-async function zxRead(cv) {
+const ZX_OPTS = { formats: ['EAN-13', 'EAN-8', 'UPC-A'], tryHarder: true, tryRotate: true, tryInvert: true, tryDownscale: true };
+async function zxReadImage(img) {
   const Z = await loadZX().catch((e) => { zxState = 'ko'; throw e; });
-  const img = cv.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, cv.width, cv.height);
-  const res = await Z.readBarcodes(img, {
-    formats: ['EAN-13', 'EAN-8', 'UPC-A'], tryHarder: true, tryRotate: true, tryInvert: true, tryDownscale: true
-  });
+  const res = await Z.readBarcodes(img, ZX_OPTS);
   const hit = res.find((r) => r.text && r.isValid !== false);
   return hit ? hit.text : null;
 }
+const imageOf = (cv) => cv.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, cv.width, cv.height);
+async function zxRead(cv) { return zxReadImage(imageOf(cv)); }
+/* Varianti per codici colorati: canali singoli, minimo dei canali, contrasto esteso e immagine invertita (chiaro su scuro). */
+function variantImage(img, mode) {
+  const src = img.data, n = src.length, d = new Uint8ClampedArray(n), lum = new Uint8Array(n / 4);
+  for (let i = 0, j = 0; i < n; i += 4, j++) lum[j] = (src[i] * 299 + src[i + 1] * 587 + src[i + 2] * 114) / 1000;
+  let lo = 0, hi = 255;
+  if (mode === 'stretch') {
+    const h = new Uint32Array(256); lum.forEach((v) => { h[v]++; });
+    let acc = 0; for (let v = 0; v < 256; v++) { acc += h[v]; if (acc >= lum.length * 0.02) { lo = v; break; } }
+    acc = 0; for (let v = 255; v >= 0; v--) { acc += h[v]; if (acc >= lum.length * 0.02) { hi = v; break; } }
+  }
+  for (let i = 0, j = 0; i < n; i += 4, j++) {
+    const r = src[i], g = src[i + 1], b = src[i + 2]; let v;
+    if (mode === 'inv') v = 255 - lum[j];
+    else if (mode === 'min') v = Math.min(r, g, b);
+    else if (mode === 'g') v = g;
+    else if (mode === 'b') v = b;
+    else v = Math.max(0, Math.min(255, (lum[j] - lo) * 255 / Math.max(30, hi - lo)));
+    d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255;
+  }
+  return { data: d, width: img.width, height: img.height };
+}
+async function zxReadVariants(cv) {
+  const img = imageOf(cv);
+  for (const m of ['inv', 'min', 'g', 'b', 'stretch']) {
+    const t = await zxReadImage(variantImage(img, m)).catch(() => null);
+    if (t) return t;
+  }
+  return null;
+}
 /* Lettura standard: BarcodeDetector, ZXing e infine il lettore EAN interno. */
-async function readCodeCanvas(cv) {
+async function readCodeCanvas(cv, deep) {
   const det = getDetector();
   if (det) { try { const r = await det.detect(cv); if (r.length) return r[0].rawValue; } catch (e) { /* prosegue */ } }
   try { const c = await zxRead(cv); if (c) return c; } catch (e) { console.warn('ZXing:', e); }
+  if (deep) { try { const c = await zxReadVariants(cv); if (c) return c; } catch (e) { /* prosegue */ } }
   return decodeEan13(cv);
 }
 /* Sui ritagli fermo il codice più grande nell'immagine; aiuta con libri lucidi e codici piccoli. */
@@ -1208,7 +1244,7 @@ async function readCode(src, sw, sh, maxSide, deep = false) {
   const det = getDetector();
   if (det) { try { const r = await det.detect(src); if (r.length) return r[0].rawValue; } catch (e) { /* prosegue */ } }
   const cv = frameToCanvas(src, sw, sh, maxSide || 1280);
-  const full = await readCodeCanvas(cv);
+  const full = await readCodeCanvas(cv, deep);
   if (full || !deep) return full;
   const regions = [
     { x: 0.04, y: 0.22, w: 0.92, h: 0.58 },
@@ -1216,7 +1252,7 @@ async function readCode(src, sw, sh, maxSide, deep = false) {
   ];
   for (const region of regions) {
     const crop = frameRegionToCanvas(src, sw, sh, region, 1800);
-    const code = await readCodeCanvas(crop);
+    const code = await readCodeCanvas(crop, true);
     if (code) return code;
     // ZXing prova già a ruotare; questa rotazione aiuta anche il lettore EAN di riserva.
     const rotated = document.createElement('canvas');
@@ -1454,7 +1490,8 @@ function parseCover(words) {
     if (big) { cls = +big.t[0]; clsGuess = true; }
   }
   const quality = titleIdx.length ? titleIdx.reduce((a, i) => a + lines[i].conf, 0) / titleIdx.length : 0;
-  return { title, lines, titleIdx, allText, titleText: titleIdx.map((i) => lines[i].text).join(' '), cls, clsGuess, year: detectYear(wordsText), isbn: findIsbn(wordsText), quality };
+  const coreText = lines.filter((l) => (l.text.match(/,/g) || []).length < 2).map((l) => l.text).join(' \n ');
+  return { title, lines, titleIdx, allText, coreText, titleText: titleIdx.map((i) => lines[i].text).join(' '), cls, clsGuess, year: detectYear(wordsText), isbn: findIsbn(wordsText), quality };
 }
 
 /* ---------- OCR (Tesseract.js: file tesseract-*.js e ita.traineddata accanto a index.html, nessun download esterno) ---------- */
@@ -1493,9 +1530,9 @@ async function getOcr() {
   return ocrLoading;
 }
 /* Scala di grigi + contrasto automatico (e, al secondo tentativo, colori invertiti per il testo chiaro su fondo scuro). */
-function prepForOcr(cv, invert) {
+function prepForOcr(cv, invert, maxSide) {
   const side = Math.max(cv.width, cv.height);
-  const s = side > 2200 ? 2200 / side : side < 1200 ? Math.min(2, 1400 / side) : 1;
+  const s = maxSide ? maxSide / side : side > 2200 ? 2200 / side : side < 1200 ? Math.min(2, 1400 / side) : 1;
   const out = document.createElement('canvas');
   out.width = Math.round(cv.width * s); out.height = Math.round(cv.height * s);
   const ctx = out.getContext('2d', { willReadFrequently: true });
@@ -1515,27 +1552,31 @@ function prepForOcr(cv, invert) {
 }
 async function ocrCover(cv, quick) {
   const w = await getOcr();
-  let best = null;
-  const recognize = async (image, invert) => {
-    const { data } = await w.recognize(prepForOcr(image, invert));
+  let best = null; const pool = new Map();
+  const recognize = async (image, invert, maxSide) => {
+    const { data } = await w.recognize(prepForOcr(image, invert, maxSide));
     const p = parseCover(data.words || []);
+    p.lines.forEach((l) => { const k = norm(l.text); if (k.length >= 3 && (!pool.has(k) || pool.get(k).conf < l.conf)) pool.set(k, { text: l.text, conf: l.conf }); });
     if (!best || p.quality > best.quality || (!best.title && p.title)) best = p;
     if (p.isbn) return Object.assign({}, best, { isbn: p.isbn });
     return null;
   };
-  const passes = quick ? [{ x: 0, y: 0, w: 1, h: 1, inv: false }] : [
-    { x: 0, y: 0, w: 1, h: 1, inv: false }, { x: 0, y: 0, w: 1, h: 1, inv: true },
-    { x: 0.04, y: 0.08, w: 0.92, h: 0.58, inv: false },
+  /* Le scritte molto grandi e decorate si leggono meglio rimpicciolendo la foto; quelle piccole ingrandendola. */
+  const passes = quick ? [{ x: 0, y: 0, w: 1, h: 1, inv: false, max: 1100 }] : [
+    { x: 0, y: 0, w: 1, h: 1, inv: false },
+    { x: 0, y: 0, w: 1, h: 1, inv: false, max: 800 },
+    { x: 0, y: 0, w: 1, h: 1, inv: true },
+    { x: 0.04, y: 0.08, w: 0.92, h: 0.58, inv: false, max: 1000 },
     { x: 0.04, y: 0.30, w: 0.92, h: 0.62, inv: false },
     { x: 0.08, y: 0.12, w: 0.84, h: 0.76, inv: true }
   ];
   for (const q of passes) {
-    const image = q.x === 0 && q.y === 0 && q.w === 1 && q.h === 1
-      ? cv : frameRegionToCanvas(cv, cv.width, cv.height, q, 2200);
-    const hit = await recognize(image, q.inv);
-    if (hit) return hit;
-    if (best && best.title.length >= 5 && best.quality >= 82) break;
+    const image = q.x === 0 && q.y === 0 && q.w === 1 && q.h === 1 ? cv : frameRegionToCanvas(cv, cv.width, cv.height, q, 2200);
+    const hit = await recognize(image, q.inv, q.max);
+    if (hit) { hit.pool = Array.from(pool.values()); return hit; }
+    if (best && best.title.length >= 5 && best.quality >= 85) break;
   }
+  if (best) best.pool = Array.from(pool.values());
   return best;
 }
 const canvasToJpeg = (cv, max) => {
@@ -1546,6 +1587,7 @@ const canvasToJpeg = (cv, max) => {
 };
 
 /* ---------- scanner ---------- */
+let scanForced = null;
 let stream = null, scanTimer = null, scanBusy = false, detector = null, scanMisses = 0, lastCode = '', lastAt = 0, pendingCode = '', pendingCover = '', lookupToken = 0;
 let scanMode = 'code', torchOn = false, chipLines = [], chipSel = [], suggestions = [], addedMode = false, lastAdded = null, scanDraftTarget = null;
 function setStatus(html, cls) { const s = $('scan-status'); s.className = 'status' + (cls ? ' ' + cls : ''); s.innerHTML = html; }
@@ -1564,8 +1606,8 @@ function resetScanPanel() {
   $('btn-undo-add').classList.add('hidden'); $('btn-add-book').classList.remove('hidden'); $('dlg-scan').classList.remove('added');
 }
 const SCAN_HELP = {
-  code: 'Gira il libro e punta le <strong>righe nere del codice</strong> dentro il riquadro. Tienilo fermo: appena lo leggo, te lo dico! Se non va, prova «Foto».',
-  cover: 'Metti il libro <strong>dritto</strong>, con la copertina bene in vista e senza riflessi. La leggo da sola: cerco titolo, materia e classe! Se non parte, tocca «Scatta e leggi».'
+  code: 'Gira il libro e inquadra il <strong>codice a barre</strong> (anche se non è nero). Tienilo a circa 20–30 cm e fermo: se è sfocato allontanalo un po\'. Con 🔍 regoli lo zoom, toccando l\'immagine metti a fuoco.',
+  cover: 'Metti il libro <strong>dritto</strong>, a circa 25 cm, con la copertina bene in vista e senza riflessi. La leggo da sola: cerco titolo, materia e classe (e se vedo il codice a barre lo uso subito!). Se non parte, tocca «Scatta e leggi».'
 };
 function setScanMode(mode) {
   scanMode = mode; autoTicks = 0; lastAutoTitle = '';
@@ -1582,19 +1624,58 @@ function setScanMode(mode) {
 }
 $('tab-code').onclick = () => setScanMode('code');
 $('tab-cover').onclick = () => setScanMode('cover');
-async function startCamera() {
-  stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false
-  });
+let camList = [], zoomOn = false;
+async function startCamera(deviceId) {
+  if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
+  const video = { width: { ideal: 1920 }, height: { ideal: 1440 }, aspectRatio: { ideal: 4 / 3 } };
+  if (deviceId) video.deviceId = { exact: deviceId }; else video.facingMode = { ideal: 'environment' };
+  stream = await navigator.mediaDevices.getUserMedia({ video, audio: false });
   const v = $('scan-video'); v.srcObject = stream;
   try { await v.play(); } catch (e) { /* autoplay già attivo */ }
   const track = stream.getVideoTracks()[0];
   const caps = track && track.getCapabilities ? track.getCapabilities() : {};
-  if (caps.focusMode && caps.focusMode.includes('continuous')) track.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(() => {});
+  const st = track && track.getSettings ? track.getSettings() : {};
+  const adv = {};
+  if (caps.focusMode && caps.focusMode.includes('continuous')) adv.focusMode = 'continuous';
+  /* il telefono spesso parte già ingrandito: si riparte dalla visione più ampia */
+  zoomOn = !!(caps.zoom && caps.zoom.max > caps.zoom.min);
+  if (zoomOn) {
+    adv.zoom = caps.zoom.min;
+    const r = $('zoom-range'); r.min = caps.zoom.min; r.max = caps.zoom.max; r.step = caps.zoom.step || 0.1; r.value = caps.zoom.min;
+    $('zoom-val').textContent = (+caps.zoom.min).toFixed(1) + '×';
+  }
+  $('zoom-row').classList.toggle('hidden', !zoomOn);
+  if (Object.keys(adv).length) track.applyConstraints({ advanced: [adv] }).catch(() => {});
   torchOn = false;
   $('btn-torch').classList.toggle('hidden', !caps.torch);
   $('btn-torch').setAttribute('aria-pressed', 'false');
+  try {
+    camList = (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind === 'videoinput');
+    $('btn-cam').classList.toggle('hidden', camList.length < 2);
+    $('btn-cam').dataset.cur = st.deviceId || '';
+  } catch (e) { $('btn-cam').classList.add('hidden'); }
 }
+$('zoom-range').oninput = () => {
+  const track = stream && stream.getVideoTracks()[0]; if (!track) return;
+  const z = +$('zoom-range').value; $('zoom-val').textContent = z.toFixed(1) + '×';
+  track.applyConstraints({ advanced: [{ zoom: z }] }).catch(() => {});
+};
+$('btn-cam').onclick = async () => {
+  if (camList.length < 2) return;
+  const i = camList.findIndex((d) => d.deviceId === $('btn-cam').dataset.cur);
+  const next = camList[(i + 1) % camList.length];
+  try { await startCamera(next.deviceId); setStatus('Fotocamera cambiata: prova a inquadrare il libro.'); scheduleScan(); }
+  catch (e) { setStatus('Non riesco a usare quella fotocamera.', 'warn'); }
+};
+/* Tocca l'immagine per rimettere a fuoco in quel punto. */
+$('scan-video').addEventListener('click', (e) => {
+  const track = stream && stream.getVideoTracks()[0]; if (!track || !track.getCapabilities) return;
+  const caps = track.getCapabilities(); if (!caps.focusMode || !caps.focusMode.includes('single-shot')) return;
+  const r = $('scan-video').getBoundingClientRect();
+  const pt = { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) };
+  track.applyConstraints({ advanced: [{ focusMode: 'single-shot', pointsOfInterest: [pt] }] })
+    .then(() => setTimeout(() => { if (caps.focusMode.includes('continuous')) track.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(() => {}); }, 1500)).catch(() => {});
+});
 $('btn-torch').onclick = () => {
   const track = stream && stream.getVideoTracks()[0]; if (!track) return;
   torchOn = !torchOn;
@@ -1607,21 +1688,25 @@ async function launchScanner() {
   if (!navigator.mediaDevices?.getUserMedia) {
     setStatus('Fotocamera non disponibile qui (serve HTTPS). Usa «Fai una foto», «Scegli una foto» oppure inserisci l’ISBN.', 'warn'); return;
   }
-  try { await startCamera(); setStatus('Inquadra la copertina: la leggo da sola 📖'); scheduleScan(); }
+  try { await startCamera(); setStatus('Inquadra il libro, a circa 25 cm: leggo copertina e codice da solo 📖'); scheduleScan(); }
   catch (e) { console.warn('Fotocamera:', e); setStatus('Fotocamera non disponibile. Consenti l’accesso oppure usa «Fai una foto» o «Scegli una foto».', 'warn'); }
 }
-$('btn-scan').onclick = () => { scanDraftTarget = null; launchScanner(); };
+$('btn-scan').onclick = () => { scanDraftTarget = null; scanForced = null; launchScanner(); };
 function stopScanner() {
   clearTimeout(scanTimer); scanTimer = null;
   if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
-  $('scan-video').srcObject = null; torchOn = false;
+  $('scan-video').srcObject = null; torchOn = false; $('zoom-row').classList.add('hidden'); $('btn-cam').classList.add('hidden');
 }
-$('dlg-scan').addEventListener('close', () => { stopScanner(); resetScanPanel(); scanBusy = false; $('ocr-progress').classList.add('hidden'); });
+$('dlg-scan').addEventListener('close', () => { scanForced = null; stopScanner(); resetScanPanel(); scanBusy = false; $('ocr-progress').classList.add('hidden'); });
+let lastOcrAt = 0;
 function scheduleScan() {
   clearTimeout(scanTimer); scanTimer = null;
   if (!stream) return;
-  if (scanMode === 'code') scanTimer = setTimeout(async () => { await scanFrame(); scheduleScan(); }, 300);
-  else if (scanMode === 'cover' && $('auto-cover').checked && autoTicks < AUTO_MAX_TICKS) scanTimer = setTimeout(async () => { await autoCoverTick(); scheduleScan(); }, 1400);
+  scanTimer = setTimeout(async () => {
+    await scanFrame();
+    if (stream && scanMode === 'cover' && $('auto-cover').checked && autoTicks < AUTO_MAX_TICKS && Date.now() - lastOcrAt > 2500) await autoCoverTick();
+    scheduleScan();
+  }, 320);
 }
 /* Scansione ottica automatica: legge il testo della copertina da sola e propone il risultato quando il titolo è stabile. */
 const AUTO_MAX_TICKS = 40;
@@ -1629,7 +1714,7 @@ let autoTicks = 0, lastAutoTitle = '';
 async function autoCoverTick() {
   const v = $('scan-video');
   if (scanBusy || scanMode !== 'cover' || !stream || v.readyState < 2 || !v.videoWidth || !$('scan-result').classList.contains('hidden')) return;
-  autoTicks++; scanBusy = true; const token = lookupToken;
+  autoTicks++; scanBusy = true; lastOcrAt = Date.now(); const token = lookupToken;
   try {
     setStatus('🔎 Lettura automatica: tieni ferma la copertina…');
     const cv = frameToCanvas(v, v.videoWidth, v.videoHeight, 1400, true);
@@ -1644,7 +1729,7 @@ async function autoCoverTick() {
       lastAutoTitle = p.title;
     } else lastAutoTitle = '';
   } catch (e) { console.warn('Lettura automatica:', e); setStatus('Lettura automatica non disponibile: usa «Scatta e leggi».', 'warn'); autoTicks = AUTO_MAX_TICKS; }
-  finally { scanBusy = false; if (autoTicks >= AUTO_MAX_TICKS && scanMode === 'cover' && $('scan-result').classList.contains('hidden')) setStatus('Lettura automatica in pausa: tocca «Scatta e leggi» quando la copertina è a fuoco.', 'warn'); }
+  finally { lastOcrAt = Date.now(); scanBusy = false; if (autoTicks >= AUTO_MAX_TICKS && scanMode === 'cover' && $('scan-result').classList.contains('hidden')) setStatus('Lettura automatica in pausa: tocca «Scatta e leggi» quando la copertina è a fuoco.', 'warn'); }
 }
 function analyzeResultFromAuto(p, cv) { resetScanPanel(); showCoverResult(p, canvasToJpeg(cv, 480)); }
 $('auto-cover').addEventListener('change', () => { autoTicks = 0; lastAutoTitle = ''; scheduleScan(); });
@@ -1653,9 +1738,9 @@ async function scanFrame() {
   scanBusy = true;
   try {
     scanMisses++;
-    const deep = scanMisses % 5 === 0;
+    const deep = scanMisses % 3 === 0;
     const c = await readCode(v, v.videoWidth, v.videoHeight, deep ? 1700 : 1280, deep);
-    if (c && scanMode === 'code') { scanMisses = 0; handleCode(c); }
+    if (c) { scanMisses = 0; handleCode(c); }
   } catch (e) { /* frame non leggibile */ } finally { scanBusy = false; updateEngine(); }
 }
 function updateEngine() {
@@ -1793,7 +1878,7 @@ async function showNewCode(code) {
   $('res-name').value = info.title.slice(0, 60);
   const cls = detectClass(info.title + ' ' + info.hint); if (cls) $('res-cls').value = String(cls);
   if (info.cover) { pendingCover = info.cover; $('res-cover').src = info.cover; $('res-cover').classList.remove('hidden'); }
-  fillSelects(guessSubject(info.hint + ' ' + info.title));
+  fillSelects(scanForced || guessSubject(info.hint + ' ' + info.title));
   if (!scanDraftTarget && autoAddOn() && autoImport(info, code)) return;
   setStatus(`✅ Trovato (${esc((info.sources || []).join(' + '))})! Controlla nome, materia e classe, poi aggiungilo.` + (info.cover ? '' : ' (Senza copertina: potrai aggiungere una foto dopo.)'), 'ok');
 }
@@ -1813,7 +1898,7 @@ function commitBook(key, name, photo, barcode, cls) {
 }
 /* Aggiunge subito il libro trovato alla materia più probabile; resta il tempo di cambiare materia o annullare. */
 function autoImport(info, code) {
-  const key = guessSubject((info.hint || '') + ' ' + info.title) || (packList(state.day).find((g) => g.key) || {}).key || Object.keys(subjects)[0];
+  const key = (scanForced && subjects[scanForced] ? scanForced : null) || guessSubject((info.hint || '') + ' ' + info.title) || (packList(state.day).find((g) => g.key) || {}).key || Object.keys(subjects)[0];
   const cls = String(detectClass(info.title + ' ' + (info.hint || '')) || '');
   const photo = info.cover || pendingCover;
   const mat = commitBook(key, tidyTitle(info.title) || info.title, photo, code, cls);
@@ -1842,8 +1927,21 @@ $('btn-undo-add').onclick = () => {
 
 
 /* ---------- risultato dalla copertina ---------- */
-async function searchBooks(title) {
-  const g = fetchJson(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent('intitle:' + title)}&maxResults=5&printType=books&langRestrict=it`).then((d) => (d.items || []).map((it) => {
+const STOP_WORDS = new Set(['della', 'delle', 'degli', 'dell', 'dello', 'nella', 'nelle', 'scuola', 'primaria', 'classe', 'classi', 'edizione', 'edizioni', 'libro', 'libri', 'digitale', 'online', 'accessibile', 'versione', 'facilitata', 'ministeriale', 'prezzo', 'risorse', 'interattive', 'tutti', 'verso', 'mese', 'ogni', 'volume', 'copia', 'saggio', 'con', 'per', 'del', 'dei', 'alla', 'alle', 'sono', 'anche', 'bookeasy', 'giornalino']);
+/* Parole utili per cercare il libro anche se il titolo non si legge: autore, serie e materia. */
+function keywordTokens(p) {
+  const freq = new Map();
+  (p.pool || p.lines.map((l) => ({ text: l.text, conf: l.conf }))).forEach((l) => {
+    String(l.text).split(/[^A-Za-zÀ-ÿ]+/).forEach((w) => {
+      const k = norm(w); if (k.length < 4 || STOP_WORDS.has(k)) return;
+      freq.set(k, (freq.get(k) || 0) + (l.conf || 50));
+    });
+  });
+  const title = norm(p.title || '').split(' ');
+  return Array.from(freq.entries()).sort((a, b) => (title.includes(b[0]) ? 1e6 : 0) + b[1] - ((title.includes(a[0]) ? 1e6 : 0) + a[1])).map((x) => x[0]).slice(0, 8);
+}
+async function searchBooks(title, plain) {
+  const g = fetchJson(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(plain ? title : 'intitle:' + title)}&maxResults=5&printType=books&langRestrict=it`).then((d) => (d.items || []).map((it) => {
     const v = it.volumeInfo || {}, ids = v.industryIdentifiers || [];
     const i13 = ids.find((x) => x.type === 'ISBN_13'), i10 = ids.find((x) => x.type === 'ISBN_10');
     return {
@@ -1852,7 +1950,7 @@ async function searchBooks(title) {
       hint: (v.categories || []).join(' ') + ' ' + (v.title || ''), coverUrl: (v.imageLinks && (v.imageLinks.thumbnail || v.imageLinks.smallThumbnail)) || ''
     };
   })).catch(() => []);
-  const o = fetchJson(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=5&fields=title,subtitle,author_name,isbn,subject,cover_i&lang=ita`).then((d) => (d.docs || []).map((v) => ({
+  const o = fetchJson(`https://openlibrary.org/search.json?${plain ? 'q' : 'title'}=${encodeURIComponent(title)}&limit=5&fields=title,subtitle,author_name,isbn,subject,cover_i&lang=ita`).then((d) => (d.docs || []).map((v) => ({
     title: gTitle(v), authors: (v.author_name || []).join(', '), src: 'Open Library',
     isbn: ((v.isbn || []).map(normIsbn).find(Boolean)) || '', hint: (v.subject || []).slice(0, 12).join(' ') + ' ' + (v.title || ''),
     coverUrl: v.cover_i ? `https://covers.openlibrary.org/b/id/${v.cover_i}-M.jpg?default=false` : ''
@@ -1884,12 +1982,13 @@ function showCoverResult(p, photo) {
   const token = lookupToken;
   pendingCode = ''; pendingCover = photo || '';
   chipLines = p.lines.slice(0, 14); chipSel = p.titleIdx.filter((i) => i < 14);
+  (p.pool || []).forEach((x) => { if (chipLines.length < 24 && !chipLines.some((l) => norm(l.text) === norm(x.text))) chipLines.push({ text: x.text, conf: x.conf }); });
   $('res-code').textContent = 'Da copertina' + (p.year ? ` · edizione ${p.year}` : '');
   $('res-title').textContent = p.title || 'Titolo non riconosciuto'; $('res-author').textContent = '';
   $('res-name').value = p.title || '';
   if (pendingCover) { $('res-cover').src = pendingCover; $('res-cover').classList.remove('hidden'); }
-  const subj = detectSubject(p.titleText, p.allText);
-  fillSelects(scanDraftTarget?.key || subj);
+  const subj = detectSubject(p.titleText, p.coreText || p.allText);
+  fillSelects(scanForced || scanDraftTarget?.key || subj);
   $('res-cls').value = p.cls ? String(p.cls) : kidClsDigit(); syncPickers();
   renderChips();
   $('link-box').classList.add('hidden');
@@ -1903,8 +2002,12 @@ function showCoverResult(p, photo) {
   $('scan-result').classList.remove('hidden');
   if (p.title) setStatus('✅ Letto! Controlla titolo, materia e classe, poi aggiungilo.' + (chipLines.length ? ' Se il titolo è sbagliato, tocca le parole giuste.' : ''), 'ok');
   else setStatus(chipLines.length ? 'Non sono sicuro del titolo: tocca le parole giuste qui sotto, oppure scrivilo tu.' : 'Non riesco a leggere il testo. Riprova con più luce e la copertina dritta e intera, oppure scrivi il titolo.', 'warn');
-  if (navigator.onLine && p.title && p.title.length >= 4) {
-    searchBooks(p.title).then((list) => {
+  const kw = keywordTokens(p);
+  if (navigator.onLine && ((p.title && p.title.length >= 4) || kw.length >= 2)) {
+    Promise.all([p.title && p.title.length >= 4 ? searchBooks(p.title) : [], kw.length >= 2 ? searchBooks(kw.slice(0, 5).join(' '), true) : []]).then(([a, b]) => {
+      const seen = new Set();
+      return a.concat(b).filter((x) => { const k = norm(x.title) + '|' + x.isbn; if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, 6);
+    }).then((list) => {
       if (token !== lookupToken || !list.length) return;
       suggestions = list;
       $('res-sugg-list').innerHTML = list.map((s, i) => `<button type="button" class="sugg" data-sg="${i}"><span><strong>${esc(s.title.slice(0, 70))}</strong><br><span class="muted small">${esc(s.authors)}${s.isbn ? ' · ISBN ' + esc(s.isbn) : ''} · ${esc(s.src || '')}</span></span></button>`).join('');

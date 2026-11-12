@@ -1,4 +1,12 @@
-ZAINO HERO v13 - come pubblicarla
+ZAINO HERO v15 - come pubblicarla
+
+NOVITÀ v15 - Scanner corretto
+- Fotocamera: prima partiva ingrandita (16:9, zoom del telefono). Ora chiede un'immagine 4:3 intera e porta lo zoom al minimo, quindi il libro sta nell'inquadratura a circa 20-30 cm. C'e' un cursore 🔍 per regolare lo zoom, un pulsante 🔄 per cambiare obiettivo (se il telefono ne ha piu' di uno) e si puo' toccare l'immagine per mettere a fuoco.
+- Il codice a barre si cerca sempre, anche nella scheda Copertina (prima li' veniva cercato solo ogni tanto): inquadri il libro e basta, davanti o dietro.
+- Codici non neri: oltre alla lettura normale prova canali di colore separati, contrasto esteso e l'immagine invertita (codici chiari su fondo scuro). Provato su codici rossi, arancio, verdi, blu, gialli su nero e bianchi su blu.
+- Copertina: la foto viene letta a piu' scale (le scritte grandi e decorate si leggono meglio rimpicciolite) e tutto il testo trovato resta toccabile per comporre il titolo. Se il titolo non si legge, cerca online con le parole chiave trovate (autore, serie, materia) e propone i libri possibili con il loro ISBN. Gli slogan elencati con le virgole non influenzano piu' la scelta della materia.
+- Materie: su ogni scheda materia c'e' il pulsante 📷 «Libro»: il libro scansionato va in quella materia.
+- Limite: il riconoscimento del testo avviene sul telefono e non legge bene i titoli molto decorati (lettere 3D, con contorno). In quei casi conta soprattutto il codice a barre: inquadra il retro.
 
 NOVITÀ v13 - Più facile e più divertente (pensata per un bambino di 11 anni)
 - Missione zaino: un pulsante grande «Inizia la missione» mostra UNA cosa alla volta (con la foto della copertina, se c'è). «Messo nello zaino!» passa alla prossima, «Lo cerco dopo» la rimanda, «Scegli tu cosa cercare» lascia decidere l'ordine. Sfida facoltativa di 3 minuti: se scade non succede nulla, se la batte arriva un bonus.
