@@ -1,8 +1,8 @@
 /* Zaino Hero — service worker (offline).
    Per rilasciare un aggiornamento: cambia VERSION qui E APP_VERSION in app.js (stesso numero),
    e anche "?v=" in index.html. Poi ricarica TUTTI i file sul sito. */
-const VERSION = 'zaino-hero-v18';
-const ASSETS = ['./', './index.html', './styles.css?v=18', './app.js?v=18', './manifest.json',
+const VERSION = 'zaino-hero-v20';
+const ASSETS = ['./index.html', './styles.css?v=20', './app.js?v=20', './manifest.json', './bg/fiori.webp', './bg/farfalle.webp', './bg/unicorno.webp', './bg/cuori.webp',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon.ico'];
 /* Lettori di codici e copertine (circa 8 MB): scaricati in background e poi sempre dalla cache. */
 const VENDOR = ['zxing-reader.iife.js', 'zxing_reader.wasm', 'tesseract.min.js', 'tesseract-worker.min.js',

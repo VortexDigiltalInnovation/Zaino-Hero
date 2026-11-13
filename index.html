@@ -9,12 +9,12 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#292624">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=18">
+<link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
 
@@ -122,15 +122,17 @@
       <div class="row between wrapflex"><div><span class="eyebrow">Il tuo livello</span><h3 id="lvl-name"></h3></div><div class="tickets"><span class="tickets-n" id="lvl-xp"></span><span class="small muted" id="lvl-streak"></span></div></div>
       <div class="xpbar" aria-hidden="true"><i class="xp-fill"></i></div>
       <p class="xp-text muted small"></p>
-      <p class="muted small">Ogni cosa nello zaino vale ⭐10, lo zaino pronto ⭐50 + 🎴, un libro nuovo ⭐30 + 🎴. I punti non si perdono mai!</p>
+      <p class="muted small">Ogni cosa nello zaino vale ⭐10, lo zaino pronto ⭐50 + 🎴🎴, un libro nuovo ⭐30 + 🎴🎴. I punti non si perdono mai!</p>
     </section>
     <section class="card stack album-card" id="album-card">
       <div class="row between wrapflex"><h3>🎴 Il mio album di figurine</h3><span id="album-count" class="muted small"></span></div>
       <div class="xpbar" aria-hidden="true"><i id="album-fill"></i></div>
-      <button class="btn btn-gold btn-xl" id="btn-open-pack" type="button">🎁 Apri una bustina (<span id="pack-n">0</span>)</button>
-      <div id="album-themes" class="chips" aria-label="Temi dell'album"></div>
-      <div id="album-grid" class="sticker-grid"></div>
-      <p class="muted small">Ogni bustina ha 3 figurine, anche rare, epiche e leggendarie. Le doppie ti regalano ⭐5 ciascuna. Le bustine arrivano completando lo zaino, aggiungendo libri, salendo di livello, con i traguardi e con la ruota.</p>
+      <div class="album-actions">
+        <button class="btn btn-gold" id="btn-open-pack" type="button"><span>🎁 Apri bustina (<span id="pack-n">0</span>)</span></button>
+        <button class="btn btn-album" id="btn-open-album" type="button">📖 Apri l'album<span class="nb hidden" id="album-pend-badge"></span></button>
+      </div>
+      <div id="album-mini" class="album-theme-mini" aria-label="Pagine dell'album"></div>
+      <p class="muted small">Ogni bustina ha 5 figurine, anche rare, epiche e leggendarie: aprila e poi attaccale nell'album, ognuna al suo posto. Le doppie ti regalano ⭐5 ciascuna. Le bustine arrivano completando lo zaino (2), aggiungendo libri (2), salendo di livello (3), con ogni traguardo (2) e con la ruota.</p>
     </section>
     <section class="card stack">
       <div class="row between wrapflex"><h3>🏅 I miei traguardi</h3><span id="badge-count" class="muted small"></span></div>
@@ -349,7 +351,7 @@
     <label class="field"><span class="small muted">Nome</span><input id="kid-name" type="text" maxlength="30" required></label>
     <label class="field"><span class="small muted">Classe (es. 3ª B)</span><input id="kid-cls" type="text" maxlength="10"></label>
     <fieldset class="avatar-pick"><legend class="small muted">Icona</legend><div id="kid-avatars" class="row gap wrapflex"></div></fieldset>
-    <fieldset class="avatar-pick"><legend class="small muted">Colori dell'app</legend><div id="kid-themes" class="row gap wrapflex"></div></fieldset>
+    <fieldset class="avatar-pick"><legend class="small muted">Sfondo e colori</legend><div id="kid-themes" class="row gap wrapflex"></div></fieldset>
     <label class="field" id="kid-from-box"><span class="small muted">Come iniziare</span><select id="kid-from"></select></label>
     <div class="row gap wrapflex">
       <button class="btn btn-soft" type="button" id="btn-kid-del">🗑 Elimina</button>
@@ -407,7 +409,7 @@
       <label class="field"><span class="small muted">Nome</span><input id="wl-name" type="text" maxlength="30" autocomplete="off"></label>
       <label class="field"><span class="small muted">Classe (es. 5ª A)</span><input id="wl-cls" type="text" maxlength="10" autocomplete="off"></label>
       <fieldset class="avatar-pick"><legend class="small muted">Scegli il tuo eroe</legend><div id="wl-avatars" class="row gap wrapflex"></div></fieldset>
-      <fieldset class="avatar-pick"><legend class="small muted">Scegli i colori</legend><div id="wl-themes" class="row gap wrapflex"></div></fieldset>
+      <fieldset class="avatar-pick"><legend class="small muted">Scegli lo sfondo</legend><div id="wl-themes" class="row gap wrapflex"></div></fieldset>
       <button class="btn btn-primary btn-xl" id="wl-next-1" type="button">Avanti ▶</button>
     </div>
     <div id="wl-2" class="stack hidden">
@@ -435,7 +437,23 @@
     <div id="pack-cards" class="pack-cards"></div>
     <button class="btn btn-primary btn-xl" id="btn-reveal-all" type="button">✨ Scopri tutte</button>
     <button class="btn btn-gold btn-xl hidden" id="btn-pack-next" type="button">🎁 Un'altra bustina</button>
-    <button class="btn btn-ok btn-xl hidden" id="btn-pack-done" type="button">✅ Nell'album!</button>
+    <button class="btn btn-album btn-xl hidden" id="btn-pack-done" type="button">📖 Attaccale nell'album!</button>
+  </div>
+</dialog>
+
+<!-- Album delle figurine -->
+<dialog id="dlg-album" class="dlg-album" aria-labelledby="album-title">
+  <div class="album-wrap">
+    <div class="album-top"><h3 id="album-title">📖 Il mio album</h3><span id="alb-count" class="small strong alb-count"></span><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
+    <div id="album-themes" class="album-index" aria-label="Pagine dell'album"></div>
+    <div class="album-book"><div id="alb-page" class="album-page" aria-live="polite"></div></div>
+    <div class="album-nav"><button class="btn" id="alb-prev" type="button" aria-label="Pagina precedente">◀</button><span id="alb-pageno"></span><button class="btn" id="alb-next" type="button" aria-label="Pagina successiva">▶</button></div>
+    <div class="album-tray" id="alb-tray-box">
+      <div class="row between"><b>✋ Da attaccare: <span id="alb-pend-n">0</span></b><button class="link strong" id="alb-stick-all" type="button">Attacca tutte ✨</button></div>
+      <div id="alb-tray" class="tray" aria-label="Figurine da attaccare"></div>
+      <button class="btn btn-gold hidden" id="alb-open-pack" type="button">🎁 Apri una bustina</button>
+      <p class="tray-hint" id="alb-hint">Tocca una figurina: andrà da sola al suo posto nell'album.</p>
+    </div>
   </div>
 </dialog>
 
@@ -478,6 +496,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=18"></script>
+<script src="app.js?v=20"></script>
 </body>
 </html>
