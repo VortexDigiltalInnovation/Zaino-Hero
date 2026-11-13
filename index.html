@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
 
@@ -54,6 +54,7 @@
         </div>
       </div>
       <div id="hero-chips" class="hero-chips" aria-label="Livello, punti e serie"></div>
+      <div id="week-dots" class="week-dots" aria-label="Zaini pronti questa settimana"></div>
       <div class="xpbar" aria-hidden="true"><i class="xp-fill"></i></div>
       <p class="xp-text muted small"></p>
       <div class="mascot"><img class="mascot-img" data-img="zaino" alt="" width="56" height="56"><p id="mascot-line" class="bubble" aria-live="polite"></p></div>
@@ -67,6 +68,8 @@
         <button class="tile" id="btn-ai" type="button"><img class="tile-img" data-img="robot" alt="" width="34" height="34"><span>Assistente</span></button>
       </div>
     </section>
+
+    <p class="today-line"><span id="today-text"></span> <button class="link strong hidden" id="btn-today" type="button"></button></p>
 
     <div class="seg" role="tablist" aria-label="Vista dell'orario">
       <button class="seg-btn" id="view-day" role="tab" aria-selected="true" type="button">📅 Giorno</button>
@@ -119,11 +122,20 @@
       <div class="row between wrapflex"><div><span class="eyebrow">Il tuo livello</span><h3 id="lvl-name"></h3></div><div class="tickets"><span class="tickets-n" id="lvl-xp"></span><span class="small muted" id="lvl-streak"></span></div></div>
       <div class="xpbar" aria-hidden="true"><i class="xp-fill"></i></div>
       <p class="xp-text muted small"></p>
-      <p class="muted small">Ogni cosa che metti nello zaino vale ⭐ 10, lo zaino pronto ⭐ 50, un libro nuovo ⭐ 30. I punti non si perdono mai!</p>
+      <p class="muted small">Ogni cosa nello zaino vale ⭐10, lo zaino pronto ⭐50 + 🎴, un libro nuovo ⭐30 + 🎴. I punti non si perdono mai!</p>
+    </section>
+    <section class="card stack album-card" id="album-card">
+      <div class="row between wrapflex"><h3>🎴 Il mio album di figurine</h3><span id="album-count" class="muted small"></span></div>
+      <div class="xpbar" aria-hidden="true"><i id="album-fill"></i></div>
+      <button class="btn btn-gold btn-xl" id="btn-open-pack" type="button">🎁 Apri una bustina (<span id="pack-n">0</span>)</button>
+      <div id="album-themes" class="chips" aria-label="Temi dell'album"></div>
+      <div id="album-grid" class="sticker-grid"></div>
+      <p class="muted small">Ogni bustina ha 3 figurine, anche rare, epiche e leggendarie. Le doppie ti regalano ⭐5 ciascuna. Le bustine arrivano completando lo zaino, aggiungendo libri, salendo di livello, con i traguardi e con la ruota.</p>
     </section>
     <section class="card stack">
-      <div class="row between wrapflex"><h3>🏅 I miei adesivi</h3><span id="badge-count" class="muted small"></span></div>
+      <div class="row between wrapflex"><h3>🏅 I miei traguardi</h3><span id="badge-count" class="muted small"></span></div>
       <div id="badge-grid" class="badge-grid"></div>
+      <button class="link strong" id="btn-badges-all" type="button">Mostra tutti i traguardi</button>
     </section>
     <section class="card prize-card stack">
       <div class="row between wrapflex">
@@ -176,6 +188,14 @@
         <input type="file" id="file-import" accept="application/json,.json" class="hidden">
       </div>
       <p class="muted small">Foto e orario sono salvati solo su questo dispositivo. Fai una copia ogni tanto: se cancelli i dati del browser li perdi.</p>
+    </section>
+    <section class="card stack">
+      <h3>🔎 Ricerca dei libri online</h3>
+      <p class="muted small">Per riconoscere un libro l'app consulta Google Libri e Open Library. In più può consultare le librerie italiane (Libraccio, IBS, Mondadori Store, Libreria Universitaria) tramite un servizio intermedio.</p>
+      <label class="row gap small auto-add"><input type="checkbox" id="stores-on" checked> <span>Usa anche le librerie italiane online</span></label>
+      <label class="field"><span class="small muted">Servizio personale (facoltativo): indirizzo del tuo Cloudflare Worker, vedi LEGGIMI</span><input id="book-service" type="url" inputmode="url" placeholder="https://libri.tuonome.workers.dev/" autocomplete="off"></label>
+      <div class="row gap wrapflex"><button class="btn btn-soft" id="btn-test-books" type="button">🧪 Prova la ricerca</button></div>
+      <p id="book-test-result" class="muted small" aria-live="polite"></p>
     </section>
     <section class="card stack">
       <h3>🔄 Aggiornamenti</h3>
@@ -235,12 +255,12 @@
       <h3 id="prizes-title">🎁 Gestione premi</h3>
       <button class="btn btn-icon" data-close aria-label="Chiudi">✕</button>
     </div>
-    <p class="muted small">Modifica i premi prima di giocare. Le probabilità restano fisse: 6 premi simbolici (60%), 3 privilegi (30%) e 1 premio fisico (10%). I coupon già vinti non cambiano. Questo pannello è una comodità, non un blocco protetto: chiunque abbia accesso al dispositivo può modificarlo.</p>
+    <p class="muted small">Aggiungi, cambia o togli premi, divisi per tipo. La ruota ha sempre 10 spicchi, scelti a caso dall'elenco in modo equilibrato (simbolici, ticket, bustine di figurine, privilegi, esperienze, premi fisici): più premi metti, più varietà c'è. Servono almeno 10 premi, al massimo 60. I coupon già vinti non cambiano.</p>
     <form id="prize-form" class="stack">
       <div id="prize-fields" class="stack"></div>
       <div class="row gap wrapflex">
         <button class="btn btn-soft" id="btn-reset-prizes" type="button">Ripristina premi iniziali</button>
-        <button class="btn btn-primary grow" type="submit">Salva catalogo</button>
+        <button class="btn btn-primary grow" type="submit">Salva i premi</button>
       </div>
     </form>
   </div>
@@ -326,6 +346,7 @@
     <label class="field"><span class="small muted">Nome</span><input id="kid-name" type="text" maxlength="30" required></label>
     <label class="field"><span class="small muted">Classe (es. 3ª B)</span><input id="kid-cls" type="text" maxlength="10"></label>
     <fieldset class="avatar-pick"><legend class="small muted">Icona</legend><div id="kid-avatars" class="row gap wrapflex"></div></fieldset>
+    <fieldset class="avatar-pick"><legend class="small muted">Colori dell'app</legend><div id="kid-themes" class="row gap wrapflex"></div></fieldset>
     <label class="field" id="kid-from-box"><span class="small muted">Come iniziare</span><select id="kid-from"></select></label>
     <div class="row gap wrapflex">
       <button class="btn btn-soft" type="button" id="btn-kid-del">🗑 Elimina</button>
@@ -340,6 +361,7 @@
     <div class="row between"><h3 id="mat-title">Materiali</h3><button class="btn btn-icon" data-close aria-label="Chiudi senza salvare">✕</button></div>
     <div class="row gap wrapflex"><button class="btn btn-soft" id="btn-emoji" type="button" aria-expanded="false">😀 Cambia icona</button></div>
     <div id="mat-emoji" class="emoji-grid hidden" role="radiogroup" aria-label="Icona della materia"></div>
+    <div id="quick-add" class="chips hidden" aria-label="Aggiunte rapide"></div>
     <div id="mat-list" class="stack scroll"></div>
     <div class="row gap wrapflex">
       <button class="btn btn-soft" id="btn-mat-add" type="button">＋ Libro/Quaderno</button>
@@ -365,9 +387,51 @@
       <p id="mission-subj" class="muted"></p>
     </div>
     <p id="mission-bubble" class="bubble" aria-live="polite"></p>
+    <button class="btn btn-soft btn-sm" id="btn-mission-photo" type="button">📸 Aggiungi la foto</button>
+    <input type="file" id="mission-photo" accept="image/*" capture="environment" class="hidden">
     <button class="btn btn-ok btn-xl" id="btn-mission-ok" type="button">✅ Messo nello zaino!</button>
     <button class="btn btn-soft" id="btn-mission-skip" type="button">⏭ Lo cerco dopo</button>
     <details class="scan-extra"><summary>Scegli tu cosa cercare</summary><div id="mission-pick" class="chips"></div></details>
+  </div>
+</dialog>
+
+<!-- Benvenuto -->
+<dialog id="dlg-welcome" aria-labelledby="welcome-title">
+  <div class="dlg-in stack">
+    <h2 id="welcome-title">👋 Benvenuto in Zaino Hero!</h2>
+    <div id="wl-1" class="stack">
+      <p class="muted">Prepariamo lo zaino insieme, una missione alla volta. Come ti chiami?</p>
+      <label class="field"><span class="small muted">Nome</span><input id="wl-name" type="text" maxlength="30" autocomplete="off"></label>
+      <label class="field"><span class="small muted">Classe (es. 5ª A)</span><input id="wl-cls" type="text" maxlength="10" autocomplete="off"></label>
+      <fieldset class="avatar-pick"><legend class="small muted">Scegli il tuo eroe</legend><div id="wl-avatars" class="row gap wrapflex"></div></fieldset>
+      <fieldset class="avatar-pick"><legend class="small muted">Scegli i colori</legend><div id="wl-themes" class="row gap wrapflex"></div></fieldset>
+      <button class="btn btn-primary btn-xl" id="wl-next-1" type="button">Avanti ▶</button>
+    </div>
+    <div id="wl-2" class="stack hidden">
+      <ul class="wl-list">
+        <li>🚀 <b>Missione zaino</b>: trovi una cosa alla volta e guadagni ⭐ punti.</li>
+        <li>🎴 <b>Figurine</b>: ogni zaino pronto regala una bustina da aprire.</li>
+        <li>📷 <b>Scanner</b>: inquadra la copertina o il codice a barre di un libro e lo aggiungo io.</li>
+        <li>🎡 <b>Ruota dei premi</b>: i premi li scelgono i genitori.</li>
+      </ul>
+      <button class="btn btn-primary btn-xl" id="wl-next-2" type="button">Avanti ▶</button>
+    </div>
+    <div id="wl-3" class="stack hidden">
+      <p class="muted">Aggiungiamo i tuoi libri? Puoi farlo anche dopo, dalla scheda Materie.</p>
+      <button class="btn btn-ok btn-xl" id="wl-scan" type="button">📷 Scansiona il primo libro</button>
+      <button class="btn btn-soft" id="wl-later" type="button">Più tardi</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Bustina di figurine -->
+<dialog id="dlg-pack" aria-labelledby="pack-title">
+  <div class="dlg-in stack center">
+    <div class="row between"><h3 id="pack-title">🎴 Bustina di figurine</h3><button class="btn btn-icon" data-close aria-label="Chiudi">✕</button></div>
+    <div id="pack-cards" class="pack-cards"></div>
+    <button class="btn btn-primary btn-xl" id="btn-reveal-all" type="button">✨ Scopri tutte</button>
+    <button class="btn btn-gold btn-xl hidden" id="btn-pack-next" type="button">🎁 Un'altra bustina</button>
+    <button class="btn btn-ok btn-xl hidden" id="btn-pack-done" type="button">✅ Nell'album!</button>
   </div>
 </dialog>
 
@@ -410,6 +474,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=15"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>

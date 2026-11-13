@@ -12,7 +12,8 @@ const IMG = {
   'avatar-trofeo': 'data:image/webp;base64,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'
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
-const APP_VERSION = '15';
+const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
+const APP_VERSION = '17';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -20,6 +21,8 @@ const GLOBAL_KEYS = { mute: 'zaino_mute', catalog: 'zaino_prize_catalog_v1', kid
 /* Dati di ogni figlio: il primo figlio (k1) mantiene le chiavi storiche, così i dati esistenti restano al loro posto. */
 const KID_BASE = { schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1', game: 'zaino_game_v1' };
 const LEGACY_KID = 'k1';
+const FIXED_KEY = 'Sempre nello zaino';
+const THEMES = [{ id: 'spazio', name: 'Spazio', emoji: '🚀' }, { id: 'oceano', name: 'Oceano', emoji: '🌊' }, { id: 'foresta', name: 'Foresta', emoji: '🌳' }, { id: 'tramonto', name: 'Tramonto', emoji: '🌇' }, { id: 'notte', name: 'Notte calma', emoji: '🌙' }];
 const AVATARS = ['mantello', 'visore', 'orario', 'trofeo'];
 const AVATAR_NAMES = { mantello: 'Eroe col mantello', visore: 'Eroe con visore', orario: 'Eroe dell\'orario', trofeo: 'Eroe del trofeo' };
 const MAX_KIDS = 8;
@@ -87,7 +90,7 @@ function cleanMaterials(list, fallback) {
   const arr = Array.isArray(list) ? list : fallback;
   return arr.filter((m) => m != null).map((m) => (typeof m === 'string'
     ? { id: uid(), name: m.slice(0, 60), photo: '', barcode: '', cls: '' }
-    : { id: typeof m.id === 'string' && /^[\w-]{1,24}$/.test(m.id) ? m.id : uid(), name: String(m.name || 'Libro').slice(0, 60), photo: safePhoto(m.photo), barcode: String(m.barcode || '').slice(0, 64), cls: /^[1-5]$/.test(String(m.cls)) ? String(m.cls) : '' }));
+    : { id: typeof m.id === 'string' && /^[\w-]{1,24}$/.test(m.id) ? m.id : uid(), name: String(m.name || 'Libro').slice(0, 60), photo: safePhoto(m.photo), barcode: String(m.barcode || '').slice(0, 64), cls: /^[1-5]$/.test(String(m.cls)) ? String(m.cls) : '', emoji: typeof m.emoji === 'string' ? m.emoji.slice(0, 8) : '' }));
 }
 function cleanChecks(raw) {
   const out = {};
@@ -103,14 +106,67 @@ function cleanChecks(raw) {
   });
   return out;
 }
-function cleanCatalog(raw) {
-  const source = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
-  const out = {};
-  WHEEL_PRIZES.forEach((prize) => {
-    const value = typeof source[prize.id] === 'string' ? source[prize.id].trim().slice(0, 80) : '';
-    out[prize.id] = value || prize.title;
-  });
+/* ---------- premi: elenco modificabile, con tipi ---------- */
+const PRIZE_TYPES = [
+  { id: 'symbolic', label: 'Simbolici', one: 'simbolico', emoji: '🏅' },
+  { id: 'ticket', label: 'Ticket', one: 'ticket', emoji: '🎟️' },
+  { id: 'sticker', label: 'Bustine di figurine', one: 'bustina', emoji: '🎴' },
+  { id: 'privilege', label: 'Privilegi', one: 'privilegio', emoji: '👑' },
+  { id: 'experience', label: 'Esperienze', one: 'esperienza', emoji: '🎈' },
+  { id: 'physical', label: 'Premi fisici', one: 'premio fisico', emoji: '🎁' }
+];
+const TYPE_EMOJI = Object.fromEntries(PRIZE_TYPES.map((t) => [t.id, t.emoji]));
+const BASE_PRIZES = WHEEL_PRIZES.map((p) => ({ id: p.id, type: p.ticket ? 'ticket' : p.type, title: p.title }));
+const EXTRA_PRIZES = [
+  { id: 'pack-1', type: 'sticker', title: 'Una bustina di figurine', packs: 1 },
+  { id: 'pack-2', type: 'sticker', title: 'Super bustina: 2 bustine di figurine', packs: 2 },
+  { id: 'pack-3', type: 'sticker', title: 'Maxi premio: 3 bustine di figurine', packs: 3 },
+  { id: 'ticket-c', type: 'ticket', title: 'Ticket +1 punto per la ricompensa di fine mese' },
+  { id: 'title-king', type: 'symbolic', title: 'Titolo: Re (o Regina) dello Zaino per un giorno' },
+  { id: 'badge-turbo', type: 'symbolic', title: 'Medaglia digitale: Turbo' },
+  { id: 'cheer', type: 'symbolic', title: 'Applauso di tutta la famiglia' },
+  { id: 'choose-dinner', type: 'privilege', title: 'Scegliere la cena' },
+  { id: 'late-bed', type: 'privilege', title: '10 minuti in più prima di dormire' },
+  { id: 'board-game', type: 'privilege', title: 'Scegliere il gioco da tavolo della serata' },
+  { id: 'choose-music', type: 'privilege', title: 'Scegliere la musica in macchina' },
+  { id: 'ice-cream', type: 'experience', title: 'Gelato insieme' },
+  { id: 'park', type: 'experience', title: 'Pomeriggio al parco giochi' },
+  { id: 'bike', type: 'experience', title: 'Giro in bici con un genitore' },
+  { id: 'pizza', type: 'experience', title: 'Serata pizza a scelta' },
+  { id: 'lego', type: 'experience', title: 'Mezz\'ora di costruzioni con mamma o papà' },
+  { id: 'comic', type: 'physical', title: 'Un fumetto o un piccolo libro' },
+  { id: 'cards', type: 'physical', title: 'Un pacchetto di figurine o carte' },
+  { id: 'pens', type: 'physical', title: 'Penne o pennarelli nuovi' }
+];
+const DEFAULT_PRIZES = BASE_PRIZES.concat(EXTRA_PRIZES);
+const MIN_PRIZES = 10, MAX_PRIZES = 60;
+function cleanPrize(p) {
+  if (!p || typeof p !== 'object') return null;
+  const id = typeof p.id === 'string' && /^[\w-]{1,24}$/.test(p.id) ? p.id : null;
+  const type = PRIZE_TYPES.some((t) => t.id === p.type) ? p.type : null;
+  const title = typeof p.title === 'string' ? p.title.trim().slice(0, 80) : '';
+  if (!id || !type || !title) return null;
+  const out = { id, type, title };
+  if (type === 'sticker') out.packs = Number.isSafeInteger(p.packs) ? Math.max(1, Math.min(5, p.packs)) : 1;
   return out;
+}
+function cleanCatalog(raw) {
+  const src = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  if (Array.isArray(src.list)) {
+    const seen = new Set(), list = [];
+    src.list.slice(0, MAX_PRIZES).forEach((x) => { const c = cleanPrize(x); if (c && !seen.has(c.id)) { seen.add(c.id); list.push(c); } });
+    if (list.length >= MIN_PRIZES) return { list };
+  }
+  /* vecchio formato: nome personalizzato per ognuno dei 10 premi base; i nuovi premi si aggiungono */
+  return { list: DEFAULT_PRIZES.map((p) => {
+    const custom = typeof src[p.id] === 'string' ? src[p.id].trim().slice(0, 80) : '';
+    return Object.assign({}, p, { title: custom || p.title });
+  }) };
+}
+function cleanLayout(arr) {
+  if (!Array.isArray(arr) || arr.length !== 10) return null;
+  const out = arr.map((x) => { const c = cleanPrize(x); return c ? Object.assign(c, { packs: c.packs || 0, ticket: c.type === 'ticket' }) : null; });
+  return out.every(Boolean) ? out : null;
 }
 function cleanRewards(raw) {
   const draws = {};
@@ -118,16 +174,23 @@ function cleanRewards(raw) {
     ? raw.draws : {};
   Object.entries(source).slice(-1000).forEach(([date, entry]) => {
     const dateIsValid = /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T00:00:00Z`));
-    const prize = WHEEL_PRIZES.find((item) => entry && item.id === entry.prizeId);
-    if (!dateIsValid || !prize) return;
+    if (!dateIsValid || !entry || typeof entry.prizeId !== 'string' || !/^[\w-]{1,24}$/.test(entry.prizeId)) return;
+    const base = WHEEL_PRIZES.find((item) => item.id === entry.prizeId);
     const timestamp = typeof entry.awardedAt === 'string' && !Number.isNaN(Date.parse(entry.awardedAt))
       ? new Date(entry.awardedAt).toISOString() : `${date}T00:00:00.000Z`;
     const prizeTitle = typeof entry.prizeTitle === 'string' && entry.prizeTitle.trim()
-      ? entry.prizeTitle.trim().slice(0, 80) : prize.title;
-    draws[date] = { prizeId: prize.id, prizeTitle, awardedAt: timestamp };
+      ? entry.prizeTitle.trim().slice(0, 80) : (base ? base.title : 'Premio');
+    const d = { prizeId: entry.prizeId, prizeTitle, awardedAt: timestamp };
+    if (PRIZE_TYPES.some((t) => t.id === entry.type)) d.type = entry.type;
+    if (Number.isSafeInteger(entry.packs)) d.packs = Math.max(0, Math.min(5, entry.packs));
+    draws[date] = d;
   });
+  const layouts = {};
+  if (raw && raw.layouts && typeof raw.layouts === 'object') {
+    Object.entries(raw.layouts).slice(-60).forEach(([date, l]) => { if (/^\d{4}-\d{2}-\d{2}$/.test(date)) { const c = cleanLayout(l); if (c) layouts[date] = c; } });
+  }
   const count = raw && Number.isSafeInteger(raw.tickets) ? Math.max(0, Math.min(1000000, raw.tickets)) : 0;
-  return { draws, tickets: count };
+  return { draws, tickets: count, layouts };
 }
 function cleanGame(raw) {
   const r = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
@@ -135,8 +198,14 @@ function cleanGame(raw) {
   const awarded = {};
   if (r.awarded && typeof r.awarded === 'object') Object.keys(r.awarded).slice(-400).forEach((k) => { if (/^[\w:.-]{1,60}$/.test(k)) awarded[k] = 1; });
   const badges = {};
-  if (r.badges && typeof r.badges === 'object') Object.keys(r.badges).forEach((k) => { if (/^[a-z0-9]{2,12}$/.test(k) && typeof r.badges[k] === 'string') badges[k] = r.badges[k].slice(0, 30); });
-  return { xp: num(r.xp, 1000000), books: num(r.books, 100000), awarded, badges };
+  if (r.badges && typeof r.badges === 'object') Object.keys(r.badges).forEach((k) => { if (/^[a-z0-9_]{2,16}$/.test(k) && typeof r.badges[k] === 'string') badges[k] = r.badges[k].slice(0, 30); });
+  const stickers = {};
+  if (r.stickers && typeof r.stickers === 'object') Object.keys(r.stickers).forEach((k) => { if (/^[a-z]{2}\d{2}$/.test(k) && Number.isSafeInteger(r.stickers[k]) && r.stickers[k] >= 1) stickers[k] = Math.min(999, r.stickers[k]); });
+  return {
+    xp: num(r.xp, 1000000), books: num(r.books, 100000), awarded, badges, stickers,
+    packs: num(r.packs, 99999), opened: num(r.opened, 99999), speed: num(r.speed, 99999),
+    fixedSeeded: r.fixedSeeded === true, catchup: r.catchup === true
+  };
 }
 function cleanHistory(raw) {
   const completed = {};
@@ -162,7 +231,8 @@ function cleanKids(raw) {
     if (!k || typeof k.id !== 'string' || !/^[\w-]{1,16}$/.test(k.id) || list.some((x) => x.id === k.id)) return;
     list.push({
       id: k.id, name: String(k.name || '').trim().slice(0, 30) || 'Studente', cls: String(k.cls || '').trim().slice(0, 10) || '-',
-      avatar: AVATARS.includes(k.avatar) ? k.avatar : AVATARS[list.length % AVATARS.length]
+      avatar: AVATARS.includes(k.avatar) ? k.avatar : AVATARS[list.length % AVATARS.length],
+      theme: THEMES.some((t) => t.id === k.theme) ? k.theme : 'spazio'
     });
   });
   if (!list.length) return null;
@@ -172,7 +242,7 @@ function loadKids() {
   let k = cleanKids(store.get(GLOBAL_KEYS.kids, null));
   if (!k) {
     const old = store.get(GLOBAL_KEYS.profile, {}) || {};
-    k = { list: [{ id: LEGACY_KID, name: String(old.name || 'Gabriele').slice(0, 30), cls: String(old.cls || '5ª A').slice(0, 10), avatar: 'mantello' }], active: LEGACY_KID };
+    k = { list: [{ id: LEGACY_KID, name: String(old.name || 'Gabriele').slice(0, 30), cls: String(old.cls || '5ª A').slice(0, 10), avatar: 'mantello', theme: 'spazio' }], active: LEGACY_KID };
     store.set(GLOBAL_KEYS.kids, k, true);
   }
   return k;
@@ -196,16 +266,6 @@ let muted = store.get(KEYS.mute, false) === true;
 let state = { day: defaultDay(), edit: false, view: store.get('zaino_view', 'day') === 'week' ? 'week' : 'day' };
 let draft = null;        // copia di lavoro nella finestra "materiali"
 let draftKey = null;
-function prizesForWheel() {
-  return WHEEL_PRIZES.map((prize) => ({
-    ...prize, title: prizeCatalog[prize.id] || prize.title,
-    short: (prizeCatalog[prize.id] || prize.title).slice(0, 10)
-  }));
-}
-function prizeFromDraw(draw) {
-  const prize = draw && WHEEL_PRIZES.find((item) => item.id === draw.prizeId);
-  return prize ? { ...prize, title: draw.prizeTitle || prizeCatalog[prize.id] || prize.title } : null;
-}
 
 function loadSubjects() {
   const raw = store.get(KEYS.subjects, null);
@@ -221,6 +281,7 @@ function loadSubjects() {
       emoji: typeof o.emoji === 'string' && o.emoji ? o.emoji.slice(0, 8) : (def.emoji || '📚'),
       materials: cleanMaterials(o.materials, def.materials || [])
     };
+    if (o.fixed === true) out[name].fixed = true;
   });
   // Gli ID dei libri devono restare gli stessi tra un'apertura e l'altra, altrimenti le spunte si perdono.
   if (!src || JSON.stringify(out) !== JSON.stringify(src)) store.set(KEYS.subjects, out, true);
@@ -277,8 +338,14 @@ function parseHour(raw) {
 function packList(day) {
   const order = [];
   const map = new Map();
+  const fixed = subjects[FIXED_KEY];
+  /* «Sempre nello zaino» (astuccio, diario…): una volta sola per ogni giorno con lezioni, non per ogni ora */
+  if (fixed && fixed.materials.length && (schedule[day] || []).length) {
+    map.set(FIXED_KEY, { key: FIXED_KEY, label: FIXED_KEY, hours: [], mats: fixed.materials, fixed: true }); order.push(FIXED_KEY);
+  }
   (schedule[day] || []).forEach((hourRaw, h) => {
     parseHour(hourRaw).forEach(({ raw, key }) => {
+      if (key === FIXED_KEY) return;
       const id = key || 'unk:' + norm(raw);
       if (!map.has(id)) { map.set(id, { key, label: key || raw, hours: [], mats: key ? subjects[key].materials : [] }); order.push(id); }
       map.get(id).hours.push(h + 1);
@@ -352,6 +419,18 @@ const saveGame = () => store.set(KEYS.game, game);
 /* Modalità calma: niente animazioni né vibrazioni (utile se gli effetti distraggono o stancano). */
 let calm = store.get('zaino_calm', null);
 if (calm === null) calm = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function ensureFixed() {
+  if (game.fixedSeeded) return;
+  game.fixedSeeded = true;
+  if (!subjects[FIXED_KEY]) {
+    const fx = { color: '#f59e0b', emoji: '🎒', fixed: true, materials: [
+      { id: uid(), name: 'Astuccio', photo: '', barcode: '', cls: '', emoji: '✏️' },
+      { id: uid(), name: 'Diario', photo: '', barcode: '', cls: '', emoji: '📓' }] };
+    const rest = subjects; subjects = Object.assign({ [FIXED_KEY]: fx }, rest);
+    saveSubjects();
+  }
+  saveGame();
+}
 function setCalm(v) {
   calm = !!v; store.set('zaino_calm', calm, true);
   document.documentElement.classList.toggle('calm', calm); $('calm-mode').checked = calm;
@@ -363,19 +442,26 @@ function xpPop(text) {
   const el = document.createElement('div'); el.className = 'xp-pop'; el.setAttribute('aria-hidden', 'true'); el.textContent = text;
   document.body.appendChild(el); setTimeout(() => el.remove(), 1500);
 }
-function awardXp(key, amount, label) {
-  if (game.awarded[key]) return false;
+function grantXp(amount, label) {
   const before = levelInfo(game.xp).i;
-  game.awarded[key] = 1; game.xp += amount;
-  const keys = Object.keys(game.awarded);
-  if (keys.length > 400) keys.slice(0, keys.length - 400).forEach((k) => { delete game.awarded[k]; });
-  saveGame();
+  game.xp += amount; saveGame();
   xpPop(`+${amount} ⭐${label ? ' ' + label : ''}`);
   const after = levelInfo(game.xp);
-  if (after.i > before) { toast(`🎉 Nuovo livello: ${after.cur.emoji} ${after.cur.name}!`); confetti(); buzz([60, 40, 60]); }
-  checkBadges(); renderGame();
+  if (after.i > before) {
+    const n = (after.i - before) * 2; game.packs += n; saveGame();
+    toast(`🎉 Nuovo livello: ${after.cur.emoji} ${after.cur.name}! +${n} bustine 🎴`); confetti(); buzz([60, 40, 60]); sfx('level');
+  }
+  checkBadges();
+}
+function awardXp(key, amount, label) {
+  if (game.awarded[key]) return false;
+  game.awarded[key] = 1;
+  const keys = Object.keys(game.awarded);
+  if (keys.length > 400) keys.slice(0, keys.length - 400).forEach((k) => { delete game.awarded[k]; });
+  grantXp(amount, label);
   return true;
 }
+function awardPack(key, n) { if (game.awarded[key]) return; game.awarded[key] = 1; grantPacks(n); }
 function streakInfo() {
   const dates = Object.keys(progressLog.completed).sort();
   let best = 0, run = 0, prev = null;
@@ -388,32 +474,6 @@ function streakInfo() {
   }
   return { cur, best, total: dates.length };
 }
-function perfectWeek() {
-  const weeks = {};
-  Object.keys(progressLog.completed).forEach((d) => {
-    const dt = new Date(d + 'T12:00:00'), dow = (dt.getDay() + 6) % 7; if (dow > 4) return;
-    const mon = new Date(dt); mon.setDate(dt.getDate() - dow);
-    const k = isoDate(mon); (weeks[k] = weeks[k] || new Set()).add(dow);
-  });
-  return Object.values(weeks).some((x) => x.size >= 5);
-}
-const BADGES = [
-  { id: 'first', emoji: '🥇', name: 'Prima missione', hint: 'Prepara uno zaino al 100%', ok: () => streakInfo().total >= 1 },
-  { id: 'streak3', emoji: '🔥', name: 'Tre di fila', hint: 'Zaino pronto per 3 giorni di scuola di fila', ok: () => streakInfo().best >= 3 },
-  { id: 'streak5', emoji: '🌋', name: 'Settimana di fuoco', hint: 'Zaino pronto per 5 giorni di scuola di fila', ok: () => streakInfo().best >= 5 },
-  { id: 'week', emoji: '🏆', name: 'Settimana perfetta', hint: 'Da lunedì a venerdì tutti pronti', ok: perfectWeek },
-  { id: 'books3', emoji: '📖', name: 'Primi libri', hint: 'Aggiungi 3 libri con lo scanner', ok: () => game.books >= 3 },
-  { id: 'books10', emoji: '📚', name: 'Cacciatore di libri', hint: 'Aggiungi 10 libri con lo scanner', ok: () => game.books >= 10 },
-  { id: 'speed', emoji: '⚡', name: 'Lampo', hint: 'Finisci la missione prima che scada la sfida', ok: () => false },
-  { id: 'lvl3', emoji: '🛡️', name: 'Cavaliere', hint: 'Arriva al livello Cavaliere', ok: () => levelInfo(game.xp).i >= 2 },
-  { id: 'lvl5', emoji: '🦸', name: 'Eroe', hint: 'Arriva al livello Eroe', ok: () => levelInfo(game.xp).i >= 4 }
-];
-function earnBadge(id) {
-  const b = BADGES.find((x) => x.id === id); if (!b || game.badges[id]) return;
-  game.badges[id] = new Date().toISOString(); saveGame();
-  toast(`🏅 Nuovo adesivo: ${b.emoji} ${b.name}!`); confetti(); buzz([60, 40, 60]); renderGame();
-}
-function checkBadges() { BADGES.forEach((b) => { if (!game.badges[b.id] && b.ok()) earnBadge(b.id); }); }
 function mascotMessage() {
   const p = progress(state.day), name = profile.name, left = missingNames(state.day);
   const pick = (arr) => arr[(p.done * 7 + p.total + DAYS.indexOf(state.day)) % arr.length];
@@ -423,20 +483,174 @@ function mascotMessage() {
   if (left.length === 1) return `Ne manca solo una: ${left[0]}! Ci sei quasi 🏁`;
   return pick([`Che bravo! Ne restano ${left.length}. Ti va di cercare ${left[0]}? 👀`, `Stai andando forte! Ancora ${left.length} cose ⚡`, `Ottimo ritmo, ${name}! Vai come preferisci 😎`]);
 }
+/* ---------- album di figurine e traguardi ---------- */
+const STICKER_THEMES = [
+  { id: 'an', name: 'Animali', emoji: '🐾', items: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🦄', '🐢', '🐙', '🦋', '🐞', '🐬'] },
+  { id: 'sp', name: 'Spazio', emoji: '🚀', items: ['🚀', '🛸', '🌍', '🌙', '⭐', '🌟', '☄️', '🌕', '👨‍🚀', '👽', '🌞', '🔭', '🛰️', '🌌', '🌠', '🌚'] },
+  { id: 'sg', name: 'Sport', emoji: '⚽', items: ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏉', '🎱', '🏓', '🏸', '🥊', '🏆', '🥇', '🏅', '🚴', '🏊', '⛸️', '🎿'] },
+  { id: 'ci', name: 'Cibo', emoji: '🍕', items: ['🍎', '🍌', '🍇', '🍓', '🍉', '🍕', '🍔', '🌭', '🍟', '🍦', '🍩', '🍪', '🎂', '🍫', '🍿', '🥐', '🥕', '🌽', '🍒', '🥝', '🍋', '🍑', '🥞', '🧁'] },
+  { id: 'fa', name: 'Eroi e magia', emoji: '🦸', items: ['🦸', '🦹', '🧙', '🧚', '🧜', '🧛', '🧞', '🧟', '🦖', '🦕', '🐉', '🧝', '🤖', '👻', '🎃', '🐲', '👑', '🔮'] },
+  { id: 'me', name: 'Mezzi', emoji: '🚗', items: ['🚗', '🚕', '🚌', '🚓', '🚒', '🚑', '🚜', '🏎️', '🚲', '🛵', '✈️', '🚁', '🚂', '🚢', '⛵', '🛶', '🚛', '🚤'] },
+  { id: 'na', name: 'Natura', emoji: '🌳', items: ['🌳', '🌴', '🌵', '🌻', '🌷', '🌹', '🍄', '🌈', '☀️', '⛄', '🔥', '🌊', '🌋', '🏔️', '🍁', '🌸', '🐚', '🍂'] },
+  { id: 'mu', name: 'Musica e arte', emoji: '🎵', items: ['🎵', '🎸', '🥁', '🎹', '🎺', '🎻', '🎤', '🎧', '🎨', '🖌️', '🎭', '🎬', '📸', '🎪', '🎠', '🎡'] },
+  { id: 'sc', name: 'Scuola', emoji: '📚', items: ['📚', '✏️', '📏', '📐', '🔬', '🧪', '🧮', '🗺️', '💡', '🧠', '🎒', '📓', '🖍️', '🏫', '📎', '🔔'] },
+  { id: 'gi', name: 'Giochi', emoji: '🎮', items: ['🎮', '🕹️', '🎲', '🧩', '♟️', '🪀', '🪁', '🎯', '🎳', '🧸', '🎊', '🎁', '🎈', '🎉'] }
+];
+const RARITY = { c: { name: 'Comune', color: '#94a3b8', w: 60 }, r: { name: 'Raro', color: '#38bdf8', w: 25 }, e: { name: 'Epico', color: '#c084fc', w: 11 }, l: { name: 'Leggendario', color: '#fbbf24', w: 4 } };
+const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+const STICKERS = [];
+STICKER_THEMES.forEach((t) => t.items.forEach((emoji, i) => {
+  const id = t.id + String(i + 1).padStart(2, '0'), r = hashStr(id) % 100;
+  STICKERS.push({ id, theme: t.id, num: i + 1, emoji, rarity: r < 60 ? 'c' : r < 85 ? 'r' : r < 96 ? 'e' : 'l' });
+}));
+const uniqueStickers = () => Object.keys(game.stickers).length;
+const themeCount = (tid) => STICKERS.filter((s) => s.theme === tid && game.stickers[s.id]).length;
+function perfectWeeks() {
+  const weeks = {};
+  Object.keys(progressLog.completed).forEach((d) => {
+    const dt = new Date(d + 'T12:00:00'), dow = (dt.getDay() + 6) % 7; if (dow > 4) return;
+    const mon = new Date(dt); mon.setDate(dt.getDate() - dow);
+    const k = isoDate(mon); (weeks[k] = weeks[k] || new Set()).add(dow);
+  });
+  return Object.values(weeks).filter((x) => x.size >= 5).length;
+}
+/* Traguardi: tanti, a gradini, in categorie. Ognuno regala una bustina di figurine. */
+const tier = (cat, key, emojis, steps, name, hint, val) => steps.map((n, i) => ({
+  id: key + n, cat, emoji: emojis[Math.min(i, emojis.length - 1)], name: name(n), hint: hint(n), ok: () => val() >= n
+}));
+const plural = (n, one, many) => (n === 1 ? one : many);
+const BADGES = [].concat(
+  tier('Missioni', 'mis', ['🥇', '🥈', '🥉', '🏅', '🎖️', '🏵️', '💎', '🔱', '👑', '🌠'], [1, 5, 10, 20, 30, 50, 75, 100, 150, 200],
+    (n) => (n === 1 ? 'Prima missione' : `${n} missioni`), (n) => `Prepara lo zaino al 100% per ${n} ${plural(n, 'giorno', 'giorni')}`, () => streakInfo().total),
+  tier('Serie', 'str', ['🔥', '🔥', '🌋', '☄️', '🌟', '💫', '🚀'], [3, 5, 7, 10, 15, 20, 30],
+    (n) => `Serie di ${n}`, (n) => `Zaino pronto per ${n} giorni di scuola di fila`, () => streakInfo().best),
+  tier('Libri', 'book', ['📖', '📗', '📘', '📚', '🦉', '🏛️', '🎓', '🌍'], [1, 3, 5, 10, 15, 20, 30, 50],
+    (n) => (n === 1 ? 'Primo libro' : `${n} libri`), (n) => `Aggiungi ${n} ${plural(n, 'libro', 'libri')} con lo scanner`, () => game.books),
+  LEVELS.slice(1).map((l, i) => ({ id: 'lvl' + (i + 1), cat: 'Livelli', emoji: l.emoji, name: l.name, hint: `Arriva al livello ${l.name}`, ok: () => levelInfo(game.xp).i >= i + 1 })),
+  tier('Punti', 'xp', ['⭐', '🌟', '✨', '💥', '🎆', '🌈'], [500, 1000, 2000, 3000, 5000, 10000],
+    (n) => `${n} punti`, (n) => `Raccogli ${n} ⭐ in totale`, () => game.xp),
+  tier('Lampo', 'spd', ['⚡', '⚡', '🏎️', '🚀'], [1, 3, 5, 10],
+    (n) => (n === 1 ? 'Lampo' : `${n} lampi`), (n) => `Finisci la missione prima che scada la sfida (${n} ${plural(n, 'volta', 'volte')})`, () => game.speed),
+  tier('Ruota', 'whl', ['🎡', '🎰', '🎪', '🎠', '🎢'], [1, 5, 10, 20, 40],
+    (n) => (n === 1 ? 'Prima ruota' : `${n} giri`), (n) => `Gira la ruota ${n} ${plural(n, 'volta', 'volte')}`, () => Object.keys(rewards.draws).length),
+  tier('Settimane', 'wk', ['🏆', '🏆', '🥇', '🌈'], [1, 2, 4, 8],
+    (n) => (n === 1 ? 'Settimana perfetta' : `${n} settimane perfette`), (n) => `Da lunedì a venerdì tutti pronti (${n} ${plural(n, 'settimana', 'settimane')})`, perfectWeeks),
+  tier('Album', 'stk', ['🎴', '🃏', '🎴', '🃏', '💠', '👑'], [10, 25, 50, 100, 150, STICKERS.length],
+    (n) => (n === STICKERS.length ? 'Album completo' : `${n} figurine`), (n) => (n === STICKERS.length ? 'Completa tutto l\'album' : `Colleziona ${n} figurine diverse`), uniqueStickers),
+  STICKER_THEMES.map((t) => ({ id: 'th' + t.id, cat: 'Album', emoji: t.emoji, name: `Album ${t.name}`, hint: `Completa il tema ${t.name}`, ok: () => themeCount(t.id) >= t.items.length })),
+  tier('Bustine', 'pk', ['🎁', '🎀', '🎊', '🎉'], [1, 10, 25, 50],
+    (n) => (n === 1 ? 'Prima bustina' : `${n} bustine`), (n) => `Apri ${n} ${plural(n, 'bustina', 'bustine')}`, () => game.opened)
+);
+function grantPacks(n, silent) {
+  if (!n) return;
+  game.packs += n; saveGame();
+  if (!silent) toast(`🎴 +${n} ${plural(n, 'bustina', 'bustine')} di figurine! Aprila nella scheda Premi.`);
+}
+function earnBadge(id, silent) {
+  const b = BADGES.find((x) => x.id === id); if (!b || game.badges[id]) return;
+  game.badges[id] = new Date().toISOString(); game.packs += 1; saveGame();
+  if (!silent) { toast(`🏅 Nuovo traguardo: ${b.emoji} ${b.name}! +1 bustina 🎴`); confetti(); buzz([60, 40, 60]); sfx('badge'); }
+}
+let checkingBadges = false;
+function checkBadges(silent) {
+  if (checkingBadges) return; checkingBadges = true;
+  try { BADGES.forEach((b) => { if (!game.badges[b.id] && b.ok()) earnBadge(b.id, silent); }); } finally { checkingBadges = false; }
+  renderGame();
+}
+/* Prima apertura dopo l'aggiornamento: i traguardi già meritati arrivano in silenzio, in un'unica notifica. */
+function catchUpBadges() {
+  if (game.catchup) return;
+  const before = game.packs;
+  checkBadges(true); game.catchup = true; saveGame();
+  if (game.packs > before) setTimeout(() => toast(`🎴 Hai ${game.packs} ${plural(game.packs, 'bustina', 'bustine')} di figurine da aprire!`), 1500);
+}
+function drawSticker() {
+  const roll = Math.random() * 100; let acc = 0, rar = 'c';
+  for (const k of ['c', 'r', 'e', 'l']) { acc += RARITY[k].w; if (roll < acc) { rar = k; break; } }
+  const pool = STICKERS.filter((s) => s.rarity === rar), fresh = pool.filter((s) => !game.stickers[s.id]);
+  const list = fresh.length && Math.random() < 0.7 ? fresh : pool;
+  return list[Math.floor(Math.random() * list.length)];
+}
+let packState = { cards: [], revealed: [] };
+function openPack() {
+  if (game.packs < 1) { toast('Non hai bustine: completa lo zaino o un traguardo per averne! 🎴'); return; }
+  game.packs -= 1; game.opened += 1;
+  const cards = [];
+  for (let i = 0; i < 3; i++) {
+    const st = drawSticker(), had = game.stickers[st.id] || 0;
+    game.stickers[st.id] = had + 1;
+    cards.push({ ...st, isNew: had === 0, count: had + 1 });
+  }
+  saveGame();
+  packState = { cards, revealed: cards.map(() => false) };
+  const dupes = cards.filter((c) => !c.isNew).length;
+  if (dupes) grantXp(dupes * 5, 'Doppie');
+  sfx('pack'); renderPack(); openDialog($('dlg-pack')); checkBadges();
+}
+function renderPack() {
+  $('pack-cards').innerHTML = packState.cards.map((c, i) => packState.revealed[i]
+    ? `<div class="pcard rev r${c.rarity}" style="--rc:${RARITY[c.rarity].color}"><span class="pe">${c.emoji}</span><b>${RARITY[c.rarity].name}</b><small>${c.isNew ? '✨ NUOVA!' : `doppia ×${c.count}`}</small></div>`
+    : `<button type="button" class="pcard back" data-reveal="${i}" aria-label="Scopri la figurina ${i + 1}"><span class="pe">🎴</span><small>Tocca!</small></button>`).join('');
+  const all = packState.revealed.every(Boolean);
+  $('btn-reveal-all').classList.toggle('hidden', all);
+  $('btn-pack-next').classList.toggle('hidden', !all || game.packs < 1);
+  $('btn-pack-next').textContent = `🎁 Un'altra bustina (${game.packs})`;
+  $('btn-pack-done').classList.toggle('hidden', !all);
+}
+$('pack-cards').addEventListener('click', (e) => { const b = e.target.closest('[data-reveal]'); if (!b) return; packState.revealed[+b.dataset.reveal] = true; buzz(20); sfx('reveal'); renderPack(); renderGame(); });
+$('btn-reveal-all').onclick = () => { packState.revealed = packState.revealed.map(() => true); buzz([30, 30, 30]); sfx('reveal'); renderPack(); renderGame(); };
+$('btn-pack-next').onclick = () => { $('dlg-pack').close(); openPack(); };
+$('btn-pack-done').onclick = () => $('dlg-pack').close();
+$('btn-open-pack').onclick = openPack;
+let albumTheme = 'an', showAllBadges = false;
+$('album-themes').addEventListener('click', (e) => { const b = e.target.closest('[data-theme]'); if (!b) return; albumTheme = b.dataset.theme; renderGame(); });
+$('btn-badges-all').onclick = () => { showAllBadges = !showAllBadges; renderGame(); };
+$('hero-chips').addEventListener('click', (e) => { if (e.target.closest('#chip-packs')) { switchToPrizes(); } });
+function switchToPrizes() { showTab('premi'); if (game.packs > 0) toast('Tocca «Apri una bustina» 🎴'); }
+function renderWeekDots() {
+  const base = targetDate(defaultDay()).iso, d0 = new Date(base + 'T12:00:00');
+  const mon = new Date(d0); mon.setDate(d0.getDate() - ((d0.getDay() + 6) % 7));
+  const todayIso = isoDate(new Date()); let n = 0;
+  $('week-dots').innerHTML = DAYS.map((d, i) => {
+    const dt = new Date(mon); dt.setDate(mon.getDate() + i);
+    const iso = isoDate(dt), done = !!progressLog.completed[iso]; if (done) n++;
+    return `<span class="wdot${done ? ' done' : ''}${iso === base ? ' cur' : ''}${iso === todayIso ? ' today' : ''}" title="${d}${done ? ': zaino pronto' : ''}"><i aria-hidden="true">${done ? '✓' : ''}</i><b>${d[0]}</b></span>`;
+  }).join('') + `<span class="wdot-t">${n} su 5 questa settimana</span>`;
+}
 function renderGame() {
+  renderWeekDots();
   const L = levelInfo(game.xp), st = streakInfo();
-  $('hero-chips').innerHTML = `<span class="gchip">${L.cur.emoji} ${esc(L.cur.name)}</span><span class="gchip">⭐ ${game.xp} XP</span><span class="gchip${st.cur ? ' fire' : ''}" title="Giorni di scuola di fila con lo zaino pronto">🔥 ${st.cur}</span>`;
+  $('hero-chips').innerHTML = `<span class="gchip">${L.cur.emoji} ${esc(L.cur.name)}</span><span class="gchip">⭐ ${game.xp} XP</span><span class="gchip${st.cur ? ' fire' : ''}" title="Giorni di scuola di fila con lo zaino pronto">🔥 ${st.cur}</span>`
+    + (game.packs > 0 ? `<button type="button" class="gchip gold" id="chip-packs" aria-label="${game.packs} bustine da aprire">🎴 ${game.packs}</button>` : '');
   document.querySelectorAll('.xp-fill').forEach((el) => { el.style.width = L.pct + '%'; });
   const nxt = L.next ? `Ancora ${L.toNext} XP per diventare ${L.next.emoji} ${L.next.name}` : 'Livello massimo: sei una leggenda! 👑';
   document.querySelectorAll('.xp-text').forEach((el) => { el.textContent = nxt; });
   $('mascot-line').textContent = mascotMessage();
   $('lvl-name').textContent = `${L.cur.emoji} ${L.cur.name}`; $('lvl-xp').textContent = `${game.xp} XP`;
   $('lvl-streak').textContent = `🔥 Serie ${st.cur} · record ${st.best}`;
+  // album
+  const uq = uniqueStickers();
+  $('album-count').textContent = `${uq} di ${STICKERS.length}`;
+  $('album-fill').style.width = Math.round(uq / STICKERS.length * 100) + '%';
+  $('pack-n').textContent = String(game.packs);
+  $('btn-open-pack').disabled = game.packs < 1;
+  $('album-themes').innerHTML = STICKER_THEMES.map((t) =>
+    `<button type="button" class="chip-sel" data-theme="${t.id}" aria-pressed="${t.id === albumTheme}">${t.emoji} ${esc(t.name)} ${themeCount(t.id)}/${t.items.length}</button>`).join('');
+  $('album-grid').innerHTML = STICKERS.filter((s) => s.theme === albumTheme).map((s) => game.stickers[s.id]
+    ? `<div class="stk r${s.rarity}" style="--rc:${RARITY[s.rarity].color}" title="${RARITY[s.rarity].name}"><span>${s.emoji}</span>${game.stickers[s.id] > 1 ? `<i>×${game.stickers[s.id]}</i>` : ''}</div>`
+    : `<div class="stk lock" aria-label="Figurina ${s.num} da trovare"><span>❔</span><small>${s.num}</small></div>`).join('');
+  // traguardi: quelli ottenuti + il prossimo di ogni categoria
   const got = BADGES.filter((b) => game.badges[b.id]).length;
   $('badge-count').textContent = `${got} di ${BADGES.length}`;
-  $('badge-grid').innerHTML = BADGES.map((b) => game.badges[b.id]
-    ? `<div class="badge on" title="${esc(b.name)}"><span class="bi">${b.emoji}</span><b>${esc(b.name)}</b></div>`
-    : `<div class="badge" title="${esc(b.hint)}"><span class="bi">❔</span><b>${esc(b.name)}</b><small>${esc(b.hint)}</small></div>`).join('');
+  const cats = []; BADGES.forEach((b) => { if (!cats.includes(b.cat)) cats.push(b.cat); });
+  $('badge-grid').innerHTML = cats.map((cat) => {
+    const list = BADGES.filter((b) => b.cat === cat); let shownLocked = 0;
+    const cells = list.filter((b) => { if (game.badges[b.id]) return true; if (showAllBadges || shownLocked < 1) { shownLocked++; return true; } return false; }).map((b) => game.badges[b.id]
+      ? `<div class="badge on" title="${esc(b.name)}"><span class="bi">${b.emoji}</span><b>${esc(b.name)}</b></div>`
+      : `<div class="badge" title="${esc(b.hint)}"><span class="bi">❔</span><b>${esc(b.name)}</b><small>${esc(b.hint)}</small></div>`).join('');
+    return `<h4 class="badge-cat">${esc(cat)}</h4><div class="badge-row">${cells}</div>`;
+  }).join('');
+  $('btn-badges-all').textContent = showAllBadges ? 'Mostra solo i prossimi' : 'Mostra tutti i traguardi';
   let withCover = 0, total = 0;
   Object.keys(subjects).forEach((k) => subjects[k].materials.forEach((m) => { total++; if (m.photo) withCover++; }));
   $('lib-count').textContent = `Hai ${total} ${total === 1 ? 'libro o quaderno' : 'libri e quaderni'}, ${withCover} con la foto della copertina 📸`;
@@ -472,9 +686,10 @@ function renderMission() {
   if (!left.length) { finishMission(); return; }
   if (!left.includes(mission.cur)) mission.cur = left.find((id) => mission.queue.includes(id)) || left[0];
   const f = findMaterial(mission.cur), m = f.mat, sj = subjects[f.key];
-  $('mission-pic').innerHTML = m.photo ? `<img src="${m.photo}" alt="Copertina di ${esc(m.name)}">` : `<span class="mission-emoji" aria-hidden="true">${esc(sj.emoji)}</span>`;
+  $('mission-pic').innerHTML = m.photo ? `<img src="${m.photo}" alt="Copertina di ${esc(m.name)}">` : `<span class="mission-emoji" aria-hidden="true">${esc(m.emoji || sj.emoji)}</span>`;
   $('mission-pic').style.setProperty('--c', sj.color);
   $('mission-name').textContent = m.name; $('mission-subj').textContent = `${sj.emoji} ${f.key}`;
+  $('btn-mission-photo').textContent = m.photo ? '📸 Cambia foto' : '📸 Aggiungi la foto';
   $('mission-dots').innerHTML = all.map((id) => `<i class="${c[id] ? 'on' : id === mission.cur ? 'cur' : ''}"></i>`).join('');
   $('mission-bubble').textContent = left.length === 1 ? 'È l\'ultima! Poi hai finito 🏁' : `Lo vedi? Quando ce l'hai in mano, toccami! (${left.length} da trovare)`;
   $('mission-pick').innerHTML = left.filter((id) => id !== mission.cur).map((id) => { const x = findMaterial(id); return `<button type="button" class="chip-sel" data-mpick="${id}">${esc(subjects[x.key].emoji)} ${esc(x.mat.name)}</button>`; }).join('') || '<span class="muted small">Nessun\'altra cosa: sei all\'ultima!</span>';
@@ -486,9 +701,21 @@ function finishMission() {
   if (wasTimer) {
     const date = targetDate(state.day).iso;
     toast(`⚡ Missione lampo! Ti avanzavano ${fmtTime(rest)}`);
-    awardXp(`${date}:speed`, 25, 'Lampo!'); earnBadge('speed');
+    game.speed += 1; saveGame(); awardXp(`${date}:speed`, 25, 'Lampo!'); checkBadges();
   }
 }
+$('btn-mission-photo').onclick = () => $('mission-photo').click();
+$('mission-photo').onchange = async (e) => {
+  const f = e.target.files[0]; e.target.value = ''; const id = mission.cur;
+  if (!f || !id) return;
+  const found = findMaterial(id); if (!found) return;
+  try {
+    const dataUrl = await resizeImage(f, 480, 40);
+    if (!dataUrl) { toast('Non riesco a leggere questa foto.'); return; }
+    found.mat.photo = dataUrl;
+    if (saveSubjects()) { awardXp('photo:' + id, 10, 'Foto!'); renderMission(); render(); }
+  } catch (err) { toast('Non riesco a salvare la foto.'); }
+};
 $('btn-mission').onclick = openMission;
 $('btn-mission-timer').onclick = () => { if (mission.timerOn) stopMissionTimer(); else startMissionTimer(); };
 $('btn-mission-ok').onclick = () => {
@@ -524,7 +751,14 @@ $('btn-hold').addEventListener('contextmenu', (e) => e.preventDefault());
 $('btn-hold').addEventListener('click', (e) => { if (e.detail === 0) unlockParent(); }); // con la tastiera
 
 /* ---------- rendering ---------- */
+function applyTheme() {
+  const t = activeKid().theme || 'spazio';
+  document.documentElement.dataset.theme = t;
+  const m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', { spazio: '#1e293b', oceano: '#0c3347', foresta: '#123524', tramonto: '#3b1a2e', notte: '#15151d' }[t] || '#1e293b');
+}
 function render() {
+  applyTheme();
   recordCompletion(state.day);
   $('profile-line').textContent = `${profile.name} — Classe ${profile.cls}`;
   $('hero-eyebrow').textContent = `Carica dello zaino · ${profile.name}`;
@@ -546,6 +780,7 @@ function render() {
   renderHistory();
   renderSubjects();
   renderGame();
+  renderToday();
   $('subject-list').innerHTML = Object.keys(subjects).map((k) => `<option value="${esc(k)}">`).join('');
 }
 
@@ -565,7 +800,7 @@ function renderList() {
   $('list').innerHTML = groups.map((g) => {
     const meta = g.key ? subjects[g.key] : null;
     const color = meta ? meta.color : '#f59e0b';
-    const hoursTxt = g.hours.length === 1 ? `${g.hours[0]}ª ora` : `ore ${g.hours.join(', ')}`;
+    const hoursTxt = g.fixed ? 'ogni giorno' : g.hours.length === 1 ? `${g.hours[0]}ª ora` : `ore ${g.hours.join(', ')}`;
     const allDone = g.mats.length > 0 && g.mats.every((m) => c[m.id]);
     let body;
     if (!meta) {
@@ -575,7 +810,7 @@ function renderList() {
     } else {
       body = '<div class="mats">' + g.mats.map((m) => `
         <div class="mat${c[m.id] ? ' on' : ''}">
-          <label><input type="checkbox" data-mid="${m.id}" ${c[m.id] ? 'checked' : ''}><span class="mname">${esc(m.name)}</span>${m.cls ? `<span class="mtag">${m.cls}ª</span>` : ''}</label>
+          <label><input type="checkbox" data-mid="${m.id}" ${c[m.id] ? 'checked' : ''}><span class="mname">${m.emoji ? `<span class="memo" aria-hidden="true">${esc(m.emoji)}</span> ` : ''}${esc(m.name)}</span>${m.cls ? `<span class="mtag">${m.cls}ª</span>` : ''}</label>
           ${m.photo ? `<button class="thumb" data-zoom="${m.id}" aria-label="Ingrandisci foto di ${esc(m.name)}"><img src="${m.photo}" alt=""></button>` : ''}
         </div>`).join('') + '</div>';
     }
@@ -632,10 +867,10 @@ function renderProgress(celebrate) {
 }
 
 function renderSubjects() {
-  $('subjects').innerHTML = Object.keys(subjects).map((k) => {
+  $('subjects').innerHTML = Object.keys(subjects).sort((a, b) => (b === FIXED_KEY) - (a === FIXED_KEY)).map((k) => {
     const s = subjects[k];
     return `<div class="s-wrap"><button class="s-card" data-subj="${esc(k)}"><span class="row gap"><span class="dot" style="background:${s.color}"></span>
-      <span><h4>${esc(s.emoji)} ${esc(k)}</h4><span class="muted small">${s.materials.length} materiale/i</span></span></span><span aria-hidden="true">✏️</span></button>
+      <span><h4>${esc(s.emoji)} ${esc(k)}</h4><span class="muted small">${k === FIXED_KEY ? 'una volta al giorno · ' : ''}${s.materials.length} ${s.materials.length === 1 ? 'cosa' : 'cose'}</span></span></span><span aria-hidden="true">✏️</span></button>
       <button class="s-scan" type="button" data-scan-subj="${esc(k)}" aria-label="Scansiona un libro di ${esc(k)}">📷<small>Libro</small></button></div>`;
   }).join('') + '<button class="s-card add" id="btn-new-subj" type="button">＋ Nuova materia</button>';
 }
@@ -655,8 +890,8 @@ function toggleItem(id, value) {
   const after = progress(state.day).pct;
   if (after === 100 && before < 100) {
     recordCompletion(state.day);
-    awardXp(`${date}:full`, 50, 'Zaino pronto!');
-    confetti(); buzz([80, 40, 80]); speak('Zaino pronto! Bravo!');
+    awardXp(`${date}:full`, 50, 'Zaino pronto!'); awardPack(`${date}:pack`, 1);
+    confetti(); buzz([80, 40, 80]); sfx('win'); speak('Zaino pronto! Bravo!');
     checkBadges(); renderGame();
   }
 }
@@ -667,15 +902,46 @@ let wheelBusy = false;
 const wheelDateLabel = (date) => new Date(`${date}T12:00:00`).toLocaleDateString('it-IT', {
   weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
 });
+const shuffle = (arr) => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const WHEEL_QUOTA = [['symbolic', 2], ['ticket', 1], ['sticker', 2], ['privilege', 2], ['experience', 1], ['physical', 1]];
+/* La ruota ha sempre 10 spicchi, scelti a caso dall'elenco in modo equilibrato fra i tipi. */
+function buildWheelLayout() {
+  const list = prizeCatalog.list, pick = [];
+  WHEEL_QUOTA.forEach(([t, n]) => shuffle(list.filter((p) => p.type === t && !pick.includes(p))).slice(0, n).forEach((p) => pick.push(p)));
+  const rest = shuffle(list.filter((p) => !pick.includes(p)));
+  while (pick.length < 10 && rest.length) pick.push(rest.pop());
+  while (pick.length < 10) pick.push(list[pick.length % list.length]);
+  return shuffle(pick).slice(0, 10).map((p) => ({ id: p.id, title: p.title, type: p.type, packs: p.packs || 0, ticket: p.type === 'ticket' }));
+}
+let wheelSlices = buildWheelLayout();
+function layoutFor(date) {
+  const saved = rewards.layouts && cleanLayout(rewards.layouts[date]);
+  if (saved) return saved;
+  const layout = buildWheelLayout();
+  const layouts = Object.assign({}, rewards.layouts, { [date]: layout });
+  Object.keys(layouts).sort().slice(0, Math.max(0, Object.keys(layouts).length - 60)).forEach((k) => delete layouts[k]);
+  const next = Object.assign({}, rewards, { layouts });
+  if (store.set(KEYS.rewards, next)) rewards = next;
+  return layout;
+}
+function prizeFromDraw(draw) {
+  if (!draw) return null;
+  const known = prizeCatalog.list.find((p) => p.id === draw.prizeId);
+  const type = PRIZE_TYPES.some((t) => t.id === draw.type) ? draw.type : (known ? known.type : 'symbolic');
+  return { id: draw.prizeId, title: draw.prizeTitle || (known && known.title) || 'Premio', type, ticket: type === 'ticket', packs: draw.packs || (known && known.packs) || 0 };
+}
+const wheelShort = (p) => `${TYPE_EMOJI[p.type] || '🎁'} ${String(p.title).replace(/^(Ticket|Badge|Medaglia|Trofeo|Titolo|Scegliere|Una|Un)\s+/i, '').split(' ')[0].slice(0, 7)}`;
 function renderWheelLabels() {
-  $('wheel-labels').innerHTML = prizesForWheel().map((prize, i) =>
-    `<span class="wheel-label" style="--angle:${i * 36}deg;--counter:${-i * 36}deg">${esc(prize.short)}</span>`).join('');
+  $('wheel-labels').innerHTML = wheelSlices.map((prize, i) =>
+    `<span class="wheel-label" style="--angle:${i * 36}deg;--counter:${-i * 36}deg">${esc(wheelShort(prize))}</span>`).join('');
 }
 function showWheelCoupon(date, prize) {
   $('coupon-prize').textContent = prize.title;
   $('coupon-detail').textContent = prize.ticket
     ? `Ticket aggiunto. Saldo attuale: ${rewards.tickets}. Mostra il coupon a un adulto.`
-    : 'Mostra il coupon a un adulto per confermare il premio.';
+    : prize.type === 'sticker'
+      ? `Hai vinto ${prize.packs} ${plural(prize.packs, 'bustina', 'bustine')} di figurine! Aprila nella scheda Premi 🎴`
+      : 'Mostra il coupon a un adulto per confermare il premio.';
   $('coupon-date').textContent = `Giornata: ${wheelDateLabel(date)}`;
   $('reward-coupon').classList.remove('hidden');
   $('wheel-message').textContent = 'Il tuo premio è pronto!';
@@ -683,47 +949,61 @@ function showWheelCoupon(date, prize) {
   $('btn-close-wheel').classList.remove('hidden');
   $('ticket-count').textContent = `Ticket accumulati: ${rewards.tickets}.`;
 }
-function renderPrizeEditor() {
-  const groups = [
-    { type: 'symbolic', label: 'Premi simbolici · 6 settori · 60%' },
-    { type: 'privilege', label: 'Privilegi · 3 settori · 30%' },
-    { type: 'physical', label: 'Premio fisico · 1 settore · 10%' }
-  ];
-  $('prize-fields').innerHTML = groups.map((group) => {
-    const fields = WHEEL_PRIZES.filter((prize) => prize.type === group.type).map((prize) =>
-      `<label class="field"><span class="small muted">${esc(prize.short)}</span>
-        <input type="text" data-prize-id="${esc(prize.id)}" maxlength="80" value="${esc(prizeCatalog[prize.id])}" autocomplete="off"></label>`
-    ).join('');
-    return `<fieldset class="prize-group"><legend>${esc(group.label)}</legend><div class="grid">${fields}</div></fieldset>`;
+let prizeDraftIds = 0;
+function prizeRowHtml(p) {
+  return `<div class="prize-row" data-prow data-id="${esc(p.id)}" data-type="${p.type}">
+    <input type="text" data-ptitle maxlength="80" value="${esc(p.title)}" autocomplete="off" aria-label="Nome del premio">
+    ${p.type === 'sticker' ? `<select data-ppacks aria-label="Quante bustine">${[1, 2, 3, 4, 5].map((n) => `<option value="${n}"${(p.packs || 1) === n ? ' selected' : ''}>${n} 🎴</option>`).join('')}</select>` : ''}
+    <button type="button" class="btn btn-icon" data-del-prize aria-label="Elimina il premio">🗑</button></div>`;
+}
+function renderPrizeEditor(list) {
+  const items = list || prizeCatalog.list;
+  $('prize-fields').innerHTML = PRIZE_TYPES.map((t) => {
+    const rows = items.filter((p) => p.type === t.id);
+    return `<fieldset class="prize-group" data-ptype="${t.id}"><legend>${t.emoji} ${t.label} <span class="muted small">(${rows.length})</span></legend>
+      <div class="stack" data-rows>${rows.map(prizeRowHtml).join('')}</div>
+      <button type="button" class="btn btn-soft btn-sm" data-add-prize="${t.id}">＋ Aggiungi ${t.one}</button></fieldset>`;
   }).join('');
 }
-$('btn-manage-prizes').onclick = () => {
-  renderPrizeEditor();
-  openDialog($('dlg-prizes'));
-};
+$('btn-manage-prizes').onclick = () => { renderPrizeEditor(); openDialog($('dlg-prizes')); };
+$('prize-fields').addEventListener('click', (e) => {
+  const add = e.target.closest('[data-add-prize]');
+  if (add) {
+    const type = add.dataset.addPrize;
+    if ($('prize-fields').querySelectorAll('[data-prow]').length >= MAX_PRIZES) { toast(`Al massimo ${MAX_PRIZES} premi.`); return; }
+    const box = add.closest('fieldset').querySelector('[data-rows]');
+    box.insertAdjacentHTML('beforeend', prizeRowHtml({ id: 'n' + Date.now().toString(36) + (prizeDraftIds++), type, title: '', packs: 1 }));
+    box.lastElementChild.querySelector('input').focus(); return;
+  }
+  const del = e.target.closest('[data-del-prize]');
+  if (del) {
+    if ($('prize-fields').querySelectorAll('[data-prow]').length <= MIN_PRIZES) { toast(`Servono almeno ${MIN_PRIZES} premi per riempire la ruota.`); return; }
+    del.closest('[data-prow]').remove();
+  }
+});
 $('prize-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  const next = {};
-  let invalid = false;
-  $('prize-fields').querySelectorAll('[data-prize-id]').forEach((input) => {
-    const value = input.value.trim();
-    if (!value) { invalid = true; input.focus(); }
-    next[input.dataset.prizeId] = value.slice(0, 80);
+  const list = []; let invalid = false;
+  $('prize-fields').querySelectorAll('[data-prow]').forEach((row) => {
+    const title = row.querySelector('[data-ptitle]').value.trim();
+    if (!title) { invalid = true; row.querySelector('[data-ptitle]').focus(); return; }
+    const p = { id: row.dataset.id, type: row.dataset.type, title: title.slice(0, 80) };
+    const pk = row.querySelector('[data-ppacks]'); if (pk) p.packs = +pk.value;
+    list.push(p);
   });
-  if (invalid) { toast('Inserisci un nome per tutti i premi.'); return; }
+  if (invalid) { toast('Dai un nome a tutti i premi (o eliminali).'); return; }
+  if (list.length < MIN_PRIZES) { toast(`Servono almeno ${MIN_PRIZES} premi.`); return; }
+  const next = cleanCatalog({ list });
   if (!store.set(KEYS.catalog, next)) return;
-  prizeCatalog = cleanCatalog(next);
-  renderWheelLabels(); render();
-  $('dlg-prizes').close();
-  toast('Catalogo premi salvato ✅');
+  prizeCatalog = next; wheelSlices = buildWheelLayout();
+  renderWheelLabels(); render(); $('dlg-prizes').close(); toast(`Premi salvati ✅ (${next.list.length})`);
 });
 $('btn-reset-prizes').onclick = () => {
-  if (!confirm('Ripristinare i nomi iniziali dei premi? I coupon già vinti resteranno invariati.')) return;
+  if (!confirm('Ripristinare l\'elenco iniziale dei premi? I coupon già vinti restano invariati.')) return;
   const defaults = cleanCatalog(null);
   if (!store.set(KEYS.catalog, defaults)) return;
-  prizeCatalog = defaults;
-  renderPrizeEditor(); renderWheelLabels(); render();
-  toast('Premi iniziali ripristinati ✅');
+  prizeCatalog = defaults; wheelSlices = buildWheelLayout();
+  renderPrizeEditor(); renderWheelLabels(); render(); toast('Premi iniziali ripristinati ✅');
 };
 function openWheel() {
   if (wheelBusy) return;
@@ -732,6 +1012,8 @@ function openWheel() {
   const p = progress(state.day);
   if (!draw && (!p.total || p.pct !== 100)) return;
   activeWheelDate = date;
+  wheelSlices = layoutFor(date);
+  renderWheelLabels();
   const wheel = $('prize-wheel');
   wheel.style.transition = 'none';
   wheel.style.transform = 'rotate(0deg)';
@@ -740,11 +1022,9 @@ function openWheel() {
   $('ticket-count').textContent = `Ticket accumulati: ${rewards.tickets}.`;
   if (draw) {
     const prize = prizeFromDraw(draw);
-    const index = WHEEL_PRIZES.findIndex((item) => item.id === draw.prizeId);
-    if (prize) {
-      wheel.style.transform = `rotate(${(360 - index * 36) % 360}deg)`;
-      showWheelCoupon(date, prize);
-    }
+    const index = Math.max(0, wheelSlices.findIndex((item) => item.id === draw.prizeId));
+    wheel.style.transform = `rotate(${(360 - index * 36) % 360}deg)`;
+    showWheelCoupon(date, prize);
   } else {
     $('btn-spin').disabled = false;
     $('btn-spin').textContent = 'Fai girare la ruota';
@@ -759,24 +1039,19 @@ $('btn-spin').onclick = () => {
   if (wheelBusy || !activeWheelDate) return;
   const date = activeWheelDate;
   const existing = rewards.draws[date];
-  if (existing) {
-    const prize = prizeFromDraw(existing);
-    if (prize) showWheelCoupon(date, prize);
-    return;
-  }
+  if (existing) { showWheelCoupon(date, prizeFromDraw(existing)); return; }
   const p = progress(state.day);
-  if (date !== targetDate(state.day).iso || !p.total || p.pct !== 100) {
-    toast('Completa lo zaino del giorno per sbloccare la ruota.');
-    return;
-  }
-  const index = Math.floor(Math.random() * WHEEL_PRIZES.length);
-  const prize = prizesForWheel()[index];
+  if (date !== targetDate(state.day).iso || !p.total || p.pct !== 100) { toast('Completa lo zaino del giorno per sbloccare la ruota.'); return; }
+  const index = Math.floor(Math.random() * wheelSlices.length);
+  const prize = wheelSlices[index];
   const next = {
-    draws: Object.assign({}, rewards.draws, { [date]: { prizeId: prize.id, prizeTitle: prize.title, awardedAt: new Date().toISOString() } }),
-    tickets: Math.min(1000000, rewards.tickets + (prize.ticket ? 1 : 0))
+    draws: Object.assign({}, rewards.draws, { [date]: { prizeId: prize.id, prizeTitle: prize.title, type: prize.type, packs: prize.packs || 0, awardedAt: new Date().toISOString() } }),
+    tickets: Math.min(1000000, rewards.tickets + (prize.ticket ? 1 : 0)),
+    layouts: rewards.layouts || {}
   };
   if (!store.set(KEYS.rewards, next)) return;
   rewards = next;
+  if (prize.type === 'sticker' && prize.packs) grantPacks(prize.packs, true);
   wheelBusy = true;
   $('btn-spin').disabled = true;
   $('btn-spin').textContent = 'La ruota gira…';
@@ -788,12 +1063,13 @@ $('btn-spin').onclick = () => {
   void wheel.offsetWidth;
   wheel.style.transition = '';
   wheel.style.transform = `rotate(${stopAt}deg)`;
-  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = calm || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   setTimeout(() => {
     wheelBusy = false;
     showWheelCoupon(date, prize);
     render();
     confetti();
+    checkBadges();
     speak(`Hai vinto: ${prize.title}.`);
   }, reducedMotion ? 0 : 4300);
 };
@@ -1012,11 +1288,26 @@ $('btn-emoji').onclick = () => {
   box.classList.toggle('hidden', !open); $('btn-emoji').setAttribute('aria-expanded', String(open));
   if (open) emojiGrid(box, draft.emoji, (e) => { draft.emoji = e; $('mat-title').textContent = `${draft.emoji} ${draftKey}`; });
 };
+const QUICK_ITEMS = [['Borraccia', '💧'], ['Merenda', '🍎'], ['Tuta ginnastica', '👟'], ['Colori', '🖍️'], ['Pennarelli', '🖊️'], ['Righello', '📏'], ['Cartellina', '📁'], ['Calcolatrice', '🧮'], ['Giacca', '🧥'], ['Ombrello', '☂️']];
+function renderQuickAdd() {
+  const show = draftKey === FIXED_KEY;
+  $('quick-add').classList.toggle('hidden', !show);
+  if (!show) return;
+  $('quick-add').innerHTML = '<span class="small muted">Aggiungi al volo:</span>' + QUICK_ITEMS.filter(([n]) => !draft.materials.some((m) => norm(m.name) === norm(n)))
+    .map(([n, e]) => `<button type="button" class="chip-sel" data-quick="${esc(n)}|${e}">${e} ${esc(n)}</button>`).join('');
+}
+$('quick-add').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-quick]'); if (!b || !draft) return;
+  const [name, emoji] = b.dataset.quick.split('|');
+  if (draft.materials.length >= 30) { toast('Troppe cose in questa lista.'); return; }
+  draft.materials.push({ id: uid(), name, photo: '', barcode: '', cls: '', emoji });
+  renderDraft(); renderQuickAdd(); buzz(15);
+});
 function openMaterials(key) {
   draftKey = key; draft = clone(subjects[key]);
   $('mat-title').textContent = `${draft.emoji} ${key}`;
   $('mat-emoji').classList.add('hidden'); $('btn-emoji').setAttribute('aria-expanded', 'false');
-  renderDraft(); openDialog($('dlg-mat'));
+  renderDraft(); renderQuickAdd(); openDialog($('dlg-mat'));
 }
 function renderDraft() {
   $('mat-list').innerHTML = draft.materials.map((m, i) => `
@@ -1356,10 +1647,95 @@ async function lookupIsbn(isbn) {
     const c = isbnCache.get(isbn);
     if (c) found = Object.assign({ sources: ['memoria del telefono'] }, c);
   }
+  if (!found) {
+    const st = await lookupStores(isbn).catch(() => null);
+    if (st) { found = { title: st.title, authors: st.authors || '', hint: st.hint || st.title, coverUrl: st.coverUrl || '', sources: [st.source] }; isbnCache.put(isbn, found); }
+  }
   if (!found) return null;
   found.cover = await fetchCover(found.coverUrl) || await fetchCover(`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`);
   return found;
 }
+/* ---------- librerie italiane online (tramite servizio intermedio) ---------- */
+/* I siti delle librerie non permettono richieste dirette dal browser: si passa da un servizio intermedio.
+   Meglio il proprio (vedi cloudflare-worker-libri.js); altrimenti si provano servizi pubblici. */
+const CORS_PROXIES = [
+  (u) => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  (u) => 'https://corsproxy.io/?' + encodeURIComponent(u),
+  (u) => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u)
+];
+const STORE_SOURCES = [
+  { name: 'Libraccio', url: (i) => `https://www.libraccio.it/libro/${i}` },
+  { name: 'IBS', url: (i) => `https://www.ibs.it/search/?ts=as&query=${i}` },
+  { name: 'Mondadori Store', url: (i) => `https://www.mondadoristore.it/search/?g=${i}` },
+  { name: 'Libreria Universitaria', url: (i) => `https://www.libreriauniversitaria.it/ricerca.htm?q=${i}` }
+];
+const storesOn = () => store.get('zaino_stores_on', true) !== false;
+const bookService = () => { const v = String(store.get('zaino_book_service', '') || '').trim(); return /^https:\/\/[^\s]+$/.test(v) ? v : ''; };
+async function textWithTimeout(url, ms) {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), ms || 9000);
+  try { const r = await fetch(url, { signal: ctl.signal }); if (!r.ok) throw new Error('http'); const body = await r.text(); if (body.length < 200) throw new Error('vuoto'); return body; } finally { clearTimeout(t); }
+}
+/* risponde la prima pagina valida fra i servizi intermedi */
+function proxyGet(url) {
+  return new Promise((resolve, reject) => {
+    let pending = CORS_PROXIES.length, done = false;
+    CORS_PROXIES.forEach((mk) => textWithTimeout(mk(url)).then((b) => { if (!done) { done = true; resolve(b); } }).catch(() => { if (--pending === 0 && !done) reject(new Error('proxy')); }));
+  });
+}
+const cleanStoreTitle = (t) => String(t || '').replace(/\s*[-|–]\s*(Libro|Libraccio|IBS|Mondadori|Libreria|Giunti|Acquista).*$/i, '').replace(/\s+/g, ' ').trim();
+/* Legge i dati strutturati (JSON-LD schema.org, poi Open Graph) di una pagina libro o di una ricerca. */
+function parseBookHtml(html, isbn) {
+  let doc; try { doc = new DOMParser().parseFromString(String(html), 'text/html'); } catch (e) { return null; }
+  const digits = String(html).replace(/[-\s]/g, '');
+  const found = [];
+  const names = (v) => (Array.isArray(v) ? v : v ? [v] : []).map((x) => (typeof x === 'string' ? x : x && x.name || '')).filter(Boolean).join(', ');
+  const walk = (n) => {
+    if (!n || typeof n !== 'object') return;
+    if (Array.isArray(n)) { n.forEach(walk); return; }
+    if (n['@graph']) walk(n['@graph']);
+    const types = [].concat(n['@type'] || []).map(String);
+    if (types.some((t) => /Book|Product/i.test(t)) && n.name) {
+      const ids = [n.isbn, n.gtin13, n.gtin, n.sku, n.productID].filter(Boolean).map((x) => String(x).replace(/\D/g, ''));
+      const img = Array.isArray(n.image) ? n.image[0] : n.image;
+      found.push({ title: String(n.name), authors: names(n.author || n.creator), publisher: names(n.publisher || n.brand), coverUrl: typeof img === 'string' ? img : (img && img.url) || '', ids, cat: String(n.category || n.genre || '') });
+    }
+  };
+  doc.querySelectorAll('script[type="application/ld+json"]').forEach((sc) => { try { walk(JSON.parse(sc.textContent)); } catch (e) { /* JSON non valido */ } });
+  let pick = found.find((f) => f.ids.includes(isbn)) || (digits.includes(isbn) ? found[0] : null);
+  if (!pick && digits.includes(isbn)) {
+    const og = (p) => { const m = doc.querySelector(`meta[property="${p}"]`); return m ? m.getAttribute('content') : ''; };
+    const t = cleanStoreTitle(og('og:title') || (doc.title || ''));
+    if (t && t.length > 4) pick = { title: t, authors: '', publisher: '', coverUrl: og('og:image') || '', ids: [], cat: '' };
+  }
+  if (!pick) return null;
+  return { title: cleanStoreTitle(pick.title).slice(0, 120), authors: pick.authors, hint: `${pick.title} ${pick.publisher} ${pick.cat}`, coverUrl: pick.coverUrl };
+}
+async function lookupStores(isbn, only) {
+  if ((!storesOn() && !only) || !navigator.onLine) return null;
+  const tasks = [];
+  const svc = bookService();
+  if (svc) tasks.push(['Servizio personale', async () => {
+    const d = await fetchJson(svc + (svc.includes('?') ? '&' : '?') + 'isbn=' + isbn);
+    return d && d.title ? { title: d.title, authors: d.authors || '', hint: d.hint || d.title, coverUrl: d.cover || '' } : null;
+  }]);
+  STORE_SOURCES.forEach((src) => tasks.push([src.name, async () => parseBookHtml(await proxyGet(src.url(isbn)), isbn)]));
+  return new Promise((resolve) => {
+    let pending = tasks.length, finished = false; const report = [];
+    const end = (v) => { if (!finished) { finished = true; clearTimeout(timer); resolve(v); } };
+    const timer = setTimeout(() => end(null), 16000);
+    tasks.forEach(([name, fn]) => fn().then((info) => { report.push([name, !!info]); if (info && info.title) end(Object.assign(info, { source: name, report })); }).catch(() => { report.push([name, false]); }).finally(() => { if (--pending === 0) end(null); }));
+  });
+}
+$('stores-on').checked = storesOn();
+$('book-service').value = bookService();
+$('stores-on').onchange = () => store.set('zaino_stores_on', $('stores-on').checked, true);
+$('book-service').onchange = () => { const v = $('book-service').value.trim(); store.set('zaino_book_service', /^https:\/\/[^\s]+$/.test(v) ? v : '', true); };
+$('btn-test-books').onclick = async () => {
+  const out = $('book-test-result'); out.textContent = 'Provo… (può servire qualche secondo)';
+  const info = await lookupStores('9788809938052', true);
+  out.textContent = info ? `✅ Funziona: ${info.source} ha risposto («${info.title.slice(0, 50)}»).` : (navigator.onLine ? '❌ Nessuna libreria ha risposto. I servizi pubblici possono essere bloccati: prova a usare il tuo servizio personale (vedi LEGGIMI).' : 'Sei offline.');
+};
+
 /* ---------- materia e classe dal testo ---------- */
 const SUBJECT_HINTS = [
   [/matemat|aritmet|geometri|numer[io]\b|problem[ai]\b|calcol|operazion|frazion|logica|tabelline|numeri/, 'Matematica'],
@@ -1893,7 +2269,7 @@ function commitBook(key, name, photo, barcode, cls) {
   const mat = { id: uid(), name: String(name).trim().slice(0, 60) || 'Libro', photo: photo || '', barcode: barcode || '', cls: /^[1-5]$/.test(cls) ? cls : '' };
   subjects[key].materials.push(mat);
   if (!saveSubjects()) { subjects[key].materials.pop(); return null; }
-  if (awardXp('book:' + mat.id, 30, 'Nuovo libro!')) { game.books += 1; saveGame(); checkBadges(); renderGame(); }
+  if (awardXp('book:' + mat.id, 30, 'Nuovo libro!')) { game.books += 1; saveGame(); grantPacks(1, true); checkBadges(); }
   return mat;
 }
 /* Aggiunge subito il libro trovato alla materia più probabile; resta il tempo di cambiare materia o annullare. */
@@ -2054,6 +2430,7 @@ $('btn-add-book').onclick = () => {
   }
   const mat = commitBook(key, name, pendingCover, pendingCode, $('res-cls').value);
   if (!mat) return;
+  if (pendingCode && normIsbn(pendingCode)) isbnCache.put(normIsbn(pendingCode), { title: mat.name, authors: '', hint: `${key} ${mat.name}`, coverUrl: '' });
   const needed = dayItems(state.day).includes(mat.id);
   resetScanPanel(); lastCode = '';
   if (needed) toggleItem(mat.id, true); else render();
@@ -2143,16 +2520,30 @@ $('btn-mic').onclick = () => {
 
 /* ---------- audio / festa ---------- */
 let actx = null;
-function beep() {
-  if (muted) return;
+/* Effetti sonori brevi (rispettano il silenzio). Ogni nota: [frequenza, ritardo, durata]. */
+const SFX = {
+  pop: [[587.33, 0, 0.1]],
+  win: [[523.25, 0, 0.12], [659.25, 0.12, 0.12], [783.99, 0.24, 0.12], [1046.5, 0.36, 0.32]],
+  level: [[392, 0, 0.1], [494, 0.1, 0.1], [587, 0.2, 0.1], [784, 0.3, 0.1], [988, 0.4, 0.34]],
+  reveal: [[880, 0, 0.08], [1318.5, 0.08, 0.18]],
+  pack: [[330, 0, 0.08], [440, 0.08, 0.08], [554, 0.16, 0.08], [660, 0.24, 0.22]],
+  badge: [[784, 0, 0.1], [1047, 0.1, 0.28]]
+};
+function sfx(name) {
+  if (muted || !SFX[name]) return;
   try {
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
     if (actx.state === 'suspended') actx.resume();
-    const o = actx.createOscillator(), g = actx.createGain();
-    o.frequency.value = 587.33; g.gain.value = 0.08; o.connect(g); g.connect(actx.destination);
-    o.start(); o.stop(actx.currentTime + 0.1);
+    const t0 = actx.currentTime;
+    SFX[name].forEach(([f, delay, dur]) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = name === 'pop' ? 'sine' : 'triangle'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t0 + delay); g.gain.exponentialRampToValueAtTime(0.09, t0 + delay + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t0 + delay + dur);
+      o.connect(g); g.connect(actx.destination); o.start(t0 + delay); o.stop(t0 + delay + dur + 0.02);
+    });
   } catch (e) { /* audio non disponibile */ }
 }
+function beep() { sfx('pop'); }
 /* Voce: «Ferma» in alto (compare mentre l'app parla), nelle impostazioni e nell'assistente; il riquadro «Leggi cosa manca» diventa «Ferma». */
 let speaking = false, speakId = 0, speakPoll = null;
 function setSpeaking(v) {
@@ -2240,6 +2631,7 @@ function loadKidData() {
   checks = cleanChecks(store.get(KEYS.checks, {})); rewards = cleanRewards(store.get(KEYS.rewards, {}));
   progressLog = cleanHistory(store.get(KEYS.history, {})); game = cleanGame(store.get(KEYS.game, {}));
   profile = activeKid();
+  ensureFixed();
   $('set-name').value = profile.name; $('set-class').value = profile.cls;
 }
 function switchKid(id) {
@@ -2265,6 +2657,8 @@ function openKidDialog(id) {
   const pick = k ? k.avatar : (AVATARS.find((a) => !used.includes(a)) || AVATARS[kids.list.length % AVATARS.length]);
   $('kid-avatars').innerHTML = AVATARS.map((a) =>
     `<label class="avatar-opt"><input type="radio" name="kid-avatar" value="${a}" ${a === pick ? 'checked' : ''} aria-label="${esc(AVATAR_NAMES[a])}"><img src="${IMG['avatar-' + a]}" alt="" width="56" height="56"></label>`).join('');
+  const th = k ? k.theme : 'spazio';
+  $('kid-themes').innerHTML = THEMES.map((t) => `<label class="avatar-opt theme-opt"><input type="radio" name="kid-theme" value="${t.id}" ${t.id === th ? 'checked' : ''} aria-label="${esc(t.name)}"><span class="theme-chip t-${t.id}"><span aria-hidden="true">${t.emoji}</span>${esc(t.name)}</span></label>`).join('');
   $('kid-from-box').classList.toggle('hidden', !!k);
   $('kid-from').innerHTML = '<option value="">Da zero (materie standard, orario vuoto)</option>'
     + kids.list.map((x) => `<option value="${esc(x.id)}">Copia orario e materie di ${esc(x.name)}</option>`).join('');
@@ -2278,9 +2672,11 @@ $('kid-form').addEventListener('submit', (e) => {
   const cls = $('kid-cls').value.trim().slice(0, 10) || '-';
   const sel = document.querySelector('input[name="kid-avatar"]:checked');
   const avatar = sel && AVATARS.includes(sel.value) ? sel.value : AVATARS[0];
+  const tsel = document.querySelector('input[name="kid-theme"]:checked');
+  const theme = tsel && THEMES.some((t) => t.id === tsel.value) ? tsel.value : 'spazio';
   if (kidEditId) {
     const k = kids.list.find((x) => x.id === kidEditId); if (!k) return;
-    Object.assign(k, { name, cls, avatar });
+    Object.assign(k, { name, cls, avatar, theme });
     if (!saveKids()) return;
     if (k.id === activeKidId) { $('set-name').value = name; $('set-class').value = cls; }
     $('dlg-kid').close(); render(); toast('Salvato ✅'); return;
@@ -2294,7 +2690,7 @@ $('kid-form').addEventListener('submit', (e) => {
       Object.values(KID_BASE).forEach((b) => localStorage.removeItem(kidKey(b, id))); return;
     }
   }
-  kids.list.push({ id, name, cls, avatar });
+  kids.list.push({ id, name, cls, avatar, theme });
   if (!saveKids()) { kids.list.pop(); return; }
   $('dlg-kid').close();
   switchKid(id);
@@ -2330,7 +2726,7 @@ $('btn-export').onclick = () => {
   const cur = kidData[activeKidId];
   /* versione 6: tutti i figli. Restano anche i campi del figlio attivo, così una versione più vecchia dell'app può ancora leggere la copia. */
   const data = {
-    app: 'zaino-hero', version: 6, exported: new Date().toISOString(), kids, kidData, catalog: prizeCatalog,
+    app: 'zaino-hero', version: 6, exported: new Date().toISOString(), kids, kidData, catalog: prizeCatalog, isbnCache: store.get(ISBN_CACHE, {}),
     profile: { name: profile.name, cls: profile.cls }, schedule: cur.schedule, subjects: cur.subjects, checks: cur.checks, rewards: cur.rewards, history: cur.history
   };
   const a = document.createElement('a');
@@ -2376,6 +2772,7 @@ $('file-import').onchange = async (e) => {
       saveKids();
     }
   }
+  if (d.isbnCache && typeof d.isbnCache === 'object') { const c = store.get(ISBN_CACHE, {}) || {}; Object.keys(d.isbnCache).slice(-80).forEach((k) => { const v = d.isbnCache[k]; if (/^97[89]\d{10}$/.test(k) && v && typeof v.title === 'string') c[k] = { title: v.title.slice(0, 120), authors: String(v.authors || '').slice(0, 120), hint: String(v.hint || '').slice(0, 300), coverUrl: '' }; }); store.set(ISBN_CACHE, c, true); }
   prizeCatalog = cleanCatalog(store.get(GLOBAL_KEYS.catalog, {}));
   loadKidData(); state.edit = false;
   renderWheelLabels(); render(); toast('Copia ripristinata ✅');
@@ -2479,8 +2876,28 @@ document.addEventListener('visibilitychange', () => {
 
 /* Se l'app resta aperta a cavallo delle 15:00 / mezzanotte, passa al giorno giusto. */
 let lastDefault = state.day;
-setInterval(() => { const d = defaultDay(); if (d !== lastDefault) { lastDefault = d; if (!state.edit) { state.day = d; render(); } } }, 60000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+/* Il giorno si aggiorna da solo (anche se l'app è rimasta aperta o in background): dalle 15 si prepara già il giorno dopo. */
+function syncDay(announce) {
+  const d = defaultDay();
+  if (d !== lastDefault) {
+    lastDefault = d;
+    if (!state.edit && state.day !== d) { state.day = d; render(); if (announce) toast(`Preparo lo zaino per ${d} (${whenLabel(d).toLowerCase()}) 🎒`); }
+  }
+  renderToday();
+}
+const MONTHS_IT = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+const WEEKDAYS_IT = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'];
+function renderToday() {
+  const n = new Date(), d = defaultDay(n);
+  $('today-text').textContent = `Oggi è ${WEEKDAYS_IT[n.getDay()]} ${n.getDate()} ${MONTHS_IT[n.getMonth()]}, ore ${String(n.getHours()).padStart(2, '0')}:${String(n.getMinutes()).padStart(2, '0')} · zaino per ${d}`;
+  $('btn-today').classList.toggle('hidden', state.day === d);
+  $('btn-today').textContent = `📍 Vai a ${d}`;
+}
+$('btn-today').onclick = () => { state.day = defaultDay(); state.edit = false; render(); };
+setInterval(() => syncDay(true), 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { syncDay(true); render(); } });
+addEventListener('focus', () => syncDay(true));
+addEventListener('pageshow', () => syncDay(true));
 
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
 /* Dopo l'avvio, se la rete lo permette, scarica in background il lettore di copertine così funziona anche offline. */
@@ -2504,4 +2921,28 @@ let startTab = 'zaino'; try { startTab = sessionStorage.getItem('zaino_tab') || 
 showTab(startTab);
 $('day-view').classList.toggle('hidden', state.view === 'week'); $('week').classList.toggle('hidden', state.view !== 'week');
 $('view-day').setAttribute('aria-selected', String(state.view === 'day')); $('view-week').setAttribute('aria-selected', String(state.view === 'week'));
-lockParent(); setCalm(calm); renderWheelLabels(); setMuted(muted); netStatus(); render();
+/* ---------- benvenuto (solo la prima volta su un telefono nuovo) ---------- */
+let welcomeAvatar = 'mantello', welcomeTheme = 'spazio';
+function renderWelcomePickers() {
+  $('wl-avatars').innerHTML = AVATARS.map((a) => `<label class="avatar-opt"><input type="radio" name="wl-avatar" value="${a}" ${a === welcomeAvatar ? 'checked' : ''} aria-label="${esc(AVATAR_NAMES[a])}"><img src="${IMG['avatar-' + a]}" alt="" width="56" height="56"></label>`).join('');
+  $('wl-themes').innerHTML = THEMES.map((t) => `<label class="avatar-opt theme-opt"><input type="radio" name="wl-theme" value="${t.id}" ${t.id === welcomeTheme ? 'checked' : ''} aria-label="${esc(t.name)}"><span class="theme-chip t-${t.id}"><span aria-hidden="true">${t.emoji}</span>${esc(t.name)}</span></label>`).join('');
+}
+function welcomeStep(n) { [1, 2, 3].forEach((i) => $('wl-' + i).classList.toggle('hidden', i !== n)); }
+function openWelcome() { welcomeAvatar = activeKid().avatar; welcomeTheme = 'spazio'; $('wl-name').value = ''; $('wl-cls').value = ''; renderWelcomePickers(); welcomeStep(1); openDialog($('dlg-welcome')); setTimeout(() => $('wl-name').focus(), 80); }
+$('wl-avatars').addEventListener('change', (e) => { if (e.target.name === 'wl-avatar') welcomeAvatar = e.target.value; });
+$('wl-themes').addEventListener('change', (e) => { if (e.target.name === 'wl-theme') { welcomeTheme = e.target.value; document.documentElement.dataset.theme = welcomeTheme; } });
+$('wl-next-1').onclick = () => {
+  const name = $('wl-name').value.trim().slice(0, 30);
+  if (!name) { toast('Come ti chiami? Scrivi il nome 😊'); $('wl-name').focus(); return; }
+  const k = activeKid();
+  Object.assign(k, { name, cls: $('wl-cls').value.trim().slice(0, 10) || '-', avatar: AVATARS.includes(welcomeAvatar) ? welcomeAvatar : k.avatar, theme: welcomeTheme });
+  if (!saveKids()) return;
+  $('set-name').value = k.name; $('set-class').value = k.cls; render(); welcomeStep(2);
+};
+$('wl-next-2').onclick = () => welcomeStep(3);
+function endWelcome(scan) { store.set('zaino_onboarded', true, true); $('dlg-welcome').close(); if (scan) { showTab('materie'); $('btn-scan').click(); } else toast(`Benvenuto, ${activeKid().name}! Premi «Inizia la missione» 🚀`); }
+$('wl-scan').onclick = () => endWelcome(true);
+$('wl-later').onclick = () => endWelcome(false);
+if (!FRESH_INSTALL) store.set('zaino_onboarded', true, true);
+lockParent(); setCalm(calm); ensureFixed(); renderWheelLabels(); setMuted(muted); netStatus(); render(); catchUpBadges(); renderToday();
+if (FRESH_INSTALL && !store.get('zaino_onboarded', false)) openWelcome();

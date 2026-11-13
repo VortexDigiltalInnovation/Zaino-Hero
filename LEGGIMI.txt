@@ -1,4 +1,23 @@
-ZAINO HERO v15 - come pubblicarla
+ZAINO HERO v17 - come pubblicarla
+
+NOVITÀ v17
+- Benvenuto: la prima volta su un telefono nuovo si apre una guida in 3 passi (nome e classe, eroe e colori, come funziona, «Scansiona il primo libro»). Chi ha già dati non la vede.
+- Colori a scelta per ogni figlio: Spazio, Oceano, Foresta, Tramonto e Notte calma (scuro e poco stimolante). Si cambiano dal dialogo del figlio (✏️ accanto ai nomi).
+- Suoni più divertenti (zaino pronto, nuovo livello, traguardo, bustina, figurine scoperte): si spengono con il silenzio.
+- Settimana a pallini nella schermata Zaino: lunedì-venerdì, verde quando lo zaino è pronto.
+- Missione: pulsante «📸 Aggiungi la foto» per fotografare subito il libro che si sta cercando (+10 ⭐, una volta per libro).
+- Zona «Sempre nello zaino»: aggiunte rapide con un tocco (Borraccia 💧, Merenda 🍎, Tuta ginnastica 👟, Colori 🖍️ e altre).
+
+NOVITÀ v16
+- Giorno automatico: l'app riconosce da sola che giorno è e propone lo zaino giusto: dalle 15 già quello del giorno dopo (il venerdì dopo le 15, il sabato e la domenica: lunedì). Si aggiorna anche se l'app resta aperta o torna dallo sfondo; in alto una riga dice «Oggi è giovedì 12 novembre, ore 17:30 · zaino per Venerdì». Se scegli un altro giorno compare «📍 Vai a …» per tornare.
+- Astuccio e diario: la nuova voce «Sempre nello zaino» (Astuccio ✏️ e Diario 📓) compare UNA volta sola per ogni giorno con lezioni, in cima alla lista, non una volta per materia. Si possono aggiungere altre cose (borraccia, merenda…) o toglierle dalla scheda Materie.
+- Immagini e icone più grandi: foto dei libri 92 px, icone delle materie e delle schede più grandi, anche nella missione.
+- Premi più numerosi e per tipo: 29 premi iniziali in 6 tipi (simbolici, ticket, bustine di figurine, privilegi, esperienze, premi fisici). Da «Gestione premi» aggiungi, cambi o togli (da 10 a 60). La ruota ha sempre 10 spicchi scelti a caso, in modo equilibrato fra i tipi, e ogni giornata ricorda i suoi.
+- Album di figurine: 182 figurine in 10 temi (Animali, Spazio, Sport, Cibo, Eroi e magia, Mezzi, Natura, Musica e arte, Scuola, Giochi) in 4 rarità (comune, raro, epico, leggendario). Si ricevono bustine da 3 figurine completando lo zaino, aggiungendo libri, salendo di livello, con i traguardi e con la ruota. Le doppie danno ⭐5.
+- 70 traguardi in 11 categorie (missioni, serie, libri, livelli, punti, lampi, ruota, settimane perfette, album, bustine): si vedono quelli ottenuti e il prossimo di ogni categoria. Ogni traguardo regala una bustina. Chi aveva già dei progressi li ritrova tutti, in blocco, con le bustine.
+- Riconoscimento dei libri: oltre a Google Libri e Open Library, se non trovano il libro l'app prova le librerie italiane (Libraccio, IBS, Mondadori Store, Libreria Universitaria) leggendone le pagine tramite un servizio intermedio. I libri che inserisci a mano vengono ricordati per le scansioni future e finiscono nelle copie di sicurezza. In Altro > Ricerca dei libri online c'e' il pulsante «Prova la ricerca».
+- Servizio personale (consigliato): i servizi intermedi pubblici possono essere lenti o bloccati. Con il file cloudflare-worker-libri.js (istruzioni in cima al file, 5 minuti, gratuito) ottieni un servizio tuo: incolla il suo indirizzo in Altro > Ricerca dei libri online.
+- Nota: la lettura delle librerie italiane non e' stata provata con i siti veri (dipende da come rispondono in quel momento): per questo c'e' il pulsante di prova.
 
 NOVITÀ v15 - Scanner corretto
 - Fotocamera: prima partiva ingrandita (16:9, zoom del telefono). Ora chiede un'immagine 4:3 intera e porta lo zoom al minimo, quindi il libro sta nell'inquadratura a circa 20-30 cm. C'e' un cursore 🔍 per regolare lo zoom, un pulsante 🔄 per cambiare obiettivo (se il telefono ne ha piu' di uno) e si puo' toccare l'immagine per mettere a fuoco.
@@ -32,7 +51,7 @@ NOVITÀ v11 - Scansione più semplice e robusta
    (GitHub Pages, Netlify, Vercel...). Le immagini sono gia' dentro l'app.
    File: index.html, app.js, styles.css, sw.js, manifest.json, icon-192.png, icon-512.png, icon-maskable-512.png,
    apple-touch-icon.png, favicon.ico e i file dei lettori: zxing-reader.iife.js, zxing_reader.wasm, tesseract.min.js,
-   tesseract-worker.min.js, tesseract-core-simd-lstm.wasm.js, tesseract-core-lstm.wasm.js, ita.traineddata.
+   tesseract-worker.min.js, tesseract-core-simd-lstm.wasm.js, tesseract-core-lstm.wasm.js, ita.traineddata. (cloudflare-worker-libri.js NON va sul sito: e' per Cloudflare.)
 2. Apri il link dal telefono: Android -> "Installa"; iPhone -> Condividi -> "Aggiungi alla schermata Home".
 
 AGGIORNAMENTI
