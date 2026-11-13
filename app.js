@@ -13,7 +13,7 @@ const IMG = {
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '17';
+const APP_VERSION = '18';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -884,14 +884,14 @@ function toggleItem(id, value) {
   render();
   const again = document.querySelector(`#list input[data-mid="${id}"]`);
   if (again && document.activeElement !== again && (document.activeElement === document.body || !document.activeElement)) again.focus({ preventScroll: true });
-  beep();
+  sfx(itemSound(id, value));
   const date = targetDate(state.day).iso;
   if (value) { buzz(25); awardXp(`${date}:${id}`, 10); }
   const after = progress(state.day).pct;
   if (after === 100 && before < 100) {
     recordCompletion(state.day);
     awardXp(`${date}:full`, 50, 'Zaino pronto!'); awardPack(`${date}:pack`, 1);
-    confetti(); buzz([80, 40, 80]); sfx('win'); speak('Zaino pronto! Bravo!');
+    confetti(); buzz([80, 40, 80]); Music.jingle(); speak('Zaino pronto! Bravo!');
     checkBadges(); renderGame();
   }
 }
@@ -1207,7 +1207,7 @@ $('btn-share-missing').onclick = async () => {
 document.querySelectorAll('dialog').forEach((d) => {
   d.addEventListener('click', (e) => { if (e.target === d || e.target.closest('[data-close]')) d.close(); });
 });
-function openDialog(d) { if (!d.open) d.showModal(); }
+function openDialog(d) { if (!d.open) d.showModal(); Music.refresh(); }
 
 function openZoom(src, cap) { $('zoom-img').src = src; $('zoom-img').alt = cap || ''; $('zoom-cap').textContent = cap || ''; openDialog($('dlg-zoom')); }
 
@@ -2527,8 +2527,18 @@ const SFX = {
   level: [[392, 0, 0.1], [494, 0.1, 0.1], [587, 0.2, 0.1], [784, 0.3, 0.1], [988, 0.4, 0.34]],
   reveal: [[880, 0, 0.08], [1318.5, 0.08, 0.18]],
   pack: [[330, 0, 0.08], [440, 0.08, 0.08], [554, 0.16, 0.08], [660, 0.24, 0.22]],
-  badge: [[784, 0, 0.1], [1047, 0.1, 0.28]]
+  badge: [[784, 0, 0.1], [1047, 0.1, 0.28]],
+  item: [[659.25, 0, 0.08], [880, 0.07, 0.08], [1318.5, 0.14, 0.18]],
+  book: [[523.25, 0, 0.08], [659.25, 0.07, 0.08], [783.99, 0.14, 0.08], [1046.5, 0.21, 0.2]],
+  case: [[1046.5, 0, 0.06], [1318.5, 0.06, 0.06], [1568, 0.12, 0.22]],
+  undo: [[440, 0, 0.07], [330, 0.07, 0.1]]
 };
+const BOOKISH = /libro|testo|sussidiario|antologia|dizionario|atlante|lettura/i;
+function itemSound(id, value) {
+  if (!value) return 'undo';
+  const f = findMaterial(id);
+  return !f ? 'item' : f.key === FIXED_KEY ? 'case' : BOOKISH.test(f.mat.name) ? 'book' : 'item';
+}
 function sfx(name) {
   if (muted || !SFX[name]) return;
   try {
@@ -2538,16 +2548,151 @@ function sfx(name) {
     SFX[name].forEach(([f, delay, dur]) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = name === 'pop' ? 'sine' : 'triangle'; o.frequency.value = f;
-      g.gain.setValueAtTime(0.0001, t0 + delay); g.gain.exponentialRampToValueAtTime(0.09, t0 + delay + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t0 + delay + dur);
+      g.gain.setValueAtTime(0.0001, t0 + delay); g.gain.exponentialRampToValueAtTime(0.2, t0 + delay + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t0 + delay + dur);
       o.connect(g); g.connect(actx.destination); o.start(t0 + delay); o.stop(t0 + delay + dur + 0.02);
     });
   } catch (e) { /* audio non disponibile */ }
 }
 function beep() { sfx('pop'); }
+/* ---------- colonna sonora (sintetizzata: nessun file audio, funziona offline) ----------
+   Seguendo le linee guida: menu = chiptune/synth-pop giocoso; missione = loop d'avventura dolce e ritmato;
+   zaino pronto = breve fanfara. Volume discreto, loop circolari, più lenta e piano la sera, sempre silenziabile. */
+const NOTE_IDX = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
+const noteFreq = (n) => { const m = /^([A-G]#?)(\d)$/.exec(n); return m ? 440 * Math.pow(2, (NOTE_IDX[m[1]] + 12 * (+m[2] + 1) - 69) / 12) : 0; };
+const CHORDS = { C: ['C4', 'E4', 'G4'], Am: ['A3', 'C4', 'E4'], F: ['F3', 'A3', 'C4'], G: ['G3', 'B3', 'D4'] };
+const BASS_ROOT = { C: 'C3', Am: 'A2', F: 'F3', G: 'G3' };
+const tokens = (txt) => txt.trim().split(/\s+/);
+const MENU_CHORDS = ['C', 'Am', 'F', 'G', 'C', 'Am', 'F', 'G'];
+const MENU_LEAD = tokens(`
+  E5 . G5 . E5 . C5 . D5 . E5 . G5 . . .   C5 . E5 . A4 . C5 . B4 . C5 . E5 . . .
+  A4 . C5 . F5 . E5 . D5 . C5 . A4 . . .   G4 . B4 . D5 . G5 . F5 . E5 . D5 . . .
+  C5 . E5 . G5 . C6 . B5 . G5 . E5 . . .   A4 . C5 . E5 . A5 . G5 . E5 . C5 . . .
+  F5 . A5 . C6 . A5 . G5 . F5 . E5 . D5 .  D5 . E5 . D5 . B4 . G4 . . . . . . .`);
+const MISSION_CHORDS = ['Am', 'F', 'C', 'G', 'Am', 'F', 'G', 'Am'];
+const MISSION_MELODY = tokens(`
+  E5 . . . . . . . A5 . . . G5 . E5 .   F5 . . . . . A5 . C6 . . . A5 . F5 .
+  E5 . . . G5 . . . C6 . . . B5 . G5 .   D5 . . . G5 . . . B5 . . . A5 . G5 .
+  E5 . . . A5 . . . C6 . . . B5 . A5 .   A5 . . . F5 . . . C6 . . . A5 . F5 .
+  G5 . . . B5 . . . D6 . . . B5 . G5 .   A5 . . . . . E5 . . . . . . . . .`);
+const AUDIO_KEYS = { on: 'zaino_music', vol: 'zaino_music_vol' };
+const Music = (() => {
+  let bus = null, lp = null, noiseBuf = null, timer = null, track = null, nextTime = 0, stepIdx = 0, ducked = false, jingling = false;
+  const state = { on: store.get(AUDIO_KEYS.on, true) !== false, vol: Number.isFinite(store.get(AUDIO_KEYS.vol, 60)) ? Math.max(0, Math.min(100, store.get(AUDIO_KEYS.vol, 60))) : 60 };
+  const evening = () => { const n = new Date(), h = n.getHours() + n.getMinutes() / 60; return h >= 19.5 || h < 6; };
+  const tempoFactor = () => (evening() ? 0.88 : 1);
+  /* calibrato sulla misura del segnale: al 60% (predefinito) la musica sta a circa -16 dBFS di picco, al 100% a circa -11 dBFS */
+  const gainTarget = () => 1.6 * Math.pow(state.vol / 100, 1.1) * (evening() ? 0.65 : 1) * (ducked ? 0.3 : 1);
+  function ctx() {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    if (!bus) {
+      bus = actx.createGain(); lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4200; lp.Q.value = 0.5;
+      bus.gain.value = gainTarget(); bus.connect(lp); lp.connect(actx.destination);
+    }
+    if (actx.state === 'suspended') actx.resume();
+    return actx;
+  }
+  function applyGain() { if (!bus) return; const t = actx.currentTime; bus.gain.cancelScheduledValues(t); bus.gain.setTargetAtTime(gainTarget(), t, 0.08); lp.frequency.value = evening() ? 2800 : 4200; }
+  /* una voce: oscillatore con inviluppo morbido (attacco, decadimento) verso il bus della musica */
+  function tone(freq, t, dur, { type = 'triangle', gain = 0.05, attack = 0.01, detune = 0, filter = 0 } = {}) {
+    if (!freq) return;
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = type; o.frequency.value = freq; if (detune) o.detune.value = detune;
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(gain, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(dur, attack + 0.03));
+    let out = g;
+    if (filter) { const f = actx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = filter; o.connect(f); f.connect(g); } else o.connect(g);
+    g.connect(bus); o.start(t); o.stop(t + Math.max(dur, attack + 0.03) + 0.05);
+  }
+  function noise(t, dur, gain, hp) {
+    if (!noiseBuf) { noiseBuf = actx.createBuffer(1, actx.sampleRate || 44100, actx.sampleRate || 44100); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+    const s = actx.createBufferSource(), g = actx.createGain(), f = actx.createBiquadFilter();
+    s.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = hp;
+    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(f); f.connect(g); g.connect(bus); s.start(t); s.stop(t + dur + 0.02);
+  }
+  function thump(t, f0, f1, dur, gain) {
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(bus); o.start(t); o.stop(t + dur + 0.02);
+  }
+  const TRACKS = {
+    /* menu: chiptune / synth-pop giocoso, 104 bpm, 8 battute in loop */
+    menu: { bpm: 104, steps: 128, step(s, t, d) {
+      const bar = s >> 4, k = s & 15, ch = MENU_CHORDS[bar];
+      const lead = MENU_LEAD[s]; if (lead && lead !== '.') tone(noteFreq(lead), t, d * 1.8, { type: 'square', gain: 0.038, attack: 0.008, filter: 2600 });
+      if (k === 0 || k === 8) tone(noteFreq(BASS_ROOT[ch]), t, d * 3.6, { type: 'triangle', gain: 0.085 });
+      if (k === 12) tone(noteFreq(BASS_ROOT[ch]) * 1.5, t, d * 2.6, { type: 'triangle', gain: 0.06 });
+      if (k === 0) CHORDS[ch].forEach((n) => tone(noteFreq(n), t, d * 15, { type: 'triangle', gain: 0.02, attack: 0.25 }));
+      if (k === 0 || k === 8) thump(t, 130, 55, 0.12, 0.07);
+      if (k === 4 || k === 12) noise(t, 0.07, 0.03, 1800);
+      if (k % 4 === 2) noise(t, 0.03, 0.012, 6000);
+    } },
+    /* missione: adventure loop, base orchestrale dolce e regolare, 92 bpm */
+    mission: { bpm: 92, steps: 128, step(s, t, d) {
+      const bar = s >> 4, k = s & 15, ch = MISSION_CHORDS[bar], notes = CHORDS[ch === 'Am' ? 'Am' : ch];
+      if (k % 2 === 0) { const idx = [0, 1, 2, 1][(k / 2) % 4]; tone(noteFreq(notes[idx].replace(/\d/, (x) => String(+x + 1))), t, d * 1.5, { type: 'triangle', gain: 0.045, attack: 0.005 }); }
+      if (k === 0) { notes.forEach((n) => { tone(noteFreq(n), t, d * 16, { type: 'sawtooth', gain: 0.016, attack: 0.5, filter: 900, detune: -7 }); tone(noteFreq(n), t, d * 16, { type: 'sawtooth', gain: 0.016, attack: 0.5, filter: 900, detune: 7 }); }); thump(t, 95, 52, 0.5, 0.09); }
+      if (k === 8 && bar % 2 === 1) thump(t, 95, 52, 0.4, 0.05);
+      if (k === 0 || k === 10) tone(noteFreq(ch === 'Am' ? 'A2' : BASS_ROOT[ch]), t, d * 3.4, { type: 'triangle', gain: 0.07 });
+      const m = MISSION_MELODY[s]; if (m && m !== '.') tone(noteFreq(m), t, d * 3.4, { type: 'sine', gain: 0.05, attack: 0.04 });
+    } }
+  };
+  const stepDur = () => 60 / (TRACKS[track].bpm * tempoFactor()) / 4;
+  function tick() {
+    if (!track || !actx) return;
+    try { tickInner(); } catch (e) { stop(); }
+  }
+  function tickInner() {
+    const now = actx.currentTime;
+    if (nextTime < now) nextTime = now + 0.05;
+    while (nextTime < now + 0.35) { const d = stepDur(); TRACKS[track].step(stepIdx, nextTime, d); stepIdx = (stepIdx + 1) % TRACKS[track].steps; nextTime += d; }
+  }
+  function stop() { clearInterval(timer); timer = null; track = null; if (bus && actx) { const t = actx.currentTime; bus.gain.cancelScheduledValues(t); bus.gain.setTargetAtTime(0.0001, t, 0.05); } }
+  function start(name) {
+    if (track === name) return;
+    stop(); ctx(); track = name; stepIdx = 0; nextTime = actx.currentTime + 0.1; applyGain(); tick(); timer = setInterval(tick, 120);
+  }
+  /* sotto: scelta automatica della traccia secondo ciò che si sta facendo */
+  function desired() {
+    if (!unlocked || muted || !state.on || document.hidden || jingling || state.vol === 0) return null;
+    if ($('dlg-scan').open) return null;
+    if ($('dlg-mission').open) return 'mission';
+    return 'menu';
+  }
+  let unlocked = false;
+  function refresh() { try { const d = desired(); if (d) start(d); else if (track) stop(); } catch (e) { clearInterval(timer); timer = null; track = null; } }
+  function unlock() { if (unlocked) return; unlocked = true; try { ctx(); } catch (e) { return; } refresh(); }
+  function jingle() {
+    if (muted) return;
+    try { ctx(); } catch (e) { return; }
+    jingling = true; const was = track; if (was) stop();
+    /* fanfara: arpeggio ascendente con ottoni soffici, poi accordo pieno e scintille */
+    const j = actx.createGain(); j.gain.value = (2.2 + state.vol / 100 * 1.6) * (evening() ? 0.7 : 1);
+    j.connect(actx.destination);
+    const keep = bus; bus = j;
+    const t0 = actx.currentTime + 0.05;
+    [['C5', 0], ['E5', 0.11], ['G5', 0.22], ['C6', 0.33]].forEach(([n, dt]) => tone(noteFreq(n), t0 + dt, 0.3, { type: 'sawtooth', gain: 0.05, attack: 0.02, filter: 2200 }));
+    ['C5', 'E5', 'G5', 'C6'].forEach((n) => tone(noteFreq(n), t0 + 0.5, 1.1, { type: 'sawtooth', gain: 0.032, attack: 0.05, filter: 2000 }));
+    [['E6', 0.55], ['G6', 0.7], ['C7', 0.85]].forEach(([n, dt]) => tone(noteFreq(n), t0 + dt, 0.35, { type: 'triangle', gain: 0.03, attack: 0.005 }));
+    bus = keep;
+    setTimeout(() => { jingling = false; refresh(); }, 2600);
+  }
+  function duck(on) { ducked = !!on; applyGain(); }
+  function setOn(v) { state.on = !!v; store.set(AUDIO_KEYS.on, state.on, true); refresh(); }
+  function setVol(v) { state.vol = Math.max(0, Math.min(100, Math.round(v))); store.set(AUDIO_KEYS.vol, state.vol, true); applyGain(); refresh(); }
+  return { refresh, unlock, jingle, duck, setOn, setVol, state, current: () => track, evening, gain: gainTarget, TRACKS };
+})();
+['pointerdown', 'keydown', 'touchstart'].forEach((ev) => document.addEventListener(ev, () => Music.unlock(), { once: true, passive: true }));
+document.addEventListener('close', () => Music.refresh(), true);
+document.addEventListener('visibilitychange', () => Music.refresh());
+$('music-on').checked = Music.state.on; $('music-vol').value = String(Music.state.vol);
+$('music-on').onchange = () => Music.setOn($('music-on').checked);
+$('music-vol').oninput = () => Music.setVol(+$('music-vol').value);
+
 /* Voce: «Ferma» in alto (compare mentre l'app parla), nelle impostazioni e nell'assistente; il riquadro «Leggi cosa manca» diventa «Ferma». */
 let speaking = false, speakId = 0, speakPoll = null;
 function setSpeaking(v) {
-  speaking = v;
+  speaking = v; Music.duck(v);
   $('btn-stop-audio').classList.toggle('hidden', !v);
   ['btn-stop-audio-2', 'btn-stop-audio-3'].forEach((id) => { $(id).disabled = !v; });
   const t = $('btn-read'); t.classList.toggle('speaking', v);
@@ -2576,6 +2721,7 @@ function setMuted(v) {
   const b = $('btn-mute'); b.textContent = v ? '🔇' : '🔊'; b.setAttribute('aria-pressed', String(v)); b.setAttribute('aria-label', v ? 'Audio disattivato' : 'Audio attivo');
   const b2 = $('btn-mute-2'); b2.textContent = v ? '🔇 Audio disattivato' : '🔊 Audio attivo'; b2.setAttribute('aria-pressed', String(v));
   if (v) stopAudio();
+  Music.refresh();
 }
 $('btn-mute').onclick = () => setMuted(!muted);
 $('btn-mute-2').onclick = () => setMuted(!muted);

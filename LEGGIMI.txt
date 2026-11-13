@@ -1,4 +1,21 @@
-ZAINO HERO v17 - come pubblicarla
+ZAINO HERO - Il compagno di giochi per lo zaino perfetto!
+Dimentica il caos delle 7:00 del mattino. Trasforma il controllo di libri, quaderni e diario in una missione epica fatta di sfide, punti e premi reali.
+  - Missioni da Campioni: ogni libro al suo posto, ogni quaderno archiviato, alla conquista dei livelli giornalieri.
+  - Sfide a Tempo Record: chiuderai la zip prima dello scadere del timer?
+  - Premi ed Eroi Fantastici: punti, traguardi epici e ricompense straordinarie.
+(Apri presentazione.html per la pagina di presentazione, da condividere.)
+
+ZAINO HERO v18 - come pubblicarla
+
+NOVITÀ v18 - Colonna sonora (secondo le linee guida «Direzione Musicale e Sound Design»)
+- Tre atmosfere, tutte sintetizzate dall'app (nessun file audio, funziona offline):
+  * Menu principale: chiptune / synth-pop giocoso, 104 bpm, loop di 8 battute (melodia a onda quadra, basso triangolare, percussioni morbide).
+  * Durante la missione: adventure loop dolce e regolare, 92 bpm (archi caldi, arpeggio a pizzico, timpano leggero, flauto): tiene il ritmo senza creare frenesia.
+  * Zaino pronto: fanfara di vittoria (arpeggio ascendente con ottoni soffici, accordo pieno e scintille).
+- Le 3 regole d'oro: loop bilanciati e mai invasivi (volume discreto, struttura circolare); pulsante 🔇 sempre in alto in ogni schermata, che ferma subito tutto; effetti sonori brillanti «da level-up» per ogni azione della lista (libro, quaderno, astuccio/diario, spunta tolta).
+- Pensata per la sera: dopo le 19:30 la musica diventa piu' lenta e piu' piano. Si abbassa mentre l'app parla e si ferma durante lo scanner e quando l'app va in secondo piano.
+- Impostazioni: Altro > Voce e suoni > Musica di sottofondo (si spegne) e Volume della musica. La musica parte al primo tocco, come richiedono i browser.
+- Nel pacchetto: presentazione.html (pagina pubblicitaria), anteprima audio MP3 delle tre tracce.
 
 NOVITÀ v17
 - Benvenuto: la prima volta su un telefono nuovo si apre una guida in 3 passi (nome e classe, eroe e colori, come funziona, «Scansiona il primo libro»). Chi ha già dati non la vede.

@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 
@@ -177,6 +177,9 @@
         <button class="btn btn-soft" id="btn-mute-2" type="button" aria-pressed="false">🔊 Audio attivo</button>
         <button class="btn btn-stop" id="btn-stop-audio-2" type="button">⏹ Ferma la voce</button>
       </div>
+      <label class="row gap small auto-add"><input type="checkbox" id="music-on" checked> <span>🎵 Musica di sottofondo</span></label>
+      <label class="field"><span class="small muted">Volume della musica</span><input type="range" id="music-vol" min="0" max="100" step="5" value="60" aria-label="Volume della musica"></label>
+      <p class="muted small">Come nei videogiochi: allegra nel menu, più ritmata durante la missione, una fanfara quando lo zaino è pronto. Dopo le 19:30 diventa più lenta e più piano, adatta alla sera. Si ferma subito con 🔇 in alto, mentre l'app parla e durante lo scanner.</p>
       <label class="row gap small auto-add"><input type="checkbox" id="calm-mode"> <span>🌿 Modalità calma: meno animazioni, niente vibrazioni</span></label>
       <p class="muted small">«Ferma la voce» interrompe subito la lettura. Il pulsante in alto compare mentre l'app sta parlando.</p>
     </section>
@@ -408,6 +411,7 @@
       <button class="btn btn-primary btn-xl" id="wl-next-1" type="button">Avanti ▶</button>
     </div>
     <div id="wl-2" class="stack hidden">
+      <p class="muted">Dimentica il caos delle 7:00 del mattino: trasforma il controllo di libri, quaderni e diario in una missione epica fatta di sfide, punti e premi reali.</p>
       <ul class="wl-list">
         <li>🚀 <b>Missione zaino</b>: trovi una cosa alla volta e guadagni ⭐ punti.</li>
         <li>🎴 <b>Figurine</b>: ogni zaino pronto regala una bustina da aprire.</li>
@@ -474,6 +478,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=17"></script>
+<script src="app.js?v=18"></script>
 </body>
 </html>
