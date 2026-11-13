@@ -17,7 +17,7 @@ const IMG = {
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '24';
+const APP_VERSION = '25';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -476,8 +476,8 @@ function awardXp(key, amount, label) {
   return true;
 }
 /* Bustine: quante se ne ricevono per ogni cosa fatta. */
-const PACKS = { full: 2, book: 2, level: 3, badge: 2, gift: 3 };
-const PACK_SIZE = 5;
+const PACKS = { full: 1, book: 2, level: 3, badge: 2, gift: 3 };
+const PACK_SIZE = 2;
 function awardPack(key, n) { if (game.awarded[key]) return; game.awarded[key] = 1; grantPacks(n); }
 function streakInfo() {
   const dates = Object.keys(progressLog.completed).sort();
@@ -502,16 +502,20 @@ function mascotMessage() {
 }
 /* ---------- album di figurine e traguardi ---------- */
 const STICKER_THEMES = [
-  { id: 'an', name: 'Animali', emoji: '🐾', items: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🦄', '🐢', '🐙', '🦋', '🐞', '🐬'] },
-  { id: 'sp', name: 'Spazio', emoji: '🚀', items: ['🚀', '🛸', '🌍', '🌙', '⭐', '🌟', '☄️', '🌕', '👨‍🚀', '👽', '🌞', '🔭', '🛰️', '🌌', '🌠', '🌚'] },
-  { id: 'sg', name: 'Sport', emoji: '⚽', items: ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏉', '🎱', '🏓', '🏸', '🥊', '🏆', '🥇', '🏅', '🚴', '🏊', '⛸️', '🎿'] },
-  { id: 'ci', name: 'Cibo', emoji: '🍕', items: ['🍎', '🍌', '🍇', '🍓', '🍉', '🍕', '🍔', '🌭', '🍟', '🍦', '🍩', '🍪', '🎂', '🍫', '🍿', '🥐', '🥕', '🌽', '🍒', '🥝', '🍋', '🍑', '🥞', '🧁'] },
-  { id: 'fa', name: 'Eroi e magia', emoji: '🦸', items: ['🦸', '🦹', '🧙', '🧚', '🧜', '🧛', '🧞', '🧟', '🦖', '🦕', '🐉', '🧝', '🤖', '👻', '🎃', '🐲', '👑', '🔮'] },
-  { id: 'me', name: 'Mezzi', emoji: '🚗', items: ['🚗', '🚕', '🚌', '🚓', '🚒', '🚑', '🚜', '🏎️', '🚲', '🛵', '✈️', '🚁', '🚂', '🚢', '⛵', '🛶', '🚛', '🚤'] },
-  { id: 'na', name: 'Natura', emoji: '🌳', items: ['🌳', '🌴', '🌵', '🌻', '🌷', '🌹', '🍄', '🌈', '☀️', '⛄', '🔥', '🌊', '🌋', '🏔️', '🍁', '🌸', '🐚', '🍂'] },
-  { id: 'mu', name: 'Musica e arte', emoji: '🎵', items: ['🎵', '🎸', '🥁', '🎹', '🎺', '🎻', '🎤', '🎧', '🎨', '🖌️', '🎭', '🎬', '📸', '🎪', '🎠', '🎡'] },
-  { id: 'sc', name: 'Scuola', emoji: '📚', items: ['📚', '✏️', '📏', '📐', '🔬', '🧪', '🧮', '🗺️', '💡', '🧠', '🎒', '📓', '🖍️', '🏫', '📎', '🔔'] },
-  { id: 'gi', name: 'Giochi', emoji: '🎮', items: ['🎮', '🕹️', '🎲', '🧩', '♟️', '🪀', '🪁', '🎯', '🎳', '🧸', '🎊', '🎁', '🎈', '🎉'] }
+  { id: 'an', name: 'Animali', emoji: '🐾', items: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🦄', '🐢', '🐙', '🦋', '🐞', '🐬', '🐴', '🦓', '🦒', '🐘', '🦛', '🦘', '🦔', '🦉', '🦜', '🦩', '🐿️', '🐝'] },
+  { id: 'sp', name: 'Spazio', emoji: '🚀', items: ['🚀', '🛸', '🌍', '🌙', '⭐', '🌟', '☄️', '🌕', '👨‍🚀', '👽', '🌞', '🔭', '🛰️', '🌌', '🌠', '🌚', '🪐', '🌛', '🌜', '🌑', '🌓', '🌗', '🧑‍🚀', '💫'] },
+  { id: 'sg', name: 'Sport', emoji: '⚽', items: ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏉', '🎱', '🏓', '🏸', '🥊', '🏆', '🥇', '🏅', '🚴', '🏊', '⛸️', '🎿', '🏒', '🏏', '⛳', '🏹', '🛹', '🤸', '🏄', '🧗', '🤾', '🥅'] },
+  { id: 'ci', name: 'Cibo', emoji: '🍕', items: ['🍎', '🍌', '🍇', '🍓', '🍉', '🍕', '🍔', '🌭', '🍟', '🍦', '🍩', '🍪', '🎂', '🍫', '🍿', '🥐', '🥕', '🌽', '🍒', '🥝', '🍋', '🍑', '🥞', '🧁', '🍐', '🍍', '🥑', '🥦', '🍝', '🍣', '🍰', '🍭', '🥨', '🧀'] },
+  { id: 'fa', name: 'Eroi e magia', emoji: '🦸', items: ['🦸', '🦹', '🧙', '🧚', '🧜', '🧛', '🧞', '🧟', '🦖', '🦕', '🐉', '🧝', '🤖', '👻', '🎃', '🐲', '👑', '🔮', '🧙‍♀️', '🧚‍♂️', '🦸‍♀️', '🧜‍♂️', '🪄', '🛡️', '🗡️', '💎'] },
+  { id: 'me', name: 'Mezzi', emoji: '🚗', items: ['🚗', '🚕', '🚌', '🚓', '🚒', '🚑', '🚜', '🏎️', '🚲', '🛵', '✈️', '🚁', '🚂', '🚢', '⛵', '🛶', '🚛', '🚤', '🚐', '🚚', '🚎', '🛴', '🚡', '🚠', '🛩️', '🚝', '🛻', '⛴️'] },
+  { id: 'na', name: 'Natura', emoji: '🌳', items: ['🌳', '🌴', '🌵', '🌻', '🌷', '🌹', '🍄', '🌈', '☀️', '⛄', '🔥', '🌊', '🌋', '🏔️', '🍁', '🌸', '🐚', '🍂', '🌲', '🌼', '🌺', '🍀', '🌾', '❄️', '⛰️', '🌿', '🪨', '🌱'] },
+  { id: 'mu', name: 'Musica e arte', emoji: '🎵', items: ['🎵', '🎸', '🥁', '🎹', '🎺', '🎻', '🎤', '🎧', '🎨', '🖌️', '🎭', '🎬', '📸', '🎪', '🎠', '🎡', '🪕', '🎷', '🪗', '🎼', '🖼️', '🎙️', '🩰', '🎞️'] },
+  { id: 'sc', name: 'Scuola', emoji: '📚', items: ['📚', '✏️', '📏', '📐', '🔬', '🧪', '🧮', '🗺️', '💡', '🧠', '🎒', '📓', '🖍️', '🏫', '📎', '🔔', '📖', '🖊️', '✂️', '📒', '🔍', '📌', '🗂️', '📕'] },
+  { id: 'gi', name: 'Giochi', emoji: '🎮', items: ['🎮', '🕹️', '🎲', '🧩', '♟️', '🪀', '🪁', '🎯', '🎳', '🧸', '🎊', '🎁', '🎈', '🎉', '🃏', '🀄', '🎰', '🪃', '🧶', '🛷', '🪆', '🎴'] },
+  { id: 'ma', name: 'Mare', emoji: '🐠', items: ['🐠', '🐟', '🐡', '🦈', '🐳', '🐋', '🦀', '🦞', '🦐', '🦑', '🦭', '🦦', '🐊', '🦢', '🏖️', '🏝️', '⚓', '🤿', '🌅', '⛱️', '🚣', '🏄‍♀️'] },
+  { id: 'vi', name: 'Viaggi nel mondo', emoji: '🧳', items: ['🗼', '🗽', '🏰', '🏯', '🗿', '⛩️', '🕌', '🏛️', '🌉', '🗻', '🏜️', '🏕️', '🧳', '🛂', '🧭', '🏟️', '🏞️', '🛤️', '🎑', '🌁'] },
+  { id: 'la', name: 'Mestieri', emoji: '🧑‍🔧', items: ['🧑‍🚒', '🧑‍⚕️', '🧑‍🍳', '🧑‍🌾', '🧑‍🔧', '🧑‍🏫', '🧑‍🔬', '🧑‍🎨', '🧑‍✈️', '👮', '💂', '🕵️', '👷', '🧑‍💻', '🧑‍🎤', '🧑‍⚖️', '🧑‍🏭', '🧑‍💼'] },
+  { id: 'fe', name: 'Feste', emoji: '🎄', items: ['🎄', '🎅', '🤶', '🐣', '🥚', '🎆', '🎇', '🧨', '🎏', '🎐', '🕯️', '🎀', '💝', '🦃', '🍬', '🧧', '🎎', '🪅'] }
 ];
 const RARITY = { c: { name: 'Comune', color: '#94a3b8', w: 60 }, r: { name: 'Raro', color: '#38bdf8', w: 25 }, e: { name: 'Epico', color: '#c084fc', w: 11 }, l: { name: 'Leggendario', color: '#fbbf24', w: 4 } };
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
@@ -552,7 +556,7 @@ const BADGES = [].concat(
     (n) => (n === 1 ? 'Prima ruota' : `${n} giri`), (n) => `Gira la ruota ${n} ${plural(n, 'volta', 'volte')}`, () => Object.keys(rewards.draws).length),
   tier('Settimane', 'wk', ['🏆', '🏆', '🥇', '🌈'], [1, 2, 4, 8],
     (n) => (n === 1 ? 'Settimana perfetta' : `${n} settimane perfette`), (n) => `Da lunedì a venerdì tutti pronti (${n} ${plural(n, 'settimana', 'settimane')})`, perfectWeeks),
-  tier('Album', 'stk', ['🎴', '🃏', '🎴', '🃏', '💠', '👑'], [10, 25, 50, 100, 150, STICKERS.length],
+  tier('Album', 'stk', ['🎴', '🃏', '🎴', '🃏', '💠', '💠', '💎', '👑'], [10, 25, 50, 100, 150, 200, 300, STICKERS.length],
     (n) => (n === STICKERS.length ? 'Album completo' : `${n} figurine`), (n) => (n === STICKERS.length ? 'Completa tutto l\'album' : `Colleziona ${n} figurine diverse`), uniqueStickers),
   STICKER_THEMES.map((t) => ({ id: 'th' + t.id, cat: 'Album', emoji: t.emoji, name: `Album ${t.name}`, hint: `Completa il tema ${t.name}`, ok: () => themeCount(t.id) >= t.items.length })),
   tier('Bustine', 'pk', ['🎁', '🎀', '🎊', '🎉'], [1, 10, 25, 50],
@@ -629,7 +633,7 @@ function switchToPrizes() { showTab('premi'); if (game.packs > 0) toast('Tocca �
 const isStuck = (id) => !!game.stickers[id] && !game.pending.includes(id);
 const stuckCount = (tid) => STICKERS.filter((s) => s.theme === tid && isStuck(s.id)).length;
 const RARITY_MARK = { c: '', r: ' ★', e: ' ★★', l: ' 👑' };
-const PAGE_COLOR = { an: '#e8d3b5', sp: '#c9cfe3', sg: '#cfe1c9', ci: '#f0cdb8', fa: '#dccfe6', me: '#c9dde3', na: '#d3e3c4', mu: '#ecd0d6', sc: '#e6dcc0', gi: '#d6d9ea' };
+const PAGE_COLOR = { an: '#e8d3b5', sp: '#c9cfe3', sg: '#cfe1c9', ci: '#f0cdb8', fa: '#dccfe6', me: '#c9dde3', na: '#d3e3c4', mu: '#ecd0d6', sc: '#e6dcc0', gi: '#d6d9ea', ma: '#c4dde0', vi: '#e3d6c2', la: '#d9d4c8', fe: '#ecd3c4' };
 let albumAnim = null;
 function stickerHtml(s, extra) {
   const rot = ((hashStr(s.id) % 9) - 4) * 0.8, n = game.stickers[s.id] || 0;
