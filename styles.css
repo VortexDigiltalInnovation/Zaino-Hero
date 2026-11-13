@@ -598,7 +598,7 @@ dialog{overscroll-behavior:contain}
   .brand{gap:8px;flex:1 1 auto;overflow:hidden}
   .brand>div{min-width:0}
   .brand h1{font-size:1.05rem}
-  .brand .ver{display:none}
+  .brand .ver{margin-left:4px;padding:0 6px;font-size:.58rem}
   .brand p{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}
   #profile-line{overflow:hidden;text-overflow:ellipsis;min-width:0}
   #net{padding:2px 7px;font-size:.62rem}
