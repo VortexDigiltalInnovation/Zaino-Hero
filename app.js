@@ -17,7 +17,7 @@ const IMG = {
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '20';
+const APP_VERSION = '21';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -2666,110 +2666,395 @@ function sfx(name) {
   } catch (e) { /* audio non disponibile */ }
 }
 function beep() { sfx('pop'); }
-/* ---------- colonna sonora (sintetizzata: nessun file audio, funziona offline) ----------
-   Seguendo le linee guida: menu = chiptune/synth-pop giocoso; missione = loop d'avventura dolce e ritmato;
-   zaino pronto = breve fanfara. Volume discreto, loop circolari, più lenta e piano la sera, sempre silenziabile. */
+/* ---------- colonna sonora v2 (sintetizzata: nessun file audio, funziona offline) ----------
+   Motore: canali con panorama stereo, riverbero a convoluzione generato al volo, eco ping-pong a tempo,
+   compressore e "pompaggio" dei pad sulla cassa. Strumenti: archi/pad, pluck e pizzicati, carillon e campanelle FM,
+   piano elettrico, marimba, ottoni, basso, batteria completa (cassa, rullante, clap, charleston, shaker, tom, timpani, piatti).
+   Brani in forma canzone (intro, strofa, ritornello, ponte, variazioni):
+   menu = synth-pop solare; missione = avventura orchestrale; album = carillon sognante; sera (dopo le 19:30) = ninna nanna;
+   zaino pronto = fanfara. Volume discreto, loop lunghi, più lenta e piano la sera, sempre silenziabile. */
 const NOTE_IDX = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
 const noteFreq = (n) => { const m = /^([A-G]#?)(\d)$/.exec(n); return m ? 440 * Math.pow(2, (NOTE_IDX[m[1]] + 12 * (+m[2] + 1) - 69) / 12) : 0; };
-const CHORDS = { C: ['C4', 'E4', 'G4'], Am: ['A3', 'C4', 'E4'], F: ['F3', 'A3', 'C4'], G: ['G3', 'B3', 'D4'] };
-const BASS_ROOT = { C: 'C3', Am: 'A2', F: 'F3', G: 'G3' };
 const tokens = (txt) => txt.trim().split(/\s+/);
-const MENU_CHORDS = ['C', 'Am', 'F', 'G', 'C', 'Am', 'F', 'G'];
-const MENU_LEAD = tokens(`
-  E5 . G5 . E5 . C5 . D5 . E5 . G5 . . .   C5 . E5 . A4 . C5 . B4 . C5 . E5 . . .
-  A4 . C5 . F5 . E5 . D5 . C5 . A4 . . .   G4 . B4 . D5 . G5 . F5 . E5 . D5 . . .
-  C5 . E5 . G5 . C6 . B5 . G5 . E5 . . .   A4 . C5 . E5 . A5 . G5 . E5 . C5 . . .
-  F5 . A5 . C6 . A5 . G5 . F5 . E5 . D5 .  D5 . E5 . D5 . B4 . G4 . . . . . . .`);
-const MISSION_CHORDS = ['Am', 'F', 'C', 'G', 'Am', 'F', 'G', 'Am'];
-const MISSION_MELODY = tokens(`
-  E5 . . . . . . . A5 . . . G5 . E5 .   F5 . . . . . A5 . C6 . . . A5 . F5 .
-  E5 . . . G5 . . . C6 . . . B5 . G5 .   D5 . . . G5 . . . B5 . . . A5 . G5 .
-  E5 . . . A5 . . . C6 . . . B5 . A5 .   A5 . . . F5 . . . C6 . . . A5 . F5 .
-  G5 . . . B5 . . . D6 . . . B5 . G5 .   A5 . . . . . E5 . . . . . . . . .`);
+/* melodia: una casella per sedicesimo; nota = attacca, "-" = tiene, "." = pausa */
+function melody(txt) {
+  const tk = tokens(txt), out = new Array(tk.length).fill(null);
+  for (let i = 0; i < tk.length; i++) {
+    if (tk[i] === '.' || tk[i] === '-') continue;
+    let len = 1; while (tk[i + len] === '-') len++;
+    out[i] = { f: noteFreq(tk[i]), len };
+  }
+  return out;
+}
+/* accordi: [basso, voci del pad] */
+const CHORD = {
+  Cmaj7: ['C3', ['E3', 'G3', 'B3', 'D4']], C: ['C3', ['G3', 'C4', 'E4']], C9: ['C3', ['E3', 'A#3', 'D4', 'G4']],
+  Am7: ['A2', ['G3', 'A3', 'C4', 'E4']], Am: ['A2', ['A3', 'C4', 'E4']],
+  Fmaj7: ['F2', ['A3', 'C4', 'E4', 'G4']], F: ['F2', ['F3', 'A3', 'C4']],
+  G: ['G2', ['G3', 'B3', 'D4', 'E4']], Gsus: ['G2', ['F3', 'G3', 'C4', 'D4']],
+  Em7: ['E2', ['D3', 'G3', 'B3', 'E4']], Dm7: ['D3', ['F3', 'A3', 'C4', 'E4']], E7: ['E2', ['G#3', 'B3', 'D4', 'E4']],
+  Bbmaj7: ['A#2', ['A#3', 'D4', 'F4', 'A4']], Gm7: ['G2', ['F3', 'A#3', 'D4', 'G4']]
+};
+const chordF = (c) => CHORD[c][1].map(noteFreq);
+const rootF = (c) => noteFreq(CHORD[c][0]);
+function arrange(def) {
+  const bars = []; let loop = 0;
+  def.order.forEach((tag, oi) => {
+    const name = tag.replace('+', ''), s = def.sec[name], mel = s.mel ? melody(s.mel) : [];
+    if (oi === (def.loopAt || 0)) loop = bars.length;
+    s.chords.forEach((c, i) => bars.push({ sec: name, plus: tag.endsWith('+'), chord: c, i, n: s.chords.length, mel: mel.slice(i * 16, i * 16 + 16) }));
+  });
+  return Object.assign(def, { bars, loop, steps: bars.length * 16 });
+}
 const AUDIO_KEYS = { on: 'zaino_music', vol: 'zaino_music_vol' };
 const Music = (() => {
-  let bus = null, lp = null, noiseBuf = null, timer = null, track = null, nextTime = 0, stepIdx = 0, ducked = false, jingling = false;
+  let A = null, G = null, timer = null, track = null, nextTime = 0, stepIdx = 0, ducked = false, jingling = false;
   const state = { on: store.get(AUDIO_KEYS.on, true) !== false, vol: Number.isFinite(store.get(AUDIO_KEYS.vol, 60)) ? Math.max(0, Math.min(100, store.get(AUDIO_KEYS.vol, 60))) : 60 };
   const evening = () => { const n = new Date(), h = n.getHours() + n.getMinutes() / 60; return h >= 19.5 || h < 6; };
-  const tempoFactor = () => (evening() ? 0.88 : 1);
   /* calibrato sulla misura del segnale: al 60% (predefinito) la musica sta a circa -16 dBFS di picco, al 100% a circa -11 dBFS */
-  const gainTarget = () => 1.6 * Math.pow(state.vol / 100, 1.1) * (evening() ? 0.65 : 1) * (ducked ? 0.3 : 1);
+  const TR = () => (track ? TRACKS[track] : null);
+  /* ogni brano ha il suo livello (misurato), così passando dall'uno all'altro il volume resta uguale */
+  const gainTarget = () => 1.6 * Math.pow(state.vol / 100, 1.1) * ((TR() && TR().level) || 1) * (evening() ? 0.65 : 1) * (ducked ? 0.3 : 1);
+  const jingleGain = () => (0.66 + state.vol / 100 * 0.54) * (evening() ? 0.7 : 1);
+  const nf = noteFreq;
+  /* ----- banco mixer ----- */
+  const CHAN = {
+    lead: { pan: 0.12, rev: 0.3, dly: 0.2 }, bell: { pan: -0.3, rev: 0.5, dly: 0.28 }, arp: { pan: 0.38, rev: 0.25, dly: 0.12 },
+    keys: { pan: -0.18, rev: 0.35, dly: 0.1 }, pad: { pan: 0, rev: 0.6, dly: 0 }, bass: { pan: 0, rev: 0.03, dly: 0 },
+    kick: { pan: 0, rev: 0.04, dly: 0 }, snare: { pan: 0.06, rev: 0.25, dly: 0 }, hat: { pan: 0.28, rev: 0.08, dly: 0 }, perc: { pan: -0.22, rev: 0.25, dly: 0.04 }
+  };
+  const cfg = (name) => Object.assign({}, CHAN[name], (TR() && TR().mix && TR().mix[name]) || {});
+  const IR = new WeakMap(), NOISE = new WeakMap();
+  function impulse(ac) {
+    if (IR.has(ac)) return IR.get(ac);
+    const sr = ac.sampleRate, len = Math.floor(sr * 2.4), b = ac.createBuffer(2, len, sr);
+    for (let c = 0; c < 2; c++) {
+      const d = b.getChannelData(c); let v = 0;
+      for (let i = 0; i < len; i++) { const x = Math.random() * 2 - 1, p = i / len; v += (x - v) * (0.6 - 0.45 * p); d[i] = v * Math.pow(1 - p, 2.8) * (i < sr * 0.015 ? i / (sr * 0.015) : 1); }
+    }
+    IR.set(ac, b); return b;
+  }
+  function noiseBuf(ac) {
+    if (NOISE.has(ac)) return NOISE.get(ac);
+    const b = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    NOISE.set(ac, b); return b;
+  }
+  const panner = (ac, v) => { if (ac.createStereoPanner) { const p = ac.createStereoPanner(); p.pan.value = v; return p; } return ac.createGain(); };
+  const lowpass = (ac, f, q = 0.7) => { const x = ac.createBiquadFilter(); x.type = 'lowpass'; try { x.frequency.automationRate = 'k-rate'; x.Q.automationRate = 'k-rate'; } catch (e) { /* non supportato */ } x.frequency.value = f; x.Q.value = q; return x; };
+  function graph(ac, dest, level) {
+    const g = { ac, ch: {}, flt: {} };
+    g.mix = ac.createGain(); g.comp = ac.createDynamicsCompressor(); g.bus = ac.createGain(); g.lp = lowpass(ac, 7000, 0.5);
+    g.comp.threshold.value = -20; g.comp.knee.value = 12; g.comp.ratio.value = 3.5; g.comp.attack.value = 0.006; g.comp.release.value = 0.25;
+    g.bus.gain.value = level;
+    g.mix.connect(g.comp); g.comp.connect(g.bus); g.bus.connect(g.lp); g.lp.connect(dest);
+    g.rev = ac.createConvolver(); g.rev.buffer = impulse(ac); g.rev.connect(g.mix);
+    /* eco ping-pong: sinistra -> destra -> sinistra, sempre più scura */
+    g.dly = ac.createGain(); g.dL = ac.createDelay(2); g.dR = ac.createDelay(2); g.dL.delayTime.value = g.dR.delayTime.value = 0.3;
+    const fL = ac.createGain(), fR = ac.createGain(); fL.gain.value = fR.gain.value = 0.34;
+    const pL = panner(ac, -0.7), pR = panner(ac, 0.7), dkL = lowpass(ac, 2600), dkR = lowpass(ac, 2600);
+    g.dly.connect(g.dL); g.dL.connect(pL); pL.connect(g.mix); g.dR.connect(pR); pR.connect(g.mix);
+    g.dL.connect(fL); fL.connect(dkR); dkR.connect(g.dR); g.dR.connect(fR); fR.connect(dkL); dkL.connect(g.dL);
+    return g;
+  }
+  function chan(name) {
+    if (G.ch[name]) return G.ch[name].in;
+    const c = cfg(name), ac = G.ac, i = ac.createGain(), duck = ac.createGain(), p = panner(ac, c.pan), r = ac.createGain(), e = ac.createGain();
+    r.gain.value = c.rev; e.gain.value = c.dly;
+    i.connect(duck); duck.connect(p); p.connect(G.mix); duck.connect(r); r.connect(G.rev); duck.connect(e); e.connect(G.dly);
+    G.ch[name] = { in: i, duck, rev: r, dly: e };
+    return i;
+  }
+  function retune(tr) {
+    Object.keys(G.ch).forEach((n) => { const c = cfg(n); G.ch[n].rev.gain.value = c.rev; G.ch[n].dly.gain.value = c.dly; });
+    const beat = 60 / (tr.bpm * tempoOf(tr)); G.dL.delayTime.value = G.dR.delayTime.value = Math.min(1.5, beat * (tr.echo || 0.75));
+  }
+  function pump(t, amt) { const c = G.ch.pad; if (!c) return; const g = c.duck.gain; g.cancelScheduledValues(t); g.setValueAtTime(1 - amt, t); g.linearRampToValueAtTime(1, t + 0.3); }
+  /* ----- strumenti ----- */
+  function voice(name, f, t, dur, o = {}) {
+    if (!f) return;
+    const ac = A, g = ac.createGain(), peak = o.g || 0.05, a = o.a || 0.005, hold = Math.max(dur, a + 0.01), end = t + hold + (o.r || 0.15);
+    const sus = peak * (o.sus == null ? 0.8 : o.sus);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + a);
+    g.gain.linearRampToValueAtTime(sus, t + a + Math.min(0.25, hold * 0.5)); g.gain.setValueAtTime(sus, t + hold); g.gain.exponentialRampToValueAtTime(0.0001, end);
+    let into = g;
+    if (o.cut) {
+      const fl = lowpass(ac, o.cut, o.q || 0.7);
+      if (o.cutA) { fl.frequency.setValueAtTime(o.cut * o.cutA, t); fl.frequency.exponentialRampToValueAtTime(o.cut, t + (o.cutT || 0.2)); }
+      fl.connect(g); into = fl;
+    }
+    const parts = (o.det || [0]).map((dt) => [f, dt, o.type || 'triangle']).concat(o.sub ? [[f / 2, 0, 'sine']] : []);
+    const oscs = parts.map(([pf, dt, ty]) => {
+      const s = ac.createOscillator(); s.type = ty; s.frequency.value = pf; s.detune.value = dt;
+      if (o.glide) { s.frequency.setValueAtTime(pf * o.glide, t); s.frequency.exponentialRampToValueAtTime(pf, t + 0.07); }
+      s.connect(into); s.start(t); s.stop(end + 0.05); return s;
+    });
+    if (o.vib && dur > 0.25) {
+      const l = ac.createOscillator(), lg = ac.createGain(); l.frequency.value = 5.3;
+      lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(0, t + 0.18); lg.gain.linearRampToValueAtTime(o.vib, t + Math.min(dur, 0.7));
+      l.connect(lg); oscs.forEach((s) => lg.connect(s.detune)); l.start(t); l.stop(end + 0.05);
+    }
+    g.connect(chan(name));
+  }
+  function chordVoice(name, fs, t, dur, o) {
+    const ac = A, g = ac.createGain(), fl = lowpass(ac, o.cut, o.q || 0.5), end = t + dur + o.r;
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(o.g, t + o.a); g.gain.setValueAtTime(o.g, t + dur); g.gain.exponentialRampToValueAtTime(0.0001, end);
+    fl.connect(g); g.connect(chan(name));
+    fs.forEach((f, i) => { const s = ac.createOscillator(); s.type = o.type; s.frequency.value = f; s.detune.value = (i % 2 ? 1 : -1) * (6 + i * 2); s.connect(fl); s.start(t); s.stop(end + 0.05); });
+  }
+  /* FM: campanelle, carillon, marimba, piano elettrico */
+  function fm(name, f, t, o = {}) {
+    if (!f) return;
+    const ac = A, c = ac.createOscillator(), m = ac.createOscillator(), mg = ac.createGain(), g = ac.createGain();
+    const dec = o.dec || 1.2, idx = o.idx || 2;
+    c.frequency.value = f; m.frequency.value = f * (o.ratio || 3.5);
+    mg.gain.setValueAtTime(f * idx, t); mg.gain.exponentialRampToValueAtTime(f * idx * 0.03 + 0.01, t + dec * (o.bright || 0.5));
+    m.connect(mg); mg.connect(c.frequency); c.connect(g);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(o.g || 0.04, t + (o.a || 0.003)); g.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+    g.connect(chan(name)); c.start(t); m.start(t); c.stop(t + dec + 0.05); m.stop(t + dec + 0.05);
+  }
+  function nz(name, t, dur, gain, type, freq, q = 0.8, a = 0.001) {
+    const ac = A, s = ac.createBufferSource(), v = ac.createGain(), key = name + type + freq + '/' + q;
+    let fl = G.flt[key];
+    if (!fl) { fl = G.flt[key] = ac.createBiquadFilter(); fl.type = type; fl.frequency.value = freq; fl.Q.value = q; fl.connect(chan(name)); }
+    s.buffer = noiseBuf(ac); s.loop = true;
+    v.gain.setValueAtTime(0.0001, t); v.gain.linearRampToValueAtTime(gain, t + a); v.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(v); v.connect(fl); s.start(t, Math.random() * 1.5); s.stop(t + dur + 0.02);
+  }
+  function sweep(name, t, f0, f1, dur, gain, type = 'sine') {
+    const ac = A, o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.6);
+    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(chan(name)); o.start(t); o.stop(t + dur + 0.02);
+  }
+  const DR = {
+    kick(t, v = 1) { sweep('kick', t, 150, 48, 0.38, 0.15 * v); nz('kick', t, 0.018, 0.035 * v, 'highpass', 2500); const tr = TR(); if (tr && tr.pump) pump(t, tr.pump * Math.min(1, v)); },
+    snare(t, v = 1) { nz('snare', t, 0.19, 0.07 * v, 'bandpass', 1900, 0.7); sweep('snare', t, 230, 170, 0.09, 0.04 * v, 'triangle'); },
+    clap(t, v = 1) { [0, 0.011, 0.023].forEach((o, i) => nz('snare', t + o, i === 2 ? 0.17 : 0.025, 0.06 * v, 'bandpass', 1350, 1.3)); },
+    hat(t, v = 1, open = false) { nz('hat', t, open ? 0.26 : 0.04, 0.03 * v, 'highpass', 7800, 0.6); },
+    shaker(t, v = 1) { nz('hat', t, 0.07, 0.02 * v, 'bandpass', 6500, 1.6, 0.014); },
+    rim(t, v = 1) { nz('perc', t, 0.035, 0.05 * v, 'bandpass', 2700, 3); sweep('perc', t, 1750, 1550, 0.035, 0.02 * v, 'triangle'); },
+    tom(t, f = 140, v = 1) { sweep('perc', t, f * 1.45, f, 0.3, 0.1 * v); nz('perc', t, 0.04, 0.02 * v, 'bandpass', 1000, 1); },
+    timp(t, f = 110, v = 1) { sweep('perc', t, f * 1.06, f, 1.1, 0.11 * v); sweep('perc', t, f * 1.6, f * 1.5, 0.6, 0.03 * v, 'triangle'); },
+    crash(t, v = 1) { nz('hat', t, 1.8, 0.03 * v, 'highpass', 4800, 0.4, 0.002); },
+    riser(t, dur, v = 1) { const ac = A, s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain();
+      s.buffer = noiseBuf(ac); s.loop = true; fl.type = 'bandpass'; fl.Q.value = 2; fl.frequency.setValueAtTime(400, t); fl.frequency.exponentialRampToValueAtTime(7000, t + dur);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.025 * v, t + dur); g.gain.linearRampToValueAtTime(0.0001, t + dur + 0.03);
+      s.connect(fl); fl.connect(g); g.connect(chan('perc')); s.start(t); s.stop(t + dur + 0.05); }
+  };
+  const pad = (c, t, dur, g = 0.009, cut = 1400) => { const fs = chordF(c); chordVoice('pad', fs.concat(fs), t, dur, { type: 'sawtooth', g: g * 2.6, a: 0.5, r: 1.1, cut, q: 0.4 }); };
+  const bass = (f, t, dur, g = 0.06, cut = 380) => voice('bass', f, t, dur, { type: 'sawtooth', sub: true, g: g * 0.75, a: 0.004, r: 0.07, cut, cutA: 4, cutT: 0.13, q: 2.5, sus: 0.7 });
+  const pluck = (f, t, g = 0.022, cut = 900) => voice('arp', f, t, 0.08, { type: 'sawtooth', g, a: 0.002, r: 0.2, cut, cutA: 4.5, cutT: 0.12, sus: 0.3 });
+  const bell = (f, t, g = 0.025, dec = 1.4, name = 'bell') => fm(name, f, t, { ratio: 3.5, idx: 1.5, dec, g });
+  const box = (f, t, g = 0.035) => { fm('bell', f, t, { ratio: 4, idx: 1.2, dec: 1.7, g, bright: 0.25 }); fm('bell', f * 2, t, { ratio: 3, idx: 0.5, dec: 0.5, g: g * 0.18 }); };
+  const epiano = (f, t, g = 0.03, dec = 2.2) => { fm('keys', f, t, { ratio: 1, idx: 1.1, dec, g, bright: 0.3 }); fm('keys', f, t, { ratio: 14, idx: 0.25, dec: 0.18, g: g * 0.25 }); };
+  const mallet = (f, t, dur, g = 0.03) => { fm('lead', f, t, { ratio: 4, idx: 1.8, dec: 0.45, g: g * 0.8, bright: 0.2 }); voice('lead', f, t, dur, { type: 'triangle', g: g * 0.6, a: 0.006, r: 0.2, sus: 0.5 }); };
+  const synthLead = (f, t, dur, g = 0.02) => voice('lead', f, t, dur, { type: 'square', det: [-7, 7], g, a: 0.012, r: 0.2, cut: 2400, cutA: 1.8, cutT: 0.15, vib: 16, sus: 0.75 });
+  const horn = (f, t, dur, g = 0.022) => voice('lead', f, t, dur, { type: 'sawtooth', det: [-5, 6], g, a: 0.06, r: 0.32, cut: 1500, cutA: 0.4, cutT: 0.2, vib: 11, sus: 0.85 });
+  const hv = () => 0.85 + Math.random() * 0.2;
+  /* ----- brani ----- */
+  const TRACKS = {
+    /* menu: synth-pop solare in Do maggiore, 104 bpm, intro + strofa + ritornello + ponte (circa 1 minuto e mezzo prima di ripetere) */
+    menu: arrange({ bpm: 104, level: 0.5, swing: 0.1, pump: 0.55, loopAt: 1,
+      order: ['intro', 'A', 'B', 'A+', 'C', 'B+'],
+      sec: {
+        intro: { chords: ['Fmaj7', 'G'] },
+        A: { chords: ['Cmaj7', 'Am7', 'Fmaj7', 'G', 'Cmaj7', 'Am7', 'Fmaj7', 'G'], mel: `
+          E5 - . G5 . . A5 - G5 - E5 - . . D5 .   C5 - - - . . E5 . D5 - C5 - A4 - - -
+          A4 - . C5 . . F5 - E5 - C5 - . . A4 .   B4 - - - . . D5 . G5 - - - F5 - D5 -
+          E5 - . G5 . . C6 - B5 - G5 - . . E5 .   A5 - - - . . G5 . E5 - C5 - D5 - E5 -
+          F5 - . E5 . . D5 - C5 - A4 - . . C5 .   D5 - - - - - - - . . G4 . B4 . D5 .` },
+        B: { chords: ['Fmaj7', 'G', 'Em7', 'Am7', 'Fmaj7', 'G', 'C', 'G'], mel: `
+          C6 - - - A5 - - - G5 - A5 - C6 - - -   D6 - - - B5 - - - G5 - - - . . G5 A5
+          B5 - - - G5 - - - E5 - G5 - B5 - - -   C6 - - - B5 - A5 - G5 - - - E5 - - -
+          C6 - - - A5 - - - G5 - A5 - C6 - - -   D6 - - - E6 - - - D6 - B5 - G5 - - -
+          E6 - - - D6 - C6 - - - - - G5 - - -   D6 - - - - - - - - - - - . . . .` },
+        C: { chords: ['Dm7', 'Em7', 'Fmaj7', 'Gsus'], mel: `
+          A5 - - - - - - - F5 - - - - - - -   G5 - - - - - - - E5 - - - - - - -
+          A5 - - - - - - - C6 - - - - - - -   D6 - - - - - - - B5 - - - . . . .` }
+      },
+      play(b, k, t, d) {
+        const s = b.sec, last = b.i === b.n - 1, ch = chordF(b.chord), r = rootF(b.chord), m = b.mel[k];
+        if (k === 0) pad(b.chord, t, d * 15.5, s === 'B' ? 0.011 : 0.008, s === 'B' ? 2400 : 1300);
+        if (s === 'intro') {
+          if (k % 2 === 0) bell(ch[[0, 1, 2, 3, 2, 1, 3, 2][k / 2] % ch.length] * 2, t, 0.02 * hv());
+          if (b.i === 1) { if (k % 2 === 0) DR.hat(t, 0.5 + k / 30); if (k === 0) DR.riser(t, d * 16); }
+          return;
+        }
+        if (s === 'C') {
+          if (k % 2 === 0) bell(ch[[0, 2, 1, 3, 2, 1, 3, 0][k / 2] % ch.length] * 2, t, 0.016 * hv(), 1.1);
+          if (m) bell(m.f, t, 0.032, 2.4);
+          if (k === 0 && b.i === 0) DR.kick(t, 0.8);
+          if (k % 2 === 1) DR.shaker(t, 0.6);
+          if (last) { DR.snare(t, 0.12 + k * 0.05); if (k === 0) DR.riser(t, d * 16, 1.2); }
+          if (k === 0 || k === 10) bass(r, t, d * 5, 0.04);
+          return;
+        }
+        /* melodia */
+        if (m) {
+          if (s === 'A') { mallet(m.f, t, m.len * d); if (b.plus) bell(m.f * 2, t, 0.01, 0.9); }
+          else { synthLead(m.f, t, m.len * d * 0.95); if (b.plus) bell(m.f * 2, t, 0.012, 1); }
+        }
+        /* arpeggio */
+        if (s === 'A' && [0, 3, 6, 8, 10, 12, 14].includes(k)) pluck(ch[[0, 2, 1, 3, 2, 1, 3][[0, 3, 6, 8, 10, 12, 14].indexOf(k)] % ch.length] * 2, t, 0.016 * hv());
+        if (s === 'B') pluck(ch[[0, 1, 2, 3][k % 4] % ch.length] * 2, t, (k % 4 === 0 ? 0.017 : 0.011) * hv(), 1300);
+        /* basso */
+        if (s === 'A') { const pat = { 0: [1, 2.5], 3: [2, 0.9], 6: [1, 1.8], 8: [1, 2.5], 11: [2, 0.9], 14: [1.5, 1.8] }[k]; if (pat) bass(r * pat[0], t, d * pat[1]); }
+        else if (k % 2 === 0) bass(k % 4 === 2 ? r * 2 : r, t, d * 1.6, 0.055);
+        /* batteria */
+        if (s === 'A') {
+          if (k === 0 || k === 8 || (k === 10 && b.i % 2 === 1)) DR.kick(t);
+          if (k === 4 || k === 12) DR.clap(t, 0.9);
+          if (k % 2 === 0) DR.hat(t, k % 4 === 2 ? 0.9 : 0.45); else if (b.plus) DR.shaker(t, 0.6);
+          if (last && k >= 13) DR.snare(t, 0.5 + (k - 13) * 0.2);
+        } else {
+          if (k % 4 === 0) DR.kick(t);
+          if (k === 4 || k === 12) { DR.clap(t); DR.snare(t, 0.35); }
+          if (k % 4 === 2) DR.hat(t, 0.8, true); else DR.hat(t, k % 2 ? 0.35 : 0.55);
+          if (k === 0 && b.i === 0) DR.crash(t);
+          if (last && k >= 12) DR.tom(t, [180, 150, 125, 100][k - 12]);
+        }
+      } }),
+    /* missione: avventura orchestrale in La minore, 96 bpm: pizzicati, archi, ottoni, timpani */
+    mission: arrange({ bpm: 96, level: 0.46, pump: 0.25, loopAt: 1, echo: 0.5,
+      mix: { lead: { rev: 0.4, dly: 0.12 }, arp: { pan: -0.35, rev: 0.3, dly: 0.05 } },
+      order: ['intro', 'A', 'B', 'C', 'B+'],
+      sec: {
+        intro: { chords: ['Am', 'Am'] },
+        A: { chords: ['Am', 'F', 'C', 'G', 'Am', 'F', 'Dm7', 'E7'], mel: `
+          A4 - - - - - E5 - - - A5 - - - G5 -   F5 - - - - - - - E5 - - - C5 - - -
+          E5 - - - - - G5 - - - C6 - - - B5 -   D5 - - - - - - - - - - - . . . .
+          A4 - - - - - E5 - - - A5 - - - C6 -   A5 - - - - - - - G5 - F5 - E5 - - -
+          F5 - - - - - E5 - D5 - - - C5 - - -   B4 - - - - - - - G#4 - - - B4 - - -` },
+        B: { chords: ['F', 'G', 'Em7', 'Am', 'Dm7', 'G', 'C', 'E7'], mel: `
+          C6 - - - - - A5 - - - F5 - - - A5 -   B5 - - - - - G5 - - - D5 - - - G5 -
+          G5 - - - - - E5 - - - B4 - - - E5 -   A5 - - - - - - - - - - - . . . .
+          D6 - - - - - C6 - - - A5 - - - F5 -   B5 - - - - - D6 - - - B5 - G5 - - -
+          C6 - - - - - - - E6 - - - D6 - C6 -   B5 - - - - - - - - - - - G#5 - - -` },
+        C: { chords: ['Am', 'F', 'Dm7', 'E7'], mel: `
+          E6 . . . C6 . . . A5 . . . C6 . . .   F6 . . . C6 . . . A5 . . . C6 . . .
+          F6 . . . D6 . . . A5 . . . D6 . . .   E6 . . . B5 . . . G#5 . . . B5 . . .` }
+      },
+      play(b, k, t, d) {
+        const s = b.sec, last = b.i === b.n - 1, ch = chordF(b.chord), r = rootF(b.chord), m = b.mel[k];
+        if (k === 0) pad(b.chord, t, d * 15.5, s === 'B' ? 0.011 : 0.009, s === 'B' ? 2000 : 1100);
+        /* pizzicato ostinato */
+        const pz = [0, 2, 1, 2][k % 4], dense = s === 'A' || s === 'B';
+        if (dense || k % 2 === 0) pluck(ch[pz % ch.length] * (k % 8 < 4 ? 1 : 2), t, (k % 4 === 0 ? 0.02 : 0.013) * (s === 'C' ? 0.7 : 1) * hv(), 800);
+        if (s === 'intro') {
+          if (k === 0 && b.i === 0) bass(r, t, d * 30, 0.04, 250);
+          if (b.i === 1) DR.timp(t, 110, 0.15 + k * 0.04);
+          return;
+        }
+        if (m) {
+          if (s === 'C') bell(m.f, t, 0.03, 2);
+          else { horn(m.f, t, m.len * d); if (s === 'B') horn(m.f / 2, t, m.len * d, 0.014); if (b.plus) bell(m.f * 2, t, 0.01, 1.1); }
+        }
+        if (k === 0 || k === 8) bass(r, t, d * 7, s === 'C' ? 0.035 : 0.05, 300);
+        if (s === 'A') {
+          if (k === 0 || k === 10) DR.kick(t, 0.9);
+          if (k === 8) DR.snare(t, 0.7);
+          DR.shaker(t, k % 2 ? 0.5 : 0.8);
+          if (last && k >= 12) DR.tom(t, [160, 140, 120, 100][k - 12], 0.8);
+        } else if (s === 'B') {
+          if ([0, 3, 6, 8, 11, 14].includes(k)) DR.kick(t, k % 8 === 0 ? 1 : 0.7);
+          if (k === 4 || k === 12) DR.snare(t);
+          if (k % 2 === 0) DR.hat(t, k % 4 === 2 ? 0.7 : 0.4);
+          if (k === 0) DR.timp(t, r < 100 ? r * 2 : r, 0.8);
+          if (k === 0 && b.i === 0) DR.crash(t);
+          if (last && k >= 8 && k % 2 === 0) DR.tom(t, [170, 150, 130, 110][(k - 8) / 2]);
+        } else if (last) { DR.tom(t, 90 + k * 6, 0.2 + k * 0.05); if (k === 0) DR.riser(t, d * 16); }
+      } }),
+    /* album: carillon sognante in Fa maggiore, 84 bpm, spazzole leggere */
+    album: arrange({ bpm: 84, level: 0.55, swing: 0.16, pump: 0, echo: 0.75,
+      mix: { bell: { pan: 0.05, rev: 0.55, dly: 0.3 } },
+      order: ['A', 'B', 'A+', 'B+'],
+      sec: {
+        A: { chords: ['Fmaj7', 'Dm7', 'Gm7', 'C9', 'Fmaj7', 'Dm7', 'Gm7', 'C9'], mel: `
+          C6 . A5 . F5 . A5 . C6 . . . E6 . . .   D6 . . . C6 . A5 . F5 . . . A5 . . .
+          A#5 . . . A5 . G5 . F5 . . . D5 . . .   E5 . . . G5 . . . C6 . . . . . . .
+          C6 . A5 . F5 . A5 . C6 . . . F6 . . .   E6 . . . D6 . C6 . A5 . . . C6 . . .
+          A#5 . . . D6 . . . C6 . A#5 . A5 . G5 .   G5 . . . E5 . . . . . . . . . . .` },
+        B: { chords: ['Bbmaj7', 'Am7', 'Gm7', 'C9', 'Bbmaj7', 'Am7', 'Gm7', 'C9'], mel: `
+          D6 . . . F6 . . . A5 . . . D6 . . .   C6 . . . E6 . . . G5 . . . C6 . . .
+          A#5 . . . D6 . . . F5 . . . A#5 . . .   A5 . G5 . E5 . G5 . A#5 . . . . . . .
+          D6 . . . F6 . . . A6 . . . F6 . . .   E6 . . . C6 . . . A5 . . . G5 . . .
+          F5 . . . G5 . . . A5 . . . A#5 . . .   C6 . . . . . . . E5 . . . G5 . . .` }
+      },
+      play(b, k, t, d) {
+        const ch = chordF(b.chord), r = rootF(b.chord), m = b.mel[k];
+        if (k === 0) pad(b.chord, t, d * 15.5, 0.006, 1000);
+        if (m) { box(m.f, t); if (b.plus) epiano(m.f / 2, t, 0.012, 1.4); }
+        if (k === 0 || k === 10) ch.forEach((f, i) => epiano(f, t + i * 0.012, k === 0 ? 0.01 : 0.007, 1.8));
+        if (k === 0) bass(r, t, d * 6, 0.035, 260); else if (k === 8) bass(r * 1.5, t, d * 5, 0.028, 260);
+        if (k % 2 === 0) DR.shaker(t, k % 4 === 0 ? 0.5 : 0.85);
+        if (b.plus && (k === 4 || k === 12)) DR.rim(t, 0.55);
+        if (b.plus && (k === 0 || k === 10)) DR.kick(t, 0.35);
+        if (!b.plus && k === 0 && b.i % 4 === 0) DR.kick(t, 0.3);
+      } }),
+    /* sera: ninna nanna dopo le 19:30, piano elettrico morbido, 66 bpm, niente batteria */
+    sera: arrange({ bpm: 66, level: 0.95, fixed: true, pump: 0, echo: 0.75,
+      order: ['A', 'A+'],
+      sec: {
+        A: { chords: ['Fmaj7', 'Em7', 'Dm7', 'Cmaj7', 'Fmaj7', 'Em7', 'Dm7', 'Gsus'], mel: `
+          A5 - - - - - G5 - E5 - - - - - - -   G5 - - - - - E5 - D5 - - - - - - -
+          F5 - - - - - E5 - D5 - - - C5 - - -   E5 - - - - - - - - - - - . . . .
+          A5 - - - - - C6 - B5 - - - A5 - - -   G5 - - - - - B5 - A5 - - - G5 - - -
+          F5 - - - - - A5 - G5 - - - F5 - - -   D5 - - - - - - - - - - - . . . .` }
+      },
+      play(b, k, t, d) {
+        const ch = chordF(b.chord), r = rootF(b.chord), m = b.mel[k];
+        if (k === 0) { pad(b.chord, t, d * 15.5, 0.006, 900); bass(r, t, d * 14, 0.03, 220); }
+        if (m) { epiano(m.f, t, 0.032, Math.min(3, 1 + m.len * d)); if (b.plus) bell(m.f * 2, t, 0.008, 1.6); }
+        if (k % 2 === 0) epiano(ch[[0, 1, 2, 3, 2, 1, 2, 1][k / 2] % ch.length], t, 0.009, 1.6);
+      } })
+  };
+  function fanfare(t0) {
+    for (let i = 0; i < 9; i++) DR.timp(t0 + i * 0.045, 98, 0.25 + i * 0.07);
+    const brass = (n, t, dur, g = 0.028) => voice('lead', nf(n), t, dur, { type: 'sawtooth', det: [-7, 7], g, a: 0.025, r: 0.4, cut: 2600, cutA: 0.35, cutT: 0.12, vib: 9, sus: 0.85 });
+    [['G4', 0.38], ['C5', 0.5], ['E5', 0.62]].forEach(([n, dt]) => brass(n, t0 + dt, 0.1));
+    const hit = t0 + 0.76;
+    DR.kick(hit, 1.3); DR.crash(hit, 1.3); DR.timp(hit, 65.4, 1.2); bass(nf('C3'), hit, 1.3, 0.06, 500);
+    ['C4', 'G4', 'C5', 'E5', 'G5', 'D6'].forEach((n) => brass(n, hit, 1.35, 0.02));
+    ['C6', 'E6', 'G6', 'C7', 'E7', 'G7'].forEach((n, i) => bell(nf(n), hit + 0.12 + i * 0.07, 0.022, 1.5));
+    DR.snare(hit + 1.0, 0.4); DR.kick(hit + 1.0, 0.6);
+  }
+  const tempoOf = (tr) => (tr.fixed ? 1 : evening() ? 0.9 : 1);
+  const stepDur = () => 60 / (TRACKS[track].bpm * tempoOf(TRACKS[track])) / 4;
   function ctx() {
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-    if (!bus) {
-      bus = actx.createGain(); lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4200; lp.Q.value = 0.5;
-      bus.gain.value = gainTarget(); bus.connect(lp); lp.connect(actx.destination);
-    }
-    if (actx.state === 'suspended') actx.resume();
-    return actx;
+    A = actx;
+    if (!G) G = graph(A, A.destination, gainTarget());
+    if (A.state === 'suspended') A.resume();
+    return A;
   }
-  function applyGain() { if (!bus) return; const t = actx.currentTime; bus.gain.cancelScheduledValues(t); bus.gain.setTargetAtTime(gainTarget(), t, 0.08); lp.frequency.value = evening() ? 2800 : 4200; }
-  /* una voce: oscillatore con inviluppo morbido (attacco, decadimento) verso il bus della musica */
-  function tone(freq, t, dur, { type = 'triangle', gain = 0.05, attack = 0.01, detune = 0, filter = 0 } = {}) {
-    if (!freq) return;
-    const o = actx.createOscillator(), g = actx.createGain();
-    o.type = type; o.frequency.value = freq; if (detune) o.detune.value = detune;
-    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(gain, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(dur, attack + 0.03));
-    let out = g;
-    if (filter) { const f = actx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = filter; o.connect(f); f.connect(g); } else o.connect(g);
-    g.connect(bus); o.start(t); o.stop(t + Math.max(dur, attack + 0.03) + 0.05);
-  }
-  function noise(t, dur, gain, hp) {
-    if (!noiseBuf) { noiseBuf = actx.createBuffer(1, actx.sampleRate || 44100, actx.sampleRate || 44100); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
-    const s = actx.createBufferSource(), g = actx.createGain(), f = actx.createBiquadFilter();
-    s.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = hp;
-    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    s.connect(f); f.connect(g); g.connect(bus); s.start(t); s.stop(t + dur + 0.02);
-  }
-  function thump(t, f0, f1, dur, gain) {
-    const o = actx.createOscillator(), g = actx.createGain();
-    o.type = 'sine'; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
-    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(bus); o.start(t); o.stop(t + dur + 0.02);
-  }
-  const TRACKS = {
-    /* menu: chiptune / synth-pop giocoso, 104 bpm, 8 battute in loop */
-    menu: { bpm: 104, steps: 128, step(s, t, d) {
-      const bar = s >> 4, k = s & 15, ch = MENU_CHORDS[bar];
-      const lead = MENU_LEAD[s]; if (lead && lead !== '.') tone(noteFreq(lead), t, d * 1.8, { type: 'square', gain: 0.038, attack: 0.008, filter: 2600 });
-      if (k === 0 || k === 8) tone(noteFreq(BASS_ROOT[ch]), t, d * 3.6, { type: 'triangle', gain: 0.085 });
-      if (k === 12) tone(noteFreq(BASS_ROOT[ch]) * 1.5, t, d * 2.6, { type: 'triangle', gain: 0.06 });
-      if (k === 0) CHORDS[ch].forEach((n) => tone(noteFreq(n), t, d * 15, { type: 'triangle', gain: 0.02, attack: 0.25 }));
-      if (k === 0 || k === 8) thump(t, 130, 55, 0.12, 0.07);
-      if (k === 4 || k === 12) noise(t, 0.07, 0.03, 1800);
-      if (k % 4 === 2) noise(t, 0.03, 0.012, 6000);
-    } },
-    /* missione: adventure loop, base orchestrale dolce e regolare, 92 bpm */
-    mission: { bpm: 92, steps: 128, step(s, t, d) {
-      const bar = s >> 4, k = s & 15, ch = MISSION_CHORDS[bar], notes = CHORDS[ch === 'Am' ? 'Am' : ch];
-      if (k % 2 === 0) { const idx = [0, 1, 2, 1][(k / 2) % 4]; tone(noteFreq(notes[idx].replace(/\d/, (x) => String(+x + 1))), t, d * 1.5, { type: 'triangle', gain: 0.045, attack: 0.005 }); }
-      if (k === 0) { notes.forEach((n) => { tone(noteFreq(n), t, d * 16, { type: 'sawtooth', gain: 0.016, attack: 0.5, filter: 900, detune: -7 }); tone(noteFreq(n), t, d * 16, { type: 'sawtooth', gain: 0.016, attack: 0.5, filter: 900, detune: 7 }); }); thump(t, 95, 52, 0.5, 0.09); }
-      if (k === 8 && bar % 2 === 1) thump(t, 95, 52, 0.4, 0.05);
-      if (k === 0 || k === 10) tone(noteFreq(ch === 'Am' ? 'A2' : BASS_ROOT[ch]), t, d * 3.4, { type: 'triangle', gain: 0.07 });
-      const m = MISSION_MELODY[s]; if (m && m !== '.') tone(noteFreq(m), t, d * 3.4, { type: 'sine', gain: 0.05, attack: 0.04 });
-    } }
-  };
-  const stepDur = () => 60 / (TRACKS[track].bpm * tempoFactor()) / 4;
+  function applyGain() { if (!G) return; const t = A.currentTime; G.bus.gain.cancelScheduledValues(t); G.bus.gain.setTargetAtTime(gainTarget(), t, 0.08); G.lp.frequency.value = evening() ? 3800 : 7000; }
   function tick() {
-    if (!track || !actx) return;
+    if (!track || !A) return;
     try { tickInner(); } catch (e) { stop(); }
   }
   function tickInner() {
-    const now = actx.currentTime;
+    const now = A.currentTime, tr = TRACKS[track];
     if (nextTime < now) nextTime = now + 0.05;
-    while (nextTime < now + 0.35) { const d = stepDur(); TRACKS[track].step(stepIdx, nextTime, d); stepIdx = (stepIdx + 1) % TRACKS[track].steps; nextTime += d; }
+    while (nextTime < now + 0.35) {
+      const d = stepDur(), sw = stepIdx % 2 ? (tr.swing || 0) * d : 0;
+      tr.play(tr.bars[stepIdx >> 4], stepIdx & 15, nextTime + sw, d);
+      stepIdx++; if (stepIdx >= tr.steps) stepIdx = tr.loop * 16;
+      nextTime += d;
+    }
   }
-  function stop() { clearInterval(timer); timer = null; track = null; if (bus && actx) { const t = actx.currentTime; bus.gain.cancelScheduledValues(t); bus.gain.setTargetAtTime(0.0001, t, 0.05); } }
+  function stop() { clearInterval(timer); timer = null; track = null; if (G && A) { const t = A.currentTime; G.bus.gain.cancelScheduledValues(t); G.bus.gain.setTargetAtTime(0.0001, t, 0.05); } }
   function start(name) {
     if (track === name) return;
-    stop(); ctx(); track = name; stepIdx = 0; nextTime = actx.currentTime + 0.1; applyGain(); tick(); timer = setInterval(tick, 120);
+    stop(); ctx(); track = name; stepIdx = 0; retune(TRACKS[name]); nextTime = A.currentTime + 0.1; applyGain(); tick(); timer = setInterval(tick, 120);
   }
   /* sotto: scelta automatica della traccia secondo ciò che si sta facendo */
   function desired() {
     if (!unlocked || muted || !state.on || document.hidden || jingling || state.vol === 0) return null;
     if ($('dlg-scan').open) return null;
     if ($('dlg-mission').open) return 'mission';
-    return 'menu';
+    if ($('dlg-album') && $('dlg-album').open) return 'album';
+    return evening() ? 'sera' : 'menu';
   }
   let unlocked = false;
   function refresh() { try { const d = desired(); if (d) start(d); else if (track) stop(); } catch (e) { clearInterval(timer); timer = null; track = null; } }
@@ -2777,22 +3062,32 @@ const Music = (() => {
   function jingle() {
     if (muted) return;
     try { ctx(); } catch (e) { return; }
-    jingling = true; const was = track; if (was) stop();
-    /* fanfara: arpeggio ascendente con ottoni soffici, poi accordo pieno e scintille */
-    const j = actx.createGain(); j.gain.value = (2.2 + state.vol / 100 * 1.6) * (evening() ? 0.7 : 1);
-    j.connect(actx.destination);
-    const keep = bus; bus = j;
-    const t0 = actx.currentTime + 0.05;
-    [['C5', 0], ['E5', 0.11], ['G5', 0.22], ['C6', 0.33]].forEach(([n, dt]) => tone(noteFreq(n), t0 + dt, 0.3, { type: 'sawtooth', gain: 0.05, attack: 0.02, filter: 2200 }));
-    ['C5', 'E5', 'G5', 'C6'].forEach((n) => tone(noteFreq(n), t0 + 0.5, 1.1, { type: 'sawtooth', gain: 0.032, attack: 0.05, filter: 2000 }));
-    [['E6', 0.55], ['G6', 0.7], ['C7', 0.85]].forEach(([n, dt]) => tone(noteFreq(n), t0 + dt, 0.35, { type: 'triangle', gain: 0.03, attack: 0.005 }));
-    bus = keep;
-    setTimeout(() => { jingling = false; refresh(); }, 2600);
+    jingling = true; if (track) stop();
+    /* fanfara: rullo di timpani, ottoni che salgono, accordo pieno con piatto e scintille di campanelle */
+    const keep = G, jg = graph(A, A.destination, jingleGain());
+    G = jg;
+    try { fanfare(A.currentTime + 0.05); } finally { G = keep; }
+    setTimeout(() => { try { jg.lp.disconnect(); } catch (e) { /* niente */ } }, 6000);
+    setTimeout(() => { jingling = false; refresh(); }, 3000);
+  }
+  /* solo per prove: genera qualche secondo di un brano senza suonarlo, per misurarne il livello */
+  async function render(name, secs = 20) {
+    const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext, sr = 44100, off = new OAC(2, Math.ceil(sr * secs), sr);
+    const keep = [A, G, track, stepIdx];
+    try {
+      A = off; track = name === 'jingle' ? null : name; G = graph(off, off.destination, name === 'jingle' ? jingleGain() : gainTarget());
+      if (name === 'jingle') fanfare(0.05);
+      else {
+        const tr = TRACKS[name]; retune(tr); let tt = 0.05, s = 0;
+        while (tt < secs - 0.1) { const d = stepDur(); tr.play(tr.bars[s >> 4], s & 15, tt + (s % 2 ? (tr.swing || 0) * d : 0), d); s++; if (s >= tr.steps) s = tr.loop * 16; tt += d; }
+      }
+    } finally { [A, G, track, stepIdx] = keep; }
+    return off.startRendering();
   }
   function duck(on) { ducked = !!on; applyGain(); }
   function setOn(v) { state.on = !!v; store.set(AUDIO_KEYS.on, state.on, true); refresh(); }
   function setVol(v) { state.vol = Math.max(0, Math.min(100, Math.round(v))); store.set(AUDIO_KEYS.vol, state.vol, true); applyGain(); refresh(); }
-  return { refresh, unlock, jingle, duck, setOn, setVol, state, current: () => track, evening, gain: gainTarget, TRACKS };
+  return { refresh, unlock, jingle, duck, setOn, setVol, state, current: () => track, evening, gain: gainTarget, TRACKS, render };
 })();
 ['pointerdown', 'keydown', 'touchstart'].forEach((ev) => document.addEventListener(ev, () => Music.unlock(), { once: true, passive: true }));
 document.addEventListener('close', () => Music.refresh(), true);
