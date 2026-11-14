@@ -624,3 +624,8 @@ dialog{overscroll-behavior:contain}
 #dlg-pack .dlg-in>.row{width:100%}
 .pack-cards{justify-content:center}
 @media (max-width:420px){.pack-cards{display:flex;flex-wrap:wrap}.pack-cards .pcard{width:calc((100% - 16px)/3)}}
+
+/* il 🔊 lampeggia piano finché la musica aspetta il primo tocco */
+.btn-icon.wake{animation:wake 1.6s ease-in-out infinite}
+@keyframes wake{50%{box-shadow:0 0 0 4px var(--ind,#8a9a7b);transform:scale(1.06)}}
+.calm .btn-icon.wake{animation:none;box-shadow:0 0 0 3px var(--ind,#8a9a7b)}

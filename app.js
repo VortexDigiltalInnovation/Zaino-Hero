@@ -17,7 +17,7 @@ const IMG = {
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '25';
+const APP_VERSION = '26';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -420,12 +420,18 @@ function renderHistory() {
 }
 
 /* ---------- gioco: punti, livelli, adesivi, missione ---------- */
-const LEVELS = [
-  { xp: 0, name: 'Recluta', emoji: '🐣' }, { xp: 100, name: 'Esploratore', emoji: '🧭' }, { xp: 250, name: 'Cavaliere', emoji: '🛡️' },
-  { xp: 450, name: 'Campione', emoji: '🏅' }, { xp: 700, name: 'Eroe', emoji: '🦸' }, { xp: 1000, name: 'Super Eroe', emoji: '⚡' }, { xp: 1500, name: 'Leggenda', emoji: '👑' }
-];
+/* 100 livelli in 10 gradi da 10: all'inizio si sale quasi ogni giorno, poi serve sempre più impegno (circa 44.000 XP per il 100). */
+const LEVEL_TIERS = [['Recluta', '🐣'], ['Esploratore', '🧭'], ['Cavaliere', '🛡️'], ['Campione', '🏅'], ['Eroe', '🦸'],
+  ['Super Eroe', '⚡'], ['Mago dello zaino', '🧙'], ['Astronauta', '🚀'], ['Domatore di draghi', '🐉'], ['Leggenda', '👑']];
+const LEVEL_MAX = LEVEL_TIERS.length * 10;
+const levelXp = (i) => (i ? Math.round((4 * i * i + 50 * i) / 10) * 10 : 0);
+const LEVELS = Array.from({ length: LEVEL_MAX }, (_, i) => {
+  const [tier, emoji] = LEVEL_TIERS[Math.floor(i / 10)];
+  return { n: i + 1, xp: levelXp(i), tier, emoji, name: `${tier} · liv. ${i + 1}` };
+});
 function levelInfo(xp) {
   let i = 0; LEVELS.forEach((l, k) => { if (xp >= l.xp) i = k; });
+  if (!Number.isFinite(i)) i = 0;
   const cur = LEVELS[i], next = LEVELS[i + 1] || null;
   return { i, cur, next, pct: next ? Math.round((xp - cur.xp) / (next.xp - cur.xp) * 100) : 100, toNext: next ? next.xp - xp : 0 };
 }
@@ -463,7 +469,9 @@ function grantXp(amount, label) {
   const after = levelInfo(game.xp);
   if (after.i > before) {
     const n = (after.i - before) * PACKS.level; game.packs += n; saveGame();
-    toast(`🎉 Nuovo livello: ${after.cur.emoji} ${after.cur.name}! +${n} bustine 🎴`); confetti(); buzz([60, 40, 60]); sfx('level');
+    const newTier = Math.floor(after.i / 10) > Math.floor(before / 10);
+    toast(newTier ? `🎉 Sei diventato ${after.cur.emoji} ${after.cur.tier}! Livello ${after.cur.n} · +${n} ${plural(n, 'bustina', 'bustine')} 🎴`
+      : `🎉 Livello ${after.cur.n}! ${after.cur.emoji} +${n} ${plural(n, 'bustina', 'bustine')} 🎴`); confetti(); buzz([60, 40, 60]); sfx('level');
   }
   checkBadges();
 }
@@ -476,7 +484,7 @@ function awardXp(key, amount, label) {
   return true;
 }
 /* Bustine: quante se ne ricevono per ogni cosa fatta. */
-const PACKS = { full: 1, book: 2, level: 3, badge: 2, gift: 3 };
+const PACKS = { full: 1, book: 2, level: 1, badge: 2, gift: 3 };
 const PACK_SIZE = 2;
 function awardPack(key, n) { if (game.awarded[key]) return; game.awarded[key] = 1; grantPacks(n); }
 function streakInfo() {
@@ -547,7 +555,8 @@ const BADGES = [].concat(
     (n) => `Serie di ${n}`, (n) => `Zaino pronto per ${n} giorni di scuola di fila`, () => streakInfo().best),
   tier('Libri', 'book', ['📖', '📗', '📘', '📚', '🦉', '🏛️', '🎓', '🌍'], [1, 3, 5, 10, 15, 20, 30, 50],
     (n) => (n === 1 ? 'Primo libro' : `${n} libri`), (n) => `Aggiungi ${n} ${plural(n, 'libro', 'libri')} con lo scanner`, () => game.books),
-  LEVELS.slice(1).map((l, i) => ({ id: 'lvl' + (i + 1), cat: 'Livelli', emoji: l.emoji, name: l.name, hint: `Arriva al livello ${l.name}`, ok: () => levelInfo(game.xp).i >= i + 1 })),
+  LEVEL_TIERS.slice(1).map(([t, e], k) => ({ id: 'lv' + ((k + 1) * 10 + 1), cat: 'Livelli', emoji: e, name: t, hint: `Arriva al livello ${(k + 1) * 10 + 1} e diventa ${t}`, ok: () => levelInfo(game.xp).i >= (k + 1) * 10 })),
+  [{ id: 'lv' + LEVEL_MAX, cat: 'Livelli', emoji: '🌠', name: `Livello ${LEVEL_MAX}`, hint: `Arriva al livello ${LEVEL_MAX}, il più alto di tutti`, ok: () => levelInfo(game.xp).i >= LEVEL_MAX - 1 }],
   tier('Punti', 'xp', ['⭐', '🌟', '✨', '💥', '🎆', '🌈'], [500, 1000, 2000, 3000, 5000, 10000],
     (n) => `${n} punti`, (n) => `Raccogli ${n} ⭐ in totale`, () => game.xp),
   tier('Lampo', 'spd', ['⚡', '⚡', '🏎️', '🚀'], [1, 3, 5, 10],
@@ -734,14 +743,16 @@ function renderWeekDots() {
 function renderGame() {
   renderWeekDots();
   const L = levelInfo(game.xp), st = streakInfo();
-  $('hero-chips').innerHTML = `<span class="gchip">${L.cur.emoji} ${esc(L.cur.name)}</span><span class="gchip">⭐ ${game.xp} XP</span><span class="gchip${st.cur ? ' fire' : ''}" title="Giorni di scuola di fila con lo zaino pronto">🔥 ${st.cur}</span>`
+  $('hero-chips').innerHTML = `<span class="gchip" title="${esc(L.cur.tier)}">${L.cur.emoji} Liv. ${L.cur.n}</span><span class="gchip">⭐ ${game.xp} XP</span><span class="gchip${st.cur ? ' fire' : ''}" title="Giorni di scuola di fila con lo zaino pronto">🔥 ${st.cur}</span>`
     + (game.packs > 0 ? `<button type="button" class="gchip gold" id="chip-packs" aria-label="${game.packs} bustine da aprire">🎴 ${game.packs}</button>` : '')
     + (game.pending.length ? `<button type="button" class="gchip gold" id="chip-album" aria-label="${game.pending.length} figurine da attaccare">📖 ${game.pending.length}</button>` : '');
   document.querySelectorAll('.xp-fill').forEach((el) => { el.style.width = L.pct + '%'; });
-  const nxt = L.next ? `Ancora ${L.toNext} XP per diventare ${L.next.emoji} ${L.next.name}` : 'Livello massimo: sei una leggenda! 👑';
+  const nxt = !L.next ? `Livello ${LEVEL_MAX} raggiunto: sei una leggenda! 👑`
+    : L.next.tier !== L.cur.tier ? `Ancora ${L.toNext} XP per il livello ${L.next.n} e diventare ${L.next.emoji} ${L.next.tier}`
+      : `Ancora ${L.toNext} XP per il livello ${L.next.n} di ${LEVEL_MAX}`;
   document.querySelectorAll('.xp-text').forEach((el) => { el.textContent = nxt; });
   $('mascot-line').textContent = mascotMessage();
-  $('lvl-name').textContent = `${L.cur.emoji} ${L.cur.name}`; $('lvl-xp').textContent = `${game.xp} XP`;
+  $('lvl-name').textContent = `${L.cur.emoji} ${L.cur.tier} · livello ${L.cur.n}`; $('lvl-xp').textContent = `${game.xp} XP`;
   $('lvl-streak').textContent = `🔥 Serie ${st.cur} · record ${st.best}`;
   // album
   const uq = uniqueStickers();
@@ -3034,7 +3045,8 @@ const Music = (() => {
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
     A = actx;
     if (!G) G = graph(A, A.destination, gainTarget());
-    if (A.state === 'suspended') A.resume();
+    if (A.state !== 'running' && A.state !== 'closed') { try { const r = A.resume(); if (r && r.catch) r.catch(() => {}); } catch (e) { /* niente */ } }
+    if (!A.zhWatch) { A.zhWatch = true; A.addEventListener('statechange', () => { hint(); if (A.state === 'running') refresh(); }); }
     return A;
   }
   function applyGain() { if (!G) return; const t = A.currentTime; G.bus.gain.cancelScheduledValues(t); G.bus.gain.setTargetAtTime(gainTarget(), t, 0.08); G.lp.frequency.value = evening() ? 3800 : 7000; }
@@ -3065,9 +3077,33 @@ const Music = (() => {
     if ($('dlg-album') && $('dlg-album').open) return 'album';
     return evening() ? 'sera' : 'menu';
   }
-  let unlocked = false;
+  let unlocked = false, wokeAt = 0;
   function refresh() { try { const d = desired(); if (d) start(d); else if (track) stop(); } catch (e) { clearInterval(timer); timer = null; track = null; } }
-  function unlock() { if (unlocked) return; unlocked = true; try { ctx(); } catch (e) { return; } refresh(); }
+  /* I telefoni fanno partire l'audio solo dopo un tocco vero (non basta appoggiare il dito):
+     ascoltiamo ogni tocco, e se l'audio è fermo o il telefono l'ha sospeso lo risvegliamo. */
+  function unlock() {
+    if (unlocked && A && A.state === 'running') return;
+    let a; try { a = ctx(); } catch (e) { return; }
+    wokeAt = Date.now();
+    if (!unlocked) { /* iPhone: un suono muto dentro il tocco sblocca davvero l'audio */
+      try { const b = a.createBuffer(1, 1, 22050), src = a.createBufferSource(); src.buffer = b; src.connect(a.destination); src.start(0); } catch (e) { /* niente */ }
+    }
+    unlocked = true; refresh(); hint();
+  }
+  /* finché l'audio aspetta un tocco, il pulsante 🔊 in alto lampeggia piano */
+  function hint() {
+    const b = $('btn-mute'); if (!b) return;
+    const waiting = !muted && state.on && state.vol > 0 && !(A && A.state === 'running' && unlocked);
+    b.classList.toggle('wake', waiting);
+  }
+  /* Se il browser permette già l'audio (app installata, permesso dato), la musica parte da sola all'apertura. */
+  function autoStart() {
+    try {
+      const pol = navigator.getAutoplayPolicy && navigator.getAutoplayPolicy('audiocontext');
+      if (pol === 'allowed' || (navigator.userActivation && navigator.userActivation.hasBeenActive)) unlock();
+    } catch (e) { /* niente */ }
+    hint();
+  }
   function jingle() {
     if (muted) return;
     try { ctx(); } catch (e) { return; }
@@ -3094,11 +3130,14 @@ const Music = (() => {
     return off.startRendering();
   }
   function duck(on) { ducked = !!on; applyGain(); }
-  function setOn(v) { state.on = !!v; store.set(AUDIO_KEYS.on, state.on, true); refresh(); }
+  function setOn(v) { state.on = !!v; store.set(AUDIO_KEYS.on, state.on, true); refresh(); hint(); }
   function setVol(v) { state.vol = Math.max(0, Math.min(100, Math.round(v))); store.set(AUDIO_KEYS.vol, state.vol, true); applyGain(); refresh(); }
-  return { refresh, unlock, jingle, duck, setOn, setVol, state, current: () => track, evening, gain: gainTarget, TRACKS, render };
+  return { refresh, unlock, autoStart, hint, justWoke: () => Date.now() - wokeAt < 900, jingle, duck, setOn, setVol, state, current: () => track, evening, gain: gainTarget, TRACKS, render };
 })();
-['pointerdown', 'keydown', 'touchstart'].forEach((ev) => document.addEventListener(ev, () => Music.unlock(), { once: true, passive: true }));
+['pointerup', 'touchend', 'click', 'keydown', 'pointerdown'].forEach((ev) => document.addEventListener(ev, () => Music.unlock(), { passive: true, capture: true }));
+addEventListener('pageshow', () => Music.refresh());
+addEventListener('focus', () => Music.refresh());
+setTimeout(() => Music.autoStart(), 300);
 document.addEventListener('close', () => Music.refresh(), true);
 document.addEventListener('visibilitychange', () => Music.refresh());
 $('music-on').checked = Music.state.on; $('music-vol').value = String(Music.state.vol);
@@ -3137,9 +3176,10 @@ function setMuted(v) {
   const b = $('btn-mute'); b.textContent = v ? '🔇' : '🔊'; b.setAttribute('aria-pressed', String(v)); b.setAttribute('aria-label', v ? 'Audio disattivato' : 'Audio attivo');
   const b2 = $('btn-mute-2'); b2.textContent = v ? '🔇 Audio disattivato' : '🔊 Audio attivo'; b2.setAttribute('aria-pressed', String(v));
   if (v) stopAudio();
-  Music.refresh();
+  Music.refresh(); Music.hint();
 }
-$('btn-mute').onclick = () => setMuted(!muted);
+/* se il 🔊 lampeggiava, il primo tocco fa partire la musica invece di spegnerla */
+$('btn-mute').onclick = () => { if (!muted && Music.justWoke()) return; setMuted(!muted); };
 $('btn-mute-2').onclick = () => setMuted(!muted);
 ['btn-stop-audio', 'btn-stop-audio-2', 'btn-stop-audio-3'].forEach((id) => { $(id).onclick = stopAudio; });
 $('dlg-ai').addEventListener('close', stopAudio);
