@@ -1,0 +1,13 @@
+ZAINO HERO v27 - Schermate compatte per lo smartphone
+
+Cosa e' cambiato (le funzioni sono le stesse della v26):
+- Zaino: la lista da spuntare inizia a meta' schermo invece che dopo due schermate. Scheda in alto piu' piccola (anello, titolo, punti e serie su poche righe), un solo pulsante grande «Inizia la missione» con accanto «Leggi» e «Assistente». «Punti e settimana» sta in una tendina.
+- Giorno / Settimana e «⋯ Azioni» (ricomincia, condividi la lista, modifica orario) in un'unica barra. I giorni mostrano subito quante cose mancano.
+- Righe della lista piu' basse (ma sempre grandi da toccare), foto 52 px.
+- Materie: tessere a due colonne, con il pulsante 📷 «Libro» in ogni tessera.
+- Premi: livello, album e ruota piu' stretti; spiegazioni e indice dell'album in tendine o scorrevoli; Traguardi e Progressi a tendina.
+- Altro: impostazioni a fisarmonica (se ne apre una per volta).
+- Missione: foto, nome e pulsanti stanno tutti in una schermata, senza scorrere.
+- Scanner: la guida «Come si fa?» e' in una tendina; restano sempre i 3 passi.
+- Bersagli del tocco di almeno 40 px (44 nei pulsanti principali), nessuno scorrimento orizzontale da 320 a 768 px, orizzontale e schermi bassi gestiti.
+- Dati, premi, figurine, musica, scanner e orari: invariati.

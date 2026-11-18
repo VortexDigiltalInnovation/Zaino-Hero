@@ -17,7 +17,7 @@ const IMG = {
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '26';
+const APP_VERSION = '27';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -218,7 +218,7 @@ function cleanGame(raw) {
   return {
     xp: num(r.xp, 1000000), books: num(r.books, 100000), awarded, badges, stickers, pending,
     packs: num(r.packs, 99999), opened: num(r.opened, 99999), speed: num(r.speed, 99999),
-    fixedSeeded: r.fixedSeeded === true, catchup: r.catchup === true
+    fixedSeeded: r.fixedSeeded === true, catchup: r.catchup === true, legendaries: (r.legendaries && typeof r.legendaries === 'object' ? Object.fromEntries(Object.keys(r.legendaries).filter(k => /^[a-z0-9-]{2,24}$/.test(k)).map(k => [k, 1])) : {}), secretWins: num(r.secretWins, 99999)
   };
 }
 function cleanHistory(raw) {
@@ -526,6 +526,16 @@ const STICKER_THEMES = [
   { id: 'fe', name: 'Feste', emoji: '🎄', items: ['🎄', '🎅', '🤶', '🐣', '🥚', '🎆', '🎇', '🧨', '🎏', '🎐', '🕯️', '🎀', '💝', '🦃', '🍬', '🧧', '🎎', '🪅'] }
 ];
 const RARITY = { c: { name: 'Comune', color: '#94a3b8', w: 60 }, r: { name: 'Raro', color: '#38bdf8', w: 25 }, e: { name: 'Epico', color: '#c084fc', w: 11 }, l: { name: 'Leggendario', color: '#fbbf24', w: 4 } };
+const LEGENDARY = [
+{id:'chaos-dragon',name:'Drago del Caos',emoji:'🐉',desc:'Ha incendiato tre tostapane per allenarsi. Non chiedergli perché.'},
+{id:'diamond-owl',name:'Gufo Diamante',emoji:'🦉',desc:'Vede il futuro, ma solo l’orario della ricreazione.'},
+{id:'cosmic-phoenix',name:'Fenice Cosmica',emoji:'🔥',desc:'Rinasce dalle ceneri e poi si lamenta del disordine.'},
+{id:'nebula-unicorn',name:'Unicorno Nebulosa',emoji:'🦄',desc:'Sparge glitter interstellare. La scopa è il suo nemico naturale.'},
+{id:'galaxy-robot',name:'Robot Galattico',emoji:'🤖',desc:'Calcola tutto. Tranne dove ha messo il caricabatterie.'},
+{id:'golden-turtle',name:'Tartaruga Aurata',emoji:'🐢',desc:'Arriva sempre ultima… ma con stile da campione.'}
+];
+const SECRET_MISSIONS = [{title:'Operazione Calzino Fantasma',text:'Trova il calzino disperso: è in missione sotto il letto?',emoji:'🧦'},{title:'Il Libro Invisibile',text:'Controlla che nessun libro si sia mimetizzato tra i quaderni.',emoji:'🕵️'},{title:'Codice Zaino Segreto',text:'Sistema un oggetto al suo posto con una mossa da ninja.',emoji:'🥷'},{title:'Radar Anti-Dimenticanza',text:'Ricontrolla il diario come un detective professionista.',emoji:'🔎'}];
+
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 const STICKERS = [];
 STICKER_THEMES.forEach((t) => t.items.forEach((emoji, i) => {
@@ -620,7 +630,7 @@ function openPack() {
 }
 function renderPack() {
   $('pack-cards').innerHTML = packState.cards.map((c, i) => packState.revealed[i]
-    ? `<div class="pcard rev r${c.rarity}" style="--rc:${RARITY[c.rarity].color}"><span class="pe">${c.emoji}</span><b>${RARITY[c.rarity].name}</b><small>${c.isNew ? '✨ NUOVA!' : `doppia ×${c.count}`}</small></div>`
+    ? `<button type="button" class="pcard rev r${c.rarity} expand-card" data-card-view="${c.id}" style="--rc:${RARITY[c.rarity].color}"><span class="pe">${c.emoji}</span><b>${RARITY[c.rarity].name}</b><small>${c.isNew ? '✨ NUOVA!' : `doppia ×${c.count}`}</small><small>🔍 Tocca per zoom</small></button>`
     : `<button type="button" class="pcard back" data-reveal="${i}" aria-label="Scopri la figurina ${i + 1}"><span class="pe">🎴</span><small>Tocca!</small></button>`).join('');
   const all = packState.revealed.every(Boolean);
   $('btn-reveal-all').classList.toggle('hidden', all);
@@ -644,13 +654,18 @@ const stuckCount = (tid) => STICKERS.filter((s) => s.theme === tid && isStuck(s.
 const RARITY_MARK = { c: '', r: ' ★', e: ' ★★', l: ' 👑' };
 const PAGE_COLOR = { an: '#e8d3b5', sp: '#c9cfe3', sg: '#cfe1c9', ci: '#f0cdb8', fa: '#dccfe6', me: '#c9dde3', na: '#d3e3c4', mu: '#ecd0d6', sc: '#e6dcc0', gi: '#d6d9ea', ma: '#c4dde0', vi: '#e3d6c2', la: '#d9d4c8', fe: '#ecd3c4' };
 let albumAnim = null;
+function showCardDetail(cardId) { const st=STICKERS.find(x=>x.id===cardId); const lg=cardId.startsWith('legend:')?LEGENDARY.find(x=>x.id===cardId.slice(7)):null; if(!st&&!lg)return; const title=lg?lg.name:`${STICKER_THEMES.find(t=>t.id===st.theme)?.name||'Figurina'} #${st.num}`, emoji=lg?lg.emoji:st.emoji, rarity=lg?'LEGENDARIA · SUPER RARA':RARITY[st.rarity].name, joke=lg?lg.desc:['La sua potenza è direttamente proporzionale alle merendine in tasca.','È stata vista cercare ordine nel caos cosmico.','Il superpotere? Ricordarsi tutto, tranne dove ha parcheggiato.'][hashStr(cardId)%3]; $('sticker-detail-card').className='detail-card '+(lg?'legendary':'r'+st.rarity); $('sticker-detail-card').innerHTML=`<div class="detail-foil"></div><div class="detail-emoji">${emoji}</div><div class="detail-rarity">${rarity}</div><h2>${esc(title)}</h2><p>${esc(joke)}</p><small>${lg?'Collezione segreta ultra-limitata':'Tocca per scoprire la curiosità della figurina'}</small>`; openDialog($('dlg-sticker-detail')); }
+$('pack-cards').addEventListener('click',e=>{const card=e.target.closest('[data-card-view]');if(card)showCardDetail(card.dataset.cardView);});
+$('alb-page').addEventListener('click',e=>{const card=e.target.closest('[data-card-view]');if(card)showCardDetail(card.dataset.cardView);});
+$('alb-tray').addEventListener('click',e=>{const card=e.target.closest('[data-card-view]');if(card)showCardDetail(card.dataset.cardView);});
 function stickerHtml(s, extra) {
   const rot = ((hashStr(s.id) % 9) - 4) * 0.8, n = game.stickers[s.id] || 0;
-  return `<span class="sticker r${s.rarity}${extra || ''}" style="--rc:${RARITY[s.rarity].color};--rot:${rot}deg"><span class="se" aria-hidden="true">${s.emoji}</span><span class="sn">${s.num}${RARITY_MARK[s.rarity]}</span>${n > 1 ? `<span class="dup">×${n}</span>` : ''}</span>`;
+  return `<span class="sticker r${s.rarity}${extra || ''}" data-card-view="${s.id}" style="--rc:${RARITY[s.rarity].color};--rot:${rot}deg"><span class="se" aria-hidden="true">${s.emoji}</span><span class="sn">${s.num}${RARITY_MARK[s.rarity]}</span>${n > 1 ? `<span class="dup">×${n}</span>` : ''}</span>`;
 }
 function renderAlbum(dir) {
   const t = STICKER_THEMES.find((x) => x.id === albumTheme) || STICKER_THEMES[0], idx = STICKER_THEMES.indexOf(t);
   $('alb-count').textContent = `${STICKERS.filter((x) => isStuck(x.id)).length} / ${STICKERS.length}`;
+  const ownedLegend = LEGENDARY.filter(x => game.legendaries && game.legendaries[x.id]); $('legendary-collection').innerHTML = `<div class="legendary-head">💎 Figurine leggendarie <b>${ownedLegend.length}/${LEGENDARY.length}</b></div><div class="legendary-row">${ownedLegend.map(x=>`<button class="legend-mini" type="button" data-card-view="legend:${x.id}"><span>${x.emoji}</span><b>${esc(x.name)}</b></button>`).join('') || `<small class="muted">Nessuna leggendaria ancora… la prossima missione segreta potrebbe nasconderne una!</small>`}</div>`;
   $('album-themes').innerHTML = STICKER_THEMES.map((x) => {
     const hasP = game.pending.some((id) => id.slice(0, 2) === x.id);
     return `<button type="button" class="chip-sel${hasP ? ' has-pend' : ''}" data-theme="${x.id}" aria-pressed="${x.id === t.id}">${x.emoji} ${esc(x.name)} ${stuckCount(x.id)}/${x.items.length}</button>`;
@@ -792,12 +807,14 @@ function openMission() {
   if (!left.length) { toast('Lo zaino è già pronto! 🎉'); return; }
   mission.queue = left.slice(); mission.cur = left[0]; stopMissionTimer();
   renderMission(); openDialog($('dlg-mission'));
+  if (Math.random() < 0.09) { const sm = SECRET_MISSIONS[Math.floor(Math.random()*SECRET_MISSIONS.length)]; $('secret-mission-title').textContent=sm.title; $('secret-mission-text').textContent=sm.text; $('secret-mission-emoji').textContent=sm.emoji; openDialog($('dlg-secret-mission')); }
 }
 function stopMissionTimer() {
   clearInterval(mission.tick); mission.tick = null; mission.timerOn = false;
   $('mission-time').textContent = '⏱ senza fretta'; $('mission-time').classList.remove('warn');
   $('btn-mission-timer').textContent = '⏱ Sfida 3 minuti';
 }
+$('btn-secret-complete').onclick = () => { game.secretWins=(game.secretWins||0)+1; const unowned=LEGENDARY.filter(x=>!game.legendaries[x.id]); const card=unowned.length?unowned[Math.floor(Math.random()*unowned.length)]:LEGENDARY[Math.floor(Math.random()*LEGENDARY.length)]; game.legendaries[card.id]=(game.legendaries[card.id]||0)+1; grantXp(30,'Missione segreta'); saveGame(); $('dlg-secret-mission').close(); $('sticker-detail-card').className='detail-card legendary'; $('sticker-detail-card').innerHTML=`<div class="detail-foil"></div><div class="detail-emoji">${card.emoji}</div><div class="detail-rarity">LEGENDARIA · SUPER RARA</div><h2>${esc(card.name)}</h2><p>${esc(card.desc)}</p><small>Ricompensa segreta · ${game.secretWins} trovate</small>`; openDialog($('dlg-sticker-detail')); renderGame(); confetti(); };
 function startMissionTimer() {
   mission.timerOn = true; mission.endsAt = Date.now() + 180000;
   $('btn-mission-timer').textContent = '⏹ Niente sfida';
@@ -997,7 +1014,7 @@ function renderSubjects() {
   $('subjects').innerHTML = Object.keys(subjects).sort((a, b) => (b === FIXED_KEY) - (a === FIXED_KEY)).map((k) => {
     const s = subjects[k];
     return `<div class="s-wrap"><button class="s-card" data-subj="${esc(k)}"><span class="row gap"><span class="dot" style="background:${s.color}"></span>
-      <span><h4>${esc(s.emoji)} ${esc(k)}</h4><span class="muted small">${k === FIXED_KEY ? 'una volta al giorno · ' : ''}${s.materials.length} ${s.materials.length === 1 ? 'cosa' : 'cose'}</span></span></span><span aria-hidden="true">✏️</span></button>
+      <span><h4>${esc(s.emoji)} ${esc(k)}</h4><span class="muted small">${k === FIXED_KEY ? 'ogni giorno · ' : ''}${s.materials.length} ${s.materials.length === 1 ? 'cosa' : 'cose'}</span></span></span><span aria-hidden="true">✏️</span></button>
       <button class="s-scan" type="button" data-scan-subj="${esc(k)}" aria-label="Scansiona un libro di ${esc(k)}">📷<small>Libro</small></button></div>`;
   }).join('') + '<button class="s-card add" id="btn-new-subj" type="button">＋ Nuova materia</button>';
 }
@@ -3216,7 +3233,7 @@ function renderKids() {
   $('kids').innerHTML = kids.list.map((k) =>
     `<button class="kid${k.id === activeKidId ? ' on' : ''}" type="button" data-kid="${esc(k.id)}" aria-pressed="${k.id === activeKidId}"><img src="${IMG['avatar-' + k.avatar]}" alt="" width="34" height="34"><span>${esc(k.name)}</span></button>`).join('')
     + `<button class="kid-act" id="btn-kid-edit" type="button" aria-label="Modifica ${esc(activeKid().name)}">✏️</button>`
-    + (kids.list.length < MAX_KIDS ? '<button class="kid-act" id="btn-kid-add" type="button">＋ Figlio</button>' : '');
+    + (kids.list.length < MAX_KIDS ? '<button class="kid-act" id="btn-kid-add" type="button" aria-label="Aggiungi un figlio">＋</button>' : '');
 }
 function readKidData(id) {
   const prev = activeKidId; activeKidId = id;
@@ -3548,3 +3565,19 @@ $('wl-later').onclick = () => endWelcome(false);
 if (!FRESH_INSTALL) store.set('zaino_onboarded', true, true);
 lockParent(); setCalm(calm); ensureFixed(); renderWheelLabels(); setMuted(muted); netStatus(); render(); catchUpBadges(); albumGift(); renderGame(); renderToday();
 if (FRESH_INSTALL && !store.get('zaino_onboarded', false)) openWelcome();
+
+
+/* ---------- schermate compatte: menu «Azioni» e tendine a fisarmonica ---------- */
+(() => {
+  const menu = document.getElementById('more-menu');
+  if (menu) {
+    menu.addEventListener('click', (e) => { if (e.target.closest('.more-pop button')) setTimeout(() => { menu.open = false; }, 0); });
+    document.addEventListener('click', (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') menu.open = false; });
+  }
+  /* nelle schede Premi e Altro si apre una tendina alla volta: la pagina resta corta */
+  document.querySelectorAll('[data-panel]').forEach((panel) => {
+    const accs = panel.querySelectorAll('details.acc');
+    accs.forEach((d) => d.addEventListener('toggle', () => { if (d.open) accs.forEach((o) => { if (o !== d) o.open = false; }); }));
+  });
+})();
