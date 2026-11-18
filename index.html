@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=27">
+<link rel="stylesheet" href="styles.css?v=29">
 </head>
 <body>
 
@@ -464,6 +464,24 @@
       <p class="tray-hint" id="alb-hint">Tocca una figurina: andrà da sola al suo posto nell'album.</p>
     </div>
   </div>
+  <div class="album-intro" id="album-intro" aria-hidden="true">
+    <div class="ai-book">
+      <div class="ai-cover">
+        <div class="ai-face ai-front">
+          <div class="ai-frame">
+            <div class="ai-kicker">ZAINO HERO</div>
+            <div class="ai-emoji">🎴</div>
+            <div class="ai-title">ALBUM<br>FIGURINE</div>
+            <div class="ai-count" id="ai-count"></div>
+          </div>
+          <div class="ai-spine"></div><div class="ai-sheen"></div>
+          <div class="ai-tap">Tocca per aprire</div>
+        </div>
+        <div class="ai-face ai-back"></div>
+      </div>
+    </div>
+    <div class="ai-sparks"><i style="--dx:-130px;--dy:-170px">✨</i><i style="--dx:140px;--dy:-130px">⭐</i><i style="--dx:-150px;--dy:60px">✨</i><i style="--dx:120px;--dy:150px">🌟</i><i style="--dx:-40px;--dy:-220px">✨</i><i style="--dx:40px;--dy:210px">⭐</i><i style="--dx:-190px;--dy:-30px">🌟</i><i style="--dx:190px;--dy:10px">✨</i></div>
+  </div>
 </dialog>
 
 <!-- Nuova materia -->
@@ -505,6 +523,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=27"></script>
+<script src="app.js?v=29"></script>
 </body>
 </html>
