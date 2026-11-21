@@ -1,0 +1,5 @@
+Zaino Hero v34
+
+- Personaggi originali più nitidi: stessi disegni, ma ingranditi con un modello di super-risoluzione (da 96-192 px a 288-384 px), con bordi più puliti e meno effetto a blocchi sui telefoni ad alta densità.
+- Restano: nuovo logo con versione visibile, guida passo passo, correzione delle figurine.
+- Ricarica tutti i file del sito: cambia la versione (34) e la cache.
