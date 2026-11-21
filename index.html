@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=29">
+<link rel="stylesheet" href="styles.css?v=31">
 </head>
 <body>
 
@@ -29,6 +29,7 @@
     </div>
     <div class="topbar-actions">
       <button class="btn btn-stop hidden" id="btn-stop-audio" type="button" aria-label="Ferma la voce">⏹ Ferma</button>
+      <button class="btn btn-icon" id="btn-guide" type="button" aria-label="Apri la guida passo passo" title="Guida">❓</button>
       <button class="btn btn-icon" id="btn-mute" type="button" aria-label="Audio attivo" aria-pressed="false">🔊</button>
       <button class="btn btn-primary btn-sm hidden" id="btn-install" type="button">📲 Installa app</button>
     </div>
@@ -170,6 +171,10 @@
   <!-- ===== Scheda: Altro ===== -->
   <div data-panel="altro" class="panel hidden">
     <header class="panel-head"><h2>⚙️ Impostazioni</h2></header>
+    <section class="card stack guide-card">
+      <div class="row gap"><span class="guide-card-ico" aria-hidden="true">🧭</span><div class="grow"><h3>Guida passo passo</h3><p class="muted small">Rivedi le funzioni e rifai la configurazione: profilo, materie, orario, libri e premi.</p></div></div>
+      <button class="btn btn-primary" id="btn-guide-2" type="button">🧭 Apri la guida</button>
+    </section>
     <section id="parent-gate" class="card stack center">
       <h3>🔒 Zona genitori</h3>
       <p class="muted small">Qui ci sono copie dei dati, aggiornamenti e impostazioni. Per entrare tieni premuto il pulsante per un secondo e mezzo.</p>
@@ -405,32 +410,28 @@
   </div>
 </dialog>
 
-<!-- Benvenuto -->
-<dialog id="dlg-welcome" aria-labelledby="welcome-title">
-  <div class="dlg-in stack">
-    <h2 id="welcome-title">👋 Benvenuto in Zaino Hero!</h2>
-    <div id="wl-1" class="stack">
-      <p class="muted">Prepariamo lo zaino insieme, una missione alla volta. Come ti chiami?</p>
-      <label class="field"><span class="small muted">Nome</span><input id="wl-name" type="text" maxlength="30" autocomplete="off"></label>
-      <label class="field"><span class="small muted">Classe (es. 5ª A)</span><input id="wl-cls" type="text" maxlength="10" autocomplete="off"></label>
-      <fieldset class="avatar-pick"><legend class="small muted">Scegli il tuo eroe</legend><div id="wl-avatars" class="row gap wrapflex"></div></fieldset>
-      <fieldset class="avatar-pick"><legend class="small muted">Scegli lo sfondo</legend><div id="wl-themes" class="row gap wrapflex"></div></fieldset>
-      <button class="btn btn-primary btn-xl" id="wl-next-1" type="button">Avanti ▶</button>
+<!-- Guida passo passo (primo avvio e pulsante ❓) -->
+<dialog id="dlg-guide" data-sticky aria-labelledby="guide-title">
+  <div class="dlg-in guide">
+    <div class="guide-top">
+      <div class="guide-prog" id="guide-prog" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-label="Avanzamento della guida"><i></i></div>
+      <div class="row between">
+        <span class="small muted" id="guide-count">Passo 1 di 7</span>
+        <button class="link" id="guide-skip" type="button">Salta la guida ⏭</button>
+      </div>
     </div>
-    <div id="wl-2" class="stack hidden">
-      <p class="muted">Dimentica il caos delle 7:00 del mattino: trasforma il controllo di libri, quaderni e diario in una missione epica fatta di sfide, punti e premi reali.</p>
-      <ul class="wl-list">
-        <li>🚀 <b>Missione zaino</b>: trovi una cosa alla volta e guadagni ⭐ punti.</li>
-        <li>🎴 <b>Figurine</b>: ogni zaino pronto regala una bustina da aprire.</li>
-        <li>📷 <b>Scanner</b>: inquadra la copertina o il codice a barre di un libro e lo aggiungo io.</li>
-        <li>🎡 <b>Ruota dei premi</b>: i premi li scelgono i genitori.</li>
-      </ul>
-      <button class="btn btn-primary btn-xl" id="wl-next-2" type="button">Avanti ▶</button>
+    <div class="guide-main" id="guide-main">
+      <div class="guide-says">
+        <img class="mascot-img" data-img="robot" alt="" width="56" height="56">
+        <p id="guide-bubble" class="bubble" aria-live="polite"></p>
+        <button class="btn btn-icon" id="guide-read" type="button" aria-label="Leggi ad alta voce">🔊</button>
+      </div>
+      <h2 id="guide-title" tabindex="-1"></h2>
+      <div id="guide-body" class="stack"></div>
     </div>
-    <div id="wl-3" class="stack hidden">
-      <p class="muted">Aggiungiamo i tuoi libri? Puoi farlo anche dopo, dalla scheda Materie.</p>
-      <button class="btn btn-ok btn-xl" id="wl-scan" type="button">📷 Scansiona il primo libro</button>
-      <button class="btn btn-soft" id="wl-later" type="button">Più tardi</button>
+    <div class="guide-nav">
+      <button class="btn btn-soft" id="guide-back" type="button">◀ Indietro</button>
+      <button class="btn btn-primary grow" id="guide-next" type="button">Avanti ▶</button>
     </div>
   </div>
 </dialog>
@@ -523,6 +524,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=29"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>
