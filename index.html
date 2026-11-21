@@ -14,16 +14,16 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="styles.css?v=32">
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <div class="brand">
-      <img class="logo" data-img="zaino" alt="" width="46" height="46">
+      <div class="logo-wrap"><img class="logo" data-img="logo" alt="" width="46" height="46"><span class="ver app-ver logo-ver" aria-label="Versione dell'app"></span></div>
       <div>
-        <h1>Zaino Hero <span class="ver app-ver" aria-label="Versione dell'app"></span></h1>
+        <h1>Zaino Hero</h1>
         <p class="muted small"><span id="profile-line"></span> <span id="net" class="pill pill-ok" role="status">Online</span></p>
       </div>
     </div>
@@ -132,7 +132,7 @@
       <div class="row between wrapflex"><div><span class="eyebrow">Il tuo livello</span><h3 id="lvl-name"></h3></div><div class="tickets"><span class="tickets-n" id="lvl-xp"></span><span class="small muted" id="lvl-streak"></span></div></div>
       <div class="xpbar" aria-hidden="true"><i class="xp-fill"></i></div>
       <p class="xp-text muted small"></p>
-      <details class="mini-details"><summary>❓ Come si guadagnano i punti?</summary><p class="muted small">Ogni cosa nello zaino vale ⭐10, lo zaino pronto ⭐50 + 🎴, un libro nuovo ⭐30 + 🎴🎴. Ci sono 100 livelli in 10 gradi, da 🐣 Recluta a 👑 Leggenda: ogni livello regala una bustina. I punti non si perdono mai!</p></details>
+      <details class="mini-details"><summary>❓ Come si guadagnano i punti?</summary><p class="muted small">Ogni cosa nello zaino vale ⭐10, lo zaino pronto ⭐50 + 🎴, un libro nuovo ⭐30. Ci sono 100 livelli in 10 gradi, da 🐣 Recluta a 👑 Leggenda: ogni 5 livelli c'è una bustina. I punti non si perdono mai!</p></details>
     </section>
     <section class="card stack album-card" id="album-card">
       <div class="row between wrapflex"><h3>🎴 Il mio album di figurine</h3><span id="album-count" class="muted small"></span></div>
@@ -142,7 +142,7 @@
         <button class="btn btn-album" id="btn-open-album" type="button">📖 Apri l'album<span class="nb hidden" id="album-pend-badge"></span></button>
       </div>
       <div id="album-mini" class="album-theme-mini" aria-label="Pagine dell'album"></div>
-      <details class="mini-details"><summary>❓ Come funzionano le bustine?</summary><p class="muted small">Ogni bustina ha 2 figurine, anche rare, epiche e leggendarie: aprila e poi attaccale nell'album, ognuna al suo posto. Le doppie ti regalano ⭐5 ciascuna. Le bustine arrivano completando lo zaino (1), aggiungendo libri (2), salendo di livello (1), con ogni traguardo (2) e con la ruota.</p></details>
+      <details class="mini-details"><summary>❓ Come funzionano le bustine?</summary><p class="muted small">Ogni bustina ha 2 figurine, anche rare, epiche e leggendarie: aprila e poi attaccale nell'album, ognuna al suo posto. Le doppie ti regalano ⭐5 ciascuna. Le bustine arrivano completando lo zaino (1), ogni 5 livelli (1), con ogni traguardo (1) e con la ruota. Per non esagerare, ne puoi ricevere al massimo 3 al giorno: le altre ti aspettano e arrivano nei giorni dopo.</p></details>
     </section>
     <details class="card acc" id="acc-badges">
       <summary><h3>🏅 I miei traguardi</h3><span id="badge-count" class="muted small"></span></summary>
@@ -524,6 +524,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=31"></script>
+<script src="app.js?v=32"></script>
 </body>
 </html>

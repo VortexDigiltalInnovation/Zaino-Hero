@@ -630,7 +630,6 @@ body{font-size:15px;padding-bottom:calc(68px + env(safe-area-inset-bottom))}
 .topbar-in{padding-top:6px;padding-bottom:6px}
 .logo{width:34px;height:34px}
 .brand h1{font-size:1rem}
-.brand .ver{display:none}
 .brand p{font-size:.7rem}
 .topbar-actions{gap:6px}
 #btn-install{padding:4px 10px;min-height:36px;font-size:.72rem}
@@ -958,3 +957,8 @@ input[type=range]{min-height:36px}
 .guide-card-ico{font-size:2rem;line-height:1}
 .guide .edit-row{gap:4px;padding:6px 8px}
 .guide .edit-row .btn-icon{min-width:34px;padding:4px}
+
+/* ===== logo nuovo + versione vicino al logo ===== */
+.logo-wrap{position:relative;flex:0 0 auto;padding-bottom:7px}
+.logo-wrap .logo{box-shadow:0 3px 10px #0008}
+.logo-ver{position:absolute;left:50%;bottom:0;transform:translateX(-50%);margin:0;padding:0 7px;font-size:.58rem;line-height:1.5;white-space:nowrap;box-shadow:0 1px 4px #0007}
