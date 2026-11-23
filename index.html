@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=34">
+<link rel="stylesheet" href="styles.css?v=36">
 </head>
 <body>
 
@@ -193,6 +193,20 @@
         <button class="btn btn-stop" id="btn-stop-audio-2" type="button">⏹ Ferma la voce</button>
       </div>
       <label class="row gap small auto-add"><input type="checkbox" id="music-on" checked> <span>🎵 Musica di sottofondo</span></label>
+      <label class="field"><span class="small muted">Musica di sottofondo</span><select id="music-style" aria-label="Musica di sottofondo">
+          <optgroup label="Automatica (cambia secondo dove sei)">
+            <option value="auto-v2">🍄 Platform classico + corsa + carillon + ninna nanna (originale)</option>
+            <option value="auto-mario">🕹️ Platform 8 bit nuovo + carillon + ninna nanna</option>
+          </optgroup>
+          <optgroup label="Un solo brano, sempre">
+            <option value="menu">🍄 Platform classico (menu)</option>
+            <option value="mission">🏃 Corsa d'avventura (missione)</option>
+            <option value="mario">🕹️ Platform 8 bit nuovo</option>
+            <option value="marioRun">⚡ Corsa 8 bit nuova</option>
+            <option value="album">🔔 Carillon sognante (album)</option>
+            <option value="sera">🌙 Ninna nanna</option>
+          </optgroup>
+        </select></label>
       <label class="field"><span class="small muted">Volume della musica</span><input type="range" id="music-vol" min="0" max="100" step="5" value="60" aria-label="Volume della musica"></label>
       <p class="muted small">Come nei videogiochi: allegra nel menu, più ritmata durante la missione, una fanfara quando lo zaino è pronto. Dopo le 19:30 diventa più lenta e più piano, adatta alla sera. Si ferma subito con 🔇 in alto, mentre l'app parla e durante lo scanner.</p>
       <label class="row gap small auto-add"><input type="checkbox" id="calm-mode"> <span>🌿 Modalità calma: meno animazioni, niente vibrazioni</span></label>
@@ -524,6 +538,6 @@
 
 <datalist id="subject-list"></datalist>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<script src="app.js?v=34"></script>
+<script src="app.js?v=36"></script>
 </body>
 </html>

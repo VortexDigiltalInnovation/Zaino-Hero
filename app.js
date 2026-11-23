@@ -18,7 +18,7 @@ const IMG = {
 };
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '34';
+const APP_VERSION = '36';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -2828,7 +2828,7 @@ const CHORD = {
   G: ['G2', ['G3', 'B3', 'D4', 'E4']], Gsus: ['G2', ['F3', 'G3', 'C4', 'D4']],
   Em7: ['E2', ['D3', 'G3', 'B3', 'E4']], Dm7: ['D3', ['F3', 'A3', 'C4', 'E4']], E7: ['E2', ['G#3', 'B3', 'D4', 'E4']],
   Bbmaj7: ['A#2', ['A#3', 'D4', 'F4', 'A4']], Gm7: ['G2', ['F3', 'A#3', 'D4', 'G4']],
-  G7: ['G2', ['F3', 'G3', 'B3', 'D4']], Ab: ['G#2', ['G#3', 'C4', 'D#4']], Bb: ['A#2', ['A#3', 'D4', 'F4']]
+  G7: ['G2', ['F3', 'G3', 'B3', 'D4']], Cm: ['C3', ['G3', 'C4', 'D#4']], Fm: ['F2', ['F3', 'G#3', 'C4']], Ab: ['G#2', ['G#3', 'C4', 'D#4']], Bb: ['A#2', ['A#3', 'D4', 'F4']]
 };
 const chordF = (c) => CHORD[c][1].map(noteFreq);
 const rootF = (c) => noteFreq(CHORD[c][0]);
@@ -2841,10 +2841,12 @@ function arrange(def) {
   });
   return Object.assign(def, { bars, loop, steps: bars.length * 16 });
 }
-const AUDIO_KEYS = { on: 'zaino_music', vol: 'zaino_music_vol' };
+const AUDIO_KEYS = { on: 'zaino_music', vol: 'zaino_music_vol', style: 'zaino_music_style' };
 const Music = (() => {
   let A = null, G = null, timer = null, track = null, nextTime = 0, stepIdx = 0, ducked = false, jingling = false;
-  const state = { on: store.get(AUDIO_KEYS.on, true) !== false, vol: Number.isFinite(store.get(AUDIO_KEYS.vol, 60)) ? Math.max(0, Math.min(100, store.get(AUDIO_KEYS.vol, 60))) : 60 };
+  const PICKS = ['auto-v2', 'auto-mario', 'menu', 'mission', 'mario', 'marioRun', 'album', 'sera'];
+  const normPick = (v) => (v === 'v2' ? 'auto-v2' : v === 'mario' ? 'auto-mario' : PICKS.includes(v) ? v : 'auto-v2');
+  const state = { pick: normPick(store.get(AUDIO_KEYS.style, 'auto-v2')), on: store.get(AUDIO_KEYS.on, true) !== false, vol: Number.isFinite(store.get(AUDIO_KEYS.vol, 60)) ? Math.max(0, Math.min(100, store.get(AUDIO_KEYS.vol, 60))) : 60 };
   const evening = () => { const n = new Date(), h = n.getHours() + n.getMinutes() / 60; return h >= 19.5 || h < 6; };
   /* calibrato sulla misura del segnale: al 60% (predefinito) la musica sta a circa -16 dBFS di picco, al 100% a circa -11 dBFS */
   const TR = () => (track ? TRACKS[track] : null);
@@ -3017,6 +3019,105 @@ const Music = (() => {
   const staccato = (m, d) => (m.len === 1 ? d * 0.75 : m.len * d * 0.92);
   /* ----- brani ----- */
   const TRACKS = {
+    /* ===== stile platform classico a 8 bit (stile Super Mario): melodia a onda quadra, basso saltellante a terzine di sedicesimi, batteria rumorosa.
+       Due brani originali: «mario» (menu, Do maggiore, 148 bpm) e «marioRun» (missione, Do minore, 164 bpm). ===== */
+    mario: arrange({ bpm: 148, level: 0.81, swing: 0.07, pump: 0, loopAt: 1, echo: 0.75,
+      mix: { lead: { rev: 0.1, dly: 0.05 }, keys: { pan: -0.25, rev: 0.1, dly: 0 }, arp: { pan: 0.4, rev: 0.12, dly: 0 }, bass: { rev: 0.02 }, perc: { pan: -0.3, rev: 0.1 } },
+      order: ['intro', 'A', 'B', 'A+', 'C', 'B+'],
+      sec: {
+        intro: { chords: ['C', 'G7'], mel: `
+          G4 . C5 . E5 . G5 . C6 - - - . . G5 .
+          D5 . F5 . G5 . B5 . D6 - - - . . . .` },
+        A: { chords: ['C', 'C', 'F', 'G', 'C', 'Am', 'Dm7', 'G7'], mel: `
+          E5 . . E5 . G5 . . C6 . . G5 . E5 . .
+          D5 . . D5 . G5 . . B5 - - . . . G5 .
+          F5 . . F5 . A5 . . C6 . . A5 . F5 . .
+          G5 . . A5 . B5 . . D6 - - - . D6 . E6
+          C6 . . G5 . E5 . . G5 . . C6 . . . .
+          A5 . . A5 . C6 . . E6 . . C6 . A5 . .
+          D6 . . C6 . A5 . . F5 . A5 . C6 . D6 .
+          B5 - - G5 . . D5 . G5 . B5 - - . . .` },
+        B: { chords: ['F', 'G', 'Em7', 'Am', 'F', 'G', 'Ab', 'Bb'], mel: `
+          A5 . C6 . A5 . . F5 . . A5 . C6 . . .
+          B5 . D6 . B5 . . G5 . . B5 . D6 . . .
+          G5 . B5 . E6 . . D6 . . B5 . G5 . . .
+          E6 . . C6 . . A5 . C6 . E6 - - . . .
+          F6 . . C6 . . A5 . C6 . F6 - - . . .
+          G6 . . D6 . . B5 . D6 . G6 - - . . .
+          G#5 . C6 . D#6 . . . C6 . G#5 . . . . .
+          A#5 . D6 . F6 . . . D6 . A#5 . . . G5 .` },
+        C: { chords: ['Dm7', 'G', 'Em7', 'Am'], mel: `
+          D5 F5 A5 D6 F6 D6 A5 F5 D5 F5 A5 D6 F6 . . .
+          G5 B5 D6 G6 D6 B5 G5 B5 D6 G6 . . . . . .
+          E5 G5 B5 E6 G6 E6 B5 G5 E5 G5 B5 E6 . . . .
+          A5 C6 E6 A6 . . E6 . C6 . A5 . . . . .` }
+      },
+      play(b, k, t, d) {
+        const s = b.sec, r = rootF(b.chord), m = b.mel[k], arps = s === 'C', last = b.i === b.n - 1;
+        if (m) {
+          const dur = staccato(m, d), g = hg(m.f);
+          if (arps) chip('lead', m.f, t, dur, { duty: 0.125, g: 0.017 * g, cut: 3800, sus: 0.5 });
+          else {
+            chip('lead', m.f, t, dur, { duty: s === 'B' ? 0.25 : 0.5, g: 0.02 * g, cut: 3600 });
+            if (b.plus) chip('arp', m.f / 2, t, dur, { duty: 0.125, g: 0.007 * g, cut: 2400 });
+          }
+        }
+        /* basso saltellante 3+3+2: radice, radice, ottava, quinta, quinta, ottava */
+        if (k === 0 || k === 3) tri(r, t, d * 1.5, 0.05); else if (k === 6 || k === 14) tri(r * 2, t, d * 1.5, 0.04); else if (k === 8 || k === 11) tri(r * 1.5, t, d * 1.5, 0.045);
+        if (k % 2 === 0) DR.hat(t, k % 4 === 2 ? 0.45 : 0.25);
+        if (s === 'intro') { if (k === 0) DR.kick(t, 0.5); return; }
+        if (k === 4 || k === 12) stab(b.chord, t, d, arps ? 0.003 : 0.0042);
+        if (arps) { if (k === 0 || k === 8) DR.kick(t, 0.4); if (k === 4 || k === 12) DR.snare(t, 0.25); return; }
+        if (k === 0 || k === 8 || (s === 'B' && k === 10)) DR.kick(t, 0.55);
+        if (k === 4 || k === 12) DR.snare(t, 0.34);
+        if (last && k >= 12) DR.snare(t, 0.16 + (k - 12) * 0.05);
+      } }),
+    marioRun: arrange({ bpm: 164, level: 0.8, swing: 0.04, pump: 0, loopAt: 1, echo: 0.75,
+      mix: { lead: { rev: 0.1, dly: 0.05 }, keys: { pan: 0.3, rev: 0.1, dly: 0 }, arp: { pan: -0.4, rev: 0.12, dly: 0 }, bass: { rev: 0.02 }, perc: { pan: -0.3, rev: 0.1 } },
+      order: ['intro', 'A', 'B', 'A+', 'B+'],
+      sec: {
+        intro: { chords: ['Cm', 'G7'], mel: `
+          C5 . . . D#5 . . . G5 . . . C6 . . .
+          D5 . . . F5 . . . G5 . B5 . D6 . . .` },
+        A: { chords: ['Cm', 'Cm', 'Ab', 'Bb', 'Cm', 'Cm', 'Fm', 'G7'], mel: `
+          G5 . G5 . D#5 . G5 . C6 . . . G5 . . .
+          G5 . G5 . D#5 . G5 . D6 . . . C6 . . .
+          G#5 . G#5 . C6 . D#6 . C6 . . . G#5 . . .
+          A#5 . A#5 . D6 . F6 . D6 . . . A#5 . F5 .
+          G5 . G5 . D#5 . G5 . C6 . D#6 . G6 . . .
+          F6 . D#6 . D6 . C6 . . . G5 . . . . .
+          F5 . G#5 . C6 . F6 . D#6 . C6 . G#5 . . .
+          G5 . B5 . D6 . G6 . F6 . D6 . B5 . . .` },
+        B: { chords: ['Ab', 'Bb', 'Cm', 'Cm', 'Ab', 'Bb', 'G7', 'G7'], mel: `
+          G#5 C6 D#6 G#6 D#6 C6 G#5 C6 D#6 . . . . . . .
+          A#5 D6 F6 A#6 F6 D6 A#5 D6 F6 . . . . . . .
+          G5 C6 D#6 G6 D#6 C6 G5 C6 D#6 C6 G5 . . . . .
+          C6 . . D#6 . . G6 . . D#6 . C6 . . . .
+          G#5 C6 D#6 G#6 D#6 C6 G#5 C6 D#6 . . . . . . .
+          A#5 D6 F6 A#6 F6 D6 A#5 D6 F6 . . . . . . .
+          B5 D6 F6 G6 F6 D6 B5 D6 F6 G6 B6 . . . . .
+          G6 . . D6 . . B5 . . G5 . . . . . .` }
+      },
+      play(b, k, t, d) {
+        const s = b.sec, r = rootF(b.chord), m = b.mel[k], arps = s === 'B', last = b.i === b.n - 1;
+        /* basso a ottavi che salta d'ottava: spinge in avanti */
+        if (k % 2 === 0) tri(k % 4 === 0 ? r : r * 2, t, d * 1.2, k % 4 === 0 ? 0.05 : 0.04);
+        if (k % 2 === 0) DR.hat(t, k % 4 === 2 ? 0.45 : 0.25);
+        if (s === 'intro') { if (k === 0) DR.kick(t, 0.5); if (k === 6 || k === 14) stab(b.chord, t, d, 0.004, 0.25); return; }
+        if (m) {
+          const dur = staccato(m, d), g = hg(m.f);
+          if (arps) chip('lead', m.f, t, dur, { duty: 0.125, g: 0.017 * g, cut: 3800, sus: 0.5 });
+          else {
+            chip('lead', m.f, t, dur, { duty: 0.25, g: 0.02 * g, cut: 3200 });
+            if (b.plus) chip('arp', m.f * 2, t + d * 2, dur, { duty: 0.125, g: 0.005 * g, cut: 3000 });
+          }
+        }
+        if (!arps && (k === 6 || k === 14)) stab(b.chord, t, d, 0.004, 0.25);
+        if (k === 0 || k === 8) DR.kick(t, 0.5);
+        if (k === 4 || k === 12) DR.snare(t, 0.33);
+        if (k === 10 && !arps) DR.kick(t, 0.35);
+        if (last && k >= 12) DR.snare(t, 0.16 + (k - 12) * 0.05);
+      } }),
     /* menu: stile platform da videogioco in Do maggiore, 132 bpm, saltellante: melodia a impulsi staccata,
        basso "zum-pa" triangolare, accordi in levare, chiusura bVI-bVII-I (circa 70 secondi prima di ripetere) */
     menu: arrange({ bpm: 132, level: 0.85, swing: 0.1, pump: 0, loopAt: 1, echo: 0.75,
@@ -3192,9 +3293,11 @@ const Music = (() => {
   function desired() {
     if (!unlocked || muted || !state.on || document.hidden || jingling || state.vol === 0) return null;
     if ($('dlg-scan').open) return null;
-    if ($('dlg-mission').open) return 'mission';
+    if (TRACKS[state.pick]) return state.pick; /* un solo brano scelto: suona sempre quello */
+    const v2 = state.pick !== 'auto-mario';
+    if ($('dlg-mission').open) return v2 ? 'mission' : 'marioRun';
     if ($('dlg-album') && $('dlg-album').open) return 'album';
-    return evening() ? 'sera' : 'menu';
+    return evening() ? 'sera' : (v2 ? 'menu' : 'mario');
   }
   let unlocked = false, wokeAt = 0;
   function refresh() { try { const d = desired(); if (d) start(d); else if (track) stop(); } catch (e) { clearInterval(timer); timer = null; track = null; } }
@@ -3249,9 +3352,10 @@ const Music = (() => {
     return off.startRendering();
   }
   function duck(on) { ducked = !!on; applyGain(); }
+  function setStyle(v) { state.pick = normPick(v); store.set(AUDIO_KEYS.style, state.pick, true); refresh(); if (!state.on || muted) toast('🔇 La musica è spenta: accendila per ascoltare il brano scelto.'); }
   function setOn(v) { state.on = !!v; store.set(AUDIO_KEYS.on, state.on, true); refresh(); hint(); }
   function setVol(v) { state.vol = Math.max(0, Math.min(100, Math.round(v))); store.set(AUDIO_KEYS.vol, state.vol, true); applyGain(); refresh(); }
-  return { refresh, unlock, autoStart, hint, justWoke: () => Date.now() - wokeAt < 900, jingle, duck, setOn, setVol, state, current: () => track, evening, gain: gainTarget, TRACKS, render };
+  return { refresh, unlock, autoStart, hint, justWoke: () => Date.now() - wokeAt < 900, jingle, duck, setOn, setVol, setStyle, state, current: () => track, evening, gain: gainTarget, TRACKS, render };
 })();
 ['pointerup', 'touchend', 'click', 'keydown', 'pointerdown'].forEach((ev) => document.addEventListener(ev, () => Music.unlock(), { passive: true, capture: true }));
 addEventListener('pageshow', () => Music.refresh());
@@ -3262,6 +3366,8 @@ document.addEventListener('visibilitychange', () => Music.refresh());
 $('music-on').checked = Music.state.on; $('music-vol').value = String(Music.state.vol);
 $('music-on').onchange = () => Music.setOn($('music-on').checked);
 $('music-vol').oninput = () => Music.setVol(+$('music-vol').value);
+$('music-style').value = Music.state.pick;
+$('music-style').onchange = () => Music.setStyle($('music-style').value);
 
 /* Voce: «Ferma» in alto (compare mentre l'app parla), nelle impostazioni e nell'assistente; il riquadro «Leggi cosa manca» diventa «Ferma». */
 let speaking = false, speakId = 0, speakPoll = null;
