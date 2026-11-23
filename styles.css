@@ -962,3 +962,56 @@ input[type=range]{min-height:36px}
 .logo-wrap{position:relative;flex:0 0 auto;padding-bottom:7px}
 .logo-wrap .logo{box-shadow:0 3px 10px #0008}
 .logo-ver{position:absolute;left:50%;bottom:0;transform:translateX(-50%);margin:0;padding:0 7px;font-size:.58rem;line-height:1.5;white-space:nowrap;box-shadow:0 1px 4px #0007}
+
+/* v37 */
+.day:disabled{opacity:.42;filter:saturate(.5);cursor:not-allowed}
+.avatar-opt:has(input[value^="robot-"]){background:linear-gradient(145deg,#172554,#164e63);border:1px solid #67e8f9;border-radius:16px;padding:5px;box-shadow:0 4px 14px #02061788}
+.avatar-opt:has(input[value^="robot-"]):has(input:checked){outline:3px solid #22d3ee;transform:translateY(-2px);box-shadow:0 0 0 5px #22d3ee33,0 8px 20px #02061799}
+.avatar-opt:has(input[value^="robot-"]):hover img{transform:scale(1.08) rotate(-3deg);filter:drop-shadow(0 4px 7px #22d3ee88)}
+.gender-opt{display:inline-flex;align-items:center;cursor:pointer}.gender-opt input{position:absolute;opacity:0}
+.gender-opt span{display:inline-flex;padding:9px 13px;border-radius:12px;background:#3d3935;border:1px solid #57524c;font-size:.82rem;font-weight:750}
+.gender-opt input:checked+span{background:linear-gradient(135deg,#155e75,#4338ca);border-color:#67e8f9;box-shadow:0 0 0 2px #67e8f944}
+.album-intro[data-gender="male"] .ai-front{background:radial-gradient(circle at 75% 18%,#67e8f9 0 3%,transparent 18%),linear-gradient(145deg,#071b3d,#123b70 48%,#0e7490)!important}
+.album-intro[data-gender="female"] .ai-front{background:radial-gradient(circle at 75% 18%,#fbcfe8 0 4%,transparent 20%),linear-gradient(145deg,#4a1942,#9d397b 48%,#e879a8)!important}
+.album-intro[data-gender="neutral"] .ai-front{background:radial-gradient(circle at 75% 18%,#fde68a 0 4%,transparent 20%),linear-gradient(145deg,#29245d,#365b87 48%,#6d5ca8)!important}
+.album-intro .ai-frame{border:2px solid #ffffffaa!important;box-shadow:inset 0 0 25px #ffffff22,0 0 22px #0007}
+.album-intro .ai-title{text-shadow:0 3px 12px #0009;letter-spacing:.06em}
+@media(max-width:520px){.avatar-opt:has(input[value^="robot-"]){padding:3px}.avatar-opt img{width:52px;height:52px}.gender-opt span{padding:8px 10px}}
+
+
+/* v38 — identità robot femminili e collezione carte più leggibile */
+.avatar-opt:has(input[value^="robot-f-"]){
+  background:linear-gradient(145deg,#501447,#7e286f 52%,#3b246e)!important;
+  border:1px solid #f0abfc!important;border-radius:16px;padding:5px;
+  box-shadow:0 4px 16px #2e103b99,inset 0 0 14px #f9a8d922;
+}
+.avatar-opt:has(input[value^="robot-f-"]):has(input:checked){
+  outline:3px solid #f0abfc;transform:translateY(-2px);
+  box-shadow:0 0 0 5px #f0abfc33,0 8px 20px #2e103b99;
+}
+.avatar-opt:has(input[value^="robot-f-"]):hover img{
+  transform:scale(1.08) rotate(3deg);filter:drop-shadow(0 4px 8px #f0abfc99)
+}
+.avatar-opt:has(input[value^="robot-"]) img{
+  transition:transform .2s ease,filter .2s ease;
+}
+.slots{gap:12px}
+.slot{box-shadow:inset 0 0 18px #ffffff08}
+.slot.on{border:0;background:transparent}
+.sticker{filter:drop-shadow(0 3px 5px #0005);transition:transform .18s ease,filter .18s ease}
+.sticker:hover{transform:translateY(-3px) rotate(0deg) scale(1.035);filter:drop-shadow(0 7px 9px #0007)}
+.album-intro .ai-front::before{
+  content:"";position:absolute;inset:12px;border:1px solid #ffffff55;border-radius:5px;
+  background:repeating-linear-gradient(135deg,#ffffff0a 0 2px,transparent 2px 9px);
+  pointer-events:none
+}
+.album-intro[data-gender="female"] .ai-front::before{
+  border-color:#fbcfe888;background:repeating-linear-gradient(135deg,#fbcfe811 0 2px,transparent 2px 9px)
+}
+.album-intro[data-gender="male"] .ai-front::before{
+  border-color:#67e8f988;background:repeating-linear-gradient(135deg,#67e8f811 0 2px,transparent 2px 9px)
+}
+@media(prefers-reduced-motion:reduce){
+ .avatar-opt:has(input[value^="robot-"]) img,.sticker{transition:none}
+ .sticker:hover{transform:none}
+}

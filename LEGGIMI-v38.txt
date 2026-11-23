@@ -1,0 +1,12 @@
+Zaino Hero v38 — Robot e figurine da collezione
+
+- Aggiornati i sei robot maschili con illustrazioni SVG originali più definite.
+- Aggiunti sei robot femminili originali e selezionabili: Lyra, Aurora, Iris, Vega, Kira e Selene.
+- Ogni robot ha silhouette, accessori, colori e identità visiva propri; la scelta resta associata al profilo.
+- Aggiunte 84 nuove figurine (6 per ciascuna delle 14 sezioni tematiche).
+- Conservati i livelli di rarità e gli effetti grafici già presenti: comune, rara, epica e leggendaria.
+- Rifiniti gli effetti delle carte, la selezione dei robot e le copertine dell'album.
+- Aggiornate cache e versione dell'app a v38.
+- I dati locali, i progressi, gli orari e le figurine già raccolte non vengono azzerati.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino.

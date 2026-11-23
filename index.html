@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=36">
+<link rel="stylesheet" href="styles.css?v=38">
 </head>
 <body>
 
@@ -374,6 +374,11 @@
     <div class="row between"><h3 id="kid-title">Aggiungi un figlio</h3><button class="btn btn-icon" type="button" data-close aria-label="Chiudi">✕</button></div>
     <label class="field"><span class="small muted">Nome</span><input id="kid-name" type="text" maxlength="30" required></label>
     <label class="field"><span class="small muted">Classe (es. 3ª B)</span><input id="kid-cls" type="text" maxlength="10"></label>
+    <fieldset class="avatar-pick"><legend class="small muted">Stile dell'album</legend><div class="row gap wrapflex" id="kid-gender">
+      <label class="gender-opt"><input type="radio" name="kid-gender" value="male"><span>🤖 Maschile</span></label>
+      <label class="gender-opt"><input type="radio" name="kid-gender" value="female"><span>🦋 Femminile</span></label>
+      <label class="gender-opt"><input type="radio" name="kid-gender" value="neutral"><span>✨ Neutro</span></label>
+    </div></fieldset>
     <fieldset class="avatar-pick"><legend class="small muted">Icona</legend><div id="kid-avatars" class="row gap wrapflex"></div></fieldset>
     <fieldset class="avatar-pick"><legend class="small muted">Sfondo e colori</legend><div id="kid-themes" class="row gap wrapflex"></div></fieldset>
     <label class="field" id="kid-from-box"><span class="small muted">Come iniziare</span><select id="kid-from"></select></label>
