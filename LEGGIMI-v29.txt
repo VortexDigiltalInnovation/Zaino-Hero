@@ -1,0 +1,10 @@
+Zaino Hero v29 — Figurine più belle, frasi uniche, apertura album
+
+- Ogni figurina (352) ha ora un nome proprio e una frase divertente legata al soggetto (niente più frasi ripetute).
+- Grafica nuova per tutte le figurine: bordo bianco, sfondo colorato per tema con raggi e puntini, soggetto con contorno e ombra, nome in basso, numero e stelle di rarità.
+- Rare = riflesso luminoso, Epiche = effetto olografico, Leggendarie = foil dorato animato.
+- Figurina ingrandita: si inclina e riflette la luce seguendo il dito.
+- Bustina: figurine più grandi, dorso rifatto, lampo di luce per epiche e leggendarie.
+- Animazione di apertura dell'album: la copertina compare, brilla e si apre come un libro (tocca per aprirla subito). Non parte in modalità calma.
+- Corretto lo stile della figurina ingrandita (le classi di rarità non venivano applicate).
+- Versione 29: ricarica tutti i file del sito.

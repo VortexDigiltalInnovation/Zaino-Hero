@@ -1,0 +1,10 @@
+Zaino Hero v31 — Personaggi 3D rifatti
+
+- I 12 personaggi/immagini dell'app (8 eroi e eroine, logo, scanner, assistente, coppa) sono stati rifatti come veri rendering 3D:
+  luci, materiali lucidi, riflessi, ombre morbide, tutti con lo stesso stile e lo stesso robottino base.
+- Eroi: mantello (mantello rosso + zaino), visore (visore viola con raggio di scansione), orario (con sveglia), trofeo (con coppa e coriandoli).
+- Eroine: fiocco (fiocchi rosa), fata (ali iridescenti, bacchetta, gonnellina), unicorna (corno e criniera arcobaleno), fiorella (corona di fiori e stella).
+- Ogni personaggio ha uno sfondo colorato suo, con alone e riflessi, già incluso nell'immagine.
+- Icone dell'app (installazione, schermata Home, favicon) rifatte con lo stesso personaggio.
+- Immagini più nitide: 256 px invece di 96–192 px, quindi si vedono bene anche sui telefoni ad alta densità.
+- Versione 31: ricarica tutti i file del sito (cambia anche la cache dell'app).

@@ -1,0 +1,10 @@
+Zaino Hero v36 — tutte le musiche, a scelta
+
+- Torna come predefinita la musichetta platform originale (quella del file app.js che hai mandato): menu «stile platform da videogioco», corsa d'avventura in missione, carillon nell'album, ninna nanna dopo le 19:30.
+- Le musiche nuove della v35 (platform 8 bit e corsa 8 bit) restano disponibili.
+- Nuovo menu «Musica di sottofondo» in ⚙️ Altro:
+  * Automatica originale (predefinita): cambia secondo dove sei, come prima.
+  * Automatica con il platform 8 bit nuovo.
+  * Un solo brano sempre: platform classico, corsa d'avventura, platform 8 bit nuovo, corsa 8 bit nuova, carillon, ninna nanna.
+- Chi aveva scelto uno stile nella v35 lo ritrova.
+- Ricarica tutti i file del sito: cambia la versione (36) e la cache.

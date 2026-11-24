@@ -1,0 +1,5 @@
+Zaino Hero v33
+
+- Ripristinati i personaggi originali (8 eroi/eroine, scanner, assistente, coppa e mascotte), come prima della v31.
+- Restano: nuovo logo con la versione visibile vicino, guida passo passo, correzione delle figurine (regalo una volta sola, massimo 3 bustine al giorno, meno bustine).
+- Ricarica tutti i file del sito: cambia la versione (33) e la cache.

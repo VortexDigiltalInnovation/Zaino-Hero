@@ -1,0 +1,9 @@
+Zaino Hero v35 — musichetta stile Super Mario
+
+- Torna la musica da videogioco platform a 8 bit: melodia a onda quadra staccata, basso triangolare saltellante, batteria rumorosa.
+  * Menu: «Platform a 8 bit», Do maggiore, 148 bpm (intro, strofa, ritornello, riprese con eco, ponte a arpeggi veloci, chiusura Lab-Sib-Do).
+  * Missione: corsa a 164 bpm in Do minore, basso che salta d'ottava e arpeggi veloci nel ritornello.
+  * Sono brani originali nello stile dei platform classici (non il tema vero di Super Mario).
+- Nuovo selettore «Stile della musica» in ⚙️ Altro, vicino al volume: 🍄 Platform a 8 bit (predefinito) oppure 🎼 Colonna sonora (versione 2, quella di prima).
+- Invariati: ninna nanna dopo le 19:30, carillon dell'album, fanfara «zaino pronto», volume e silenziamento.
+- Ricarica tutti i file del sito: cambia la versione (35) e la cache.
