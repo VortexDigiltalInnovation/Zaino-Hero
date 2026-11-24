@@ -1015,3 +1015,68 @@ input[type=range]{min-height:36px}
  .avatar-opt:has(input[value^="robot-"]) img,.sticker{transition:none}
  .sticker:hover{transform:none}
 }
+
+/* v39 — mondi dei robot: ogni eroe ha il suo sfondo illustrato */
+html[data-theme="arena"]{--bg:#1d100a;--card:#2f1c12;--card2:#27170f;--line:#5a3822;--ind:#d9822f;--ind2:#f6b36b;--glow:transparent;--warm:#fde047;--bgimg:url(bg/robot-arena.svg)}
+.theme-chip.t-arena{background:linear-gradient(#0002,#0002),url(bg/robot-arena.svg) center/cover,#2f1c12}
+html[data-theme="circuito"]{--bg:#17130a;--card:#2a2310;--card2:#231d0d;--line:#54461c;--ind:#d4a90f;--ind2:#f4d453;--glow:transparent;--warm:#fff7ae;--bgimg:url(bg/robot-circuito.svg)}
+.theme-chip.t-circuito{background:linear-gradient(#0002,#0002),url(bg/robot-circuito.svg) center/cover,#2a2310}
+html[data-theme="pixel"]{--bg:#120d26;--card:#1f1840;--card2:#191337;--line:#3d3380;--ind:#8b6fe0;--ind2:#b9a6f5;--glow:transparent;--warm:#67e8f9;--bgimg:url(bg/robot-pixel.svg)}
+.theme-chip.t-pixel{background:linear-gradient(#0002,#0002),url(bg/robot-pixel.svg) center/cover,#1f1840}
+html[data-theme="biblioteca"]{--bg:#0a1429;--card:#14233f;--card2:#101d36;--line:#2a4170;--ind:#4f8be0;--ind2:#8fbaf2;--glow:transparent;--warm:#fcd34d;--bgimg:url(bg/robot-biblioteca.svg)}
+.theme-chip.t-biblioteca{background:linear-gradient(#0002,#0002),url(bg/robot-biblioteca.svg) center/cover,#14233f}
+html[data-theme="cristalli"]{--bg:#1d0b24;--card:#2e1638;--card2:#261230;--line:#5a2b6b;--ind:#c05fd0;--ind2:#e6a4ee;--glow:transparent;--warm:#fdf4ff;--bgimg:url(bg/robot-cristalli.svg)}
+.theme-chip.t-cristalli{background:linear-gradient(#0002,#0002),url(bg/robot-cristalli.svg) center/cover,#2e1638}
+html[data-theme="aurora"]{--bg:#06191a;--card:#0f2c2c;--card2:#0c2425;--line:#1f5252;--ind:#2fb8a6;--ind2:#7fe0d2;--glow:transparent;--warm:#f9a8d4;--bgimg:url(bg/robot-aurora.svg)}
+.theme-chip.t-aurora{background:linear-gradient(#0002,#0002),url(bg/robot-aurora.svg) center/cover,#0f2c2c}
+html[data-theme="ologramma"]{--bg:#0d0f2a;--card:#171a42;--card2:#12143a;--line:#33398a;--ind:#6571e6;--ind2:#a7b0f5;--glow:transparent;--warm:#7dd3fc;--bgimg:url(bg/robot-ologramma.svg)}
+.theme-chip.t-ologramma{background:linear-gradient(#0002,#0002),url(bg/robot-ologramma.svg) center/cover,#171a42}
+html[data-theme="solare"]{--bg:#240f06;--card:#3a1b0d;--card2:#311609;--line:#6b3419;--ind:#e5701f;--ind2:#fbae6d;--glow:transparent;--warm:#fef08a;--bgimg:url(bg/robot-solare.svg)}
+.theme-chip.t-solare{background:linear-gradient(#0002,#0002),url(bg/robot-solare.svg) center/cover,#3a1b0d}
+html[data-theme="arena"] body::before,html[data-theme="circuito"] body::before,html[data-theme="pixel"] body::before,html[data-theme="biblioteca"] body::before,html[data-theme="cristalli"] body::before,html[data-theme="aurora"] body::before,html[data-theme="ologramma"] body::before,html[data-theme="solare"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgimg) center top/cover no-repeat,var(--bg)}
+html[data-theme="arena"] .card,html[data-theme="circuito"] .card,html[data-theme="pixel"] .card,html[data-theme="biblioteca"] .card,html[data-theme="cristalli"] .card,html[data-theme="aurora"] .card,html[data-theme="ologramma"] .card,html[data-theme="solare"] .card{background-color:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(6px)}
+
+/* v39 — qualità grafica: profondità, luce e bordi più curati su tutta l'app */
+.card{background-image:linear-gradient(180deg,#ffffff0d,#ffffff00 42%);border:1px solid var(--line);box-shadow:0 1px 0 #ffffff14 inset,0 10px 26px -12px #000a,0 2px 6px -2px #0006;border-radius:18px}
+.btn{background-image:linear-gradient(180deg,#ffffff22,#ffffff00 60%);box-shadow:0 1px 0 #ffffff30 inset,0 6px 14px -6px #0009;transition:transform .12s,box-shadow .2s,filter .2s}
+.btn:active{transform:translateY(1px) scale(.985);box-shadow:0 1px 0 #ffffff20 inset,0 2px 6px -3px #000a}
+.btn:hover{filter:brightness(1.08)}
+img{image-rendering:auto;-webkit-font-smoothing:antialiased}
+.avatar-opt img,.kid img,.guide-sum img,.ava{border-radius:50%;box-shadow:0 0 0 2px #ffffff26,0 6px 14px -6px #000c;background:#0003}
+.avatar-opt input:checked+img{box-shadow:0 0 0 3px var(--ind2),0 0 18px var(--ind);transform:scale(1.08)}
+.avatar-opt img{transition:transform .18s,box-shadow .2s}
+.theme-chip{border-radius:14px;box-shadow:0 1px 0 #ffffff26 inset,0 6px 14px -8px #000}
+.theme-group{letter-spacing:.02em;font-weight:700}
+@media (prefers-reduced-motion:reduce){.btn,.avatar-opt img{transition:none}}
+
+
+/* v40 — illustrazioni delle figurine: ogni tema ha la sua scena dietro al soggetto, luce lucida e scintille per le rare */
+.cf-scene{position:absolute;inset:0;pointer-events:none;opacity:.9}
+.cf-scene::before,.cf-scene::after{content:"";position:absolute;left:0;right:0}
+.cf-scene::after{bottom:0;height:34%}
+.cf-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,#fff0 30%,#ffffff38 44%,#fff0 58%),radial-gradient(120% 70% at 50% 120%,#0000002e,transparent 60%)}
+.cf-em{filter:drop-shadow(0 0 .7cqw #fff) drop-shadow(0 0 .7cqw #fff) drop-shadow(0 3cqw 1.6cqw #0007) saturate(1.15) contrast(1.05)}
+.sc-an .cf-scene::after,.sc-na .cf-scene::after{background:radial-gradient(90% 100% at 20% 100%,#3f9b4a 55%,transparent 56%),radial-gradient(90% 100% at 85% 100%,#2f7d3b 55%,transparent 56%)}
+.sc-an .cf-scene::before,.sc-na .cf-scene::before{top:8%;left:auto;right:10%;width:18cqw;height:18cqw;border-radius:50%;background:radial-gradient(#fff6b8,#ffd447 60%,#ffb02e);box-shadow:0 0 5cqw #ffe06b99}
+.sc-sp .cf-scene{background:radial-gradient(.5cqw .5cqw at 18% 22%,#fff,transparent),radial-gradient(.4cqw .4cqw at 70% 14%,#fff,transparent),radial-gradient(.6cqw .6cqw at 84% 48%,#fff,transparent),radial-gradient(.4cqw .4cqw at 30% 60%,#fff,transparent),radial-gradient(.5cqw .5cqw at 55% 32%,#bfe,transparent)}
+.sc-sp .cf-scene::before{top:12%;left:8%;width:16cqw;height:16cqw;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd9a3,#e07a5f 60%,#7a2e3a)}
+.sc-sg .cf-scene::after{height:40%;background:repeating-linear-gradient(90deg,#3aa655 0 8cqw,#2f9249 8cqw 16cqw);border-top:.6cqw solid #fffc}
+.sc-ci .cf-scene::after{height:38%;background:conic-gradient(#e4372f 25%,#fff 0 50%,#e4372f 0 75%,#fff 0) 0 0/10cqw 10cqw}
+.sc-fa .cf-scene::after{height:46%;background:#2b1850;clip-path:polygon(0 100%,0 40%,8% 40%,8% 22%,12% 10%,16% 22%,16% 40%,34% 40%,34% 28%,38% 14%,42% 28%,42% 40%,60% 40%,60% 24%,64% 8%,68% 24%,68% 40%,88% 40%,88% 30%,92% 16%,96% 30%,96% 100%)}
+.sc-me .cf-scene::after{height:30%;background:linear-gradient(#4a4f5c,#33373f);border-top:.8cqw solid #ffffffaa}
+.sc-me .cf-scene::before{top:14%;left:10%;width:26cqw;height:9cqw;border-radius:99px;background:#fffd;box-shadow:16cqw 10cqw 0 -1cqw #ffffffb0}
+.sc-mu .cf-scene{background:conic-gradient(from 160deg at 50% -8%,#ffffff40 0 16deg,#fff0 16deg 28deg,#ffffff30 28deg 44deg,#fff0 44deg 360deg)}
+.sc-sc .cf-scene{background:repeating-linear-gradient(0deg,#4a7cd433 0 .5cqw,transparent .5cqw 7cqw),linear-gradient(90deg,#e0555566 0 .6cqw,transparent .6cqw) 12cqw 0/100% 100% no-repeat}
+.sc-gi .cf-scene{background:radial-gradient(1.4cqw 1.4cqw at 16% 24%,#ff5c8a,transparent),radial-gradient(1.2cqw 1.2cqw at 78% 18%,#ffd84d,transparent),radial-gradient(1.4cqw 1.4cqw at 86% 60%,#4de0b3,transparent),radial-gradient(1.2cqw 1.2cqw at 22% 66%,#6aa8ff,transparent),radial-gradient(1cqw 1cqw at 52% 12%,#fff,transparent)}
+.sc-ma .cf-scene::after{height:36%;background:radial-gradient(7cqw 4cqw at 7cqw 0,transparent 68%,#2b9fd8 70%) 0 0/14cqw 8cqw repeat-x,linear-gradient(#2b9fd8,#0f5f9a);}
+.sc-vi .cf-scene::after{height:46%;background:linear-gradient(#5a6b8a,#2d3a55);clip-path:polygon(0 100%,0 62%,22% 22%,40% 56%,58% 12%,80% 54%,100% 34%,100% 100%)}
+.sc-la .cf-scene::after{height:44%;background:#243a5e;clip-path:polygon(0 100%,0 46%,10% 46%,10% 22%,22% 22%,22% 52%,34% 52%,34% 12%,48% 12%,48% 44%,60% 44%,60% 28%,74% 28%,74% 58%,88% 58%,88% 36%,100% 36%,100% 100%)}
+.sc-fe .cf-scene{background:radial-gradient(1.2cqw 1.2cqw at 20% 20%,#ffd84d,transparent),radial-gradient(1.2cqw 1.2cqw at 74% 26%,#ff6b9d,transparent),radial-gradient(1.2cqw 1.2cqw at 50% 12%,#7be0ff,transparent),radial-gradient(1.2cqw 1.2cqw at 85% 58%,#ffd84d,transparent),radial-gradient(1.2cqw 1.2cqw at 14%58%,#9dffb0,transparent)}
+.re .cf-art::before,.rl .cf-art::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(1cqw 1cqw at 18% 30%,#fff,transparent),radial-gradient(.8cqw .8cqw at 80% 22%,#fff,transparent),radial-gradient(1.1cqw 1.1cqw at 72% 70%,#fff,transparent),radial-gradient(.8cqw .8cqw at 26% 78%,#fff,transparent);animation:zTw 2.4s ease-in-out infinite alternate}
+.rl .cf-art::before{filter:drop-shadow(0 0 1cqw gold)}
+@keyframes zTw{from{opacity:.35}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.re .cf-art::before,.rl .cf-art::before{animation:none}}
+
+/* v41 — illustrazioni originali delle figurine */
+.cf-img{position:relative;width:58cqw;height:auto;margin-top:-4cqw;filter:drop-shadow(0 0 .7cqw #fff) drop-shadow(0 0 .7cqw #fff) drop-shadow(0 2.6cqw 1.6cqw #0007)}
+@container (max-width:54px){.cf-img{margin-top:0;width:64cqw}}

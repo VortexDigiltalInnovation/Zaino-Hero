@@ -1,0 +1,7 @@
+Zaino Hero v41 — Animali illustrati
+
+- Le 36 figurine del tema Animali non usano più le emoji: sono illustrazioni originali, tutte nello stesso stile (musetti tondi, occhi luminosi, guance rosa) e identiche su iPhone e Android.
+- Gli altri temi restano come nella v40; si ridisegnano un tema alla volta.
+- Dati e figurine raccolte invariati.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino.
