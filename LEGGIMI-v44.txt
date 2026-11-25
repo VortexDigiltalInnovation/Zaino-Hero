@@ -1,0 +1,8 @@
+Zaino Hero v44 — Spazio, Sport, Mezzi e Natura illustrati
+
+- Illustrate 108 figurine originali con faccino, nello stesso stile di Animali e Cibo: Spazio (24), Sport (28), Mezzi (28), Natura (28).
+- Illustrati finora: Animali, Cibo, Spazio, Sport, Mezzi, Natura.
+- Ancora con le emoji: Eroi e magia, Musica e arte, Scuola, Giochi, Mare, Viaggi nel mondo, Mestieri, Feste.
+- Dati e figurine raccolte invariati.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino (comprese le cartelle avatars e bg).

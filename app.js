@@ -11,7 +11,7 @@ const IMG = {
 
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '41';
+const APP_VERSION = '44';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -20,71 +20,34 @@ const GLOBAL_KEYS = { mute: 'zaino_mute', catalog: 'zaino_prize_catalog_v1', kid
 const KID_BASE = { schedule: 'zaino_schedule', subjects: 'zaino_subjects_multi', checks: 'zaino_checks_v2', rewards: 'zaino_rewards_v1', history: 'zaino_history_v1', game: 'zaino_game_v1' };
 const LEGACY_KID = 'k1';
 const FIXED_KEY = 'Sempre nello zaino';
-const THEMES = [{ id: 'naturale', name: 'Naturale', emoji: '🪨', group: 'c' }, { id: 'spazio', name: 'Spazio', emoji: '🚀', group: 'c' }, { id: 'oceano', name: 'Oceano', emoji: '🌊', group: 'c' }, { id: 'foresta', name: 'Foresta', emoji: '🌳', group: 'c' }, { id: 'tramonto', name: 'Tramonto', emoji: '🌇', group: 'c' }, { id: 'notte', name: 'Notte calma', emoji: '🌙', group: 'c' },
-  { id: 'fiori', name: 'Giardino', emoji: '🌸', group: 'i' }, { id: 'farfalle', name: 'Farfalle', emoji: '🦋', group: 'i' }, { id: 'unicorno', name: 'Unicorno', emoji: '🦄', group: 'i' }, { id: 'cuori', name: 'Cuori e stelle', emoji: '💖', group: 'i' },
-  { id: 'arena', name: 'Arena', emoji: '🏋️', group: 'r' }, { id: 'circuito', name: 'Circuito', emoji: '⚡', group: 'r' }, { id: 'pixel', name: 'Pixel', emoji: '👾', group: 'r' }, { id: 'biblioteca', name: 'Biblioteca', emoji: '📚', group: 'r' }, { id: 'cristalli', name: 'Cristalli', emoji: '🔮', group: 'r' }, { id: 'aurora', name: 'Aurora', emoji: '🌌', group: 'r' }, { id: 'ologramma', name: 'Ologramma', emoji: '🧪', group: 'r' }, { id: 'solare', name: 'Solare', emoji: '☀️', group: 'r' }];
-const DEFAULT_THEME = 'naturale';
-const THEME_COLOR = { naturale: '#292624', spazio: '#21242e', oceano: '#1b2b31', foresta: '#1e2a21', tramonto: '#2f2325', notte: '#1a1a1c', fiori: '#36262a', farfalle: '#372c23', unicorno: '#35313a', cuori: '#34272d', arena: '#2b1810', circuito: '#241d0a', pixel: '#1a1236', biblioteca: '#0f1b3a', cristalli: '#2c1233', aurora: '#0b2a2a', ologramma: '#14163a', solare: '#35190b' };
+const THEMES = [
+  { id: 'mago', name: 'Mago stellare', emoji: '🧙', group: 'r' }, { id: 'guerriero', name: 'Guerriero cosmico', emoji: '⚔️', group: 'r' }, { id: 'ingegnere', name: 'Ingegnere', emoji: '🔧', group: 'r' }, { id: 'esploratore', name: 'Esploratore', emoji: '🧭', group: 'r' }, { id: 'astro', name: 'Astro', emoji: '🚀', group: 'r' }, { id: 'maga', name: 'Maga stellare', emoji: '🔮', group: 'r' }, { id: 'guerriera', name: 'Guerriera cosmica', emoji: '🛡️', group: 'r' }, { id: 'ingegnera', name: 'Ingegnera', emoji: '⚙️', group: 'r' }, { id: 'studiosa', name: 'Studiosa', emoji: '🔬', group: 'r' }, { id: 'sognatrice', name: 'Sognatrice', emoji: '🫧', group: 'r' }];
+const DEFAULT_THEME = 'astro';
+const THEME_COLOR = { naturale: '#292624', spazio: '#21242e', oceano: '#1b2b31', foresta: '#1e2a21', tramonto: '#2f2325', notte: '#1a1a1c', fiori: '#36262a', farfalle: '#372c23', unicorno: '#35313a', cuori: '#34272d', mago: '#26110a', guerriero: '#0d1030', ingegnere: '#1f140b', esploratore: '#2a2108', astro: '#080f2a', maga: '#2a0c1c', guerriera: '#1d1038', ingegnera: '#231a10', studiosa: '#07201a', sognatrice: '#2a0f33' };
 function themePickerHtml(name, selected) {
   const opt = (t) => `<label class="avatar-opt theme-opt"><input type="radio" name="${name}" value="${t.id}" ${t.id === selected ? 'checked' : ''} aria-label="${t.name}"><span class="theme-chip t-${t.id}"><span aria-hidden="true">${t.emoji}</span>${t.name}</span></label>`;
-  return '<span class="theme-group">Classici</span>' + THEMES.filter((t) => t.group === 'c').map(opt).join('')
-    + '<span class="theme-group">Sfondi illustrati 🌸</span>' + THEMES.filter((t) => t.group === 'i').map(opt).join('')
-    + '<span class="theme-group">Mondi dei robot 🤖</span>' + THEMES.filter((t) => t.group === 'r').map(opt).join('');
+  return '<span class="theme-group">Eroi e mondi 🌌</span>' + THEMES.filter((t) => t.group === 'r').map(opt).join('');
 }
 
-/* v39 — 8 robot in stile Astro Bot: 4 maschi (forte, veloce, tecnologico, studioso) e 4 femmine, ognuno con sfondo e tema propri. */
+/* v42 — 10 eroi (5 maschi, 5 femmine) con illustrazioni proprie; ognuno ha il suo tema. */
 const ZH_BOTS = {
-  'robot-titan':   {g:'m', c1:'#fb923c', c2:'#9a3412', b1:'#a23a12', b2:'#1c0e08', ac:'#fde047', theme:'arena',      name:'Titan · il forte'},
-  'robot-blitz':   {g:'m', c1:'#facc15', c2:'#a16207', b1:'#ca8a04', b2:'#1a1405', ac:'#fff7ae', theme:'circuito',   name:'Blitz · il veloce'},
-  'robot-pixel':   {g:'m', c1:'#a78bfa', c2:'#5b21b6', b1:'#6d28d9', b2:'#0d0a24', ac:'#67e8f9', theme:'pixel',      name:'Pixel · il tecnologico'},
-  'robot-nova':    {g:'m', c1:'#60a5fa', c2:'#1d4ed8', b1:'#1e40af', b2:'#08122e', ac:'#fcd34d', theme:'biblioteca', name:'Nova · lo studioso'},
-  'robot-f-lyra':  {g:'f', c1:'#f0abfc', c2:'#a21caf', b1:'#a21caf', b2:'#220a2a', ac:'#fdf4ff', theme:'cristalli',  name:'Lyra · la musicista'},
-  'robot-f-aurora':{g:'f', c1:'#5eead4', c2:'#0f766e', b1:'#0f766e', b2:'#06201f', ac:'#f9a8d4', theme:'aurora',     name:'Aurora · la sognatrice'},
-  'robot-f-iris':  {g:'f', c1:'#a5b4fc', c2:'#4338ca', b1:'#4f46e5', b2:'#0b0c2b', ac:'#7dd3fc', theme:'ologramma',  name:'Iris · l\u2019inventrice'},
-  'robot-f-kira':  {g:'f', c1:'#fdba74', c2:'#c2410c', b1:'#ea580c', b2:'#2a0f05', ac:'#fef08a', theme:'solare',     name:'Kira · l\u2019esploratrice'}
+  'eroe-mago': {g:'m', theme:'mago', name:'Mago · lo stregone delle stelle'},
+  'eroe-guerriero': {g:'m', theme:'guerriero', name:'Guerriero · il coraggioso'},
+  'eroe-ingegnere': {g:'m', theme:'ingegnere', name:'Ingegnere · l’inventore'},
+  'eroe-esploratore': {g:'m', theme:'esploratore', name:'Esploratore · il cercatore'},
+  'eroe-astro': {g:'m', theme:'astro', name:'Astro · il campione'},
+  'eroe-maga': {g:'f', theme:'maga', name:'Maga · la stregona delle stelle'},
+  'eroe-guerriera': {g:'f', theme:'guerriera', name:'Guerriera · la coraggiosa'},
+  'eroe-ingegnera': {g:'f', theme:'ingegnera', name:'Ingegnera · l’inventrice'},
+  'eroe-studiosa': {g:'f', theme:'studiosa', name:'Studiosa · la ricercatrice'},
+  'eroe-sognatrice': {g:'f', theme:'sognatrice', name:'Sognatrice · la sognante'}
 };
-function zHeroRobotSvg(id) {
-  const b = ZH_BOTS[id], f = b.g === 'f', {c1, c2, b1, b2, ac} = b, k = id.replace('robot-', '').replace('f-', '');
-  const deco = {
-    titan: `<path d="M40 52Q22 34 32 14Q46 30 58 44Z M120 52Q138 34 128 14Q114 30 102 44Z" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M45 60L115 52" stroke="${c2}" stroke-width="9" stroke-linecap="round"/><rect x="18" y="124" width="38" height="26" rx="12" fill="${c1}" stroke="${ac}" stroke-width="2.5"/><rect x="104" y="124" width="38" height="26" rx="12" fill="${c1}" stroke="${ac}" stroke-width="2.5"/>`,
-    blitz: `<path d="M84 4L66 34L79 31L68 54L98 22L84 26Z" fill="${ac}" stroke="${c2}" stroke-width="2" stroke-linejoin="round"/><path d="M30 58Q80 38 130 58" fill="none" stroke="${c1}" stroke-width="8" stroke-linecap="round"/><path d="M4 70H24M2 84H20M6 98H22M156 70H136M158 84H140M154 98H138" stroke="${ac}" stroke-width="3.5" stroke-linecap="round" opacity=".75"/>`,
-    pixel: `<rect x="72" y="6" width="16" height="16" fill="${ac}"/><path d="M80 22V30" stroke="${ac}" stroke-width="4"/><path d="M26 70H36V80H26M124 70H134V80H124" fill="none" stroke="${ac}" stroke-width="3"/><path d="M62 126h8v8h8v-8h8v8h8v-8h8" fill="none" stroke="${ac}" stroke-width="3" opacity=".8"/><rect x="40" y="14" width="8" height="8" fill="${c1}"/><rect x="116" y="22" width="8" height="8" fill="${c1}"/>`,
-    nova: `<path d="M26 40L80 16L134 40L80 60Z" fill="#1e3a8a" stroke="${ac}" stroke-width="2.5" stroke-linejoin="round"/><path d="M52 50V64Q80 74 108 64V50" fill="#172554"/><path d="M134 40V64" stroke="${ac}" stroke-width="3"/><circle cx="134" cy="67" r="5" fill="${ac}"/><circle cx="65" cy="78" r="15" fill="none" stroke="${ac}" stroke-width="3.5"/><circle cx="95" cy="78" r="15" fill="none" stroke="${ac}" stroke-width="3.5"/><path d="M80 78h0" stroke="${ac}" stroke-width="3.5"/><rect x="60" y="134" width="40" height="24" rx="3" fill="#fef3c7" stroke="${c2}" stroke-width="2"/><path d="M80 134V158" stroke="${c2}" stroke-width="2"/>`,
-    lyra: `<circle cx="34" cy="40" r="15" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="126" cy="40" r="15" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M80 12L84 22L95 23L87 30L90 41L80 35L70 41L73 30L65 23L76 22Z" fill="${ac}"/><path d="M76 142a5 5 0 1 1 0 .1V128l12-3v14" fill="none" stroke="${ac}" stroke-width="3.5" stroke-linecap="round"/>`,
-    aurora: `<path d="M34 66Q4 96 26 140" fill="none" stroke="${ac}" stroke-width="10" stroke-linecap="round" opacity=".9"/><path d="M126 66Q156 96 134 140" fill="none" stroke="${ac}" stroke-width="10" stroke-linecap="round" opacity=".9"/><path d="M42 40Q80 2 118 40" fill="none" stroke="${c1}" stroke-width="7" stroke-linecap="round"/><path d="M52 30Q80 8 108 30" fill="none" stroke="${ac}" stroke-width="3" stroke-linecap="round"/><path d="M142 26l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="${ac}"/>`,
-    iris: `<ellipse cx="80" cy="20" rx="36" ry="9" fill="none" stroke="${ac}" stroke-width="4.5"/><ellipse cx="80" cy="20" rx="36" ry="9" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/><path d="M26 66Q14 78 24 98M134 66Q146 78 136 98" fill="none" stroke="${ac}" stroke-width="5" stroke-linecap="round"/><path d="M48 70H112" stroke="${ac}" stroke-width="1.5" opacity=".6"/><circle cx="80" cy="142" r="11" fill="none" stroke="${ac}" stroke-width="3"/><circle cx="80" cy="142" r="4" fill="${ac}"/>`,
-    kira: `<g fill="${ac}" stroke="${c2}" stroke-width="1.5" stroke-linejoin="round"><path d="M80 2L87 24H73Z"/><path d="M52 8L62 28L48 30Z"/><path d="M108 8L112 30L98 28Z"/><path d="M28 24L46 36L34 46Z"/><path d="M132 24L126 46L114 36Z"/></g><circle cx="80" cy="142" r="11" fill="${ac}" stroke="${c2}" stroke-width="2"/><path d="M80 126v6M80 152v6M64 142h6M90 142h6" stroke="${ac}" stroke-width="3" stroke-linecap="round"/>`
-  }[k];
-  const sq = k === 'pixel';
-  const eye = (x) => sq ? `<rect x="${x-9}" y="68" width="18" height="18" rx="3" fill="${ac}"/><rect x="${x-5}" y="71" width="6" height="6" fill="#fff"/>`
-    : `<ellipse cx="${x}" cy="77" rx="${f?8:9}" ry="${f?11:11}" fill="${ac}"/><ellipse cx="${x-3}" cy="72" rx="3.2" ry="4" fill="#fff" opacity=".95"/>${f?`<path d="M${x+(x<80?-8:8)} 70l${x<80?-5:5} -4" stroke="${ac}" stroke-width="2.5" stroke-linecap="round"/>`:''}`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><defs>
-<radialGradient id="bg" cx=".5" cy=".38" r=".75"><stop offset="0" stop-color="${b1}"/><stop offset="1" stop-color="${b2}"/></radialGradient>
-<linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>
-<linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".6" stop-color="#e6ecf7"/><stop offset="1" stop-color="#aebbd2"/></linearGradient>
-<linearGradient id="vs" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1b2748"/><stop offset="1" stop-color="#05080f"/></linearGradient>
-<clipPath id="r"><circle cx="80" cy="80" r="77"/></clipPath></defs>
-<circle cx="80" cy="80" r="77" fill="url(#bg)"/>
-<g clip-path="url(#r)"><circle cx="30" cy="30" r="2" fill="${ac}" opacity=".7"/><circle cx="132" cy="48" r="1.6" fill="${ac}" opacity=".6"/><circle cx="20" cy="104" r="1.4" fill="${ac}" opacity=".5"/><circle cx="144" cy="112" r="2" fill="${ac}" opacity=".6"/>
-<ellipse cx="80" cy="170" rx="70" ry="30" fill="#000" opacity=".25"/>
-<path d="M44 160Q44 122 80 122Q116 122 116 160Z" fill="url(#bd)" stroke="#0006" stroke-width="1.5"/>
-<circle cx="46" cy="140" r="12" fill="${c1}" stroke="#0005" stroke-width="1.5"/><circle cx="114" cy="140" r="12" fill="${c1}" stroke="#0005" stroke-width="1.5"/>
-${['titan','nova','lyra','pixel','blitz'].includes(k) ? '' : ''}
-<ellipse cx="80" cy="78" rx="52" ry="47" fill="url(#hd)" stroke="#8d9ab4" stroke-width="2"/>
-<ellipse cx="62" cy="46" rx="22" ry="9" fill="#fff" opacity=".75" transform="rotate(-18 62 46)"/>
-<rect x="22" y="64" width="14" height="28" rx="7" fill="${c1}" stroke="#0005" stroke-width="1.5"/><rect x="124" y="64" width="14" height="28" rx="7" fill="${c1}" stroke="#0005" stroke-width="1.5"/>
-<rect x="44" y="55" width="72" height="44" rx="21" fill="url(#vs)" stroke="${c1}" stroke-width="2.5"/>
-<path d="M54 60Q80 54 106 60" stroke="#fff" stroke-width="2.5" opacity=".35" fill="none" stroke-linecap="round"/>
-${eye(66)}${eye(94)}
-<path d="M71 91Q80 98 89 91" fill="none" stroke="${ac}" stroke-width="3" stroke-linecap="round"/>
-${f ? `<circle cx="52" cy="93" r="5" fill="#fb7185" opacity=".55"/><circle cx="108" cy="93" r="5" fill="#fb7185" opacity=".55"/>` : ''}
-${deco}</g></svg>`;
-  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-}
-Object.keys(ZH_BOTS).forEach((id) => { IMG['avatar-' + id] = zHeroRobotSvg(id); });
+Object.keys(ZH_BOTS).forEach((id) => { IMG['avatar-' + id] = 'avatars/' + id + '.webp'; });
 const AVATARS = Object.keys(ZH_BOTS);
 const AVATAR_NAMES = Object.fromEntries(Object.entries(ZH_BOTS).map(([id, v]) => [id, v.name]));
 const ZH_BOT_THEME = Object.fromEntries(Object.entries(ZH_BOTS).map(([id, v]) => [id, v.theme]));
+const ZH_LEG_AV = {'robot-titan':'eroe-guerriero','robot-blitz':'eroe-esploratore','robot-pixel':'eroe-astro','robot-nova':'eroe-mago','robot-f-lyra':'eroe-sognatrice','robot-f-aurora':'eroe-studiosa','robot-f-iris':'eroe-ingegnera','robot-f-kira':'eroe-maga'};
+const ZH_LEG_TH = {naturale:'astro',spazio:'astro',oceano:'astro',notte:'astro',foresta:'studiosa',tramonto:'maga',fiori:'sognatrice',farfalle:'sognatrice',unicorno:'sognatrice',cuori:'maga',arena:'guerriero',circuito:'esploratore',pixel:'astro',biblioteca:'ingegnere',cristalli:'sognatrice',aurora:'studiosa',ologramma:'ingegnera',solare:'maga'};
 const MAX_KIDS = 8;
 const kidKey = (base, id) => (id === LEGACY_KID ? base : `${base}__${id}`);
 let activeKidId = LEGACY_KID;
@@ -299,8 +262,8 @@ function cleanKids(raw) {
     list.push({
       id: k.id, name: String(k.name || '').trim().slice(0, 30) || 'Studente', cls: String(k.cls || '').trim().slice(0, 10) || '-',
       gender: ['male','female'].includes(k.gender) ? k.gender : 'neutral',
-      avatar: AVATARS.includes(k.avatar) ? k.avatar : (k.gender==='female' ? 'robot-f-lyra' : k.gender==='male' ? 'robot-nova' : AVATARS[list.length % AVATARS.length]),
-      theme: THEMES.some((t) => t.id === k.theme) ? k.theme : DEFAULT_THEME
+      avatar: AVATARS.includes(ZH_LEG_AV[k.avatar] || k.avatar) ? (ZH_LEG_AV[k.avatar] || k.avatar) : (k.gender==='female' ? 'eroe-sognatrice' : k.gender==='male' ? 'eroe-mago' : AVATARS[list.length % AVATARS.length]),
+      theme: THEMES.some((t) => t.id === (ZH_LEG_TH[k.theme] || k.theme)) ? (ZH_LEG_TH[k.theme] || k.theme) : DEFAULT_THEME
     });
   });
   if (!list.length) return null;
@@ -310,7 +273,7 @@ function loadKids() {
   let k = cleanKids(store.get(GLOBAL_KEYS.kids, null));
   if (!k) {
     const old = store.get(GLOBAL_KEYS.profile, {}) || {};
-    k = { list: [{ id: LEGACY_KID, name: String(old.name || 'Studente').slice(0, 30), cls: String(old.cls || '-').slice(0, 10), avatar: 'robot-nova', theme: 'biblioteca' }], active: LEGACY_KID };
+    k = { list: [{ id: LEGACY_KID, name: String(old.name || 'Studente').slice(0, 30), cls: String(old.cls || '-').slice(0, 10), avatar: 'eroe-mago', theme: 'mago' }], active: LEGACY_KID };
     store.set(GLOBAL_KEYS.kids, k, true);
   }
   return k;
@@ -849,6 +812,191 @@ const ZH_ANIMALS = (() => {
   });
   return out;
 })();
+/* v43 — figurine Cibo: illustrazioni originali con faccino. */
+const ZH_FOODS = (() => {
+  const f = (x, y, k = 1) => `<g transform="translate(${x} ${y}) scale(${k})"><circle cx="-8" cy="0" r="3.6" fill="#1c1426"/><circle cx="8" cy="0" r="3.6" fill="#1c1426"/><circle cx="-9" cy="-1.3" r="1.2" fill="#fff"/><circle cx="7" cy="-1.3" r="1.2" fill="#fff"/><path d="M-4 6Q0 10 4 6" fill="none" stroke="#1c1426" stroke-width="2" stroke-linecap="round"/><circle cx="-14" cy="6" r="3.4" fill="#ff7a9a" opacity=".55"/><circle cx="14" cy="6" r="3.4" fill="#ff7a9a" opacity=".55"/></g>`;
+  const hl = (x, y, rx = 8, ry = 4, r = -30) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#fff" opacity=".4" transform="rotate(${r} ${x} ${y})"/>`;
+  const st = 'stroke="#0003" stroke-width="1.6"';
+  const S = {
+    1: `<path d="M50 30Q20 22 16 56Q14 90 40 94Q50 90 60 94Q86 90 84 56Q80 22 50 30Z" fill="#e53b3b" ${st}/><path d="M50 30Q50 16 56 10" stroke="#6a4326" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M54 18Q68 6 76 16Q64 26 54 18Z" fill="#4cae4f"/>${hl(32, 48, 8, 4)}${f(50, 62)}`,
+    2: `<path d="M18 24Q12 84 66 94Q90 96 92 76Q58 78 44 38Q38 18 18 24Z" fill="#ffd23f" ${st}/><path d="M18 24Q22 16 28 18L26 28Z" fill="#6a4326"/><path d="M88 80Q92 76 92 76L90 88Q86 90 82 88Z" fill="#6a4326"/>${hl(30, 56, 5, 14, 10)}${f(56, 74, .8)}`,
+    3: `<path d="M50 16Q54 6 64 8" stroke="#6a4326" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M52 14Q70 2 80 14Q66 22 52 14Z" fill="#4cae4f"/>${[[30, 34], [50, 32], [70, 34], [38, 54], [62, 54], [50, 74], [24, 56], [76, 56]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="15" fill="#8e44c8" ${st}/>`).join('')}${hl(44, 28, 6, 3)}${f(50, 56, .9)}`,
+    4: `<path d="M50 94Q14 70 14 40Q16 26 32 30Q50 24 68 30Q84 26 86 40Q86 70 50 94Z" fill="#f0364f" ${st}/><path d="M30 30Q38 14 50 24Q62 14 70 30Q50 22 30 30Z" fill="#4cae4f"/><path d="M50 24V12" stroke="#4cae4f" stroke-width="4" stroke-linecap="round"/>${[[28, 46], [72, 46], [38, 74], [62, 74], [50, 84], [24, 62], [76, 62]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.8" ry="2.6" fill="#ffe28a"/>`).join('')}${f(50, 56)}`,
+    5: `<path d="M8 36Q50 100 92 36Z" fill="#4cae4f" ${st}/><path d="M13 38Q50 92 87 38Z" fill="#c7f0b0"/><path d="M17 40Q50 86 83 40Z" fill="#ff5a6e"/>${[[34, 48], [66, 48], [50, 62], [42, 70], [58, 70]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="2" ry="3.2" fill="#2a1a22"/>`).join('')}${f(50, 52, .85)}`,
+    6: `<path d="M50 96L12 24Q50 6 88 24Z" fill="#ffc83d" ${st}/><path d="M12 24Q50 6 88 24L84 32Q50 16 16 32Z" fill="#d98a3a"/><circle cx="36" cy="42" r="7" fill="#e5483f"/><circle cx="62" cy="40" r="7" fill="#e5483f"/><circle cx="50" cy="72" r="6" fill="#e5483f"/>${f(50, 54, .9)}`,
+    7: `<path d="M12 48Q10 14 50 12Q90 14 88 48Z" fill="#e8a64f" ${st}/>${[[34, 26], [50, 20], [66, 26], [58, 34], [42, 34]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="3" ry="1.6" fill="#fff3d6"/>`).join('')}<path d="M10 50Q22 60 34 52Q46 62 58 52Q72 62 90 50V56H10Z" fill="#59b84a"/><rect x="12" y="56" width="76" height="14" rx="7" fill="#7a4326"/><path d="M12 72H88Q88 92 50 92Q12 92 12 72Z" fill="#e8a64f" ${st}/>${f(50, 36, .8)}`,
+    8: `<rect x="8" y="46" width="84" height="40" rx="20" fill="#e8a64f" ${st}/><rect x="4" y="38" width="92" height="26" rx="13" fill="#d9573f" ${st}/><path d="M12 50Q22 42 30 50T48 50T66 50T84 50" fill="none" stroke="#ffd23f" stroke-width="4" stroke-linecap="round"/>${hl(24, 44, 8, 2.4, 0)}${f(50, 58, .9)}`,
+    9: `<g fill="#ffd23f" ${st}>${[22, 32, 42, 52, 62, 72].map((x, i) => `<rect x="${x}" y="${10 + (i % 3) * 5}" width="9" height="44" rx="3" transform="rotate(${(i - 2.5) * 5} ${x + 4} 54)"/>`).join('')}</g><path d="M18 50H82L76 94H24Z" fill="#e5392f" ${st}/><path d="M18 50H82L80 62H20Z" fill="#fff" opacity=".25"/>${f(50, 74, .95)}`,
+    10: `<path d="M26 56H74L50 96Z" fill="#e9b872" ${st}/><path d="M36 62L58 74M46 60L64 70M34 72L48 84" stroke="#c98d4a" stroke-width="2"/><circle cx="50" cy="44" r="28" fill="#ffb3d1" ${st}/><path d="M22 52Q36 64 50 56Q64 64 78 52Q78 62 50 66Q22 62 22 52Z" fill="#ff8fbc"/><circle cx="50" cy="14" r="7" fill="#e5392f"/><path d="M50 8Q54 0 60 2" stroke="#4cae4f" stroke-width="3" fill="none"/>${hl(38, 28, 7, 3.4)}${f(50, 44, .9)}`,
+    11: `<path fill-rule="evenodd" d="M50 12A40 40 0 1 1 49.9 12ZM50 40A12 12 0 1 0 50.1 40Z" fill="#d9954a" ${st}/><path fill-rule="evenodd" d="M50 17A35 35 0 0 0 15 52Q18 66 28 58Q34 72 42 62L40 52A10 10 0 0 1 60 52L58 62Q66 72 72 58Q82 66 85 52A35 35 0 0 0 50 17ZM50 41A11 11 0 1 0 50.1 41Z" fill="#ff8fbc"/>${[[26, 34, 20], [62, 24, -30], [74, 40, 40], [36, 24, 70], [50, 70, 10]].map(([x, y, r], i) => `<rect x="${x}" y="${y}" width="7" height="2.6" rx="1.3" fill="${['#fff', '#ffd23f', '#6fd3ff', '#fff', '#ffd23f'][i]}" transform="rotate(${r} ${x} ${y})"/>`).join('')}${hl(26, 28, 8, 3.4)}${f(50, 82, .7)}`,
+    12: `<circle cx="50" cy="54" r="40" fill="#e5b06a" ${st}/>${[[34, 34], [62, 30], [70, 62], [28, 66], [50, 24], [48, 84]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="5.4" ry="4.4" fill="#5a3320"/>`).join('')}${hl(32, 28, 9, 4)}${f(50, 54)}`,
+    13: `<rect x="14" y="58" width="72" height="34" rx="9" fill="#ffb3d1" ${st}/><rect x="24" y="30" width="52" height="32" rx="9" fill="#fff3d6" ${st}/><path d="M14 66Q26 78 38 66T62 66T86 66" fill="none" stroke="#fff" stroke-width="5"/><rect x="46" y="12" width="8" height="18" rx="2" fill="#6fd3ff"/><path d="M50 4Q56 10 50 14Q44 10 50 4Z" fill="#ffb02e"/>${f(50, 46, .8)}${f(50, 80, .0)}`,
+    14: `<rect x="16" y="14" width="68" height="82" rx="8" fill="#7a4326" ${st}/>${[0, 1, 2].map((r) => [0, 1].map((c) => `<rect x="${22 + c * 31}" y="${20 + r * 25}" width="25" height="21" rx="4" fill="#9a5a34"/>`).join('')).join('')}<path d="M16 14H84V28H16Z" fill="#e5392f"/><path d="M16 14H84V28H16Z" fill="#fff" opacity=".18"/>${f(50, 62, .95)}`,
+    15: `<path d="M24 46Q10 40 16 26Q20 10 34 18Q42 4 56 14Q72 6 78 24Q92 28 84 42Q90 54 70 52Z" fill="#fff3c8" ${st}/><circle cx="36" cy="30" r="8" fill="#ffeaa0"/><circle cx="62" cy="28" r="9" fill="#ffeaa0"/><path d="M18 46H82L74 94H26Z" fill="#fff" ${st}/><path d="M26 46L30 94M42 46L44 94M58 46L56 94M74 46L70 94" stroke="#e5392f" stroke-width="7"/>${f(50, 70, .9)}`,
+    16: `<ellipse cx="14" cy="70" rx="10" ry="15" fill="#d98a35" ${st} transform="rotate(-35 14 70)"/><ellipse cx="86" cy="70" rx="10" ry="15" fill="#d98a35" ${st} transform="rotate(35 86 70)"/><ellipse cx="26" cy="48" rx="15" ry="20" fill="#e5993c" ${st} transform="rotate(-25 26 48)"/><ellipse cx="74" cy="48" rx="15" ry="20" fill="#e5993c" ${st} transform="rotate(25 74 48)"/><ellipse cx="50" cy="46" rx="22" ry="28" fill="#f0b25a" ${st}/><path d="M36 22Q50 30 64 22M30 36Q50 46 70 36" stroke="#c9792a" stroke-width="2.4" fill="none" stroke-linecap="round"/>${hl(40, 30, 8, 3.4)}${f(50, 56, .85)}`,
+    17: `<path d="M44 34Q54 28 62 36L38 94Q34 98 30 92Z" fill="#ff8a2a" ${st} transform="rotate(14 50 60)"/><path d="M50 36Q36 22 30 8M52 34Q54 16 52 4M56 36Q70 22 80 12" stroke="#4cae4f" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M46 54L52 56M42 66L50 68" stroke="#e86f10" stroke-width="2.4" stroke-linecap="round"/>${f(48, 58, .8)}`,
+    18: `<path d="M50 8Q76 14 72 56Q62 84 50 94Q38 84 28 56Q24 14 50 8Z" fill="#ffd23f" ${st}/>${[[40, 22], [60, 22], [36, 38], [64, 38], [38, 70], [62, 70], [46, 84], [54, 84]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.4" fill="#ffe478"/>`).join('')}<path d="M50 94Q18 80 14 36Q28 52 36 70Q42 84 50 94Z" fill="#4cae4f" ${st}/><path d="M50 94Q82 80 86 36Q72 52 64 70Q58 84 50 94Z" fill="#59b84a" ${st}/>${f(50, 50, .85)}`,
+    19: `<path d="M34 62Q36 24 56 8M68 66Q66 26 56 8" stroke="#4c8a3a" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M56 8Q76 4 82 16Q68 20 56 8Z" fill="#4cae4f"/><circle cx="32" cy="72" r="22" fill="#d92d4b" ${st}/><circle cx="70" cy="74" r="20" fill="#e5483f" ${st}/>${hl(24, 62, 6, 3.4)}${f(32, 74, .85)}`,
+    20: `<circle cx="50" cy="54" r="42" fill="#7a5a3a" ${st}/><circle cx="50" cy="54" r="37" fill="#9bd650"/><circle cx="50" cy="54" r="18" fill="#e9f7c2"/>${Array.from({ length: 14 }, (_, i) => { const a = i / 14 * 6.283; return `<ellipse cx="${50 + Math.cos(a) * 25}" cy="${54 + Math.sin(a) * 25}" rx="1.6" ry="3" fill="#2a1a22" transform="rotate(${i * 25.7 + 90} ${50 + Math.cos(a) * 25} ${54 + Math.sin(a) * 25})"/>`; }).join('')}${f(50, 54, .75)}`,
+    21: `<path d="M6 54Q8 30 50 20Q92 30 94 54Q92 80 50 90Q8 80 6 54Z" fill="#ffe14a" ${st}/><path d="M6 54L0 50M94 54L100 50" stroke="#ffe14a" stroke-width="6" stroke-linecap="round"/><path d="M60 24Q74 8 86 12Q76 24 66 28Z" fill="#4cae4f"/>${hl(30, 40, 10, 4)}${f(50, 58)}`,
+    22: `<path d="M50 26Q14 22 12 58Q12 92 50 94Q88 92 88 58Q86 22 50 26Z" fill="#ffab8f" ${st}/><path d="M50 26Q40 58 50 94" stroke="#ee8c70" stroke-width="2.6" fill="none"/><path d="M50 26Q50 14 58 8" stroke="#6a4326" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M54 16Q70 4 80 14Q66 24 54 16Z" fill="#4cae4f"/><circle cx="28" cy="62" r="9" fill="#ff7a9a" opacity=".3"/>${hl(30, 44, 8, 4)}${f(50, 62)}`,
+    23: `<ellipse cx="50" cy="82" rx="38" ry="12" fill="#c98d4a" ${st}/><rect x="12" y="62" width="76" height="20" fill="#c98d4a"/><ellipse cx="50" cy="62" rx="38" ry="12" fill="#e5b06a" ${st}/><rect x="14" y="44" width="72" height="18" fill="#d9a156"/><ellipse cx="50" cy="44" rx="36" ry="11" fill="#f0c274" ${st}/><path d="M16 42Q22 62 30 50Q34 66 44 48Q52 60 60 46Q70 62 78 48Q86 58 84 42Q50 54 16 42Z" fill="#b4531c" opacity=".92"/><rect x="40" y="30" width="20" height="12" rx="3" fill="#ffe478" ${st}/>${f(50, 56, .8)}`,
+    24: `<path d="M22 56H78L70 94H30Z" fill="#6fd3ff" ${st}/><path d="M30 56L34 94M42 56L44 94M58 56L56 94M70 56L66 94" stroke="#fff" stroke-width="2.4" opacity=".6"/><path d="M14 58Q8 38 30 36Q26 18 46 18Q54 4 66 18Q86 18 80 38Q94 40 86 58Z" fill="#ff8fbc" ${st}/><circle cx="50" cy="10" r="6" fill="#e5392f"/>${f(50, 44, .85)}`,
+    25: `<path d="M50 14Q64 14 62 34Q60 44 70 56Q86 90 50 96Q14 90 30 56Q40 44 38 34Q36 14 50 14Z" fill="#b5d94a" ${st}/><path d="M50 14Q50 6 56 2" stroke="#6a4326" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M54 8Q68 -2 78 8Q64 16 54 8Z" fill="#4cae4f"/>${hl(40, 62, 6, 10, 20)}${f(50, 70)}`,
+    26: `<path d="M50 30Q28 6 34 0Q44 12 50 26Q56 12 66 0Q72 6 50 30Z M50 28Q18 14 14 22Q30 28 46 34Z M50 28Q82 14 86 22Q70 28 54 34Z" fill="#4cae4f" ${st}/><ellipse cx="50" cy="66" rx="30" ry="32" fill="#ffc83d" ${st}/><path d="M26 48L74 88M38 36L82 76M24 70L60 100M50 34L84 62M74 48L28 90M62 36L22 74" stroke="#e8a21a" stroke-width="2" opacity=".8"/>${f(50, 62, .95)}`,
+    27: `<path d="M50 6Q76 6 76 44Q84 96 50 96Q16 96 24 44Q24 6 50 6Z" fill="#4c8a3a" ${st}/><path d="M50 12Q70 12 70 46Q78 90 50 90Q22 90 30 46Q30 12 50 12Z" fill="#d6ec7a"/><circle cx="50" cy="66" r="19" fill="#8a5a2b" ${st}/>${hl(42, 58, 5, 3, -30)}${f(50, 66, .65)}`,
+    28: `<rect x="40" y="58" width="20" height="38" rx="6" fill="#9bd650" ${st}/>${[[26, 40, 18], [50, 30, 20], [74, 40, 18], [36, 54, 16], [64, 54, 16]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#3f9a4a" ${st}/>`).join('')}${hl(44, 22, 8, 3.4)}${f(50, 46, .85)}`,
+    29: `<path d="M14 54Q16 22 30 28Q36 10 50 20Q64 8 72 26Q86 24 86 54Z" fill="#ffd96a" ${st}/><path d="M22 52Q26 34 34 48M44 50Q48 30 56 48M66 50Q72 34 78 48" stroke="#e8b83a" stroke-width="3" fill="none"/><circle cx="52" cy="26" r="11" fill="#b4401c" ${st}/><path d="M10 54H90Q88 94 50 94Q12 94 10 54Z" fill="#fff" ${st}/><path d="M10 54H90" stroke="#6fd3ff" stroke-width="6"/>${f(50, 74, .85)}`,
+    30: `<path d="M12 56H88V76Q88 90 74 90H26Q12 90 12 76Z" fill="#fff" ${st}/><path d="M8 58Q8 38 50 36Q92 38 92 58Q80 66 50 60Q20 66 8 58Z" fill="#ff8a5c" ${st}/><path d="M24 44Q50 56 76 44" stroke="#ffd0b8" stroke-width="3" fill="none"/><rect x="42" y="38" width="16" height="52" fill="#26302a" opacity=".95"/>${f(30, 76, .7)}`,
+    31: `<path d="M10 72L90 50L86 90Q50 96 14 90Z" fill="#ffe3b0" ${st}/><path d="M10 72L90 50L88 62L12 82Z" fill="#7a4326"/><path d="M12 84L88 64" stroke="#fff" stroke-width="5"/><path d="M10 72L50 20L90 50Z" fill="#ffb3d1" ${st}/><circle cx="50" cy="20" r="7" fill="#e5392f"/>${f(52, 76, .75)}`,
+    32: `<rect x="46" y="62" width="8" height="38" rx="4" fill="#f5e6c8" ${st}/><circle cx="50" cy="40" r="34" fill="#ff5c8a" ${st}/><path d="M50 40m0-26a26 26 0 1 1-26 26M50 40m0-16a16 16 0 1 1-16 16M50 40m0-7a7 7 0 1 1-7 7" fill="none" stroke="#fff" stroke-width="5" opacity=".85" stroke-linecap="round"/>${hl(34, 22, 8, 3.4)}<circle cx="50" cy="40" r="12" fill="#ff5c8a"/>${f(50, 40, .6)}`,
+    33: `<path d="M50 90Q10 80 14 44Q18 14 50 20Q82 14 86 44Q90 80 50 90Z M36 40Q50 62 64 40M30 78Q50 36 70 78" fill="none" stroke="#c98d4a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>${[[22, 36], [78, 38], [36, 82], [64, 82], [50, 22]].map(([x, y]) => `<rect x="${x}" y="${y}" width="5" height="2.6" rx="1.2" fill="#fff"/>`).join('')}<path d="M50 90Q10 80 14 44Q18 14 50 20Q82 14 86 44Q90 80 50 90Z" fill="none" stroke="#e5b06a" stroke-width="5" opacity=".7"/>${f(50, 62, .7)}`,
+    34: `<path d="M6 70L88 24Q96 40 94 80L10 90Q4 84 6 70Z" fill="#ffd23f" ${st}/><path d="M6 70L88 24L90 34L8 78Z" fill="#ffe478"/><circle cx="62" cy="62" r="5" fill="#e8a21a"/><circle cx="82" cy="52" r="4" fill="#e8a21a"/><circle cx="30" cy="80" r="4" fill="#e8a21a"/>${f(50, 66, .85)}`
+  };
+  const out = {};
+  Object.entries(S).forEach(([n, body]) => {
+    out['ci' + String(n).padStart(2, '0')] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 104"><ellipse cx="50" cy="100" rx="32" ry="3.5" fill="#000" opacity=".18"/>${body}</svg>`);
+  });
+  return out;
+})();
+Object.assign(ZH_ANIMALS, ZH_FOODS);
+/* v44 — figurine Spazio, Sport, Mezzi, Natura: illustrazioni originali con faccino. */
+const ZH_ART2 = (() => {
+  const O = 'stroke="#0003" stroke-width="1.6"';
+  const F = (x, y, k = 1) => `<g transform="translate(${x} ${y}) scale(${k})"><circle cx="-8" cy="0" r="3.6" fill="#1c1426"/><circle cx="8" cy="0" r="3.6" fill="#1c1426"/><circle cx="-9" cy="-1.3" r="1.2" fill="#fff"/><circle cx="7" cy="-1.3" r="1.2" fill="#fff"/><path d="M-4 6Q0 10 4 6" fill="none" stroke="#1c1426" stroke-width="2" stroke-linecap="round"/><circle cx="-14" cy="6" r="3.4" fill="#ff7a9a" opacity=".55"/><circle cx="14" cy="6" r="3.4" fill="#ff7a9a" opacity=".55"/></g>`;
+  const C = (x, y, r, c, e = O) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${e}/>`;
+  const R = (x, y, w, h, r, c, e = O) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${c}" ${e}/>`;
+  const P = (d, c, e = O) => `<path d="${d}" fill="${c}" ${e}/>`;
+  const L = (d, c, w = 3) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const H = (x, y, rx = 8, ry = 4, r = -30) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#fff" opacity=".4" transform="rotate(${r} ${x} ${y})"/>`;
+  const star = (cx, cy, R1, r1, n = 5, rot = -90) => Array.from({ length: n * 2 }, (_, i) => { const a = (rot + i * 180 / n) * Math.PI / 180, r = i % 2 ? r1 : R1; return (i ? 'L' : 'M') + (cx + Math.cos(a) * r).toFixed(1) + ' ' + (cy + Math.sin(a) * r).toFixed(1); }).join('') + 'Z';
+  const flower = (n, pc, cc, rr = 20, pr = 13, cr = 14) => Array.from({ length: n }, (_, i) => { const a = i / n * 6.283; return C((50 + Math.cos(a) * rr).toFixed(1), (50 + Math.sin(a) * rr).toFixed(1), pr, pc); }).join('') + C(50, 50, cr, cc);
+  const moon = (fl, c = '#ffe27a') => P('M64 8A44 44 0 1 0 64 96A34 40 0 1 1 64 8Z', c, O + (fl ? ' transform="translate(100 0) scale(-1 1)"' : '')) + F(fl ? 64 : 36, 54, .7);
+  const ball = (c, extra = '', fy = 50) => C(50, 50, 40, c) + extra + H(34, 30, 9, 4) + F(50, fy, .85);
+  const car = (c, roof = '', ex = '', cab = c) => `${roof}<path d="M22 52L32 28H68L80 52Z" fill="${cab}" ${O}/><path d="M29 50L37 33H63L72 50Z" fill="#c9ecff"/>${R(6, 50, 88, 28, 10, c)}${ex}${F(50, 43, .5)}${C(26, 78, 10, '#2c2c36')}${C(26, 78, 4, '#c8ccd6', '')}${C(74, 78, 10, '#2c2c36')}${C(74, 78, 4, '#c8ccd6', '')}${C(88, 60, 4, '#ffe478', '')}`;
+  const bus = (c, ex = '') => R(6, 22, 88, 56, 10, c) + [14, 34, 54].map((x) => R(x, 30, 16, 14, 3, '#c9ecff', '')).join('') + R(72, 30, 16, 20, 3, '#c9ecff', '') + `<path d="M6 60H94" stroke="#fff" stroke-width="3" opacity=".6"/>${ex}${F(50, 56, .6)}${C(26, 80, 9, '#2c2c36')}${C(74, 80, 9, '#2c2c36')}`;
+  const stem = '#4cae4f';
+  const S = {
+    sp: [
+      P('M50 6Q74 28 68 66H32Q26 28 50 6Z', '#f4f6fb') + P('M32 66L12 90L34 80ZM68 66L88 90L66 80Z', '#e5483f') + P('M50 6Q60 16 64 30H36Q40 16 50 6Z', '#e5483f', '') + C(50, 46, 12, '#6fd3ff') + F(50, 46, .45) + P('M40 70Q50 102 60 70Z', '#ffb02e', ''),
+      P('M6 62Q50 36 94 62Q50 88 6 62Z', '#aab4c8') + P('M30 50Q50 6 70 50Z', '#8fe3ff') + [24, 42, 58, 76].map((x) => C(x, 64, 3, '#ffe478', '')).join('') + F(50, 40, .5),
+      C(50, 50, 42, '#3f8fe0') + P('M24 30Q40 20 46 34Q36 50 24 44Z M56 56Q76 48 82 64Q70 82 58 72Z', '#59b84a', '') + H(34, 28, 10, 4) + F(50, 52),
+      moon(false),
+      P(star(50, 54, 44, 20), '#ffd23f') + F(50, 56, .75),
+      P(star(50, 50, 38, 17), '#ffe478') + L('M50 2V14M50 86V98M2 50H14M86 50H98', '#ffe478') + F(50, 52, .6),
+      L('M30 70Q10 84 8 96M40 74Q26 88 26 98', '#ff9a4d', 5) + C(60, 40, 28, '#8a6a4a') + C(52, 32, 5, '#6a4e34', '') + F(62, 42, .8),
+      C(50, 50, 42, '#e8e2c8') + C(32, 34, 6, '#cdc6a8', '') + C(70, 66, 8, '#cdc6a8', '') + C(66, 28, 4, '#cdc6a8', '') + F(50, 52),
+      C(50, 70, 26, '#f4f6fb') + R(26, 72, 48, 24, 8, '#f4f6fb') + C(50, 36, 28, '#f4f6fb') + R(30, 24, 40, 26, 12, '#1b2748') + F(50, 37, .55) + R(34, 76, 32, 10, 3, '#6fd3ff', ''),
+      P('M50 8Q78 8 80 44Q84 80 50 92Q16 80 20 44Q22 8 50 8Z', '#7ed957') + C(36, 44, 11, '#1c1426', '') + C(64, 44, 11, '#1c1426', '') + C(33, 40, 3.4, '#fff', '') + C(61, 40, 3.4, '#fff', '') + L('M40 68Q50 74 60 68', '#2f6b1f', 3) + L('M36 12L30 2M64 12L70 2', '#7ed957', 4),
+      Array.from({ length: 12 }, (_, i) => { const a = i / 12 * 6.283; return `<path d="M50 50L${50 + Math.cos(a - .12) * 46} ${50 + Math.sin(a - .12) * 46}L${50 + Math.cos(a + .12) * 46} ${50 + Math.sin(a + .12) * 46}Z" fill="#ffb02e"/>`; }).join('') + C(50, 50, 30, '#ffd23f') + H(38, 38, 9, 4) + F(50, 52),
+      R(18, 38, 56, 22, 6, '#4a5a78') + R(70, 34, 14, 30, 5, '#2f3a52') + L('M28 60L18 94M44 60L50 94M60 60L82 94', '#4a5a78', 6) + C(78, 49, 6, '#9fe3ff', '') + F(44, 49, .55),
+      R(36, 32, 28, 36, 8, '#c8ccd6') + R(2, 40, 28, 18, 3, '#3f6fd8') + R(70, 40, 28, 18, 3, '#3f6fd8') + L('M30 49H36M64 49H70', '#8a93a8', 3) + F(50, 50, .6) + L('M50 32V18', '#8a93a8', 3) + C(50, 16, 4, '#ffd23f', ''),
+      C(50, 50, 42, '#3b2a8a') + L('M50 50Q70 30 84 44M50 50Q30 70 16 56M50 50Q66 70 80 62M50 50Q34 30 20 38', '#c77dff', 7) + C(50, 50, 10, '#ffe9a8', '') + F(50, 78, .5) + C(24, 24, 2, '#fff', '') + C(80, 22, 2, '#fff', ''),
+      L('M10 90Q40 60 62 40', '#8fd3ff', 6) + L('M22 96Q46 74 66 52', '#c9a8ff', 4) + P(star(68, 34, 28, 13), '#ffd23f') + F(68, 36, .5),
+      C(50, 50, 42, '#3a3f58') + C(34, 36, 5, '#2c3046', '') + C(66, 64, 7, '#2c3046', '') + F(50, 52),
+      `<ellipse cx="50" cy="52" rx="48" ry="12" fill="none" stroke="#e8c98a" stroke-width="7" transform="rotate(-16 50 52)"/>` + C(50, 52, 30, '#f0a35a') + `<path d="M6 60Q50 78 94 44" fill="none" stroke="#e8c98a" stroke-width="7" stroke-linecap="round"/>` + H(40, 38, 8, 3.4) + F(50, 52, .8),
+      moon(true), moon(false, '#f4d8ff'),
+      C(50, 50, 42, '#5b5f78') + C(32, 38, 6, '#474b62', '') + C(68, 62, 9, '#474b62', '') + F(50, 52),
+      C(50, 50, 42, '#2a2f4a') + P('M50 8A42 42 0 0 1 50 92Z', '#f4f0d8', '') + F(40, 52, .7),
+      C(50, 50, 42, '#2a2f4a') + P('M50 8A42 42 0 0 0 50 92Z', '#f4f0d8', '') + F(60, 52, .7),
+      C(50, 70, 26, '#f4f6fb') + R(26, 72, 48, 24, 8, '#f4f6fb') + C(50, 36, 28, '#f4f6fb') + R(30, 24, 40, 26, 12, '#3a1d4a') + F(50, 37, .55) + R(34, 76, 32, 10, 3, '#ff8fbc', ''),
+      P(star(50, 50, 26, 12), '#ffd23f') + L('M18 20Q30 6 46 12M82 80Q70 94 54 88', '#8fd3ff', 4) + C(20, 76, 4, '#ff8fbc', '') + C(82, 22, 4, '#9fe3ff', '') + F(50, 52, .5)
+    ],
+    sg: [
+      ball('#fff', P('M50 36L62 45L57 59H43L38 45Z', '#26202c', '') + P('M50 10V20M20 30L30 38M80 30L70 38M30 82L40 70M70 82L60 70', '#26202c', '') + L('M50 20V36M30 38L38 45M70 38L62 45M43 59L38 70M57 59L62 70', '#26202c', 2), 54),
+      ball('#f08a3c', L('M10 50H90M50 10V90M20 24Q50 50 20 76M80 24Q50 50 80 76', '#5a2a10', 2.6)),
+      P('M8 50Q50 -8 92 50Q50 108 8 50Z', '#a8603a') + L('M40 38L60 62M46 34L66 58M34 42L54 66', '#fff', 2.5) + F(48, 50, .6),
+      ball('#fff', L('M18 22Q34 50 18 78M82 22Q66 50 82 78', '#e5392f', 3) + [30, 42, 58, 70].map((y) => L(`M20 ${y}h10M70 ${y}h10`, '#e5392f', 2)).join(''), 52),
+      ball('#d9ef4a', L('M14 28Q50 52 14 72M86 28Q50 52 86 72', '#fff', 4)),
+      ball('#fff', L('M50 10Q30 50 50 90M12 40Q50 30 88 40M14 66Q50 56 86 66', '#3f8fe0', 4) + L('M50 10Q70 50 50 90', '#ffd23f', 4)),
+      P('M8 56Q50 -4 92 56Q50 100 8 56Z', '#9a5a30', O + ' transform="rotate(-24 50 54)"') + L('M34 56Q50 40 66 56', '#fff', 2.5) + F(50, 56, .6),
+      ball('#26202c', C(50, 38, 15, '#fff', '') + `<text x="50" y="44" font-size="18" font-weight="700" text-anchor="middle" fill="#26202c">8</text>`, 68),
+      R(24, 10, 52, 48, 24, '#e5392f') + R(44, 52, 12, 40, 4, '#c98d4a') + F(50, 32, .75),
+      P('M50 12L72 52Q76 90 50 92Q24 90 28 52Z', '#fff') + L('M34 62H66M38 76H62', '#c8ccd6', 2) + P('M40 6H60L56 24H44Z', '#e5392f') + F(50, 52, .7),
+      R(24, 22, 52, 46, 20, '#e5392f') + R(34, 66, 32, 24, 6, '#c8392a') + R(24, 66, 52, 6, 2, '#fff', '') + F(50, 44, .8),
+      P('M24 14H76Q76 50 60 58V70H70V84H30V70H40V58Q24 50 24 14Z', '#ffc83d') + L('M24 24Q8 24 12 42Q16 52 28 50M76 24Q92 24 88 42Q84 52 72 50', '#ffc83d', 5) + F(50, 34, .8) + H(36, 24, 5, 10, 10),
+      C(50, 38, 26, '#ffc83d') + P('M36 58L28 94L50 82L72 94L64 58Z', '#e5392f') + F(50, 38, .75) + H(40, 26, 6, 3),
+      C(50, 38, 26, '#cfd6e2') + P('M36 58L28 94L50 82L72 94L64 58Z', '#3f8fe0') + F(50, 38, .75),
+      C(24, 76, 16, '#2c2c36') + C(76, 76, 16, '#2c2c36') + C(24, 76, 6, '#c8ccd6', '') + C(76, 76, 6, '#c8ccd6', '') + L('M24 76L42 40H70L76 76M42 40L50 76H24M70 40L62 30H52', '#e5392f', 5) + C(52, 22, 11, '#ffd9a8') + F(52, 22, .45),
+      L('M4 74Q20 64 34 74T64 74T96 74', '#3f8fe0', 5) + C(50, 50, 24, '#ffd9a8') + P('M28 46Q50 6 72 46Z', '#e5392f') + R(34, 44, 32, 12, 6, '#6fd3ff', '') + F(50, 52, .5),
+      P('M24 20H48V56L78 70V84H24Z', '#fff') + L('M18 92H88', '#8a93a8', 4) + P('M24 20H48V30H24Z', '#e5392f', '') + F(40, 50, .6),
+      L('M12 14L88 84M88 14L12 84', '#3f8fe0', 6) + L('M30 92H50M64 92H84', '#e5392f', 6) + F(50, 49, .7),
+      L('M20 80L68 28', '#c98d4a', 7) + P('M68 28Q86 18 90 30Q80 44 68 28Z', '#c98d4a') + C(30, 86, 8, '#26202c') + F(60, 52, .5),
+      R(40, 12, 14, 62, 6, '#d9a156') + P('M40 70H54L66 84H40Z', '#d9a156') + C(76, 84, 10, '#e5392f') + F(47, 40, .4),
+      L('M50 88V8', '#8a93a8', 4) + P('M50 8L88 24L50 40Z', '#e5392f') + ball('#fff', '', 0).replace(/<circle cx="50" cy="50" r="40"/, '<circle cx="50" cy="84" r="12"') + C(72, 90, 6, '#fff'),
+      C(50, 50, 38, '#fff') + C(50, 50, 28, '#e5392f', '') + C(50, 50, 18, '#fff', '') + C(50, 50, 8, '#e5392f', '') + L('M14 86L48 52', '#c98d4a', 4) + P('M8 92L16 78L22 88Z', '#8a93a8', ''),
+      R(6, 62, 88, 10, 5, '#c98d4a') + C(24, 80, 8, '#2c2c36') + C(76, 80, 8, '#2c2c36') + C(50, 38, 22, '#ffd9a8') + F(50, 38, .5) + P('M32 28Q50 10 68 28Z', '#3f8fe0', ''),
+      C(50, 34, 20, '#ffd9a8') + F(50, 34, .5) + L('M50 54L50 78M50 60L22 40M50 60L80 40M50 78L32 96M50 78L68 96', '#3f8fe0', 7),
+      L('M4 80Q24 60 44 80T84 80', '#3f8fe0', 6) + P('M20 70Q50 30 86 48Q70 74 20 70Z', '#ffd23f') + C(46, 36, 12, '#ffd9a8') + F(46, 36, .45),
+      P('M14 94L30 30H70L86 94Z', '#9a8a7a') + [[34, 56], [60, 48], [46, 76], [68, 78], [30, 82]].map(([x, y]) => C(x, y, 6, '#e5392f', '')).join('') + C(50, 24, 12, '#ffd9a8') + F(50, 24, .45),
+      ball('#fff', '', 52).replace('r="40"', 'r="40"') + L('M14 30Q50 6 86 30', '#3f8fe0', 4) + C(50, 50, 40, 'none'),
+      R(8, 24, 84, 64, 4, 'none', 'stroke="#fff" stroke-width="5"') + L('M8 24H92M8 44H92M8 66H92M28 24V88M50 24V88M72 24V88', '#fff', 2) + C(50, 56, 12, '#fff') + F(50, 56, .5)
+    ],
+    me: [
+      car('#e5392f'), car('#ffd23f', R(40, 14, 20, 12, 3, '#fff') + '<text x="50" y="24" font-size="9" font-weight="700" text-anchor="middle" fill="#26202c">TAXI</text>'),
+      bus('#ffb02e'), car('#3f6fd8', P('M38 22H62V28H38Z', '#e5392f', '') + C(40, 20, 4, '#e5392f', '') + C(60, 20, 4, '#6fd3ff', ''), R(6, 62, 88, 8, 2, '#fff', '')),
+      car('#e5392f', C(50, 20, 5, '#ffd23f', ''), L('M28 60H72', '#fff', 4)), car('#fff', C(50, 20, 5, '#e5392f', ''), P('M60 56H72V62H78V68H72V74H60V68H54V62H60Z', '#e5392f', '')),
+      R(12, 30, 40, 50, 6, '#4cae4f') + R(48, 50, 40, 26, 8, '#4cae4f') + C(26, 76, 10, '#2c2c36') + C(76, 70, 18, '#2c2c36') + C(76, 70, 7, '#ffd23f', '') + R(14, 34, 34, 20, 4, '#c9ecff', '') + F(31, 44, .5),
+      P('M4 72L10 50H60L94 62V76H4Z', '#e5392f') + P('M44 50L54 34H70L78 54Z', '#c9ecff', '') + F(62, 46, .45) + C(24, 78, 10, '#2c2c36') + C(76, 78, 10, '#2c2c36'),
+      C(22, 76, 16, 'none', 'stroke="#2c2c36" stroke-width="5"') + C(78, 76, 16, 'none', 'stroke="#2c2c36" stroke-width="5"') + L('M22 76L42 44H66L78 76M42 44L50 76H22M66 44L60 30H50', '#3f8fe0', 5) + C(56, 24, 10, '#ffd9a8') + F(56, 24, .4),
+      C(24, 80, 10, '#2c2c36') + C(78, 80, 10, '#2c2c36') + P('M24 70H78L84 52H66L60 32H52V52H34Z', '#ff8fbc') + R(46, 24, 20, 8, 3, '#8a93a8') + F(46, 60, .5),
+      P('M6 54Q6 36 30 36H70L94 46L70 72H20Q6 72 6 54Z', '#f4f6fb') + P('M70 36L90 14H78L58 36Z', '#3f8fe0') + L('M20 50H60', '#c9ecff', 6) + F(44, 54, .5),
+      L('M20 22H80', '#8a93a8', 5) + L('M50 22V36', '#8a93a8', 4) + R(14, 36, 62, 30, 12, '#e5392f') + P('M76 46H96V56H76Z', '#e5392f') + R(22, 42, 24, 12, 3, '#c9ecff', '') + F(34, 48, .4) + L('M70 80L90 80', '#8a93a8', 4),
+      R(6, 38, 86, 32, 8, '#3f8fe0') + R(66, 22, 24, 22, 6, '#6aa8ff') + [14, 34, 54].map((x) => C(x + 8, 80, 9, '#2c2c36')).join('') + F(34, 52, .6) + R(14, 28, 4, 10, 1, '#8a93a8', ''),
+      R(6, 40, 90, 34, 14, '#5aa0e8') + R(14, 30, 70, 14, 6, '#c9ecff', '') + L('M4 78H96', '#8fd3ff', 4) + F(50, 56, .7) + C(26, 80, 9, '#2c2c36') + C(74, 80, 9, '#2c2c36'),
+      P('M6 64H94L80 86H20Z', '#3f4a66') + R(20, 40, 60, 24, 4, '#f4f6fb') + [28, 44, 60].map((x) => C(x + 4, 52, 4, '#6fd3ff', '')).join('') + L('M50 40V16', '#8a93a8', 3) + P('M50 16H66V26H50Z', '#e5392f', '') + F(50, 74, .4),
+      P('M10 68Q50 94 90 68L82 50H18Z', '#ffd23f') + L('M50 50V14', '#8a93a8', 3) + P('M50 14L88 44H50Z', '#fff') + P('M50 20L22 44H50Z', '#e5392f') + F(50, 62, .6),
+      P('M4 56Q50 100 96 56Q50 70 4 56Z', '#c98d4a') + L('M12 56Q50 78 88 56', '#a8703c', 3) + C(50, 42, 12, '#ffd9a8') + F(50, 42, .4),
+      bus('#ff6b35', ''), bus('#6fd3ff', ''), R(6, 24, 88, 52, 8, '#4cae4f') + R(14, 32, 30, 18, 3, '#c9ecff', '') + C(26, 80, 9, '#2c2c36') + C(74, 80, 9, '#2c2c36') + F(66, 44, .6),
+      L('M8 94L92 94', '#8a93a8', 3) + L('M50 4V26', '#8a93a8', 3) + R(30, 26, 40, 46, 12, '#e5392f') + R(36, 34, 28, 16, 5, '#c9ecff', '') + F(50, 42, .5),
+      L('M4 20L96 36', '#8a93a8', 4) + L('M50 28V40', '#8a93a8', 4) + R(34, 40, 32, 40, 10, '#3f8fe0') + R(40, 48, 20, 14, 4, '#c9ecff', '') + F(50, 55, .4),
+      P('M6 58Q50 40 94 58Q50 76 6 58Z', '#f4f6fb') + L('M50 56L26 28M50 56L26 82', '#e5392f', 6) + F(54, 58, .5),
+      P('M6 60Q10 40 36 38H82Q94 40 94 60Q94 76 80 76H20Q6 76 6 60Z', '#f4f6fb') + L('M18 50H70', '#6fd3ff', 6) + F(52, 56, .5),
+      car('#e5392f', '', R(60, 54, 34, 20, 4, '#c8392a', '')), 
+      R(8, 56, 84, 22, 4, '#3f4a66') + R(16, 30, 68, 26, 4, '#f4f6fb') + [22, 40, 58, 72].map((x) => R(x, 36, 10, 10, 2, '#6fd3ff', '')).join('') + L('M20 90Q50 80 80 90', '#8fd3ff', 4) + F(50, 66, .5),
+      P('M22 52L32 28H56L62 52Z', '#e5392f') + P('M29 50L37 33H53L57 50Z', '#c9ecff', '') + R(6, 50, 88, 26, 8, '#e5392f') + R(60, 40, 34, 10, 2, '#c8392a') + F(44, 44, .45) + C(26, 78, 10, '#2c2c36') + C(76, 78, 10, '#2c2c36') + C(88, 60, 4, '#ffe478', ''),
+      P('M4 62H96L84 88H16Z', '#3f4a66') + R(14, 40, 72, 24, 4, '#f4f6fb') + [22, 40, 58, 74].map((x) => C(x, 52, 4, '#6fd3ff', '')).join('') + R(36, 24, 28, 16, 3, '#e5392f') + L('M44 24V14H56V24', '#8a93a8', 3) + L('M8 94Q28 88 50 94T92 94', '#8fd3ff', 3) + F(50, 74, .45)
+    ],
+    na: [
+      R(42, 56, 16, 40, 4, '#8a5a2b') + C(50, 34, 28, '#3f9a4a') + C(28, 50, 18, '#4cae4f') + C(72, 50, 18, '#4cae4f') + F(50, 42, .85),
+      P('M46 96Q50 50 54 96Z', '#8a5a2b') + L('M50 52Q20 30 10 60M50 52Q80 30 90 60M50 52Q50 20 36 8M50 52Q60 20 80 14', '#3f9a4a', 8) + F(50, 66, .55),
+      R(32, 14, 36, 78, 18, '#3f9a4a') + R(10, 40, 18, 12, 6, '#3f9a4a') + R(10, 28, 12, 22, 6, '#3f9a4a') + R(72, 52, 18, 12, 6, '#3f9a4a') + R(78, 40, 12, 22, 6, '#3f9a4a') + C(50, 12, 8, '#ff7a9a') + F(50, 52, .7),
+      L('M50 96V60', '#3f9a4a', 6) + flower(12, '#ffd23f', '#7a4326', 28, 12, 22) + F(50, 50, .7),
+      L('M50 96V56', '#4cae4f', 6) + P('M24 18Q24 62 50 64Q76 62 76 18L62 30L50 14L38 30Z', '#f0364f') + F(50, 46, .7),
+      flower(5, '#e5392f', '#c8392a', 18, 18, 16) + C(50, 50, 8, '#ff7a9a', '') + F(50, 52, .6),
+      P('M8 52Q8 10 50 10Q92 10 92 52Q70 60 50 56Q30 60 8 52Z', '#e5392f') + C(30, 32, 7, '#fff', '') + C(56, 24, 8, '#fff', '') + C(74, 40, 6, '#fff', '') + R(36, 54, 28, 40, 10, '#fff3d6') + F(50, 72, .7),
+      L('M8 70Q50 -10 92 70', '#e5392f', 8) + L('M16 70Q50 6 84 70', '#ffd23f', 8) + L('M24 70Q50 22 76 70', '#4cae4f', 8) + L('M32 70Q50 38 68 70', '#3f8fe0', 8) + C(14, 78, 12, '#fff', '') + C(86, 78, 12, '#fff', '') + F(50, 80, .6),
+      C(50, 50, 22, '#ffd23f') + Array.from({ length: 10 }, (_, i) => { const a = i / 10 * 6.283; return L(`M${50 + Math.cos(a) * 28} ${50 + Math.sin(a) * 28}L${50 + Math.cos(a) * 42} ${50 + Math.sin(a) * 42}`, '#ffb02e', 6); }).join('') + F(50, 52, .8),
+      C(50, 74, 24, '#fff') + C(50, 38, 18, '#fff') + P('M34 28H66L62 12H38Z', '#26202c', '') + P('M50 38L68 42L50 44Z', '#ff8a2a', '') + C(50, 70, 3, '#26202c', '') + C(50, 82, 3, '#26202c', '') + F(50, 34, .4),
+      P('M50 96Q14 90 18 56Q22 40 36 26Q38 44 46 44Q42 20 54 6Q56 26 66 38Q82 56 82 70Q82 94 50 96Z', '#ff8a2a') + P('M50 96Q34 92 36 74Q42 64 50 56Q58 66 64 74Q66 92 50 96Z', '#ffd23f', '') + F(50, 78, .55),
+      P('M4 62Q20 20 56 24Q80 28 82 52Q70 44 64 54Q76 66 70 80Q40 96 4 62Z', '#3f8fe0') + P('M4 62Q30 76 50 70', '#8fd3ff', '') + C(60, 38, 4, '#fff', '') + F(40, 62, .6),
+      P('M4 96L38 30H62L96 96Z', '#8a5a2b') + P('M38 30L30 6M44 30L50 2M58 30L72 8', '#ff5a1f', 'stroke="#ff5a1f" stroke-width="6" stroke-linecap="round"') + P('M38 30H62L66 40Q50 46 34 40Z', '#ff5a1f', '') + F(50, 68, .8),
+      P('M2 96L36 36L52 56L68 20L98 96Z', '#8a93a8') + P('M68 20L56 42Q66 38 76 44L82 52Z', '#fff', '') + P('M36 36L26 52Q34 48 40 52Z', '#fff', '') + F(58, 78, .8),
+      P('M50 8L58 28L82 20L70 44L94 52L68 62L74 90L50 76L26 90L32 62L6 52L30 44L18 20L42 28Z', '#f08a2a') + L('M50 76V96', '#8a5a2b', 4) + F(50, 52, .7),
+      flower(5, '#ffc2dd', '#ff7aa8', 20, 16, 12) + F(50, 52, .5),
+      P('M10 78Q4 40 50 12Q96 40 90 78Q50 96 10 78Z', '#ffd9a8') + L('M50 14V84M50 84Q28 66 24 30M50 84Q72 66 76 30M50 84Q12 70 14 50M50 84Q88 70 86 50', '#e5b896', 2.6) + F(50, 66, .6),
+      P('M34 54Q10 40 24 18Q40 28 44 44Q50 20 70 22Q80 42 62 56Q80 70 66 90Q40 92 34 54Z', '#e07a2f') + L('M50 40Q60 70 40 90', '#8a4a1a', 3) + F(48, 58, .6),
+      P('M50 6L78 42H64L88 76H12L36 42H22Z', '#3f9a4a') + R(44, 76, 12, 18, 3, '#8a5a2b') + F(50, 56, .7),
+      flower(10, '#fff', '#ffd23f', 24, 11, 14) + F(50, 50, .6),
+      flower(5, '#ff5a7a', '#ffd23f', 22, 18, 10) + L('M50 50V30', '#ffd23f', 3) + F(50, 54, .5),
+      C(36, 36, 16, '#4cae4f') + C(64, 36, 16, '#4cae4f') + C(36, 64, 16, '#4cae4f') + C(64, 64, 16, '#4cae4f') + L('M50 50L64 96', '#3f8f3f', 5) + F(50, 50, .6),
+      L('M50 96V20', '#c9a24a', 4) + [[50, 22, 0], [40, 36, -30], [60, 36, 30], [38, 54, -30], [62, 54, 30], [40, 72, -30], [60, 72, 30]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="6" ry="12" fill="#e8c14a" ${O} transform="rotate(${r} ${x} ${y})"/>`).join('') + F(50, 90, .0),
+      L('M50 8V92M12 28L88 72M12 72L88 28', '#8fd3ff', 6) + L('M50 24L40 14M50 24L60 14M50 76L40 86M50 76L60 86', '#8fd3ff', 4) + C(50, 50, 14, '#e8f6ff') + F(50, 51, .5),
+      P('M4 96L36 30L52 56L66 40L96 96Z', '#a8703c') + P('M36 30L26 54L44 50Z', '#fff', '') + F(56, 78, .8),
+      L('M50 96V50', '#4cae4f', 6) + P('M50 56Q20 56 14 24Q44 22 50 56Z', '#59b84a') + P('M50 66Q80 66 86 34Q56 32 50 66Z', '#3f9a4a') + P('M50 40Q34 28 38 8Q54 14 50 40Z', '#7ed957') + F(50, 82, .55),
+      P('M10 80Q4 44 30 28Q56 14 80 32Q98 52 88 80Q50 96 10 80Z', '#9aa3ad') + L('M30 28Q44 40 36 56', '#7a838d', 2.6) + H(36, 38, 9, 4) + F(52, 68, .8),
+      L('M50 96V50', '#8a5a2b', 5) + P('M50 56Q16 62 8 28Q44 24 50 56Z', '#7ed957') + P('M50 56Q84 62 92 28Q56 24 50 56Z', '#59b84a') + F(50, 74, .5)
+    ]
+  };
+  S.me[24] = L('M18 84H74', '#3f8fe0', 9) + C(20, 88, 7, '#2c2c36') + C(76, 88, 7, '#2c2c36') + L('M76 84L66 30', '#8a93a8', 5) + L('M54 28H82', '#8a93a8', 5) + C(66, 54, 14, '#ffd23f') + F(66, 54, .55);
+  S.me = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 13, 18, 19, 25, 24, 20, 21, 22, 23, 26, 27].map((i) => S.me[i]);
+  const out = {};
+  Object.entries(S).forEach(([t, arr]) => arr.forEach((body, i) => {
+    out[t + String(i + 1).padStart(2, '0')] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 104"><ellipse cx="50" cy="100" rx="32" ry="3.5" fill="#000" opacity=".18"/>${body}</svg>`);
+  }));
+  return out;
+})();
+Object.assign(ZH_ANIMALS, ZH_ART2);
 /* Faccia della figurina: bordo bianco, finestra colorata col tema, soggetto con contorno, nome in basso. */
 function cardFace(s, tag) {
   return `<span class="cface"><span class="cf-in"><span class="cf-art sc-${s.theme}"><span class="cf-scene"></span><span class="cf-rays"></span><span class="cf-sh"></span>${ZH_ANIMALS[s.id] ? `<img class="cf-img" alt="" src="${ZH_ANIMALS[s.id]}">` : `<span class="cf-em" aria-hidden="true">${s.emoji}</span>`}</span><span class="cf-name">${esc(s.name)}</span></span><span class="cf-num">${s.num}</span>${RARITY_STARS[s.rarity] ? `<span class="cf-star" aria-hidden="true">${RARITY_STARS[s.rarity]}</span>` : ''}${tag ? `<span class="cf-tag">${tag}</span>` : ''}</span>`;
@@ -3880,7 +4028,7 @@ $('view-day').setAttribute('aria-selected', String(state.view === 'day')); $('vi
    Si può saltare in ogni momento e riaprire con ❓ (in alto) o da ⚙️ Altro. Non cancella mai i dati. */
 const GUIDE_KEY = 'zaino_guide_v1';
 const GUIDE_STEPS = ['intro', 'profilo', 'materie', 'orario', 'libri', 'premi', 'fine'];
-const guide = { active: false, i: 0, first: false, day: DAYS[0], theme: DEFAULT_THEME, avatar: 'robot-nova', keepSample: false };
+const guide = { active: false, i: 0, first: false, day: DAYS[0], theme: DEFAULT_THEME, avatar: 'eroe-mago', keepSample: false };
 let guideKidFlow = false;
 const guideSaved = () => { const g = store.get(GUIDE_KEY, null); return g && typeof g === 'object' ? g : null; };
 const guideSave = () => store.set(GUIDE_KEY, { state: 'progress', step: guide.i, first: guide.first }, true);
@@ -4069,7 +4217,7 @@ function guideGo(i) {
 function openGuide(opt = {}) {
   const k = activeKid();
   const idx = typeof opt.step === 'string' ? GUIDE_STEPS.indexOf(opt.step) : (opt.step || 0);
-  Object.assign(guide, { active: true, first: !!opt.first, i: Math.max(0, idx), theme: THEMES.some((t) => t.id === k.theme) ? k.theme : DEFAULT_THEME, avatar: k.avatar, keepSample: false });
+  Object.assign(guide, { active: true, first: !!opt.first, i: Math.max(0, idx), theme: THEMES.some((t) => t.id === (ZH_LEG_TH[k.theme] || k.theme)) ? (ZH_LEG_TH[k.theme] || k.theme) : DEFAULT_THEME, avatar: k.avatar, keepSample: false });
   guide.day = DAYS.find((d) => (schedule[d] || []).length) || DAYS[0];
   guideSave(); guideRender(false); openDialog($('dlg-guide'));
   setTimeout(() => { try { $('guide-title').focus({ preventScroll: true }); } catch (e) { /* niente */ } }, 30);
