@@ -1,8 +1,0 @@
-Zaino Hero v40 — Illustrazioni delle figurine
-
-- Ogni tema ha una scena dietro al soggetto: prato e sole (Animali, Natura), spazio con stelle e pianeta, campo da gioco, tovaglia (Cibo), castello (Fantasia), strada con nuvole (Mezzi), palco con riflettori, quaderno, coriandoli, onde, montagne, città, luci di festa.
-- Luce lucida sulle carte, soggetti con colori più vivi e ombra a terra più profonda.
-- Le carte epiche e leggendarie hanno scintille che brillano (ferme con 'riduci movimento').
-- Dati e figurine raccolte invariati.
-
-Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino.
