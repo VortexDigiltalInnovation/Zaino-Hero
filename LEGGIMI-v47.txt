@@ -1,0 +1,7 @@
+Zaino Hero v47 — Tutte le figurine illustrate
+
+- Illustrate le ultime 78 figurine: Mare (22), Viaggi nel mondo (20), Mestieri (18), Feste (18).
+- Ora tutti i 12 temi di figurine usano illustrazioni originali con faccino, uguali su ogni dispositivo.
+- Dati e figurine raccolte invariati.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino (compresa bg).
