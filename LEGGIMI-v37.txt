@@ -1,7 +1,0 @@
-Zaino Hero v37
-
-- Sei robot originali selezionabili: Nova, Titan, Pixel, Astro, Blitz e Zenith.
-- Scelta del profilo maschile, femminile o neutro; la copertina dell'album cambia palette in base alla scelta.
-- La checklist è limitata al prossimo giorno di scuola; gli altri giorni sono consultabili ma non selezionabili per la preparazione.
-- Aggiunte 112 figurine (8 per pagina tematica).
-- Dati, progressi, orari e collezioni esistenti conservati.
