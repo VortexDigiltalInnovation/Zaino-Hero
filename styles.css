@@ -1101,3 +1101,15 @@ img{image-rendering:auto;-webkit-font-smoothing:antialiased}
 /* v41 — illustrazioni originali delle figurine */
 .cf-img{position:relative;width:58cqw;height:auto;margin-top:-4cqw;filter:drop-shadow(0 0 .7cqw #fff) drop-shadow(0 0 .7cqw #fff) drop-shadow(0 2.6cqw 1.6cqw #0007)}
 @container (max-width:54px){.cf-img{margin-top:0;width:64cqw}}
+
+/* v48 — lo stile dell'album segue il personaggio: colori, copertina e pagine */
+.album-card{background:linear-gradient(160deg,color-mix(in srgb,var(--card) 62%,#000),var(--card))!important;border:1px solid var(--line)}
+#album-fill{background:linear-gradient(90deg,var(--ind),var(--ind2),var(--warm))!important}
+.album-top h3,.album-nav span,.alb-count,.album-tray b{color:var(--ind2)!important}
+.album-index .chip-sel{background:color-mix(in srgb,var(--card) 70%,#000)!important;border-color:var(--line)!important;color:var(--ind2)!important}
+.album-index .chip-sel[aria-pressed="true"]{background:var(--ind2)!important;border-color:#fff!important;color:#1a1020!important}
+.album-nav .btn,.album-tray{background:color-mix(in srgb,var(--card) 72%,#000)!important;border-color:var(--line)!important;color:var(--ind2)!important}
+.album-tray .link.strong{color:var(--warm)!important}
+.album-page{background:linear-gradient(90deg,#00000022 0,#0000 18px),repeating-linear-gradient(0deg,#0000 0 27px,color-mix(in srgb,var(--ind) 14%,transparent) 27px 28px),linear-gradient(160deg,color-mix(in srgb,var(--ind2) 24%,#fffaf2),color-mix(in srgb,var(--ind2) 40%,#efe6d6))!important;box-shadow:inset 6px 0 10px -6px #0006,inset 0 0 0 3px color-mix(in srgb,var(--ind) 45%,transparent),0 10px 30px #0007!important}
+html[data-theme] .album-intro[data-gender] .ai-front{background:radial-gradient(circle at 75% 18%,var(--ind2) 0 4%,transparent 20%),radial-gradient(circle at 20% 90%,color-mix(in srgb,var(--warm) 40%,transparent) 0 8%,transparent 30%),linear-gradient(145deg,color-mix(in srgb,var(--card) 55%,#000),var(--card) 48%,var(--ind))!important}
+html[data-theme] .album-intro .ai-frame{border-color:var(--ind2)!important}

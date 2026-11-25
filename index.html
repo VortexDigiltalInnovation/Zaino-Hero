@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zaino Hero">
-<link rel="stylesheet" href="styles.css?v=47">
+<link rel="stylesheet" href="styles.css?v=48">
 </head>
 <body>
 
@@ -186,6 +186,11 @@
         <label class="field"><span class="small muted">Nome (figlio selezionato)</span><input id="set-name" type="text" maxlength="30" autocomplete="off"></label>
         <label class="field"><span class="small muted">Classe (figlio selezionato)</span><input id="set-class" type="text" maxlength="10" autocomplete="off"></label>
       </div>
+    </div></details>
+    <details class="card acc"><summary><h3>🦸 Personaggio e tema</h3></summary><div class="stack acc-body">
+      <p class="muted small">Di solito sfondo, colori e stile dell'album seguono da soli il personaggio scelto.</p>
+      <label class="row gap small auto-add"><input type="checkbox" id="set-split"> <span>Scegli personaggio e tema separatamente</span></label>
+      <button class="btn btn-soft" id="set-reset-hero" type="button">↺ Ripristina il personaggio</button>
     </div></details>
     <details class="card acc"><summary><h3>🔊 Voce e suoni</h3></summary><div class="stack acc-body">
       <div class="row gap wrapflex">
@@ -380,7 +385,7 @@
       <label class="gender-opt"><input type="radio" name="kid-gender" value="neutral"><span>✨ Neutro</span></label>
     </div></fieldset>
     <fieldset class="avatar-pick"><legend class="small muted">Icona</legend><div id="kid-avatars" class="row gap wrapflex"></div></fieldset>
-    <fieldset class="avatar-pick"><legend class="small muted">Sfondo e colori</legend><div id="kid-themes" class="row gap wrapflex"></div></fieldset>
+    <fieldset id="kid-theme-box" class="avatar-pick hidden"><legend class="small muted">Sfondo e colori</legend><div id="kid-themes" class="row gap wrapflex"></div></fieldset>
     <label class="field" id="kid-from-box"><span class="small muted">Come iniziare</span><select id="kid-from"></select></label>
     <div class="row gap wrapflex">
       <button class="btn btn-soft" type="button" id="btn-kid-del">🗑 Elimina</button>

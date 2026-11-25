@@ -11,7 +11,7 @@ const IMG = {
 
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '47';
+const APP_VERSION = '48';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -459,6 +459,7 @@ function levelInfo(xp) {
 }
 const saveGame = () => store.set(KEYS.game, game);
 /* Modalità calma: niente animazioni né vibrazioni (utile se gli effetti distraggono o stancano). */
+let splitTheme = store.get('zaino_split', false) === true;
 let calm = store.get('zaino_calm', null);
 if (calm === null) calm = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 function ensureFixed() {
@@ -1023,10 +1024,10 @@ const ZH_ART3 = (() => {
       L('M26 54Q4 38 12 62M74 54Q96 38 88 62', '#bfe6ff', 8) + P('M30 70L22 98H78L70 70Z', '#ff8fbc') + head() + C(50, 14, 8, '#c77dff') + L('M80 92L90 60', '#c8a24a', 3) + P(star(90, 56, 8, 4), '#ffd23f', ''),
       head() + P('M26 52Q50 60 74 52L66 82Q50 92 34 82Z', '#ffd9a8', '') + P('M30 84Q50 70 70 84L62 94L88 88L72 100L38 98L12 100L26 90Z', '#2fb8a6') + L('M36 78Q50 90 64 78', '#2fb8a6', 3) + P('M28 30Q50 6 72 30Q60 22 50 22Q40 22 28 30Z', '#e5483f', ''),
       P('M14 100Q50 40 86 100Z', '#26202c') + body('#26202c') + head('#e8e2f0') + P('M42 52L46 62L50 52L54 62L58 52', '#fff', 'stroke="#c8392a" stroke-width="2"') + P('M26 24Q50 8 74 24Q60 26 50 22Q40 26 26 24Z', '#26202c', ''),
-      L('M50 98Q42 82 52 74Q60 66 50 62', '#8fd3ff', 9) + body('#3f8fe0') + head('#6fb3ff') + R(26, 14, 48, 12, 6, '#ffd23f') + C(50, 14, 7, '#e5392f'),
+      P('M30 56Q30 38 50 38Q70 38 70 56Q70 70 60 78Q54 84 56 94Q40 100 44 86Q34 76 30 56Z', '#4a9cf0') + P('M22 92Q50 80 78 92L74 100H26Z', '#ffd23f') + C(50, 28, 17, '#6fb3ff') + F(50, 30, .55) + R(32, 8, 36, 14, 7, '#e5392f') + C(50, 10, 4, '#ffd23f', '') + L('M32 58Q50 68 68 58', '#fff', 4),
       body('#8a6a4a') + head('#9ad07a') + L('M38 28L46 32M62 28L54 32', '#2a1a22', 3) + L('M34 78L44 66M60 74L70 86', '#5a4030', 3) + C(30, 40, 3, '#6a8a4a', ''),
       P('M14 30Q8 70 40 80L60 70Q96 60 88 28Q70 8 40 14Z', '#59b84a') + P('M70 46L92 50L74 62Z', '#fff', '') + R(26, 18, 8, 10, 2, '#fff', '') + C(34, 36, 4, '#1c1426', '') + F(40, 54, .0) + L('M16 74L10 94M44 78L48 96', '#3f9a4a', 6) + L('M36 56Q50 62 64 56', '#2f6b1f', 3),
-      R(36, 40, 12, 50, 6, '#59b84a') + R(44, 52, 40, 24, 12, '#59b84a') + R(20, 86, 40, 10, 5, '#3f9a4a') + L('M84 62Q96 54 94 40', '#59b84a', 7) + C(44, 34, 18, '#7ed957') + F(44, 34, .5) + L('M20 40Q4 44 4 60', '#59b84a', 7),
+      `<ellipse cx="54" cy="68" rx="32" ry="20" fill="#59b84a" ${O}/>` + L('M70 56Q90 50 86 30Q85 14 72 14', '#3f9a4a', 14) + L('M70 56Q90 50 86 30Q85 14 72 14', '#59b84a', 10) + P('M24 66Q8 66 4 84Q18 78 30 78Z', '#59b84a') + R(32, 80, 10, 16, 4, '#3f9a4a') + R(50, 82, 10, 14, 4, '#3f9a4a') + R(68, 80, 10, 16, 4, '#3f9a4a') + C(44, 60, 4, '#7ed957', '') + C(64, 62, 3, '#7ed957', '') + C(72, 12, 2.6, '#1c1426', '') + L('M66 18Q71 22 77 18', '#1c1426', 1.8) + C(78, 20, 2.6, '#ff7a9a', '') + F(50, 70, .6),
       P('M10 80Q0 30 40 16L60 30L96 20L84 56Q88 84 60 86Z', '#e5392f') + P('M20 30L14 8L34 20Z M44 18L50 2L58 20Z', '#ffd23f') + C(34, 50, 5, '#fff') + C(35, 51, 2.4, '#1c1426', '') + L('M60 62Q76 66 84 56', '#8a1a14', 3) + P('M54 80Q80 96 94 78Q80 72 60 76Z', '#c8392a', ''),
       body('#59b84a') + head() + P('M16 34L28 40L24 50ZM84 34L72 40L76 50Z', '#ffd9a8') + P('M28 24Q50 4 72 24L68 30Q50 20 32 30Z', '#4cae4f'),
       R(22, 22, 56, 70, 10, '#aab4c8') + L('M50 22V8', '#8a93a8', 4) + C(50, 6, 5, '#e5392f') + R(30, 32, 40, 28, 8, '#1b2748') + F(50, 46, .8) + R(30, 66, 40, 14, 4, '#6fd3ff', '') + R(10, 40, 12, 28, 4, '#8a93a8') + R(78, 40, 12, 28, 4, '#8a93a8'),
@@ -1113,7 +1114,7 @@ const ZH_ART3 = (() => {
       R(24, 12, 52, 78, 8, '#fff') + P('M50 30Q36 18 36 40Q50 46 50 30Q50 46 64 40Q64 18 50 30Z', '#26202c', '') + `<text x="32" y="26" font-size="12" font-weight="700" fill="#e5392f">J</text>` + F(50, 62, .7),
       R(26, 8, 48, 84, 8, '#fff3d6') + L('M26 50H74' , '#c9a96a', 2) + `<text x="50" y="40" font-size="26" text-anchor="middle" fill="#e5392f" font-weight="700">發</text>` + F(50, 72, .0) + F(50, 70, .55),
       R(12, 14, 76, 80, 10, '#c8392a') + R(22, 24, 44, 28, 5, '#fff3d6', '') + [30, 40, 52, 64].map((x) => `<text x="${x - 2}" y="46" font-size="22" fill="#e5392f" font-weight="700">7</text>`).slice(0, 1).join('') + L('M78 28V62' , '#ffd23f', 5) + C(78, 24, 7, '#ff5a7a') + F(44, 74, .6),
-      P('M8 74Q10 30 48 22Q70 22 86 36Q60 28 44 44Q34 64 40 84Q14 90 8 74Z', '#c98d4a') + P('M86 36L94 44L60 54Z', '#c98d4a', '') + F(36, 60, .0) + F(30, 66, .5),
+      P('M6 22Q4 76 50 92Q96 76 94 22Q76 46 50 58Q24 46 6 22Z', '#e5b06a') + L('M10 32L24 48M90 32L76 48', '#e5392f', 6) + L('M14 40L28 54M86 40L72 54', '#fff', 3) + H(28, 36, 7, 3) + F(50, 76, .6),
       C(50, 52, 36, '#ff5a7a') + L('M22 40Q46 50 80 30M20 58Q50 64 84 48M26 74Q50 78 74 66M44 18Q38 50 58 86' , '#c8392a', 2.6) + L('M80 76Q94 88 84 98', '#ff5a7a', 5) + H(36, 32, 9, 4) + F(48, 54, .7),
       L('M8 80H92' , '#8a93a8', 5) + P('M14 70Q50 40 86 34Q90 62 70 70Z', '#e5392f') + L('M14 80Q50 90 86 80', '#8a5a2b', 4) + L('M20 70V80M66 70V80', '#8a5a2b', 3) + F(50, 58, .6),
       `<ellipse cx="50" cy="90" rx="26" ry="8" fill="#e5392f" ${O}/>` + P('M26 90Q22 56 50 52Q78 56 74 90Z', '#ff5a7a') + C(50, 40, 20, '#ffd9a8') + P('M30 38Q50 8 70 38Q50 28 30 38Z', '#4cae4f', '') + C(50, 64, 8, '#fff3d6') + F(50, 42, .5),
@@ -1155,7 +1156,7 @@ const ZH_ART4 = (() => {
       `<ellipse cx="50" cy="62" rx="40" ry="26" fill="#9aa3b5" ${O}/>` + P('M8 64Q4 80 20 80Z M92 64Q96 80 80 80Z', '#8a93a5') + C(50, 50, 22, '#aab4c8') + `<ellipse cx="50" cy="52" rx="6" ry="4" fill="#2a2a33"/>` + L('M28 56H12M28 60L12 66M72 56H88M72 60L88 66', '#fff', 2) + F(50, 44, .55),
       `<ellipse cx="46" cy="66" rx="34" ry="22" fill="#a8703c" ${O}/>` + C(78, 44, 18, '#a8703c') + C(78, 50, 10, '#e9c79a', '') + `<ellipse cx="82" cy="46" rx="4" ry="3" fill="#2a1a22"/>` + P('M12 66Q4 80 18 84Z', '#8a5a2b', '') + C(76, 38, 3, '#1c1426', '') + F(46, 64, .0) + L('M64 60Q70 70 60 76', '#8a5a2b', 4),
       P('M4 70Q8 48 40 48L64 36L94 50L94 62L62 62Q40 80 4 70Z', '#59b84a') + [[22, 58], [36, 56], [50, 54]].map(([x, y]) => C(x, y, 3, '#3f9a4a', '')).join('') + P('M64 36L72 28L78 40Z', '#fff', '') + C(70, 34, 3, '#1c1426', '') + L('M62 62L70 70L76 62L84 70L92 62', '#fff', 3) + F(36, 64, .0),
-      P('M20 70Q12 34 30 24Q46 18 44 40L56 66Q80 56 84 74Q70 94 40 90Q22 86 20 70Z', '#fff') + P('M44 20L56 28L48 34Z', '#ff8a2a', '') + C(36, 28, 2.6, '#1c1426', '') + L('M16 78Q50 92 84 78', '#8fd3ff', 4),
+      L('M30 68Q8 44 32 30Q44 24 42 14', '#c8d4e4', 15) + L('M30 68Q8 44 32 30Q44 24 42 14', '#fff', 11) + C(44, 14, 8, '#fff') + P('M50 12L64 16L50 20Z', '#ff8a2a', '') + C(47, 12, 2.2, '#1c1426', '') + C(46, 18, 2.4, '#ff7a9a', '') + `<ellipse cx="56" cy="74" rx="34" ry="18" fill="#fff" ${O}/>` + P('M38 72Q58 56 82 64Q72 82 46 80Z', '#e8eef8', '') + L('M4 94Q24 88 44 94T84 94', '#8fd3ff', 3),
       R(4, 64, 92, 30, 0, '#f2d49a', 'stroke="none"') + P('M4 62Q30 50 50 62T96 62V70H4Z', '#3f8fe0') + C(78, 24, 14, '#ffd23f') + L('M30 60V28', '#8a5a2b', 4) + P('M12 30Q30 8 50 30Z', '#e5392f') + F(50, 80, .6),
       P('M8 94Q20 66 50 62Q80 66 92 94Z', '#f2d49a') + L('M48 66V36', '#8a5a2b', 7) + L('M48 38Q28 30 22 46M48 38Q68 28 78 44M48 38Q40 20 52 16M48 38Q60 22 72 24', '#3f9a4a', 6) + C(24, 82, 0, '#fff') + F(50, 82, .6) + L('M6 96Q30 90 50 96T94 96', '#8fd3ff', 3),
       L('M50 14V84' , '#8a93a8', 6) + C(50, 18, 8, 'none', 'stroke="#8a93a8" stroke-width="5"') + L('M34 36H66' , '#8a93a8', 6) + L('M16 62Q16 90 50 90Q84 90 84 62' , '#8a93a8', 6) + L('M10 66L16 58L24 66M76 66L84 58L90 66', '#8a93a8', 5) + F(50, 60, .6),
@@ -1222,7 +1223,7 @@ const ZH_ART4 = (() => {
       P('M50 50Q16 14 8 40Q4 66 50 50Q96 66 92 40Q84 14 50 50Z', '#ff5a7a') + R(40, 42, 20, 16, 6, '#e5392f') + P('M44 58L30 92L50 76L70 92L56 58Z', '#ff5a7a') + F(50, 50, .0),
       R(14, 38, 72, 56, 6, '#e5392f') + R(8, 28, 84, 16, 5, '#c8392a') + R(44, 28, 12, 66, 0, '#ffd23f', '') + P('M50 24Q36 6 26 14Q22 26 50 28Q78 26 74 14Q64 6 50 24Z', '#ffd23f') + P('M50 74Q38 60 40 54Q44 50 50 56Q56 50 60 54Q62 60 50 74Z', '#fff', '') + F(30, 66, .0),
       P('M30 54Q10 34 20 20Q40 10 44 34Q34 30 34 44Z', '#e5792f') + C(60, 66, 26, '#8a5a2b') + P('M70 24Q74 14 84 20Q82 30 70 34Z', '#e5392f') + P('M62 28Q80 30 78 46Q74 38 62 38Z', '#e5392f', '') + C(66, 20, 12, '#d9a156') + C(66, 20, 0, '#fff') + L('M62 20L58 26M70 20L74 24', '#1c1426', 0) + P('M56 20L50 24L56 28Z', '#ff8a2a', '') + C(62, 17, 2.6, '#1c1426', '') + L('M56 90L52 98M70 90L74 98', '#ff8a2a', 4) + F(60, 70, .0),
-      P('M30 32Q50 24 70 32L84 20L90 40Q96 50 84 60L70 68Q50 76 30 68L16 60Q4 50 10 40L16 20Z', '#ff5a9a') + L('M34 36L46 66M54 34L66 66' , '#fff', 3) + F(50, 52, .65),
+      P('M30 52L6 32Q2 52 6 72Z', '#ff8fbc') + P('M70 52L94 32Q98 52 94 72Z', '#ff8fbc') + C(50, 52, 28, '#ff5a9a') + L('M30 38Q48 56 68 72M26 54Q42 68 58 80M44 26Q60 42 76 58', '#fff', 4) + H(38, 36, 8, 3.4) + F(50, 54, .7),
       R(16, 18, 68, 76, 6, '#e5392f') + P('M16 18L50 54L84 18Z', '#c8392a') + C(50, 62, 12, '#ffd23f') + `<text x="50" y="68" font-size="16" text-anchor="middle" fill="#e5392f" font-weight="700">福</text>` + F(50, 34, .0),
       C(34, 26, 16, '#fff') + C(34, 26, 0, '#fff') + P('M16 100L20 46H48L52 100Z', '#e5392f') + C(34, 28, 14, '#ffd9a8') + F(34, 30, .45) + P('M18 22Q34 6 50 22Q34 16 18 22Z', '#26202c', '') + P('M54 100L58 54H84L88 100Z', '#3f6fd8') + C(71, 38, 14, '#ffd9a8') + F(71, 40, .45) + P('M57 34Q71 16 85 34Q71 28 57 34Z', '#26202c', ''),
       P('M14 44Q10 78 40 82L72 78Q94 70 88 46Q84 28 60 32Q40 20 22 34Z', '#c98d4a') + L('M30 36L26 22M44 32L44 18M60 32L64 20' , '#ffd23f', 5) + P('M72 36L84 22L92 36L84 46Z', '#ffb3d1') + C(24, 52, 4, '#1c1426', '') + L('M22 82V96M62 80V96', '#8a5a2b', 5) + P('M30 54L70 60', 'none', 'stroke="none"') + F(54, 58, .6)
@@ -1505,8 +1506,9 @@ $('btn-hold').addEventListener('contextmenu', (e) => e.preventDefault());
 $('btn-hold').addEventListener('click', (e) => { if (e.detail === 0) unlockParent(); }); // con la tastiera
 
 /* ---------- rendering ---------- */
+const zhTheme = (k) => splitTheme ? (k.theme || DEFAULT_THEME) : (ZH_BOT_THEME[k.avatar] || k.theme || DEFAULT_THEME);
 function applyTheme() {
-  const t = activeKid().theme || DEFAULT_THEME;
+  const t = zhTheme(activeKid());
   document.documentElement.dataset.theme = t;
   const m = document.querySelector('meta[name="theme-color"]');
   if (m) m.setAttribute('content', THEME_COLOR[t] || THEME_COLOR[DEFAULT_THEME]);
@@ -3995,6 +3997,7 @@ function openKidDialog(id) {
   $('kid-avatars').innerHTML = zhAvatarPick('kid-avatar', pick);
   const th = k ? k.theme : DEFAULT_THEME;
   $('kid-themes').innerHTML = themePickerHtml('kid-theme', th);
+  $('kid-theme-box').classList.toggle('hidden', !splitTheme);
   $('kid-from-box').classList.toggle('hidden', !!k);
   $('kid-from').innerHTML = '<option value="">Da zero (materie standard, orario vuoto)</option>'
     + kids.list.map((x) => `<option value="${esc(x.id)}">Copia orario e materie di ${esc(x.name)}</option>`).join('');
@@ -4009,7 +4012,7 @@ $('kid-form').addEventListener('submit', (e) => {
   const sel = document.querySelector('input[name="kid-avatar"]:checked');
   const avatar = sel && AVATARS.includes(sel.value) ? sel.value : AVATARS[0];
   const tsel = document.querySelector('input[name="kid-theme"]:checked');
-  const theme = tsel && THEMES.some((t) => t.id === tsel.value) ? tsel.value : DEFAULT_THEME;
+  const theme = splitTheme ? (tsel && THEMES.some((t) => t.id === tsel.value) ? tsel.value : DEFAULT_THEME) : (ZH_BOT_THEME[avatar] || DEFAULT_THEME);
   const gsel = document.querySelector('input[name="kid-gender"]:checked'); const gender = gsel ? gsel.value : 'neutral';
   if (kidEditId) {
     const k = kids.list.find((x) => x.id === kidEditId); if (!k) return;
@@ -4051,6 +4054,17 @@ $('set-name').value = profile.name; $('set-class').value = profile.cls;
   k.name = $('set-name').value.trim().slice(0, 30) || 'Studente'; k.cls = $('set-class').value.trim().slice(0, 10) || '-';
   saveKids(); render();
 }));
+$('set-split').checked = splitTheme;
+$('set-split').addEventListener('change', () => {
+  splitTheme = $('set-split').checked; store.set('zaino_split', splitTheme, true); applyTheme();
+  toast(splitTheme ? 'Ora scegli personaggio e tema separatamente ✅' : 'Il tema segue di nuovo il personaggio ✅');
+});
+$('set-reset-hero').addEventListener('click', () => {
+  const k = activeKid();
+  if (!window.confirm('Ripristinare il personaggio di ' + k.name + '? Tornano personaggio, sfondo e colori predefiniti.')) return;
+  k.avatar = k.gender === 'female' ? 'eroe-sognatrice' : 'eroe-mago'; k.theme = ZH_BOT_THEME[k.avatar];
+  saveKids(); render(); toast('Personaggio ripristinato ✅');
+});
 const snapshotStore = () => {
   const o = {};
   for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('zaino_')) o[k] = localStorage.getItem(k); }
@@ -4318,7 +4332,7 @@ const GS = {
       return `<label class="field"><span class="small muted">Come ti chiami?</span><input id="g-name" type="text" maxlength="30" autocomplete="off" value="${esc(k.name === 'Studente' ? '' : k.name)}"></label>
         <label class="field"><span class="small muted">Classe (es. 5ª A)</span><input id="g-cls" type="text" maxlength="10" autocomplete="off" value="${esc(k.cls === '-' ? '' : k.cls)}"></label>
         <fieldset class="avatar-pick"><legend class="small muted">Scegli il tuo eroe</legend><div class="row gap wrapflex">${zhAvatarPick('g-avatar', guide.avatar)}</div></fieldset>
-        <fieldset class="avatar-pick"><legend class="small muted">Scegli lo sfondo</legend><div class="row gap wrapflex">${themePickerHtml('g-theme', guide.theme)}</div></fieldset>`;
+        ${splitTheme ? `<fieldset class="avatar-pick"><legend class="small muted">Scegli lo sfondo</legend><div class="row gap wrapflex">${themePickerHtml('g-theme', guide.theme)}</div></fieldset>` : ''}`;
     },
     leave(dir) {
       const nm = $('g-name'); if (!nm) return true;
@@ -4328,7 +4342,7 @@ const GS = {
       Object.assign(k, {
         name, cls: $('g-cls').value.trim().slice(0, 10) || '-',
         avatar: AVATARS.includes(guide.avatar) ? guide.avatar : k.avatar,
-        theme: THEMES.some((t) => t.id === guide.theme) ? guide.theme : k.theme
+        theme: splitTheme ? (THEMES.some((t) => t.id === guide.theme) ? guide.theme : k.theme) : (ZH_BOT_THEME[guide.avatar] || k.theme)
       });
       if (!saveKids()) return dir !== 'next';
       $('set-name').value = k.name; $('set-class').value = k.cls; render();
