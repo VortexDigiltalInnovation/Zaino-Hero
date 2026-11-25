@@ -1016,29 +1016,47 @@ input[type=range]{min-height:36px}
  .sticker:hover{transform:none}
 }
 
-/* v42 — un mondo per ogni eroe: sfondo ricavato dalla sua illustrazione */
-html[data-theme="mago"]{--bg:#26110a;--card:#3a1d12;--card2:#3a1d12;--line:#6b3a20;--ind:#e07a2f;--ind2:#fbb26b;--glow:transparent;--warm:#fbb26b;--bgimg:url(bg/eroe-mago.webp)}
-.theme-chip.t-mago{background:linear-gradient(#0002,#0002),url(bg/eroe-mago.webp) center/cover,#3a1d12}
-html[data-theme="guerriero"]{--bg:#0d1030;--card:#171c4a;--card2:#171c4a;--line:#33409a;--ind:#4f7be8;--ind2:#9bb8ff;--glow:transparent;--warm:#9bb8ff;--bgimg:url(bg/eroe-guerriero.webp)}
-.theme-chip.t-guerriero{background:linear-gradient(#0002,#0002),url(bg/eroe-guerriero.webp) center/cover,#171c4a}
-html[data-theme="ingegnere"]{--bg:#1f140b;--card:#33220f;--card2:#33220f;--line:#5f4020;--ind:#c98a2b;--ind2:#f0be6a;--glow:transparent;--warm:#f0be6a;--bgimg:url(bg/eroe-ingegnere.webp)}
-.theme-chip.t-ingegnere{background:linear-gradient(#0002,#0002),url(bg/eroe-ingegnere.webp) center/cover,#33220f}
-html[data-theme="esploratore"]{--bg:#2a2108;--card:#3d3010;--card2:#3d3010;--line:#6f5a1c;--ind:#d9a516;--ind2:#f7d65a;--glow:transparent;--warm:#f7d65a;--bgimg:url(bg/eroe-esploratore.webp)}
-.theme-chip.t-esploratore{background:linear-gradient(#0002,#0002),url(bg/eroe-esploratore.webp) center/cover,#3d3010}
-html[data-theme="astro"]{--bg:#080f2a;--card:#12204a;--card2:#12204a;--line:#2a4690;--ind:#3d8bff;--ind2:#8fc3ff;--glow:transparent;--warm:#8fc3ff;--bgimg:url(bg/eroe-astro.webp)}
-.theme-chip.t-astro{background:linear-gradient(#0002,#0002),url(bg/eroe-astro.webp) center/cover,#12204a}
-html[data-theme="maga"]{--bg:#2a0c1c;--card:#401530;--card2:#401530;--line:#7a2a58;--ind:#d9457f;--ind2:#ff9ac4;--glow:transparent;--warm:#ff9ac4;--bgimg:url(bg/eroe-maga.webp)}
-.theme-chip.t-maga{background:linear-gradient(#0002,#0002),url(bg/eroe-maga.webp) center/cover,#401530}
-html[data-theme="guerriera"]{--bg:#1d1038;--card:#2e1b55;--card2:#2e1b55;--line:#59389a;--ind:#a06bf0;--ind2:#d4b2ff;--glow:transparent;--warm:#d4b2ff;--bgimg:url(bg/eroe-guerriera.webp)}
-.theme-chip.t-guerriera{background:linear-gradient(#0002,#0002),url(bg/eroe-guerriera.webp) center/cover,#2e1b55}
-html[data-theme="ingegnera"]{--bg:#231a10;--card:#392a18;--card2:#392a18;--line:#6a5030;--ind:#d19a52;--ind2:#f2cf96;--glow:transparent;--warm:#f2cf96;--bgimg:url(bg/eroe-ingegnera.webp)}
-.theme-chip.t-ingegnera{background:linear-gradient(#0002,#0002),url(bg/eroe-ingegnera.webp) center/cover,#392a18}
-html[data-theme="studiosa"]{--bg:#07201a;--card:#0f352b;--card2:#0f352b;--line:#1f6a52;--ind:#2fb985;--ind2:#7fe5bd;--glow:transparent;--warm:#7fe5bd;--bgimg:url(bg/eroe-studiosa.webp)}
-.theme-chip.t-studiosa{background:linear-gradient(#0002,#0002),url(bg/eroe-studiosa.webp) center/cover,#0f352b}
-html[data-theme="sognatrice"]{--bg:#2a0f33;--card:#40194d;--card2:#40194d;--line:#7d3a8f;--ind:#d86be0;--ind2:#f3a8f5;--glow:transparent;--warm:#f3a8f5;--bgimg:url(bg/eroe-sognatrice.webp)}
-.theme-chip.t-sognatrice{background:linear-gradient(#0002,#0002),url(bg/eroe-sognatrice.webp) center/cover,#40194d}
-html[data-theme="mago"] body::before,html[data-theme="guerriero"] body::before,html[data-theme="ingegnere"] body::before,html[data-theme="esploratore"] body::before,html[data-theme="astro"] body::before,html[data-theme="maga"] body::before,html[data-theme="guerriera"] body::before,html[data-theme="ingegnera"] body::before,html[data-theme="studiosa"] body::before,html[data-theme="sognatrice"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgimg) center top/cover no-repeat,var(--bg)}
-html[data-theme="mago"] .card,html[data-theme="guerriero"] .card,html[data-theme="ingegnere"] .card,html[data-theme="esploratore"] .card,html[data-theme="astro"] .card,html[data-theme="maga"] .card,html[data-theme="guerriera"] .card,html[data-theme="ingegnera"] .card,html[data-theme="studiosa"] .card,html[data-theme="sognatrice"] .card{background-color:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(6px)}
+/* v46 — un mondo per ogni eroe: colori presi dal suo personaggio */
+html[data-theme="mago"]{--bg:#3a1608;--card:#5a2a12;--card2:color-mix(in srgb,#5a2a12 78%,#000);--line:color-mix(in srgb,#ff8a3d 55%,#5a2a12);--ind:#ff8a3d;--ind2:#ffc08a;--glow:transparent;--warm:#ffd37a;--bgimg:url(bg/eroe-mago.webp)}
+.theme-chip.t-mago{background:linear-gradient(#0002,#0002),url(bg/eroe-mago.webp) center/cover,#5a2a12;border:2px solid #ff8a3d}
+.zh-av:has(input[value="eroe-mago"]) img{border-color:#ff8a3d;box-shadow:0 0 0 2px #5a2a12,0 4px 12px #ff8a3d66}
+html[data-theme="guerriero"]{--bg:#0b1240;--card:#16236b;--card2:color-mix(in srgb,#16236b 78%,#000);--line:color-mix(in srgb,#3d7bff 55%,#16236b);--ind:#3d7bff;--ind2:#8fe3ff;--glow:transparent;--warm:#ff9a3d;--bgimg:url(bg/eroe-guerriero.webp)}
+.theme-chip.t-guerriero{background:linear-gradient(#0002,#0002),url(bg/eroe-guerriero.webp) center/cover,#16236b;border:2px solid #3d7bff}
+.zh-av:has(input[value="eroe-guerriero"]) img{border-color:#3d7bff;box-shadow:0 0 0 2px #16236b,0 4px 12px #3d7bff66}
+html[data-theme="ingegnere"]{--bg:#2b1a0c;--card:#46301a;--card2:color-mix(in srgb,#46301a 78%,#000);--line:color-mix(in srgb,#d28a3a 55%,#46301a);--ind:#d28a3a;--ind2:#f0c274;--glow:transparent;--warm:#7fd6c2;--bgimg:url(bg/eroe-ingegnere.webp)}
+.theme-chip.t-ingegnere{background:linear-gradient(#0002,#0002),url(bg/eroe-ingegnere.webp) center/cover,#46301a;border:2px solid #d28a3a}
+.zh-av:has(input[value="eroe-ingegnere"]) img{border-color:#d28a3a;box-shadow:0 0 0 2px #46301a,0 4px 12px #d28a3a66}
+html[data-theme="esploratore"]{--bg:#3a2f05;--card:#5a4a0a;--card2:color-mix(in srgb,#5a4a0a 78%,#000);--line:color-mix(in srgb,#f0c010 55%,#5a4a0a);--ind:#f0c010;--ind2:#ffe66b;--glow:transparent;--warm:#8fd14f;--bgimg:url(bg/eroe-esploratore.webp)}
+.theme-chip.t-esploratore{background:linear-gradient(#0002,#0002),url(bg/eroe-esploratore.webp) center/cover,#5a4a0a;border:2px solid #f0c010}
+.zh-av:has(input[value="eroe-esploratore"]) img{border-color:#f0c010;box-shadow:0 0 0 2px #5a4a0a,0 4px 12px #f0c01066}
+html[data-theme="studiosa"]{--bg:#052e22;--card:#0b4a38;--card2:color-mix(in srgb,#0b4a38 78%,#000);--line:color-mix(in srgb,#22c58a 55%,#0b4a38);--ind:#22c58a;--ind2:#8af5c8;--glow:transparent;--warm:#e0c070;--bgimg:url(bg/eroe-studiosa.webp)}
+.theme-chip.t-studiosa{background:linear-gradient(#0002,#0002),url(bg/eroe-studiosa.webp) center/cover,#0b4a38;border:2px solid #22c58a}
+.zh-av:has(input[value="eroe-studiosa"]) img{border-color:#22c58a;box-shadow:0 0 0 2px #0b4a38,0 4px 12px #22c58a66}
+html[data-theme="maga"]{--bg:#3d0a22;--card:#661538;--card2:color-mix(in srgb,#661538 78%,#000);--line:color-mix(in srgb,#ff3d7f 55%,#661538);--ind:#ff3d7f;--ind2:#ffa0c4;--glow:transparent;--warm:#ffd36b;--bgimg:url(bg/eroe-maga.webp)}
+.theme-chip.t-maga{background:linear-gradient(#0002,#0002),url(bg/eroe-maga.webp) center/cover,#661538;border:2px solid #ff3d7f}
+.zh-av:has(input[value="eroe-maga"]) img{border-color:#ff3d7f;box-shadow:0 0 0 2px #661538,0 4px 12px #ff3d7f66}
+html[data-theme="guerriera"]{--bg:#2a0f5a;--card:#43198a;--card2:color-mix(in srgb,#43198a 78%,#000);--line:color-mix(in srgb,#b06bff 55%,#43198a);--ind:#b06bff;--ind2:#e0c2ff;--glow:transparent;--warm:#5be0ff;--bgimg:url(bg/eroe-guerriera.webp)}
+.theme-chip.t-guerriera{background:linear-gradient(#0002,#0002),url(bg/eroe-guerriera.webp) center/cover,#43198a;border:2px solid #b06bff}
+.zh-av:has(input[value="eroe-guerriera"]) img{border-color:#b06bff;box-shadow:0 0 0 2px #43198a,0 4px 12px #b06bff66}
+html[data-theme="ingegnera"]{--bg:#4a3822;--card:#6b5233;--card2:color-mix(in srgb,#6b5233 78%,#000);--line:color-mix(in srgb,#e8b06a 55%,#6b5233);--ind:#e8b06a;--ind2:#ffe0b0;--glow:transparent;--warm:#ff7ac8;--bgimg:url(bg/eroe-ingegnera.webp)}
+.theme-chip.t-ingegnera{background:linear-gradient(#0002,#0002),url(bg/eroe-ingegnera.webp) center/cover,#6b5233;border:2px solid #e8b06a}
+.zh-av:has(input[value="eroe-ingegnera"]) img{border-color:#e8b06a;box-shadow:0 0 0 2px #6b5233,0 4px 12px #e8b06a66}
+html[data-theme="astro"]{--bg:#04283a;--card:#07496a;--card2:color-mix(in srgb,#07496a 78%,#000);--line:color-mix(in srgb,#14c8e0 55%,#07496a);--ind:#14c8e0;--ind2:#8ff0ff;--glow:transparent;--warm:#c77dff;--bgimg:url(bg/eroe-astro.webp)}
+.theme-chip.t-astro{background:linear-gradient(#0002,#0002),url(bg/eroe-astro.webp) center/cover,#07496a;border:2px solid #14c8e0}
+.zh-av:has(input[value="eroe-astro"]) img{border-color:#14c8e0;box-shadow:0 0 0 2px #07496a,0 4px 12px #14c8e066}
+html[data-theme="sognatrice"]{--bg:#47103f;--card:#74206a;--card2:color-mix(in srgb,#74206a 78%,#000);--line:color-mix(in srgb,#ff6bd6 55%,#74206a);--ind:#ff6bd6;--ind2:#ffb3ee;--glow:transparent;--warm:#ffe28a;--bgimg:url(bg/eroe-sognatrice.webp)}
+.theme-chip.t-sognatrice{background:linear-gradient(#0002,#0002),url(bg/eroe-sognatrice.webp) center/cover,#74206a;border:2px solid #ff6bd6}
+.zh-av:has(input[value="eroe-sognatrice"]) img{border-color:#ff6bd6;box-shadow:0 0 0 2px #74206a,0 4px 12px #ff6bd666}
+html[data-theme="mago"] body::before,html[data-theme="guerriero"] body::before,html[data-theme="ingegnere"] body::before,html[data-theme="esploratore"] body::before,html[data-theme="studiosa"] body::before,html[data-theme="maga"] body::before,html[data-theme="guerriera"] body::before,html[data-theme="ingegnera"] body::before,html[data-theme="astro"] body::before,html[data-theme="sognatrice"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#0000,#0006) ,var(--bgimg) center top/cover no-repeat,var(--bg)}
+html[data-theme="mago"] .card,html[data-theme="guerriero"] .card,html[data-theme="ingegnere"] .card,html[data-theme="esploratore"] .card,html[data-theme="studiosa"] .card,html[data-theme="maga"] .card,html[data-theme="guerriera"] .card,html[data-theme="ingegnera"] .card,html[data-theme="astro"] .card,html[data-theme="sognatrice"] .card{background-color:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(6px)}
+.zh-gh{width:100%;font-weight:800;font-size:.85rem;letter-spacing:.04em;margin:8px 0 4px;padding:4px 10px;border-radius:10px}
+.zh-gm{background:#2563eb33;color:#bcd4ff;border-left:4px solid #3b82f6}
+.zh-gf{background:#ec489933;color:#ffc5e3;border-left:4px solid #ec4899}
+.zh-gr{margin-bottom:6px}
+.zh-av{display:flex;flex-direction:column;align-items:center;gap:3px;width:64px}
+.zh-cap{font-size:.68rem;line-height:1.1;text-align:center;font-weight:700}
+.zh-av input:checked+img{transform:scale(1.1);box-shadow:0 0 0 3px var(--ind2),0 0 16px var(--ind)}
+
 /* v39 — qualità grafica: profondità, luce e bordi più curati su tutta l'app */
 .card{background-image:linear-gradient(180deg,#ffffff0d,#ffffff00 42%);border:1px solid var(--line);box-shadow:0 1px 0 #ffffff14 inset,0 10px 26px -12px #000a,0 2px 6px -2px #0006;border-radius:18px}
 .btn{background-image:linear-gradient(180deg,#ffffff22,#ffffff00 60%);box-shadow:0 1px 0 #ffffff30 inset,0 6px 14px -6px #0009;transition:transform .12s,box-shadow .2s,filter .2s}

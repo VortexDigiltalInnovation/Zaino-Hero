@@ -1,0 +1,9 @@
+Zaino Hero v46 — Eroi corretti, più figurine illustrate
+
+- Avatar corretti: Esploratrice (femmina) e Studioso (maschio). Ora sono 5 maschili (Mago, Guerriero, Ingegnere, Esploratore, Studioso) e 5 femminili (Maga, Guerriera, Ingegnera, Esploratrice, Sognatrice).
+- Gli avatar sono incorporati nell'app e compaiono sempre (corretto anche l'avatar dell'assistente nella chat, che non si vedeva).
+- Nella scelta dell'eroe e del tema: sezioni separate Maschili e Femminili, con il nome sotto ogni avatar.
+- Temi con colori ricavati dal personaggio e molto più distinti tra loro; sfondi più luminosi.
+- Figurine illustrate: Animali, Cibo, Spazio, Sport, Mezzi, Natura, Eroi e magia, Musica e arte, Scuola, Giochi. Ancora con emoji: Mare, Viaggi nel mondo, Mestieri, Feste.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino (compresa bg).
