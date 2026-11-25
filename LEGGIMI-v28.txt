@@ -1,8 +1,0 @@
-Zaino Hero v28 — Figurine interattive e missioni segrete
-
-- Le figurine nell'album e nel vassoio sono cliccabili per aprire un dettaglio ingrandito con descrizione ironica.
-- Le figurine rivelate nelle bustine si possono toccare per il dettaglio/zoom.
-- A ogni avvio di missione c'è una probabilità del 9% di trovare una missione segreta casuale.
-- Completando la missione segreta si riceve una figurina leggendaria con sfondo foil/olografico, descrizione divertente e 30 XP.
-- Inserita una serie di sei figurine leggendarie uniche.
-- Il codice mantiene il supporto offline; nessuna libreria o connessione esterna aggiunta.
