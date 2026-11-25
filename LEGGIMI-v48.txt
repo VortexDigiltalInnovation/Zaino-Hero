@@ -1,0 +1,8 @@
+Zaino Hero v48 — Tema automatico, impostazioni personaggio, figurine corrette
+
+- Sfondo, colori e stile dell'album (copertina, pagine, indice, barra) seguono automaticamente il personaggio scelto.
+- Impostazioni > Personaggio e tema: interruttore "Scegli personaggio e tema separatamente" (spento di default) e pulsante "Ripristina il personaggio".
+- Con l'interruttore spento la scelta del tema non compare più: il tema è quello del personaggio.
+- Figurine corrette: Diplodoco, Boomerang, Caramella, Cigno e Genio.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino (compresa bg).

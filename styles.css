@@ -1016,25 +1016,46 @@ input[type=range]{min-height:36px}
  .sticker:hover{transform:none}
 }
 
-/* v39 — mondi dei robot: ogni eroe ha il suo sfondo illustrato */
-html[data-theme="arena"]{--bg:#1d100a;--card:#2f1c12;--card2:#27170f;--line:#5a3822;--ind:#d9822f;--ind2:#f6b36b;--glow:transparent;--warm:#fde047;--bgimg:url(bg/robot-arena.svg)}
-.theme-chip.t-arena{background:linear-gradient(#0002,#0002),url(bg/robot-arena.svg) center/cover,#2f1c12}
-html[data-theme="circuito"]{--bg:#17130a;--card:#2a2310;--card2:#231d0d;--line:#54461c;--ind:#d4a90f;--ind2:#f4d453;--glow:transparent;--warm:#fff7ae;--bgimg:url(bg/robot-circuito.svg)}
-.theme-chip.t-circuito{background:linear-gradient(#0002,#0002),url(bg/robot-circuito.svg) center/cover,#2a2310}
-html[data-theme="pixel"]{--bg:#120d26;--card:#1f1840;--card2:#191337;--line:#3d3380;--ind:#8b6fe0;--ind2:#b9a6f5;--glow:transparent;--warm:#67e8f9;--bgimg:url(bg/robot-pixel.svg)}
-.theme-chip.t-pixel{background:linear-gradient(#0002,#0002),url(bg/robot-pixel.svg) center/cover,#1f1840}
-html[data-theme="biblioteca"]{--bg:#0a1429;--card:#14233f;--card2:#101d36;--line:#2a4170;--ind:#4f8be0;--ind2:#8fbaf2;--glow:transparent;--warm:#fcd34d;--bgimg:url(bg/robot-biblioteca.svg)}
-.theme-chip.t-biblioteca{background:linear-gradient(#0002,#0002),url(bg/robot-biblioteca.svg) center/cover,#14233f}
-html[data-theme="cristalli"]{--bg:#1d0b24;--card:#2e1638;--card2:#261230;--line:#5a2b6b;--ind:#c05fd0;--ind2:#e6a4ee;--glow:transparent;--warm:#fdf4ff;--bgimg:url(bg/robot-cristalli.svg)}
-.theme-chip.t-cristalli{background:linear-gradient(#0002,#0002),url(bg/robot-cristalli.svg) center/cover,#2e1638}
-html[data-theme="aurora"]{--bg:#06191a;--card:#0f2c2c;--card2:#0c2425;--line:#1f5252;--ind:#2fb8a6;--ind2:#7fe0d2;--glow:transparent;--warm:#f9a8d4;--bgimg:url(bg/robot-aurora.svg)}
-.theme-chip.t-aurora{background:linear-gradient(#0002,#0002),url(bg/robot-aurora.svg) center/cover,#0f2c2c}
-html[data-theme="ologramma"]{--bg:#0d0f2a;--card:#171a42;--card2:#12143a;--line:#33398a;--ind:#6571e6;--ind2:#a7b0f5;--glow:transparent;--warm:#7dd3fc;--bgimg:url(bg/robot-ologramma.svg)}
-.theme-chip.t-ologramma{background:linear-gradient(#0002,#0002),url(bg/robot-ologramma.svg) center/cover,#171a42}
-html[data-theme="solare"]{--bg:#240f06;--card:#3a1b0d;--card2:#311609;--line:#6b3419;--ind:#e5701f;--ind2:#fbae6d;--glow:transparent;--warm:#fef08a;--bgimg:url(bg/robot-solare.svg)}
-.theme-chip.t-solare{background:linear-gradient(#0002,#0002),url(bg/robot-solare.svg) center/cover,#3a1b0d}
-html[data-theme="arena"] body::before,html[data-theme="circuito"] body::before,html[data-theme="pixel"] body::before,html[data-theme="biblioteca"] body::before,html[data-theme="cristalli"] body::before,html[data-theme="aurora"] body::before,html[data-theme="ologramma"] body::before,html[data-theme="solare"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgimg) center top/cover no-repeat,var(--bg)}
-html[data-theme="arena"] .card,html[data-theme="circuito"] .card,html[data-theme="pixel"] .card,html[data-theme="biblioteca"] .card,html[data-theme="cristalli"] .card,html[data-theme="aurora"] .card,html[data-theme="ologramma"] .card,html[data-theme="solare"] .card{background-color:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(6px)}
+/* v46 — un mondo per ogni eroe: colori presi dal suo personaggio */
+html[data-theme="mago"]{--bg:#3a1608;--card:#5a2a12;--card2:color-mix(in srgb,#5a2a12 78%,#000);--line:color-mix(in srgb,#ff8a3d 55%,#5a2a12);--ind:#ff8a3d;--ind2:#ffc08a;--glow:transparent;--warm:#ffd37a;--bgimg:url(bg/eroe-mago.webp)}
+.theme-chip.t-mago{background:linear-gradient(#0002,#0002),url(bg/eroe-mago.webp) center/cover,#5a2a12;border:2px solid #ff8a3d}
+.zh-av:has(input[value="eroe-mago"]) img{border-color:#ff8a3d;box-shadow:0 0 0 2px #5a2a12,0 4px 12px #ff8a3d66}
+html[data-theme="guerriero"]{--bg:#0b1240;--card:#16236b;--card2:color-mix(in srgb,#16236b 78%,#000);--line:color-mix(in srgb,#3d7bff 55%,#16236b);--ind:#3d7bff;--ind2:#8fe3ff;--glow:transparent;--warm:#ff9a3d;--bgimg:url(bg/eroe-guerriero.webp)}
+.theme-chip.t-guerriero{background:linear-gradient(#0002,#0002),url(bg/eroe-guerriero.webp) center/cover,#16236b;border:2px solid #3d7bff}
+.zh-av:has(input[value="eroe-guerriero"]) img{border-color:#3d7bff;box-shadow:0 0 0 2px #16236b,0 4px 12px #3d7bff66}
+html[data-theme="ingegnere"]{--bg:#2b1a0c;--card:#46301a;--card2:color-mix(in srgb,#46301a 78%,#000);--line:color-mix(in srgb,#d28a3a 55%,#46301a);--ind:#d28a3a;--ind2:#f0c274;--glow:transparent;--warm:#7fd6c2;--bgimg:url(bg/eroe-ingegnere.webp)}
+.theme-chip.t-ingegnere{background:linear-gradient(#0002,#0002),url(bg/eroe-ingegnere.webp) center/cover,#46301a;border:2px solid #d28a3a}
+.zh-av:has(input[value="eroe-ingegnere"]) img{border-color:#d28a3a;box-shadow:0 0 0 2px #46301a,0 4px 12px #d28a3a66}
+html[data-theme="esploratore"]{--bg:#3a2f05;--card:#5a4a0a;--card2:color-mix(in srgb,#5a4a0a 78%,#000);--line:color-mix(in srgb,#f0c010 55%,#5a4a0a);--ind:#f0c010;--ind2:#ffe66b;--glow:transparent;--warm:#8fd14f;--bgimg:url(bg/eroe-esploratore.webp)}
+.theme-chip.t-esploratore{background:linear-gradient(#0002,#0002),url(bg/eroe-esploratore.webp) center/cover,#5a4a0a;border:2px solid #f0c010}
+.zh-av:has(input[value="eroe-esploratore"]) img{border-color:#f0c010;box-shadow:0 0 0 2px #5a4a0a,0 4px 12px #f0c01066}
+html[data-theme="studiosa"]{--bg:#052e22;--card:#0b4a38;--card2:color-mix(in srgb,#0b4a38 78%,#000);--line:color-mix(in srgb,#22c58a 55%,#0b4a38);--ind:#22c58a;--ind2:#8af5c8;--glow:transparent;--warm:#e0c070;--bgimg:url(bg/eroe-studiosa.webp)}
+.theme-chip.t-studiosa{background:linear-gradient(#0002,#0002),url(bg/eroe-studiosa.webp) center/cover,#0b4a38;border:2px solid #22c58a}
+.zh-av:has(input[value="eroe-studiosa"]) img{border-color:#22c58a;box-shadow:0 0 0 2px #0b4a38,0 4px 12px #22c58a66}
+html[data-theme="maga"]{--bg:#3d0a22;--card:#661538;--card2:color-mix(in srgb,#661538 78%,#000);--line:color-mix(in srgb,#ff3d7f 55%,#661538);--ind:#ff3d7f;--ind2:#ffa0c4;--glow:transparent;--warm:#ffd36b;--bgimg:url(bg/eroe-maga.webp)}
+.theme-chip.t-maga{background:linear-gradient(#0002,#0002),url(bg/eroe-maga.webp) center/cover,#661538;border:2px solid #ff3d7f}
+.zh-av:has(input[value="eroe-maga"]) img{border-color:#ff3d7f;box-shadow:0 0 0 2px #661538,0 4px 12px #ff3d7f66}
+html[data-theme="guerriera"]{--bg:#2a0f5a;--card:#43198a;--card2:color-mix(in srgb,#43198a 78%,#000);--line:color-mix(in srgb,#b06bff 55%,#43198a);--ind:#b06bff;--ind2:#e0c2ff;--glow:transparent;--warm:#5be0ff;--bgimg:url(bg/eroe-guerriera.webp)}
+.theme-chip.t-guerriera{background:linear-gradient(#0002,#0002),url(bg/eroe-guerriera.webp) center/cover,#43198a;border:2px solid #b06bff}
+.zh-av:has(input[value="eroe-guerriera"]) img{border-color:#b06bff;box-shadow:0 0 0 2px #43198a,0 4px 12px #b06bff66}
+html[data-theme="ingegnera"]{--bg:#4a3822;--card:#6b5233;--card2:color-mix(in srgb,#6b5233 78%,#000);--line:color-mix(in srgb,#e8b06a 55%,#6b5233);--ind:#e8b06a;--ind2:#ffe0b0;--glow:transparent;--warm:#ff7ac8;--bgimg:url(bg/eroe-ingegnera.webp)}
+.theme-chip.t-ingegnera{background:linear-gradient(#0002,#0002),url(bg/eroe-ingegnera.webp) center/cover,#6b5233;border:2px solid #e8b06a}
+.zh-av:has(input[value="eroe-ingegnera"]) img{border-color:#e8b06a;box-shadow:0 0 0 2px #6b5233,0 4px 12px #e8b06a66}
+html[data-theme="astro"]{--bg:#04283a;--card:#07496a;--card2:color-mix(in srgb,#07496a 78%,#000);--line:color-mix(in srgb,#14c8e0 55%,#07496a);--ind:#14c8e0;--ind2:#8ff0ff;--glow:transparent;--warm:#c77dff;--bgimg:url(bg/eroe-astro.webp)}
+.theme-chip.t-astro{background:linear-gradient(#0002,#0002),url(bg/eroe-astro.webp) center/cover,#07496a;border:2px solid #14c8e0}
+.zh-av:has(input[value="eroe-astro"]) img{border-color:#14c8e0;box-shadow:0 0 0 2px #07496a,0 4px 12px #14c8e066}
+html[data-theme="sognatrice"]{--bg:#47103f;--card:#74206a;--card2:color-mix(in srgb,#74206a 78%,#000);--line:color-mix(in srgb,#ff6bd6 55%,#74206a);--ind:#ff6bd6;--ind2:#ffb3ee;--glow:transparent;--warm:#ffe28a;--bgimg:url(bg/eroe-sognatrice.webp)}
+.theme-chip.t-sognatrice{background:linear-gradient(#0002,#0002),url(bg/eroe-sognatrice.webp) center/cover,#74206a;border:2px solid #ff6bd6}
+.zh-av:has(input[value="eroe-sognatrice"]) img{border-color:#ff6bd6;box-shadow:0 0 0 2px #74206a,0 4px 12px #ff6bd666}
+html[data-theme="mago"] body::before,html[data-theme="guerriero"] body::before,html[data-theme="ingegnere"] body::before,html[data-theme="esploratore"] body::before,html[data-theme="studiosa"] body::before,html[data-theme="maga"] body::before,html[data-theme="guerriera"] body::before,html[data-theme="ingegnera"] body::before,html[data-theme="astro"] body::before,html[data-theme="sognatrice"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#0000,#0006) ,var(--bgimg) center top/cover no-repeat,var(--bg)}
+html[data-theme="mago"] .card,html[data-theme="guerriero"] .card,html[data-theme="ingegnere"] .card,html[data-theme="esploratore"] .card,html[data-theme="studiosa"] .card,html[data-theme="maga"] .card,html[data-theme="guerriera"] .card,html[data-theme="ingegnera"] .card,html[data-theme="astro"] .card,html[data-theme="sognatrice"] .card{background-color:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(6px)}
+.zh-gh{width:100%;font-weight:800;font-size:.85rem;letter-spacing:.04em;margin:8px 0 4px;padding:4px 10px;border-radius:10px}
+.zh-gm{background:#2563eb33;color:#bcd4ff;border-left:4px solid #3b82f6}
+.zh-gf{background:#ec489933;color:#ffc5e3;border-left:4px solid #ec4899}
+.zh-gr{margin-bottom:6px}
+.zh-av{display:flex;flex-direction:column;align-items:center;gap:3px;width:64px}
+.zh-cap{font-size:.68rem;line-height:1.1;text-align:center;font-weight:700}
+.zh-av input:checked+img{transform:scale(1.1);box-shadow:0 0 0 3px var(--ind2),0 0 16px var(--ind)}
 
 /* v39 — qualità grafica: profondità, luce e bordi più curati su tutta l'app */
 .card{background-image:linear-gradient(180deg,#ffffff0d,#ffffff00 42%);border:1px solid var(--line);box-shadow:0 1px 0 #ffffff14 inset,0 10px 26px -12px #000a,0 2px 6px -2px #0006;border-radius:18px}
@@ -1080,3 +1101,15 @@ img{image-rendering:auto;-webkit-font-smoothing:antialiased}
 /* v41 — illustrazioni originali delle figurine */
 .cf-img{position:relative;width:58cqw;height:auto;margin-top:-4cqw;filter:drop-shadow(0 0 .7cqw #fff) drop-shadow(0 0 .7cqw #fff) drop-shadow(0 2.6cqw 1.6cqw #0007)}
 @container (max-width:54px){.cf-img{margin-top:0;width:64cqw}}
+
+/* v48 — lo stile dell'album segue il personaggio: colori, copertina e pagine */
+.album-card{background:linear-gradient(160deg,color-mix(in srgb,var(--card) 62%,#000),var(--card))!important;border:1px solid var(--line)}
+#album-fill{background:linear-gradient(90deg,var(--ind),var(--ind2),var(--warm))!important}
+.album-top h3,.album-nav span,.alb-count,.album-tray b{color:var(--ind2)!important}
+.album-index .chip-sel{background:color-mix(in srgb,var(--card) 70%,#000)!important;border-color:var(--line)!important;color:var(--ind2)!important}
+.album-index .chip-sel[aria-pressed="true"]{background:var(--ind2)!important;border-color:#fff!important;color:#1a1020!important}
+.album-nav .btn,.album-tray{background:color-mix(in srgb,var(--card) 72%,#000)!important;border-color:var(--line)!important;color:var(--ind2)!important}
+.album-tray .link.strong{color:var(--warm)!important}
+.album-page{background:linear-gradient(90deg,#00000022 0,#0000 18px),repeating-linear-gradient(0deg,#0000 0 27px,color-mix(in srgb,var(--ind) 14%,transparent) 27px 28px),linear-gradient(160deg,color-mix(in srgb,var(--ind2) 24%,#fffaf2),color-mix(in srgb,var(--ind2) 40%,#efe6d6))!important;box-shadow:inset 6px 0 10px -6px #0006,inset 0 0 0 3px color-mix(in srgb,var(--ind) 45%,transparent),0 10px 30px #0007!important}
+html[data-theme] .album-intro[data-gender] .ai-front{background:radial-gradient(circle at 75% 18%,var(--ind2) 0 4%,transparent 20%),radial-gradient(circle at 20% 90%,color-mix(in srgb,var(--warm) 40%,transparent) 0 8%,transparent 30%),linear-gradient(145deg,color-mix(in srgb,var(--card) 55%,#000),var(--card) 48%,var(--ind))!important}
+html[data-theme] .album-intro .ai-frame{border-color:var(--ind2)!important}
