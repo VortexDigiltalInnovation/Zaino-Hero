@@ -1,8 +1,8 @@
 /* Zaino Hero — service worker (offline).
    Per rilasciare un aggiornamento: cambia VERSION qui E APP_VERSION in app.js (stesso numero),
    e anche "?v=" in index.html. Poi ricarica TUTTI i file sul sito. */
-const VERSION = 'zaino-hero-v48';
-const ASSETS = ['./index.html', './styles.css?v=48', './app.js?v=48', './manifest.json',     './bg/eroe-mago.webp', './bg/eroe-guerriero.webp', './bg/eroe-ingegnere.webp', './bg/eroe-esploratore.webp', './bg/eroe-astro.webp', './bg/eroe-maga.webp', './bg/eroe-guerriera.webp', './bg/eroe-ingegnera.webp', './bg/eroe-studiosa.webp', './bg/eroe-sognatrice.webp', 
+const VERSION = 'zaino-hero-v50';
+const ASSETS = ['./index.html', './styles.css?v=50', './app.js?v=50', './manifest.json',     './bg/eroe-mago.webp', './bg/leg-mago.webp', './bg/leg-guerriero.webp', './bg/leg-inventore.webp', './bg/leg-esploratore.webp', './bg/leg-studioso.webp', './bg/leg-maga.webp', './bg/leg-guerriera.webp', './bg/leg-inventrice.webp', './bg/leg-esploratrice.webp', './bg/leg-sognatrice.webp', './bg/eroe-guerriero.webp', './bg/eroe-ingegnere.webp', './bg/eroe-esploratore.webp', './bg/eroe-astro.webp', './bg/eroe-maga.webp', './bg/eroe-guerriera.webp', './bg/eroe-ingegnera.webp', './bg/eroe-studiosa.webp', './bg/eroe-sognatrice.webp', 
   './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon.ico'];
 /* Lettori di codici e copertine (circa 8 MB): scaricati in background e poi sempre dalla cache. */
 const VENDOR = ['zxing-reader.iife.js', 'zxing_reader.wasm', 'tesseract.min.js', 'tesseract-worker.min.js',

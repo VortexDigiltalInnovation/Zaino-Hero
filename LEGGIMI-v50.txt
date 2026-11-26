@@ -1,0 +1,7 @@
+Zaino Hero v50 — Ruota più bella, pulsanti e testi leggibili
+
+- Ruota dei premi ridisegnata: più grande, spicchi alternati chiaro/scuro con i colori del tema, luci intorno, puntatore dorato, avatar del personaggio al centro, etichette su due righe (icona grande + parola).
+- Colori dei testi scelti per ogni tema con contrasto controllato: testo principale, testo secondario, scritte sui pulsanti e sugli elementi selezionati.
+- Pulsanti più leggibili: testo più grande e marcato, pulsanti secondari con i colori del tema.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino (compresa bg).
