@@ -1,0 +1,9 @@
+Zaino Hero v52 — Più bustine
+
+- Ogni bustina ora ha 3 figurine (prima 2).
+- Bustine: 1 a metà zaino, 2 con lo zaino pronto (prima 1), 1 ogni 2 livelli (prima ogni 5), 1 per ogni traguardo, 1 per la ruota quando esce.
+- Limite giornaliero alzato da 3 a 6 bustine.
+- Con uno zaino completato al giorno: circa 3 bustine e 9 figurine al giorno (prima 1 bustina e 2 figurine).
+- Aggiornati i testi di aiuto.
+
+Aggiornamento: sostituire sul server tutti i file contenuti nella cartella zaino (compresa bg).

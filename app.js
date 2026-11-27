@@ -11,7 +11,7 @@ const IMG = {
 
 document.querySelectorAll('[data-img]').forEach((el) => { el.src = IMG[el.dataset.img]; });
 const FRESH_INSTALL = (() => { try { return !localStorage.getItem('zaino_kids_v1') && !localStorage.getItem('zaino_subjects_multi') && !localStorage.getItem('zaino_schedule') && !localStorage.getItem('zaino_onboarded'); } catch (e) { return false; } })();
-const APP_VERSION = '50';
+const APP_VERSION = '52';
 
 const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
 const SCHOOL_END_HOUR = 15; // dopo quest'ora si prepara lo zaino per il giorno di scuola successivo
@@ -509,12 +509,12 @@ function awardXp(key, amount, label) {
   return true;
 }
 /* Bustine: quante se ne ricevono per ogni cosa fatta. */
-/* Bustine: poche e chiare. Zaino pronto 1, ogni 5 livelli 1, ogni traguardo 1 (non quelli dell'album e delle bustine),
-   regalo iniziale 3, ruota a parte. I libri danno solo ⭐. In più non più di 3 bustine al giorno: le altre arrivano nei giorni dopo. */
-const PACKS = { full: 1, book: 0, level: 1, badge: 1, gift: 3 };
-const PACK_DAILY_CAP = 3, LEVEL_PACK_EVERY = 5;
-const PACK_SIZE = 2;
-function awardPack(key, n) { if (game.awarded[key]) return; game.awarded[key] = 1; earnPacks(n, 'zaino pronto', false, true); }
+/* Bustine (v52, più generose): metà zaino 1, zaino pronto 2, ogni 2 livelli 1, ogni traguardo 1 (non quelli dell'album e delle bustine),
+   regalo iniziale 3, ruota a parte. Ogni bustina ha 3 figurine. Non più di 6 bustine al giorno: le altre arrivano nei giorni dopo. */
+const PACKS = { full: 2, half: 1, book: 0, level: 1, badge: 1, gift: 3 };
+const PACK_DAILY_CAP = 6, LEVEL_PACK_EVERY = 2;
+const PACK_SIZE = 3;
+function awardPack(key, n, why) { if (game.awarded[key]) return; game.awarded[key] = 1; earnPacks(n, why || 'zaino pronto', false, true); }
 function streakInfo() {
   const dates = Object.keys(progressLog.completed).sort();
   let best = 0, run = 0, prev = null;
@@ -826,7 +826,7 @@ const ZH_ANIMALS = (() => {
     30: face('#c98b4e', '#f0d2a8', 'long', '#c98b4e', '#f0d2a8', '', '', nose('#3a2a22')),
     31: face('#f3d2b0', '#fbe9d2', 'round', '#f3d2b0', '#e8b896', '', '<path d="M10 70Q4 30 30 20Q50 4 70 20Q96 30 90 70Q70 60 50 78Q30 60 10 70Z" fill="#6a4a36"/><path d="M20 62L10 50M32 40L28 22M50 30V12M68 40L72 22M80 62L90 50" stroke="#4a2f20" stroke-width="3.4" stroke-linecap="round"/>', nose('#3a2a22')),
     32: `<path d="M20 40L16 14L38 26Z M80 40L84 14L62 26Z" fill="#8a5a3a"/><ellipse cx="50" cy="62" rx="34" ry="36" fill="#a8703c" stroke="#0002" stroke-width="1.5"/><ellipse cx="50" cy="76" rx="20" ry="20" fill="#e9c79a"/><circle cx="34" cy="46" r="14" fill="#fff3d6" stroke="#6a4a2a" stroke-width="2"/><circle cx="66" cy="46" r="14" fill="#fff3d6" stroke="#6a4a2a" stroke-width="2"/><circle cx="35" cy="47" r="7" fill="#1c1426"/><circle cx="65" cy="47" r="7" fill="#1c1426"/><circle cx="33" cy="44" r="2.4" fill="#fff"/><circle cx="63" cy="44" r="2.4" fill="#fff"/><path d="M44 54L50 66L56 54Q50 50 44 54Z" fill="#ffb02e"/><path d="M38 84Q44 78 50 84Q56 78 62 84" fill="none" stroke="#b98a58" stroke-width="2.4" stroke-linecap="round"/>`,
-    33: `<path d="M64 20Q92 14 90 50Q84 76 60 90Q46 96 40 84Q70 74 70 50Q70 34 64 20Z" fill="#2fb36b"/><ellipse cx="44" cy="52" rx="28" ry="32" fill="#ff4d4d" stroke="#0002" stroke-width="1.5"/><path d="M24 70Q44 96 64 70" fill="#ffd34d"/><path d="M30 28Q44 8 58 28Q44 22 30 28Z" fill="#2c8fd6"/><circle cx="30" cy="42" r="9" fill="#fff"/><circle cx="31" cy="43" r="4.6" fill="#1c1426"/><circle cx="29.6" cy="41.4" r="1.5" fill="#fff"/><path d="M16 50Q4 52 12 66Q22 70 28 58Z" fill="#f3f3f3" stroke="#bbb" stroke-width="1.5"/><path d="M12 56Q18 60 24 56" stroke="#999" stroke-width="1.5" fill="none"/>`,
+    33: `<path d="M14 92H86" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/><path d="M58 60Q72 92 54 102Q44 88 50 64Z" fill="#2fb36b" stroke="#0002" stroke-width="1.5"/><path d="M54 70Q62 96 48 102Q42 90 45 72Z" fill="#3f8fe0"/><ellipse cx="46" cy="58" rx="24" ry="30" fill="#e5392f" stroke="#0002" stroke-width="1.5"/><path d="M34 62Q44 84 60 72Q54 90 40 88Q30 78 34 62Z" fill="#ffd23f"/><path d="M52 50Q76 50 72 78Q60 68 52 62Z" fill="#2fb36b"/><circle cx="42" cy="26" r="19" fill="#e5392f" stroke="#0002" stroke-width="1.5"/><ellipse cx="35" cy="26" rx="10" ry="11" fill="#fff"/><circle cx="35" cy="27" r="5" fill="#1c1426"/><circle cx="33.4" cy="25.4" r="1.7" fill="#fff"/><path d="M24 18Q6 20 11 38Q18 40 25 33Q28 26 24 18Z" fill="#ffc83d" stroke="#0002" stroke-width="1.5"/><path d="M36 8Q44 -1 52 6" fill="none" stroke="#2fb36b" stroke-width="5" stroke-linecap="round"/><circle cx="52" cy="32" r="3.6" fill="#ff7a9a" opacity=".6"/><path d="M42 90V95M50 92V97" stroke="#e8a21a" stroke-width="3" stroke-linecap="round"/>`,
     34: `<path d="M34 96Q40 72 52 66" fill="none" stroke="#ff9fb8" stroke-width="5" stroke-linecap="round"/><path d="M48 98V82" stroke="#ff9fb8" stroke-width="0"/><ellipse cx="54" cy="76" rx="26" ry="18" fill="#ff9fb8" stroke="#0002" stroke-width="1.5"/><path d="M62 70Q40 56 52 30Q60 14 40 14" fill="none" stroke="#ff9fb8" stroke-width="9" stroke-linecap="round"/><circle cx="40" cy="16" r="10" fill="#ff9fb8" stroke="#0002" stroke-width="1.5"/><path d="M32 18Q22 20 20 32Q30 34 34 24Z" fill="#2a2430"/><path d="M33 12Q22 16 22 20" fill="none" stroke="#ffd34d" stroke-width="0"/><circle cx="42" cy="13" r="3" fill="#fff"/><circle cx="42.6" cy="13.4" r="1.8" fill="#1c1426"/><path d="M46 90V98M60 90V98" stroke="#ff7a9a" stroke-width="3" stroke-linecap="round"/>`,
     35: `<path d="M74 96Q104 80 92 46Q86 26 66 34Q84 44 78 60Q70 76 56 84Z" fill="#c8793a" stroke="#0002" stroke-width="1.5"/>${face('#c8793a', '#f7e0c0', 'point', '#c8793a', '#6a3a18', '', '', nose('#3a2a22')).replace('<ellipse cx="50" cy="92" rx="26" ry="16"', '<ellipse cx="50" cy="92" rx="22" ry="14"')}<rect x="45" y="63" width="4" height="8" rx="1" fill="#fff"/><rect x="51" y="63" width="4" height="8" rx="1" fill="#fff"/>`,
     36: `<ellipse cx="34" cy="38" rx="16" ry="22" fill="#d7efff" opacity=".85" transform="rotate(-24 34 38)" stroke="#9cc9e6"/><ellipse cx="66" cy="38" rx="16" ry="22" fill="#d7efff" opacity=".85" transform="rotate(24 66 38)" stroke="#9cc9e6"/><ellipse cx="50" cy="66" rx="24" ry="28" fill="#ffd23f" stroke="#0002" stroke-width="1.5"/><path d="M28 62Q50 70 72 62M30 76Q50 84 70 76" stroke="#2a1a22" stroke-width="6" fill="none"/><path d="M50 92V99" stroke="#2a1a22" stroke-width="4" stroke-linecap="round"/><circle cx="42" cy="54" r="4" fill="#1c1426"/><circle cx="58" cy="54" r="4" fill="#1c1426"/><circle cx="41" cy="52.6" r="1.3" fill="#fff"/><circle cx="57" cy="52.6" r="1.3" fill="#fff"/><path d="M45 60Q50 65 55 60" stroke="#2a1a22" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M44 42Q40 28 34 24M56 42Q60 28 66 24" stroke="#2a1a22" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
@@ -1046,7 +1046,7 @@ const ZH_ART3 = (() => {
       P('M30 56Q30 38 50 38Q70 38 70 56Q70 70 60 78Q54 84 56 94Q40 100 44 86Q34 76 30 56Z', '#4a9cf0') + P('M22 92Q50 80 78 92L74 100H26Z', '#ffd23f') + C(50, 28, 17, '#6fb3ff') + F(50, 30, .55) + R(32, 8, 36, 14, 7, '#e5392f') + C(50, 10, 4, '#ffd23f', '') + L('M32 58Q50 68 68 58', '#fff', 4),
       body('#8a6a4a') + head('#9ad07a') + L('M38 28L46 32M62 28L54 32', '#2a1a22', 3) + L('M34 78L44 66M60 74L70 86', '#5a4030', 3) + C(30, 40, 3, '#6a8a4a', ''),
       P('M14 30Q8 70 40 80L60 70Q96 60 88 28Q70 8 40 14Z', '#59b84a') + P('M70 46L92 50L74 62Z', '#fff', '') + R(26, 18, 8, 10, 2, '#fff', '') + C(34, 36, 4, '#1c1426', '') + F(40, 54, .0) + L('M16 74L10 94M44 78L48 96', '#3f9a4a', 6) + L('M36 56Q50 62 64 56', '#2f6b1f', 3),
-      `<ellipse cx="54" cy="68" rx="32" ry="20" fill="#59b84a" ${O}/>` + L('M70 56Q90 50 86 30Q85 14 72 14', '#3f9a4a', 14) + L('M70 56Q90 50 86 30Q85 14 72 14', '#59b84a', 10) + P('M24 66Q8 66 4 84Q18 78 30 78Z', '#59b84a') + R(32, 80, 10, 16, 4, '#3f9a4a') + R(50, 82, 10, 14, 4, '#3f9a4a') + R(68, 80, 10, 16, 4, '#3f9a4a') + C(44, 60, 4, '#7ed957', '') + C(64, 62, 3, '#7ed957', '') + C(72, 12, 2.6, '#1c1426', '') + L('M66 18Q71 22 77 18', '#1c1426', 1.8) + C(78, 20, 2.6, '#ff7a9a', '') + F(50, 70, .6),
+      `<ellipse cx="50" cy="66" rx="36" ry="22" fill="#59b84a" ${O}/>` + L('M72 52Q94 44 90 24Q88 8 70 10', '#3f9a4a', 17) + L('M72 52Q94 44 90 24Q88 8 70 10', '#59b84a', 13) + C(68, 12, 12, '#59b84a') + C(63, 10, 3.2, '#1c1426', '') + L('M60 17Q66 21 74 17', '#1c1426', 2) + C(76, 18, 3, '#ff7a9a', '') + P('M16 66Q2 62 4 84Q16 80 22 78Z', '#59b84a') + R(24, 82, 12, 16, 5, '#3f9a4a') + R(44, 84, 12, 14, 5, '#3f9a4a') + R(66, 82, 12, 16, 5, '#3f9a4a') + C(38, 58, 4.5, '#7ed957', '') + C(60, 62, 4, '#7ed957', '') + C(50, 76, 3.4, '#7ed957', '') + F(52, 68, .75),
       P('M10 80Q0 30 40 16L60 30L96 20L84 56Q88 84 60 86Z', '#e5392f') + P('M20 30L14 8L34 20Z M44 18L50 2L58 20Z', '#ffd23f') + C(34, 50, 5, '#fff') + C(35, 51, 2.4, '#1c1426', '') + L('M60 62Q76 66 84 56', '#8a1a14', 3) + P('M54 80Q80 96 94 78Q80 72 60 76Z', '#c8392a', ''),
       body('#59b84a') + head() + P('M16 34L28 40L24 50ZM84 34L72 40L76 50Z', '#ffd9a8') + P('M28 24Q50 4 72 24L68 30Q50 20 32 30Z', '#4cae4f'),
       R(22, 22, 56, 70, 10, '#aab4c8') + L('M50 22V8', '#8a93a8', 4) + C(50, 6, 5, '#e5392f') + R(30, 32, 40, 28, 8, '#1b2748') + F(50, 46, .8) + R(30, 66, 40, 14, 4, '#6fd3ff', '') + R(10, 40, 12, 28, 4, '#8a93a8') + R(78, 40, 12, 28, 4, '#8a93a8'),
@@ -1078,7 +1078,7 @@ const ZH_ART3 = (() => {
       C(34, 50, 24, '#ffd23f') + P('M12 56Q34 90 56 56Z', '#ffd23f') + C(66, 62, 24, '#3f8fe0') + F(34, 46, .55) + L('M24 30L44 30', '#26202c', 3) + L('M56 52Q66 46 76 52', '#26202c', 3) + C(66, 66, 6, '#1c1426', ''),
       R(8, 44, 84, 48, 6, '#26202c') + P('M8 30L84 12L90 28L14 46Z', '#f4f6fb') + L('M24 26L32 42M44 22L52 38M64 18L72 34', '#26202c', 5) + F(50, 68, .8),
       R(8, 36, 84, 52, 12, '#3f4a66') + R(28, 28, 22, 12, 4, '#3f4a66', '') + C(50, 62, 22, '#c8ccd6') + C(50, 62, 15, '#26202c', '') + C(50, 62, 8, '#4a6aa8', '') + F(50, 62, .0) + C(76, 46, 4, '#ffd23f', '') + C(18, 46, 2, '#e5392f', ''),
-      P('M6 50L50 8L94 50Z', '#e5392f') + R(14, 50, 72, 44, 4, '#fff3d6') + P('M14 50H86L74 36H26Z', '#fff', '') + L('M30 50V94M70 50V94', '#e5392f', 4) + P('M50 8V0', '#e5392f', '') + P('M36 94Q50 64 64 94Z', '#6a3a1a', '') + F(50, 66, .0) + C(50, 38, 0, '#000') + F(50, 40, .6),
+      R(10, 54, 80, 36, 0, '#e5392f') + P('M10 56Q14 20 50 14Q86 20 90 56Z', '#e5392f') + P('M50 14Q34 30 36 56H64Q66 30 50 14Z', '#fff', '') + P('M22 56Q26 24 50 14Q30 34 30 56Z', '#fff', '') + P('M78 56Q74 24 50 14Q70 34 70 56Z', '#fff', '') + L('M50 14V2', '#8a5a2b', 3) + P('M50 2H66V10H50Z', '#ffd23f', '') + [14, 30, 46, 62, 78].map((x) => P(`M${x} 90Q${x + 8} 98 ${x + 16} 90Z`, '#ffd23f', '')).join('') + P('M40 90Q50 64 60 90Z', '#6a3a1a', '') + F(50, 42, .5),
       R(12, 54, 76, 8, 3, '#d9a156') + P('M12 54L50 18L88 54Z', '#ff8fbc') + L('M50 18V4', '#8a93a8', 4) + P('M50 4H64V12H50Z', '#e5392f', '') + L('M28 62V92M50 62V92M72 62V92', '#ffd23f', 5) + F(50, 40, .6) + R(10, 90, 80, 6, 3, '#8a5a2b'),
       C(50, 46, 36, 'none', 'stroke="#3f8fe0" stroke-width="6"') + L('M50 10V82M14 46H86M24 20L76 72M76 20L24 72', '#3f8fe0', 3) + [[50, 8], [86, 46], [50, 84], [14, 46]].map(([x, y]) => R(x - 9, y - 7, 18, 14, 4, '#e5392f')).join('') + C(50, 46, 8, '#ffd23f') + F(50, 46, .0) + L('M30 98L50 46L70 98', '#8a5a2b', 5),
       L('M16 56L44 34', '#8a5a2b', 6) + `<ellipse cx="62" cy="62" rx="26" ry="22" fill="#e5b06a" ${O}/>` + C(62, 62, 14, '#fff3d6') + F(62, 64, .5) + L('M34 82Q20 94 8 90', '#8a5a2b', 3),
@@ -1203,7 +1203,7 @@ const ZH_ART4 = (() => {
       C(50, 52, 40, '#f4f6fb') + C(50, 52, 32, '#3f8fe0') + P('M50 24L58 52H42Z', '#e5392f', '') + P('M50 80L58 52H42Z', '#fff', '') + C(50, 52, 6, '#26202c', '') + F(50, 84, .0),
       `<ellipse cx="50" cy="60" rx="44" ry="32" fill="#c8ccd6" ${O}/>` + `<ellipse cx="50" cy="60" rx="30" ry="20" fill="#59b84a" ${O}/>` + L('M20 60H80M50 40V80', '#fff', 2) + C(50, 60, 8, 'none', 'stroke="#fff" stroke-width="2"') + F(50, 60, .0) + F(50, 22, .0),
       P('M4 94L36 24L50 24L50 94Z', '#59b84a') + P('M96 94L64 24L50 24L50 94Z', '#3f9a4a') + C(70, 16, 10, '#ffd23f') + P('M8 94Q24 74 50 94Z M92 94Q76 74 50 94Z', '#2f7a3a', '') + R(30, 54, 10, 22, 3, '#8a5a2b') + R(60, 54, 10, 22, 3, '#8a5a2b') + F(50, 40, .6),
-      L('M10 94L40 14M90 94L60 14' , '#8a93a8', 6) + L('M24 80H76M30 62H70M36 44H64M40 28H60' , '#c98d4a', 7) + F(50, 54, .6) + L('M4 96H96', '#aab4c8', 3),
+      P('M44 22L56 22L94 98H6Z', '#8a7a6a') + L('M44 22L12 98M56 22L88 98', '#cfd3dc', 5) + [92, 79, 68, 58, 50, 43, 37, 32, 28].map((y) => { const hw = 6 + (y - 22) * 38 / 76 + 5; return L(`M${50 - hw} ${y}H${50 + hw}`, '#6a4a2a', 4); }).join('') + C(50, 84, 15, '#8a7a6a', '') + F(50, 85, .6) + C(78, 18, 9, '#ffd23f', '') + L('M4 98H96', '#aab4c8', 3),
       C(50, 46, 34, '#ffe27a') + C(34, 36, 6, '#e8c14a', '') + C(62, 54, 8, '#e8c14a', '') + C(70, 30, 4, '#e8c14a', '') + F(50, 46, .8) + C(24, 82, 8, '#ffd9a8') + C(50, 90, 8, '#ff8fbc') + C(76, 82, 8, '#c8f0c0'),
       P('M4 94V54H18V30H30V62H42V22H58V50H70V38H82V66H96V94Z', '#5a6b8a') + [[24, 44], [50, 36], [74, 52]].map(([x, y]) => R(x, y, 6, 6, 1, '#ffd23f', '')).join('') + P('M4 80Q30 68 50 80T96 80V96H4Z', '#fff') + F(50, 82, .0) + F(50, 86, .6)
     ],
@@ -1664,6 +1664,7 @@ function toggleItem(id, value) {
   const date = targetDate(state.day).iso;
   if (value) { buzz(25); awardXp(`${date}:${id}`, 10); }
   const after = progress(state.day).pct;
+  if (value && after >= 50 && before < 50) awardPack(`${date}:half`, PACKS.half, 'metà zaino fatta');
   if (after === 100 && before < 100) {
     recordCompletion(state.day);
     awardXp(`${date}:full`, 50, 'Zaino pronto!'); awardPack(`${date}:pack`, PACKS.full);
@@ -4449,7 +4450,7 @@ const GS = {
     title: '🎁 Premi e figurine',
     bubble: () => 'Quasi finito! Questa parte è per i genitori: i premi per chi prepara bene lo zaino.',
     body: () => `<ul class="wl-list guide-feat">
-        <li><span aria-hidden="true">🎴</span><div>Ogni <b>zaino pronto</b> regala una bustina di figurine; altre arrivano con i traguardi e i livelli (al massimo 3 al giorno).</div></li>
+        <li><span aria-hidden="true">🎴</span><div>A <b>metà zaino</b> arriva una bustina e con lo <b>zaino pronto</b> altre due; altre ancora con i traguardi e i livelli (al massimo 6 al giorno).</div></li>
         <li><span aria-hidden="true">🎡</span><div>Con lo zaino al 100% si gira la <b>ruota dei premi</b>: premi simbolici, privilegi e qualche premio vero.</div></li>
         <li><span aria-hidden="true">👨‍👩‍👧</span><div><b>Genitori:</b> i premi li decidete voi. Potete cambiarli o aggiungerne quando volete.</div></li></ul>
       <button type="button" class="btn btn-gold btn-xl" data-gact="prizes">🎁 Scegli i premi della ruota</button>
